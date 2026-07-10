@@ -1,21 +1,32 @@
 # Deploying members.mementomori.social
 
-Static site, no build step. Hosted on Cloudflare Pages, same as help.mementomori.social.
+This is a static site: plain HTML, self-hosted fonts, no build step. It is served by
+nginx and proxied through Cloudflare. No credentials live in this repository.
 
-## Method A: Cloudflare Pages Git integration (recommended)
+## Deploy
 
-1. Cloudflare dashboard -> Workers & Pages -> Create -> Pages -> Connect to Git.
-2. Pick the repo `mementomori-social/members.mementomori.social`.
-3. Build settings:
-   - Framework preset: None
-   - Build command: (leave empty)
-   - Build output directory: `/`
-4. Save and Deploy. The first build gives a `*.pages.dev` URL.
-5. Custom domain: Pages project -> Custom domains -> `members.mementomori.social`.
-   The zone is on Cloudflare, so the DNS record and SSL are created automatically.
+Sync the site files to the web server's document root, for example:
 
-## Method B: GitHub Actions + wrangler
+    rsync -az --delete \
+      --exclude='.git' --exclude='.github' --exclude='README.md' --exclude='DEPLOY.md' \
+      ./ <user>@<server>:<webroot>/
 
-Set repo secrets `CLOUDFLARE_API_TOKEN` (Account -> Cloudflare Pages -> Edit) and
-`CLOUDFLARE_ACCOUNT_ID`, then push to `main`. The workflow runs
-`wrangler pages deploy .` into the `members-mementomori-social` project.
+nginx serves the files directly, so no build or service restart is needed for content
+changes. Update the files, sync, done.
+
+## nginx
+
+A minimal server block is enough:
+
+    server {
+        listen 80;
+        server_name members.mementomori.social;
+        root <webroot>;
+        index index.html;
+        location / { try_files $uri $uri/ =404; }
+    }
+
+## Notes
+
+- TLS is terminated at Cloudflare; keep the Cloudflare proxy enabled for the domain.
+- The site is fully static, so any static host or CDN can serve it as-is.
