@@ -57,7 +57,7 @@
 			<p class="muted small">
 				{m.login_hint()} <a href={localizeHref('/join')}>{m.apply_cta()}</a>.
 			</p>
-			<button type="button" onclick={signInMastodon}>
+			<button type="button" class="masto-signin" onclick={signInMastodon}>
 				<img class="btn-icon" src="/assets/mastodon.svg" alt="" />{m.login_masto()}</button
 			>
 		</div>

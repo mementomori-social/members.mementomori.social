@@ -325,6 +325,15 @@ form.stack .field + .input-group {
 	border-radius: 0 var(--radius) var(--radius) 0;
 	flex-shrink: 0;
 }
+button.masto-signin {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 55px;
+	margin-top: 6px;
+	width: 100%;
+	max-width: 360px;
+}
 label.check {
 	display: flex;
 	gap: 12px;
