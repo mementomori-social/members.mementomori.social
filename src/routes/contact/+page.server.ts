@@ -6,9 +6,9 @@ import type { PageServerLoad } from './$types';
  * information appears here: the accounts, the role addresses.
  */
 const BOARD = [
-	{ acct: 'rolle', role: 'chair', email: 'admin@mementomori.social' },
-	{ acct: 'mustikkasoppa', role: 'secretary', email: 'sihteeri@mementomori.social' },
-	{ acct: 'ikkeT', role: 'treasurer', email: 'rahastonhoitaja@mementomori.social' }
+	{ acct: 'rolle', role: 'chair', email: 'rolle@mementomori.social' },
+	{ acct: 'mustikkasoppa', role: 'secretary', email: 'veera@mementomori.social' },
+	{ acct: 'ikkeT', role: 'treasurer', email: 'ilkka@mementomori.social' }
 ] as const;
 
 type Profile = {
