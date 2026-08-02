@@ -582,5 +582,15 @@ footer.site a:hover {
 footer.site .meta {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-between;
 	gap: 4px 18px;
+	margin-top: 26px;
+	padding: 14px 0 26px;
+	border-top: 1px solid var(--border);
+	font-size: 14.5px;
+	/* Dimmer than the link menu, still 7:1 on the background. */
+	color: #9c9990;
+}
+footer.site .meta a {
+	color: inherit;
 }
