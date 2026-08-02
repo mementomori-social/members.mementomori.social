@@ -4,6 +4,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { approval, member, payment } from '$lib/server/db/schema';
 import { isBoard } from '$lib/server/members';
+import { m } from '$lib/paraglide/messages.js';
 
 const requireBoard = (locals: App.Locals) => {
 	if (!locals.user) redirect(303, '/login');
@@ -17,24 +18,24 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	const db = getDb(platform!.env.DB);
 
 	const members = await db.query.member.findMany({
-		orderBy: (m, { desc }) => [desc(m.appliedAt)]
+		orderBy: (r, { desc }) => [desc(r.appliedAt)]
 	});
 	const approvals = await db.query.approval.findMany();
 	const payments = await db.query.payment.findMany({
 		orderBy: (p, { desc }) => [desc(p.paidAt)]
 	});
 
-	const nameById = new Map(members.map((m) => [m.id, m.fullName]));
+	const nameById = new Map(members.map((r) => [r.id, r.fullName]));
 	return {
 		applied: members
-			.filter((m) => m.status === 'applied')
-			.map((m) => ({
-				...m,
+			.filter((r) => r.status === 'applied')
+			.map((r) => ({
+				...r,
 				approvals: approvals
-					.filter((a) => a.memberId === m.id)
+					.filter((a) => a.memberId === r.id)
 					.map((a) => ({ approverUserId: a.approverUserId, approverRole: a.approverRole }))
 			})),
-		roster: members.filter((m) => m.status !== 'applied'),
+		roster: members.filter((r) => r.status !== 'applied'),
 		ledger: payments.map((p) => ({ ...p, memberName: nameById.get(p.memberId) ?? '?' }))
 	};
 };
@@ -46,17 +47,16 @@ export const actions: Actions = {
 		const form = await request.formData();
 		const memberId = String(form.get('memberId') ?? '');
 
-		const m = await db.query.member.findFirst({ where: eq(member.id, memberId) });
-		if (!m || m.status !== 'applied') return fail(400, { adminError: 'Not an open application.' });
+		const row = await db.query.member.findFirst({ where: eq(member.id, memberId) });
+		if (!row || row.status !== 'applied') return fail(400, { adminError: m.err_not_open() });
 		// Yhdistyslaki 37 §: no one takes part in deciding their own matter.
-		if (m.userId === userId)
-			return fail(403, { adminError: 'You cannot approve your own application.' });
+		if (row.userId === userId) return fail(403, { adminError: m.err_own_application() });
 
 		const existing = await db.query.approval.findMany({
 			where: eq(approval.memberId, memberId)
 		});
 		if (existing.some((a) => a.approverUserId === userId))
-			return fail(400, { adminError: 'You have already approved this application.' });
+			return fail(400, { adminError: m.err_already_approved() });
 
 		await db.insert(approval).values({ memberId, approverUserId: userId, approverRole: role });
 
@@ -77,10 +77,9 @@ export const actions: Actions = {
 		const db = getDb(platform!.env.DB);
 		const form = await request.formData();
 		const memberId = String(form.get('memberId') ?? '');
-		const m = await db.query.member.findFirst({ where: eq(member.id, memberId) });
-		if (!m || m.status !== 'applied') return fail(400, { adminError: 'Not an open application.' });
-		if (m.userId === userId)
-			return fail(403, { adminError: 'You cannot decide your own application.' });
+		const row = await db.query.member.findFirst({ where: eq(member.id, memberId) });
+		if (!row || row.status !== 'applied') return fail(400, { adminError: m.err_not_open() });
+		if (row.userId === userId) return fail(403, { adminError: m.err_own_application() });
 		await db
 			.update(member)
 			.set({ status: 'rejected', decidedAt: new Date() })
@@ -99,14 +98,14 @@ export const actions: Actions = {
 		const reference = String(form.get('reference') ?? '').trim() || null;
 
 		if (!memberId || !Number.isFinite(amountEur) || amountEur <= 0 || isNaN(paidAt.getTime()))
-			return fail(400, { adminError: 'Member, amount and date are required.' });
+			return fail(400, { adminError: m.err_payment_fields() });
 
-		const m = await db.query.member.findFirst({ where: eq(member.id, memberId) });
-		if (!m) return fail(400, { adminError: 'Unknown member.' });
+		const row = await db.query.member.findFirst({ where: eq(member.id, memberId) });
+		if (!row) return fail(400, { adminError: m.err_unknown_member() });
 
 		const periodStart = paidAt;
 		const periodEnd = new Date(paidAt);
-		if (m.billingInterval === 'month') periodEnd.setMonth(periodEnd.getMonth() + 1);
+		if (row.billingInterval === 'month') periodEnd.setMonth(periodEnd.getMonth() + 1);
 		else periodEnd.setFullYear(periodEnd.getFullYear() + 1);
 
 		await db.insert(payment).values({

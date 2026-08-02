@@ -39,7 +39,7 @@ export default defineConfig({
 			emitTsDeclarations: true,
 			// URL first so /fi/... links are shareable and crawlable; cookie keeps
 			// the choice on later visits. English lives at the root.
-			strategy: ['url', 'cookie', 'baseLocale']
+			strategy: ['url', 'cookie', 'preferredLanguage', 'baseLocale']
 		})
 	]
 });

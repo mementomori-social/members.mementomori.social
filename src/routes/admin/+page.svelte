@@ -1,94 +1,98 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { m } from '$lib/paraglide/messages.js';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
-	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('en-GB');
+	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
 </script>
 
-<h1>Board</h1>
+<h1>{m.admin_heading()}</h1>
 
 {#if form?.adminError}<p class="error">{form.adminError}</p>{/if}
 {#if form?.refundNote}
-	<p class="notice">
-		Application rejected. If a fee was already paid, refund it in full (association meeting decision
-		21.7.2026).
-	</p>
+	<p class="notice">{m.admin_reject_note()}</p>
 {/if}
 
-<h2>Open applications</h2>
+<h2>{m.admin_open_apps()}</h2>
 
 {#if data.applied.length === 0}
-	<p class="muted">No open applications.</p>
+	<p class="muted">{m.admin_no_open()}</p>
 {:else}
 	{#each data.applied as a (a.id)}
 		<div class="card">
 			<h3>{a.fullName} <span class="muted small">({a.homeMunicipality})</span></h3>
 			<p class="muted small">
-				{a.memberClass === 'member' ? 'Member' : 'Supporting member'}, pays
-				{a.billingInterval === 'year' ? 'annually' : 'monthly'}, applied {fmt(a.appliedAt)}
+				{a.memberClass === 'member' ? m.class_member() : m.class_patron()},
+				{a.billingInterval === 'year' ? m.pays_annually() : m.pays_monthly()},
+				{m.admin_applied()}
+				{fmt(a.appliedAt)}
 				{#if a.mastodonAcct}, @{a.mastodonAcct}{/if}
+				{#if a.matrixId}, Matrix: {a.matrixId}{/if}
 			</p>
 			<p class="small">
-				Approvals so far: {a.approvals.length}
+				{m.admin_approvals_so_far()}
+				{a.approvals.length}
 				{#if a.approvals.length > 0}
 					({a.approvals.map((x) => x.approverRole).join(', ')})
 				{/if}
-				<span class="muted">
-					- two needed, at least one chair or vice chair, not your own application</span
-				>
+				<span class="muted"> - {m.admin_approval_rule()}</span>
 			</p>
 			<div style="display:flex;gap:10px">
 				<form method="POST" action="?/approve" use:enhance>
 					<input type="hidden" name="memberId" value={a.id} />
-					<button type="submit">Approve</button>
+					<button type="submit">{m.admin_approve()}</button>
 				</form>
 				<form method="POST" action="?/reject" use:enhance>
 					<input type="hidden" name="memberId" value={a.id} />
-					<button type="submit" class="danger">Reject</button>
+					<button type="submit" class="danger">{m.admin_reject()}</button>
 				</form>
 			</div>
 		</div>
 	{/each}
 {/if}
 
-<h2>Record a bank transfer</h2>
+<h2>{m.admin_record_bank()}</h2>
 
 <div class="card">
 	<form method="POST" action="?/recordPayment" class="stack" use:enhance>
 		<label class="field">
-			Member
+			{m.admin_member()}
 			<select name="memberId" required>
-				{#each data.roster.filter((m) => m.status === 'approved') as m (m.id)}
-					<option value={m.id}>{m.fullName}</option>
+				{#each data.roster.filter((r) => r.status === 'approved') as r (r.id)}
+					<option value={r.id}>{r.fullName}</option>
 				{/each}
 			</select>
 		</label>
 		<label class="field">
-			Amount (€)
-			<input type="number" name="amountEur" step="0.01" min="0" required />
+			{m.admin_amount()}
+			<input type="number" name="amountEur" step="0.01" min="0" required placeholder="60.00" />
 		</label>
 		<label class="field">
-			Paid on
+			{m.admin_paid_on()}
 			<input type="date" name="paidAt" required />
 		</label>
 		<label class="field">
-			Reference <span class="muted">(bank archive id or message)</span>
+			{m.admin_reference()} <span class="muted">{m.admin_reference_hint()}</span>
 			<input type="text" name="reference" />
 		</label>
-		<div><button type="submit" class="ghost">Record payment</button></div>
-		<p class="muted small">Stripe payments appear automatically once Stripe is connected.</p>
+		<div><button type="submit" class="ghost">{m.admin_record_payment()}</button></div>
+		<p class="muted small">{m.admin_stripe_auto()}</p>
 	</form>
 </div>
 
-<h2>Ledger</h2>
+<h2>{m.admin_ledger()}</h2>
 
 {#if data.ledger.length === 0}
-	<p class="muted">No payments recorded.</p>
+	<p class="muted">{m.admin_no_payments()}</p>
 {:else}
 	<table class="list">
 		<thead>
-			<tr><th>Date</th><th>Member</th><th>Amount</th><th>Method</th><th>Reference</th></tr>
+			<tr
+				><th>{m.th_date()}</th><th>{m.admin_member()}</th><th>{m.th_amount()}</th><th
+					>{m.th_method()}</th
+				><th>{m.admin_reference()}</th></tr
+			>
 		</thead>
 		<tbody>
 			{#each data.ledger as p (p.id)}
@@ -104,35 +108,38 @@
 	</table>
 {/if}
 
-<h2>Member register</h2>
+<h2>{m.admin_register()}</h2>
 
 <p class="small">
-	<a href="/admin/register.csv">Download the register (CSV)</a>
-	<span class="muted">full name and home municipality as required by yhdistyslaki 11 §</span><br />
-	<a href="/admin/ledger.csv">Download the ledger (CSV)</a>
-	<span class="muted">for bookkeeping</span>
+	<a href="/admin/register.csv">{m.admin_dl_register()}</a>
+	<span class="muted">{m.admin_dl_register_note()}</span><br />
+	<a href="/admin/ledger.csv">{m.admin_dl_ledger()}</a>
+	<span class="muted">{m.admin_dl_ledger_note()}</span>
 </p>
 
-<h2>Decided</h2>
+<h2>{m.admin_decided()}</h2>
 
 <table class="list">
 	<thead>
 		<tr
-			><th>Name</th><th>Municipality</th><th>Class</th><th>Status</th><th>Matrix</th><th>Decided</th
-			></tr
+			><th>{m.th_name()}</th><th>{m.th_municipality()}</th><th>{m.th_class()}</th><th
+				>{m.th_status()}</th
+			><th>{m.th_matrix()}</th><th>{m.th_decided()}</th></tr
 		>
 	</thead>
 	<tbody>
-		{#each data.roster as m (m.id)}
+		{#each data.roster as r (r.id)}
 			<tr>
-				<td>{m.fullName}</td>
-				<td class="muted">{m.homeMunicipality}</td>
-				<td class="muted small">{m.memberClass}</td>
+				<td>{r.fullName}</td>
+				<td class="muted">{r.homeMunicipality}</td>
+				<td class="muted small"
+					>{r.memberClass === 'member' ? m.class_member() : m.class_patron()}</td
+				>
 				<td>
-					<span class="badge {m.status === 'approved' ? 'ok' : ''}">{m.status}</span>
+					<span class="badge {r.status === 'approved' ? 'ok' : ''}">{r.status}</span>
 				</td>
-				<td class="muted small">{m.matrixId ?? ''}</td>
-				<td class="muted small">{m.decidedAt ? fmt(m.decidedAt) : ''}</td>
+				<td class="muted small">{r.matrixId ?? ''}</td>
+				<td class="muted small">{r.decidedAt ? fmt(r.decidedAt) : ''}</td>
 			</tr>
 		{/each}
 	</tbody>
