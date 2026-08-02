@@ -16,8 +16,14 @@ and exportable as CSV.
   (`@sveltejs/adapter-cloudflare`)
 - [Cloudflare D1](https://developers.cloudflare.com/d1/) with
   [Drizzle ORM](https://orm.drizzle.team)
-- [Better Auth](https://better-auth.com) with email + password and
-  mementomori.social (Mastodon) OAuth for account linking and sign-in
+- [Better Auth](https://better-auth.com) with magic links and
+  mementomori.social (Mastodon) OAuth, no passwords
+- [Paraglide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)
+  i18n, English and Finnish
+- [Stripe](https://stripe.com) Checkout for card payments, Finnish bank
+  reference numbers (viitenumero) for bank transfers
+
+How it all fits together: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Development
 
