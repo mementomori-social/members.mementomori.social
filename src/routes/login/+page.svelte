@@ -32,7 +32,13 @@
 <form class="stack" onsubmit={signInEmail}>
 	<label class="field">
 		Email
-		<input type="email" bind:value={email} required autocomplete="email" />
+		<input
+			type="email"
+			bind:value={email}
+			required
+			autocomplete="email"
+			placeholder="name@example.com"
+		/>
 	</label>
 	<label class="field">
 		Password

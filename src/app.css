@@ -32,8 +32,12 @@
 	--bright: #ffffff;
 	--muted: #aeaba3;
 	--accent: #585aff;
+	/* Button background: white text on this is 7.4:1 (WCAG AAA). The brighter
+	   brand accent stays for non-text uses where 3:1 applies. */
+	--accent-btn: #4143c7;
+	--accent-btn-hover: #383ab0;
 	--accent-soft: rgba(88, 90, 255, 0.16);
-	--danger: #ff6b70;
+	--danger: #ff8a8e;
 	--ok: #4cd699;
 	--font-body: 'Zalando Sans', system-ui, sans-serif;
 	--font-heading: 'Zalando Sans Expanded', sans-serif;
@@ -185,7 +189,7 @@ button,
 	font-size: 16.5px;
 	font-weight: 500;
 	color: #fff;
-	background: var(--accent);
+	background: var(--accent-btn);
 	border: none;
 	border-radius: var(--radius);
 	padding: 12px 22px;
@@ -194,7 +198,7 @@ button,
 }
 button:hover,
 .button:hover {
-	filter: brightness(1.15);
+	background: var(--accent-btn-hover);
 	color: #fff;
 }
 button.ghost,
@@ -417,4 +421,9 @@ button,
 .stat .lbl {
 	color: var(--muted);
 	font-size: 16px;
+}
+
+::placeholder {
+	color: var(--muted);
+	opacity: 1;
 }

@@ -51,6 +51,7 @@
 				type="text"
 				name="fullName"
 				required
+				placeholder="Firstname Lastname"
 				value={form?.fullName ?? data.pendingMasto?.name ?? ''}
 			/>
 		</label>
@@ -71,7 +72,13 @@
 		{#if !data.signedIn}
 			<label class="field">
 				Email
-				<input type="email" name="email" required value={form?.email ?? ''} />
+				<input
+					type="email"
+					name="email"
+					required
+					placeholder="name@example.com"
+					value={form?.email ?? ''}
+				/>
 			</label>
 			{#if data.pendingMasto}
 				<p class="muted small" style="margin:0">
