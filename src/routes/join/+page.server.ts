@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { APIError } from 'better-auth';
-import { eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { env } from '$env/dynamic/private';
 import { getDb } from '$lib/server/db';
@@ -89,17 +89,39 @@ export const actions: Actions = {
 			cookies.delete('join_masto', { path: '/join' });
 		}
 
-		await db.insert(member).values({
-			userId: userId!,
-			fullName,
-			homeMunicipality,
-			email: email || locals.user?.email || '',
-			memberClass,
-			billingInterval,
-			listedConsent,
-			mastodonAcct: pending?.acct ?? null,
-			mastodonAvatarUrl: pending?.avatar ?? null
-		});
+		// A register row may already exist without a login: founding members and
+		// anyone entered by the board. Claim it by email instead of duplicating.
+		const claimEmail = email || locals.user?.email || '';
+		const unclaimed = claimEmail
+			? await db.query.member.findFirst({
+					where: and(eq(member.email, claimEmail), isNull(member.userId))
+				})
+			: undefined;
+
+		if (unclaimed) {
+			await db
+				.update(member)
+				.set({
+					userId: userId!,
+					billingInterval,
+					listedConsent,
+					mastodonAcct: pending?.acct ?? unclaimed.mastodonAcct,
+					mastodonAvatarUrl: pending?.avatar ?? unclaimed.mastodonAvatarUrl
+				})
+				.where(eq(member.id, unclaimed.id));
+		} else {
+			await db.insert(member).values({
+				userId: userId!,
+				fullName,
+				homeMunicipality,
+				email: claimEmail,
+				memberClass,
+				billingInterval,
+				listedConsent,
+				mastodonAcct: pending?.acct ?? null,
+				mastodonAvatarUrl: pending?.avatar ?? null
+			});
+		}
 
 		redirect(303, '/dashboard');
 	}

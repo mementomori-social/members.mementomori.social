@@ -10,13 +10,17 @@ export const member = sqliteTable('member', {
 	id: text('id')
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID()),
+	/**
+	 * Nullable: founding members joined by the founding charter, and a member
+	 * of the register does not need a web login at all. A row is claimed by
+	 * email match when that person later signs up.
+	 */
 	userId: text('user_id')
-		.notNull()
 		.unique()
 		.references(() => user.id, { onDelete: 'cascade' }),
 	fullName: text('full_name').notNull(),
 	homeMunicipality: text('home_municipality').notNull(),
-	email: text('email').notNull(),
+	email: text('email'),
 	/** member = varsinainen jäsen, supporting = kannatusjäsen */
 	memberClass: text('member_class', { enum: ['member', 'supporting'] }).notNull(),
 	/** Payment schedule for the fixed annual fee. Annual preferred. */
