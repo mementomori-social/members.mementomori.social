@@ -23,15 +23,9 @@
 <h2>Membership</h2>
 
 <p>
-	The association is funded by its members. Using mementomori.social is free and open to everyone,
-	and does not require membership. Membership is how the platform's costs get covered, and it comes
-	with a say in how the association is run.
-</p>
-
-<p>
-	Both membership types support the association equally in spirit. The difference is the size of the
-	fee and the rights that come with it, nothing else. The larger fee does not buy more influence:
-	voting rights belong to regular members. This is how Finnish associations work.
+	Membership funds the platform and gives you a say in how the association is run. Using
+	mementomori.social stays free for everyone, member or not. The larger fee does not buy more
+	influence: voting rights belong to regular members.
 </p>
 
 <div class="tiers">
@@ -58,7 +52,6 @@
 			<li>Right to attend and speak at the association meeting</li>
 			<li>Access to the members' channel on Matrix</li>
 			<li>Member badge on mementomori.social</li>
-			<li>An even nicer feeling you are supporting a good cause 💜</li>
 		</ul>
 	</div>
 </div>
