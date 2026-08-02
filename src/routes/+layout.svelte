@@ -61,6 +61,8 @@
 		</a>
 		<nav aria-label="Main">
 			<a href={href('/')} aria-current={current('/')}>{m.nav_overview()}</a>
+			<a href={href('/sponsorship')} aria-current={current('/sponsorship')}>{m.sponsor_heading()}</a
+			>
 			{#if data.member}
 				<a href={href('/members')} aria-current={current('/members')}>{m.nav_members()}</a>
 				<a href={href('/dashboard')} aria-current={current('/dashboard')}>{m.nav_dashboard()}</a>
@@ -75,4 +77,33 @@
 	<main id="content">
 		{@render children()}
 	</main>
+	<footer class="site">
+		<nav aria-label={m.footer_links()}>
+			<a href={href('/')}>{m.nav_overview()}</a>
+			<a href={href('/join')}>{m.nav_join()}</a>
+			<a href={href('/sponsorship')}>{m.sponsor_heading()}</a>
+			<a href={href('/contact')}>{m.nav_contact()}</a>
+			<a href={href('/safer-space')}>{m.nav_safer_space()}</a>
+			<a href="https://mementomori.social" rel="me">mementomori.social</a>
+			<a href="https://help.mementomori.social">help.mementomori.social</a>
+			<a href="https://github.com/mementomori-social">GitHub</a>
+		</nav>
+		<div class="meta">
+			<span>
+				<a href="https://github.com/mementomori-social/members.mementomori.social"
+					>{m.footer_open_source()}</a
+				>
+				- {m.footer_version()}
+				<a
+					href="https://github.com/mementomori-social/members.mementomori.social/releases/tag/v{__VERSION__}"
+					>{__VERSION__}</a
+				>
+				<a
+					href="https://github.com/mementomori-social/members.mementomori.social/commit/{__COMMIT__}"
+					><code>{__COMMIT__}</code></a
+				>
+			</span>
+			<span>{m.footer_tagline()}</span>
+		</div>
+	</footer>
 </div>

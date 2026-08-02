@@ -2,8 +2,23 @@ import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import adapter from '@sveltejs/adapter-cloudflare';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+
+const commit = (() => {
+	try {
+		return execSync('git rev-parse --short HEAD').toString().trim();
+	} catch {
+		return 'dev';
+	}
+})();
+const version = JSON.parse(readFileSync('./package.json', 'utf8')).version as string;
 
 export default defineConfig({
+	define: {
+		__COMMIT__: JSON.stringify(commit),
+		__VERSION__: JSON.stringify(version)
+	},
 	plugins: [
 		sveltekit({
 			compilerOptions: {
