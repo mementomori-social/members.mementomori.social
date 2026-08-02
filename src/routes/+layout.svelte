@@ -76,6 +76,7 @@
 		{#if data.user}
 			<a href={href('/dashboard')}>{data.user.name}</a>
 		{:else}
+			<a href={href('/join')} aria-current={current('/join')}>{m.nav_join()}</a>
 			<a href={href('/login')} aria-current={current('/login')}>{m.nav_sign_in()}</a>
 		{/if}
 		<label class="lang-select">
@@ -99,12 +100,11 @@
 			{#if data.member}
 				<a href={href('/members')} aria-current={current('/members')}>{m.nav_members()}</a>
 				<a href={href('/dashboard')} aria-current={current('/dashboard')}>{m.nav_dashboard()}</a>
-			{:else}
-				<a href={href('/join')} aria-current={current('/join')}>{m.nav_join()}</a>
 			{/if}
 			{#if data.board}
 				<a href={href('/admin')} aria-current={current('/admin')}>{m.nav_board()}</a>
 			{/if}
+			<a href={href('/contact')} aria-current={current('/contact')}>{m.nav_contact()}</a>
 		</nav>
 	</header>
 	<main id="content">
@@ -116,8 +116,8 @@
 				<a href={href('/')}>{m.nav_overview()}</a>
 				<a href={href('/join')}>{m.nav_join()}</a>
 				<a href={href('/sponsorship')}>{m.sponsor_heading()}</a>
-				<a href={href('/contact')}>{m.nav_contact()}</a>
 				<a href={href('/safer-space')}>{m.nav_safer_space()}</a>
+				<a href={href('/contact')}>{m.nav_contact()}</a>
 			</span>
 			<span class="icons">
 				<a href="https://mementomori.social/@ry" rel="me" aria-label="Mastodon">
