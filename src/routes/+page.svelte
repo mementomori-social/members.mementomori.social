@@ -37,7 +37,7 @@
 			<li>{m.benefit_vote()}</li>
 			<li>{m.benefit_matrix()}</li>
 			<li>{m.benefit_badge()}</li>
-			<li>{m.benefit_feeling()}</li>
+			<li>{m.benefit_feeling()} <img class="emoji" src="/assets/bundheart.png" alt="" /></li>
 		</ul>
 	</div>
 	<div class="tier">
