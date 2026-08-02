@@ -4,16 +4,30 @@ import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { env } from '$env/dynamic/private';
 import { getDb } from '$lib/server/db';
-import { member, user } from '$lib/server/db/schema';
+import { account, member, user } from '$lib/server/db/schema';
 import { getMemberByUserId } from '$lib/server/members';
 import { FEES, type MemberClass } from '$lib/fees';
+import type { PendingMastodon } from '$lib/server/mastodon-oauth';
 
-export const load: PageServerLoad = async ({ locals, platform }) => {
+const readPending = (raw: string | undefined): PendingMastodon | null => {
+	if (!raw) return null;
+	try {
+		return JSON.parse(raw) as PendingMastodon;
+	} catch {
+		return null;
+	}
+};
+
+export const load: PageServerLoad = async ({ locals, platform, cookies }) => {
 	if (locals.user) {
 		const existing = await getMemberByUserId(getDb(platform!.env.DB), locals.user.id);
 		if (existing) redirect(303, '/dashboard');
 	}
-	return { signedIn: Boolean(locals.user) };
+	const pending = readPending(cookies.get('join_masto'));
+	return {
+		signedIn: Boolean(locals.user),
+		pendingMasto: pending ? { acct: pending.acct, name: pending.name } : null
+	};
 };
 
 const applyBootstrapRole = async (db: ReturnType<typeof getDb>, email: string) => {
@@ -26,9 +40,10 @@ const applyBootstrapRole = async (db: ReturnType<typeof getDb>, email: string) =
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals, platform }) => {
+	default: async ({ request, locals, platform, cookies }) => {
 		const db = getDb(platform!.env.DB);
 		const form = await request.formData();
+		const pending = readPending(cookies.get('join_masto'));
 
 		const fullName = String(form.get('fullName') ?? '').trim();
 		const homeMunicipality = String(form.get('homeMunicipality') ?? '').trim();
@@ -45,11 +60,14 @@ export const actions: Actions = {
 
 		let userId = locals.user?.id;
 		if (!userId) {
-			if (!email || !password)
-				return fail(400, { ...values, error: 'Email and password are required.' });
+			if (!email) return fail(400, { ...values, error: 'Email is required.' });
+			// The Mastodon path has no password: the account is created with a
+			// random one and the verified Mastodon account is linked for sign-in.
+			if (!pending && !password) return fail(400, { ...values, error: 'Password is required.' });
+			const effectivePassword = pending ? crypto.randomUUID() + crypto.randomUUID() : password;
 			try {
 				const res = await locals.auth.api.signUpEmail({
-					body: { name: fullName, email, password }
+					body: { name: fullName, email, password: effectivePassword }
 				});
 				userId = res.user.id;
 			} catch (e) {
@@ -59,6 +77,18 @@ export const actions: Actions = {
 			await applyBootstrapRole(db, email);
 		}
 
+		if (pending) {
+			await db.insert(account).values({
+				id: crypto.randomUUID(),
+				accountId: pending.accountId,
+				providerId: 'mastodon',
+				userId: userId!,
+				accessToken: pending.accessToken,
+				scope: 'profile'
+			});
+			cookies.delete('join_masto', { path: '/join' });
+		}
+
 		await db.insert(member).values({
 			userId: userId!,
 			fullName,
@@ -66,7 +96,9 @@ export const actions: Actions = {
 			email: email || locals.user?.email || '',
 			memberClass,
 			billingInterval,
-			listedConsent
+			listedConsent,
+			mastodonAcct: pending?.acct ?? null,
+			mastodonAvatarUrl: pending?.avatar ?? null
 		});
 
 		redirect(303, '/dashboard');
