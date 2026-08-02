@@ -16,7 +16,19 @@ export const GET: RequestHandler = async ({ params, platform, setHeaders }) => {
 	});
 	if (!m?.mastodonAvatarUrl) error(404, 'No avatar');
 
-	const upstream = await fetch(m.mastodonAvatarUrl, {
+	// The URL originates from the Mastodon API response, but never proxy
+	// anything outside the instance's own hosts (SSRF guard).
+	const allowedHosts = ['mementomori.social', 'media.mementomori.social'];
+	let avatarUrl: URL;
+	try {
+		avatarUrl = new URL(m.mastodonAvatarUrl);
+	} catch {
+		error(404, 'No avatar');
+	}
+	if (avatarUrl.protocol !== 'https:' || !allowedHosts.includes(avatarUrl.hostname))
+		error(404, 'No avatar');
+
+	const upstream = await fetch(avatarUrl, {
 		cf: { cacheEverything: true, cacheTtl: 86400 }
 	} as RequestInit);
 	if (!upstream.ok) error(502, 'Avatar fetch failed');
