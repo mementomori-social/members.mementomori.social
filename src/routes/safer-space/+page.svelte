@@ -4,7 +4,12 @@
 
 <h1 class="rainbow">{m.safer_heading()}</h1>
 
-<p>{m.safer_intro()}</p>
+<p>
+	{m.safer_intro()}
+	<a href="https://www.vaestoliitto.fi/vaestoliitto/turvallisemman-tilan-periaatteet/"
+		>{m.safer_read_more()}</a
+	>.
+</p>
 
 <ol class="principles">
 	<li>{m.safer_1()}</li>
