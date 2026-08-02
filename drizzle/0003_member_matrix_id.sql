@@ -1,0 +1,1 @@
+ALTER TABLE `member` ADD `matrix_id` text;

@@ -29,6 +29,8 @@ export const member = sqliteTable('member', {
 		.default('year'),
 	/** Optional, never a condition of membership (board decision 21.7.2026). */
 	mastodonAcct: text('mastodon_acct'),
+	/** Matrix user id (@user:server) for the members' channel invite. Optional. */
+	matrixId: text('matrix_id'),
 	mastodonAvatarUrl: text('mastodon_avatar_url'),
 	/** Set by the Stripe webhook when a checkout completes. */
 	stripeCustomerId: text('stripe_customer_id'),

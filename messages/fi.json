@@ -111,5 +111,18 @@
 	"ph_password": "Vähintään 8 merkkiä",
 	"pay_now": "Maksa jäsenmaksu",
 	"pay_redirect_note": "Maksu avautuu Stripe Checkoutissa. Maksu on kiinteä.",
-	"paid_thanks": "Maksu suoritettu. Se näkyy listalla parin minuutin sisällä."
+	"paid_thanks": "Maksu suoritettu. Se näkyy listalla parin minuutin sisällä.",
+	"matrix_heading": "Jäsenten Matrix-kanava",
+	"matrix_intro": "Yhdistyksellä on jäsenten oma yksityinen Matrix-huone chat.mementomori.social-palvelimella. Huone on kutsuvieraille eikä sitä listata julkisesti.",
+	"matrix_room": "Huoneen osoite",
+	"matrix_how_heading": "Näin pääset mukaan",
+	"matrix_how_1": "Tallenna Matrix-tunnuksesi alle. Mikä tahansa palvelin käy, esimerkiksi @sina:matrix.org.",
+	"matrix_how_2": "Hallitus lähettää kutsun, kun jäsenyytesi on hyväksytty.",
+	"matrix_how_3": "Ei vielä Matrix-tiliä? Luo sellainen millä tahansa Matrix-sovelluksella, esimerkiksi Elementillä.",
+	"matrix_id_label": "Matrix-tunnuksesi",
+	"matrix_id_saved": "Matrix-tunnus tallennettu.",
+	"matrix_id_invalid": "Matrix-tunnus on muotoa @tunnus:palvelin, esimerkiksi @sina:matrix.org.",
+	"save": "Tallenna",
+	"dash_matrix_note": "Tallenna Matrix-tunnuksesi, niin saat kutsun jäsenten kanavalle.",
+	"th_matrix": "Matrix"
 }

@@ -106,6 +106,12 @@
 </div>
 
 <div class="card">
+	<h3>{m.matrix_heading()}</h3>
+	<p class="muted small">{m.dash_matrix_note()}</p>
+	<a class="button ghost" href="/matrix">{m.matrix_heading()}</a>
+</div>
+
+<div class="card">
 	<h3>{m.covered_heading()}</h3>
 	<div class="progress">
 		<div style="width: {Math.min(100, (data.collectedEur / COSTS.annualEur) * 100)}%"></div>

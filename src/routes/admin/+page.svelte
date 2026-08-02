@@ -117,7 +117,10 @@
 
 <table class="list">
 	<thead>
-		<tr><th>Name</th><th>Municipality</th><th>Class</th><th>Status</th><th>Decided</th></tr>
+		<tr
+			><th>Name</th><th>Municipality</th><th>Class</th><th>Status</th><th>Matrix</th><th>Decided</th
+			></tr
+		>
 	</thead>
 	<tbody>
 		{#each data.roster as m (m.id)}
@@ -128,6 +131,7 @@
 				<td>
 					<span class="badge {m.status === 'approved' ? 'ok' : ''}">{m.status}</span>
 				</td>
+				<td class="muted small">{m.matrixId ?? ''}</td>
 				<td class="muted small">{m.decidedAt ? fmt(m.decidedAt) : ''}</td>
 			</tr>
 		{/each}
