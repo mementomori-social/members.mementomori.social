@@ -38,17 +38,18 @@
 			<h3>{m.login_email_heading()}</h3>
 			<p class="muted small">{m.login_magic_note()}</p>
 			<form class="stack" onsubmit={sendMagicLink}>
-				<label class="field">
-					{m.field_email()}
+				<label class="field" for="login-email">{m.field_email()}</label>
+				<div class="input-group">
 					<input
+						id="login-email"
 						type="email"
 						bind:value={email}
 						required
 						autocomplete="email"
 						placeholder={m.ph_email()}
 					/>
-				</label>
-				<div><button type="submit" disabled={busy}>{m.login_submit()}</button></div>
+					<button type="submit" disabled={busy}>{m.login_submit()}</button>
+				</div>
 			</form>
 		</div>
 		<div class="tier">
@@ -56,7 +57,7 @@
 			<p class="muted small">
 				{m.login_hint()} <a href={localizeHref('/join')}>{m.apply_cta()}</a>.
 			</p>
-			<button type="button" class="ghost" onclick={signInMastodon}>
+			<button type="button" onclick={signInMastodon}>
 				<img class="btn-icon" src="/assets/mastodon.svg" alt="" />{m.login_masto()}</button
 			>
 		</div>

@@ -309,6 +309,22 @@ select:focus {
 	outline-offset: 0;
 	border-color: transparent;
 }
+.input-group {
+	display: flex;
+	max-width: 360px;
+}
+form.stack .field + .input-group {
+	margin-top: -12px;
+}
+.input-group input {
+	min-width: 0;
+	border-radius: var(--radius) 0 0 var(--radius);
+	border-right: none;
+}
+.input-group button {
+	border-radius: 0 var(--radius) var(--radius) 0;
+	flex-shrink: 0;
+}
 label.check {
 	display: flex;
 	gap: 12px;
