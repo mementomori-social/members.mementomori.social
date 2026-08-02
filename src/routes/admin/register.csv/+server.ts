@@ -20,7 +20,7 @@ export const GET: RequestHandler = async ({ locals, platform }) => {
 			m.homeMunicipality,
 			m.memberClass,
 			m.status,
-			m.email,
+			m.email ?? '',
 			m.appliedAt.toISOString().slice(0, 10),
 			m.decidedAt ? m.decidedAt.toISOString().slice(0, 10) : ''
 		])
