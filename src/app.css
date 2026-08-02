@@ -427,3 +427,18 @@ button,
 	color: var(--muted);
 	opacity: 1;
 }
+
+nav.lang {
+	border-left: 1px solid var(--border);
+	padding-left: 14px;
+}
+header.site nav a[aria-current] {
+	background: var(--surface-2);
+	color: var(--bright);
+}
+
+img.emoji {
+	width: 20px;
+	height: 20px;
+	vertical-align: -4px;
+}

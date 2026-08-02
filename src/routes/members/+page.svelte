@@ -1,42 +1,46 @@
 <script lang="ts">
+	import { m } from '$lib/paraglide/messages.js';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 </script>
 
-<h1>Members</h1>
+<h1>{m.members_heading()}</h1>
 
-<p class="muted small">
-	Only members who have opted in are listed here. The full member register is maintained by the
-	board as required by the Finnish Associations Act.
-</p>
+<p class="muted small">{m.members_note()}</p>
 
 {#if data.members.length === 0}
-	<p class="muted">No members have opted into the list yet.</p>
+	<p class="muted">{m.members_empty()}</p>
 {:else}
 	<table class="list">
 		<thead>
-			<tr><th></th><th>Name</th><th>Municipality</th><th>Class</th><th>Fediverse</th></tr>
+			<tr
+				><th></th><th>{m.th_name()}</th><th>{m.th_municipality()}</th><th>{m.th_class()}</th><th
+					>{m.th_fediverse()}</th
+				></tr
+			>
 		</thead>
 		<tbody>
-			{#each data.members as m (m.id)}
+			{#each data.members as member (member.id)}
 				<tr>
-					<td style="width:42px">
-						{#if m.mastodonAvatarUrl}
-							<img class="avatar" src="/avatar/{m.id}" alt="" loading="lazy" />
+					<td style="width:48px">
+						{#if member.mastodonAvatarUrl}
+							<img class="avatar" src="/avatar/{member.id}" alt="" loading="lazy" />
 						{:else}
 							<div
 								class="avatar"
-								style="width:32px;height:32px;border-radius:8px;background:var(--border)"
+								style="width:40px;height:40px;border-radius:10px;background:var(--surface-2)"
 							></div>
 						{/if}
 					</td>
-					<td>{m.fullName}</td>
-					<td class="muted">{m.homeMunicipality}</td>
-					<td class="muted small">{m.memberClass === 'member' ? 'Member' : 'Supporting'}</td>
+					<td>{member.fullName}</td>
+					<td class="muted">{member.homeMunicipality}</td>
+					<td class="muted small"
+						>{member.memberClass === 'member' ? m.class_member() : m.class_patron()}</td
+					>
 					<td class="small">
-						{#if m.mastodonAcct}
-							<a href="https://mementomori.social/@{m.mastodonAcct}">@{m.mastodonAcct}</a>
+						{#if member.mastodonAcct}
+							<a href="https://mementomori.social/@{member.mastodonAcct}">@{member.mastodonAcct}</a>
 						{/if}
 					</td>
 				</tr>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
+	import { m } from '$lib/paraglide/messages.js';
 	import { FEES } from '$lib/fees';
 	import type { PageProps } from './$types';
 
@@ -10,85 +11,74 @@
 	const showForm = $derived(Boolean(data.pendingMasto) || chosePlain || data.signedIn);
 </script>
 
-<h1>Apply for membership</h1>
+<h1>{m.join_heading()}</h1>
 
 {#if !showForm}
-	<p>
-		The board reviews every application. Membership begins when the board approves it, and if an
-		application is not approved, any fee already paid is refunded in full.
-	</p>
+	<p>{m.join_intro()}</p>
 
 	<div class="tiers">
 		<div class="tier">
-			<h3>I have a mementomori.social account</h3>
-			<p class="muted small">
-				Verify your account first. Your name gets prefilled, your avatar shows on the member list,
-				and you sign in with Mastodon from then on. No password needed.
-			</p>
-			<a class="button" href="/join/mastodon">Continue with mementomori.social</a>
+			<h3>{m.choice_masto_title()}</h3>
+			<p class="muted small">{m.choice_masto_desc()}</p>
+			<a class="button" href="/join/mastodon">{m.choice_masto_cta()}</a>
 		</div>
 		<div class="tier">
-			<h3>I don't want to link an account</h3>
-			<p class="muted small">
-				Fill in the application form and sign in with an email address and password. You can still
-				link a Mastodon account later on the dashboard.
-			</p>
-			<a class="button ghost" href="/join?path=form">Continue with the form</a>
+			<h3>{m.choice_form_title()}</h3>
+			<p class="muted small">{m.choice_form_desc()}</p>
+			<a class="button ghost" href="/join?path=form">{m.choice_form_cta()}</a>
 		</div>
 	</div>
 {:else}
 	{#if data.pendingMasto}
-		<p class="notice">
-			Verified as <strong>@{data.pendingMasto.acct}</strong> on mementomori.social. Finish the application
-			below, no password needed.
-		</p>
+		<p class="notice">{m.verified_as({ acct: data.pendingMasto.acct })}</p>
 	{/if}
 
 	<form method="POST" class="stack" use:enhance>
 		<label class="field">
-			Full name
+			{m.field_full_name()}
 			<input
 				type="text"
 				name="fullName"
 				required
-				placeholder="Firstname Lastname"
+				placeholder={m.ph_full_name()}
 				value={form?.fullName ?? data.pendingMasto?.name ?? ''}
 			/>
 		</label>
 		<label class="field">
-			Home municipality
+			{m.field_municipality()}
 			<input
 				type="text"
 				name="homeMunicipality"
 				required
-				placeholder="e.g. Jyväskylä"
+				placeholder={m.ph_municipality()}
 				value={form?.homeMunicipality ?? ''}
 			/>
 		</label>
-		<p class="muted small" style="margin:0">
-			Required by the Finnish Associations Act for the member register.
-		</p>
+		<p class="muted small" style="margin:0">{m.municipality_note()}</p>
 
 		{#if !data.signedIn}
 			<label class="field">
-				Email
+				{m.field_email()}
 				<input
 					type="email"
 					name="email"
 					required
-					placeholder="name@example.com"
+					placeholder={m.ph_email()}
 					value={form?.email ?? ''}
 				/>
 			</label>
 			{#if data.pendingMasto}
-				<p class="muted small" style="margin:0">
-					Mastodon does not share your email address, and the association needs one for official
-					communication.
-				</p>
+				<p class="muted small" style="margin:0">{m.email_masto_note()}</p>
 			{:else}
 				<label class="field">
-					Password
-					<input type="password" name="password" required minlength="8" />
+					{m.field_password()}
+					<input
+						type="password"
+						name="password"
+						required
+						minlength="8"
+						placeholder={m.ph_password()}
+					/>
 				</label>
 			{/if}
 		{/if}
@@ -97,16 +87,18 @@
 			<label class="check">
 				<input type="radio" name="memberClass" value="member" checked />
 				<span
-					><strong>Member</strong>, {FEES.member.year}&nbsp;€/year or {FEES.member
-						.month}&nbsp;€/month. Right to vote at the association meeting.</span
+					><strong>{m.class_member()}</strong>,
+					{m.option_member_rest({ year: FEES.member.year, month: FEES.member.month })}</span
 				>
 			</label>
 			<label class="check">
 				<input type="radio" name="memberClass" value="supporting" />
 				<span
-					><strong>Patron</strong>, {FEES.supporting.year}&nbsp;€/year or
-					{FEES.supporting.month}&nbsp;€/month. For organisations and for anyone who wants to
-					contribute more. Attendance and speaking rights, no vote.</span
+					><strong>{m.class_patron()}</strong>,
+					{m.option_patron_rest({
+						year: FEES.supporting.year,
+						month: FEES.supporting.month
+					})}</span
 				>
 			</label>
 		</fieldset>
@@ -114,32 +106,23 @@
 		<fieldset style="border:none;padding:0;margin:6px 0 0;display:grid;gap:8px">
 			<label class="check">
 				<input type="radio" name="billingInterval" value="year" checked />
-				<span
-					>Pay annually <span class="muted">(preferred, less bookkeeping for the volunteers)</span
-					></span
-				>
+				<span>{m.pay_year()} <span class="muted">{m.pay_year_hint()}</span></span>
 			</label>
 			<label class="check">
 				<input type="radio" name="billingInterval" value="month" />
-				<span>Pay in monthly instalments</span>
+				<span>{m.pay_month()}</span>
 			</label>
 		</fieldset>
 
 		<label class="check">
 			<input type="checkbox" name="listedConsent" />
-			<span
-				>Show my name on the member list. The list is not public: only signed-in, approved members
-				can see it. Optional.</span
-			>
+			<span>{m.consent_label()}</span>
 		</label>
 
 		{#if form?.error}<p class="error">{form.error}</p>{/if}
 
-		<div><button type="submit">Submit application</button></div>
+		<div><button type="submit">{m.submit_application()}</button></div>
 
-		<p class="muted small">
-			The board reviews every application. If it is not approved, any fee already paid is refunded
-			in full.
-		</p>
+		<p class="muted small">{m.join_footer()}</p>
 	</form>
 {/if}

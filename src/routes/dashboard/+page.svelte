@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import { m } from '$lib/paraglide/messages.js';
 	import { authClient } from '$lib/auth-client';
 	import { COSTS } from '$lib/fees';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
 
-	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('en-GB');
+	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
 
 	async function linkMastodon() {
 		await authClient.oauth2.link({ providerId: 'mastodon', callbackURL: '/dashboard' });
@@ -19,33 +20,33 @@
 	}
 </script>
 
-<h1>Dashboard</h1>
+<h1>{m.dash_heading()}</h1>
 
 <div class="card">
-	<h3>Membership</h3>
+	<h3>{m.card_membership()}</h3>
 	<p>
 		{data.m.fullName}, {data.m.homeMunicipality}<br />
 		<span class="muted small">
-			{data.m.memberClass === 'member' ? 'Member' : 'Supporting member'},
-			{data.fee.year}&nbsp;€/year{data.m.billingInterval === 'month'
-				? ` in ${data.fee.month}&nbsp;€ monthly instalments`
+			{data.m.memberClass === 'member' ? m.class_member() : m.class_patron()},
+			{m.fee_year_line({ year: data.fee.year })}{data.m.billingInterval === 'month'
+				? ` ${m.fee_month_suffix({ month: data.fee.month })}`
 				: ''}
 		</span>
 	</p>
 	{#if data.m.status === 'applied'}
-		<span class="badge accent">Awaiting board approval</span>
+		<span class="badge accent">{m.status_awaiting()}</span>
 	{:else if data.m.status === 'approved'}
-		<span class="badge ok">Approved member</span>
+		<span class="badge ok">{m.status_approved()}</span>
 	{:else}
 		<span class="badge">{data.m.status}</span>
 	{/if}
 </div>
 
 <div class="card">
-	<h3>mementomori.social account</h3>
+	<h3>{m.card_masto()}</h3>
 	{#if data.mastodonLinked}
 		<p class="small">
-			Linked{data.m.mastodonAcct ? `: @${data.m.mastodonAcct}` : ''}.
+			{m.masto_linked()}{data.m.mastodonAcct ? `: @${data.m.mastodonAcct}` : ''}.
 			{#if data.m.mastodonAvatarUrl}
 				<img
 					src="/avatar/{data.m.id}"
@@ -55,29 +56,28 @@
 			{/if}
 		</p>
 		<form method="POST" action="?/syncMastodon" use:enhance>
-			<button class="ghost" type="submit">Refresh name and avatar</button>
+			<button class="ghost" type="submit">{m.masto_refresh()}</button>
 			{#if form?.syncError}<p class="error">{form.syncError}</p>{/if}
 		</form>
-		<p class="muted small">You can also sign in with Mastodon from now on.</p>
+		<p class="muted small">{m.masto_signin_note()}</p>
 	{:else}
-		<button class="ghost" onclick={linkMastodon}>Link mementomori.social account</button>
-		<p class="muted small">
-			Optional. Verifies your handle and shows your avatar on the member list.
-		</p>
+		<button class="ghost" onclick={linkMastodon}>{m.masto_link_cta()}</button>
+		<p class="muted small">{m.masto_link_note()}</p>
 	{/if}
 </div>
 
 <div class="card">
-	<h3>Payments</h3>
+	<h3>{m.card_payments()}</h3>
 	{#if data.payments.length === 0}
-		<p class="muted small">
-			No payments recorded yet. Payment instructions arrive by email once the board has approved
-			your application.
-		</p>
+		<p class="muted small">{m.payments_none()}</p>
 	{:else}
 		<table class="list">
 			<thead>
-				<tr><th>Date</th><th>Amount</th><th>Method</th><th>Period</th></tr>
+				<tr
+					><th>{m.th_date()}</th><th>{m.th_amount()}</th><th>{m.th_method()}</th><th
+						>{m.th_period()}</th
+					></tr
+				>
 			</thead>
 			<tbody>
 				{#each data.payments as p (p.paidAt)}
@@ -85,7 +85,7 @@
 						<td>{fmt(p.paidAt)}</td>
 						<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
 						<td>{p.method}</td>
-						<td class="muted small">{fmt(p.periodStart)} to {fmt(p.periodEnd)}</td>
+						<td class="muted small">{fmt(p.periodStart)} {m.period_to()} {fmt(p.periodEnd)}</td>
 					</tr>
 				{/each}
 			</tbody>
@@ -94,15 +94,14 @@
 </div>
 
 <div class="card">
-	<h3>Costs covered this year</h3>
+	<h3>{m.covered_heading()}</h3>
 	<div class="progress">
 		<div style="width: {Math.min(100, (data.collectedEur / COSTS.annualEur) * 100)}%"></div>
 	</div>
 	<p class="muted small">
-		{data.collectedEur.toFixed(2)}&nbsp;€ of {COSTS.annualEur}&nbsp;€ collected in membership fees.
-		Running the mementomori.social infrastructure, websites and social media service costs
-		{COSTS.monthlyEur}&nbsp;€ a month.
+		{m.covered_line({ collected: data.collectedEur.toFixed(2), annual: COSTS.annualEur })}
+		{m.costs_monthly_note({ monthly: COSTS.monthlyEur })}
 	</p>
 </div>
 
-<p><button class="danger" onclick={signOut}>Sign out</button></p>
+<p><button class="danger" onclick={signOut}>{m.sign_out()}</button></p>

@@ -8,6 +8,7 @@ import { account, member, user } from '$lib/server/db/schema';
 import { getMemberByUserId } from '$lib/server/members';
 import { FEES, type MemberClass } from '$lib/fees';
 import type { PendingMastodon } from '$lib/server/mastodon-oauth';
+import { m } from '$lib/paraglide/messages.js';
 
 const readPending = (raw: string | undefined): PendingMastodon | null => {
 	if (!raw) return null;
@@ -55,15 +56,15 @@ export const actions: Actions = {
 
 		const values = { fullName, homeMunicipality, email, memberClass, billingInterval };
 		if (!fullName || !homeMunicipality)
-			return fail(400, { ...values, error: 'Full name and home municipality are required.' });
-		if (!(memberClass in FEES)) return fail(400, { ...values, error: 'Unknown membership class.' });
+			return fail(400, { ...values, error: m.err_name_municipality_required() });
+		if (!(memberClass in FEES)) return fail(400, { ...values, error: m.err_unknown_class() });
 
 		let userId = locals.user?.id;
 		if (!userId) {
-			if (!email) return fail(400, { ...values, error: 'Email is required.' });
+			if (!email) return fail(400, { ...values, error: m.err_email_required() });
 			// The Mastodon path has no password: the account is created with a
 			// random one and the verified Mastodon account is linked for sign-in.
-			if (!pending && !password) return fail(400, { ...values, error: 'Password is required.' });
+			if (!pending && !password) return fail(400, { ...values, error: m.err_password_required() });
 			const effectivePassword = pending ? crypto.randomUUID() + crypto.randomUUID() : password;
 			try {
 				const res = await locals.auth.api.signUpEmail({
@@ -71,7 +72,7 @@ export const actions: Actions = {
 				});
 				userId = res.user.id;
 			} catch (e) {
-				const msg = e instanceof APIError ? e.message : 'Could not create the account.';
+				const msg = e instanceof APIError ? e.message : m.err_account_create();
 				return fail(400, { ...values, error: msg });
 			}
 			await applyBootstrapRole(db, email);
