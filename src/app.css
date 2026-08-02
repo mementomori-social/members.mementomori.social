@@ -580,15 +580,24 @@ footer.site nav .group {
 	flex-wrap: wrap;
 	gap: 4px 18px;
 }
-footer.site nav .group.external {
-	border-left: 1px solid var(--border);
-	padding-left: 22px;
+footer.site nav {
+	justify-content: space-between;
+	align-items: center;
 }
-@media (max-width: 640px) {
-	footer.site nav .group.external {
-		border-left: none;
-		padding-left: 0;
-	}
+footer.site .icons {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+}
+footer.site .icons a {
+	display: inline-flex;
+	color: var(--muted);
+}
+footer.site .icons a:hover {
+	color: var(--bright);
+}
+footer.site .icons a::after {
+	content: none;
 }
 footer.site a {
 	color: var(--muted);
