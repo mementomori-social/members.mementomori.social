@@ -3,6 +3,9 @@
 ## 0.1.0 (unreleased)
 
 - Membership application with Mastodon OAuth or form + magic link sign-in
+- Finnish reference numbers and bank transfer instructions per member
+- Daily automation endpoint: payment reminders, overdue board summary, Holvi transaction sync
+- Sponsorship, contact, safer space pages, footer with version info, per-page OG metadata
 - Board approval flow with two-approver rule
 - Payment ledger: Stripe Checkout webhook and manual bank transfers, CSV exports
 - Member register (yhdistyslaki 11 §) with CSV export
