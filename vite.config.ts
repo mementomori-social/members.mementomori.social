@@ -1,3 +1,4 @@
+import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import adapter from '@sveltejs/adapter-cloudflare';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
@@ -30,6 +31,15 @@ export default defineConfig({
 					config.include.push('../drizzle.config.ts');
 				}
 			}
+		}),
+
+		paraglideVitePlugin({
+			project: './project.inlang',
+			outdir: './src/lib/paraglide',
+			emitTsDeclarations: true,
+			// URL first so /fi/... links are shareable and crawlable; cookie keeps
+			// the choice on later visits. English lives at the root.
+			strategy: ['url', 'cookie', 'baseLocale']
 		})
 	]
 });
