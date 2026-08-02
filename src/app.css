@@ -90,6 +90,16 @@ p {
 	max-width: 70ch;
 }
 
+ul,
+ol {
+	margin: 0.7em 0;
+	padding-inline-start: 20px;
+	max-width: 70ch;
+}
+li {
+	margin: 6px 0;
+}
+
 a {
 	color: var(--text);
 	text-decoration: underline;
@@ -427,11 +437,7 @@ table.list img.avatar {
 
 .tier ul {
 	margin: 12px 0 0;
-	padding-left: 22px;
 	font-size: 16px;
-}
-.tier li {
-	margin: 5px 0;
 }
 
 button,
