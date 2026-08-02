@@ -503,11 +503,11 @@ h1.rainbow {
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
-	animation: rainbow-slide 6s linear infinite;
+	animation: rainbow-slide 4s linear infinite;
 }
 @keyframes rainbow-slide {
 	to {
-		background-position: 300% 0;
+		background-position: 200% 0;
 	}
 }
 @media (prefers-reduced-motion: reduce) {
