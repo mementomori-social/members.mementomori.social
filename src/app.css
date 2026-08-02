@@ -225,7 +225,7 @@ button.danger:hover {
 form.stack {
 	display: grid;
 	gap: 18px;
-	max-width: 480px;
+	max-width: 360px;
 }
 label.field {
 	display: grid;
@@ -448,4 +448,14 @@ img.emoji {
 	height: 20px;
 	vertical-align: -4px;
 	margin-right: 8px;
+}
+
+.or-row {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.or-row .or {
+	color: var(--muted);
 }

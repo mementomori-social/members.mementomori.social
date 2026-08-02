@@ -47,8 +47,9 @@
 			/>
 		</label>
 		{#if error}<p class="error">{error}</p>{/if}
-		<div style="display:flex;gap:10px;flex-wrap:wrap">
+		<div class="or-row">
 			<button type="submit" disabled={busy}>{m.login_magic()}</button>
+			<span class="or" aria-hidden="true">{m.or_sep()}</span>
 			<button type="button" class="ghost" onclick={signInMastodon}>
 				<img class="btn-icon" src="/assets/mastodon.svg" alt="" />{m.login_masto()}</button
 			>

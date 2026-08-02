@@ -162,5 +162,6 @@
 	"login_magic": "Lähetä kirjautumislinkki sähköpostiin",
 	"magic_sent": "Kirjautumislinkki lähetettiin sähköpostiisi.",
 	"join_check_email": "Hakemus tallennettu. Aktivoi tilisi sähköpostiin lähetetyllä kirjautumislinkillä.",
-	"login_hint_magic": "Ei salasanoja: kirjaudut sähköpostiin lähetettävällä linkillä tai mementomori.social-tililläsi."
+	"login_hint_magic": "Ei salasanoja: kirjaudut sähköpostiin lähetettävällä linkillä tai mementomori.social-tililläsi.",
+	"or_sep": "tai"
 }

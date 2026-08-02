@@ -162,5 +162,6 @@
 	"login_magic": "Email me a sign-in link",
 	"magic_sent": "Check your email for the sign-in link.",
 	"join_check_email": "Application saved. Check your email for the sign-in link to activate your account.",
-	"login_hint_magic": "No passwords: you sign in with a link sent to your email, or with your mementomori.social account."
+	"login_hint_magic": "No passwords: you sign in with a link sent to your email, or with your mementomori.social account.",
+	"or_sep": "or"
 }
