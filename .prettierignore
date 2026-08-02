@@ -11,3 +11,4 @@ bun.lockb
 
 # Inlang project metadata
 project.inlang/
+worker-configuration.d.ts
