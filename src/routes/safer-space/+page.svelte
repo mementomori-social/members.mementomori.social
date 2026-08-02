@@ -6,9 +6,7 @@
 
 <p>
 	{m.safer_intro()}
-	<a href="https://www.vaestoliitto.fi/vaestoliitto/turvallisemman-tilan-periaatteet/"
-		>{m.safer_read_more()}</a
-	>.
+	<a href={m.safer_read_more_url()}>{m.safer_read_more()}</a>.
 </p>
 
 <ol class="principles">

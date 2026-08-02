@@ -203,5 +203,6 @@
 	"safer_6": "Mistakes happen. When told you have hurt someone, listen, apologise and adjust.",
 	"safer_report": "If you experience or witness something that breaks these principles, report it on mementomori.social or write to the moderators. Reports are handled by people, confidentially.",
 	"safer_draft_note": "Draft: derived from the mementomori.social server rules, pending board approval.",
-	"safer_read_more": "Read more about safer space principles (Väestöliitto, in Finnish)"
+	"safer_read_more": "Read more about the principles for a safer space (Väestöliitto)",
+	"safer_read_more_url": "https://www.vaestoliitto.fi/en/organisation/operations/principles-for-a-safer-space/"
 }

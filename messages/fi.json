@@ -203,5 +203,6 @@
 	"safer_6": "Virheitä sattuu. Kun sinulle kerrotaan, että olet loukannut jotakuta, kuuntele, pyydä anteeksi ja muuta toimintaasi.",
 	"safer_report": "Jos koet tai näet näiden periaatteiden vastaista toimintaa, tee ilmoitus mementomori.socialissa tai kirjoita moderaattoreille. Ilmoitukset käsittelee ihminen, luottamuksellisesti.",
 	"safer_draft_note": "Luonnos: johdettu mementomori.socialin säännöistä, odottaa hallituksen hyväksyntää.",
-	"safer_read_more": "Lue lisää turvallisemman tilan periaatteista (Väestöliitto)"
+	"safer_read_more": "Lue lisää turvallisemman tilan periaatteista (Väestöliitto)",
+	"safer_read_more_url": "https://www.vaestoliitto.fi/vaestoliitto/turvallisemman-tilan-periaatteet/"
 }
