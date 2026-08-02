@@ -5,7 +5,7 @@
  */
 export const FEES = {
 	member: { year: 60, month: 5, label: 'Member' },
-	supporting: { year: 600, month: 50, label: 'Supporting member' }
+	supporting: { year: 600, month: 50, label: 'Patron' }
 } as const;
 
 export type MemberClass = keyof typeof FEES;

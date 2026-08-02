@@ -27,8 +27,8 @@
 		{data.m.fullName}, {data.m.homeMunicipality}<br />
 		<span class="muted small">
 			{data.m.memberClass === 'member' ? 'Member' : 'Supporting member'},
-			{data.fee.year} €/year{data.m.billingInterval === 'month'
-				? ` in ${data.fee.month} € monthly instalments`
+			{data.fee.year}&nbsp;€/year{data.m.billingInterval === 'month'
+				? ` in ${data.fee.month}&nbsp;€ monthly instalments`
 				: ''}
 		</span>
 	</p>
@@ -83,7 +83,7 @@
 				{#each data.payments as p (p.paidAt)}
 					<tr>
 						<td>{fmt(p.paidAt)}</td>
-						<td>{p.amountEur.toFixed(2)} €</td>
+						<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
 						<td>{p.method}</td>
 						<td class="muted small">{fmt(p.periodStart)} to {fmt(p.periodEnd)}</td>
 					</tr>
@@ -99,9 +99,9 @@
 		<div style="width: {Math.min(100, (data.collectedEur / COSTS.annualEur) * 100)}%"></div>
 	</div>
 	<p class="muted small">
-		{data.collectedEur.toFixed(2)} € of {COSTS.annualEur} € collected in membership fees. Running the
-		mementomori.social infrastructure, websites and social media service costs
-		{COSTS.monthlyEur} € a month.
+		{data.collectedEur.toFixed(2)}&nbsp;€ of {COSTS.annualEur}&nbsp;€ collected in membership fees.
+		Running the mementomori.social infrastructure, websites and social media service costs
+		{COSTS.monthlyEur}&nbsp;€ a month.
 	</p>
 </div>
 

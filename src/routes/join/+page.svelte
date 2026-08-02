@@ -90,15 +90,16 @@
 			<label class="check">
 				<input type="radio" name="memberClass" value="member" checked />
 				<span
-					><strong>Member</strong>, {FEES.member.year} €/year or {FEES.member.month} €/month. Right to
-					vote at the association meeting.</span
+					><strong>Member</strong>, {FEES.member.year}&nbsp;€/year or {FEES.member
+						.month}&nbsp;€/month. Right to vote at the association meeting.</span
 				>
 			</label>
 			<label class="check">
 				<input type="radio" name="memberClass" value="supporting" />
 				<span
-					><strong>Supporting member</strong>, {FEES.supporting.year} €/year or
-					{FEES.supporting.month} €/month. Attendance and speaking rights.</span
+					><strong>Patron</strong>, {FEES.supporting.year}&nbsp;€/year or
+					{FEES.supporting.month}&nbsp;€/month. For organisations and for anyone who wants to
+					contribute more. Attendance and speaking rights, no vote.</span
 				>
 			</label>
 		</fieldset>

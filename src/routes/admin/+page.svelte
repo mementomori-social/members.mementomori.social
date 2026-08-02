@@ -95,7 +95,7 @@
 				<tr>
 					<td>{fmt(p.paidAt)}</td>
 					<td>{p.memberName}</td>
-					<td>{p.amountEur.toFixed(2)} €</td>
+					<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
 					<td class="muted">{p.method}</td>
 					<td class="muted small">{p.reference ?? ''}</td>
 				</tr>

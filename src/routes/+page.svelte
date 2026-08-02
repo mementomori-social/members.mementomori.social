@@ -28,35 +28,47 @@
 	with a say in how the association is run.
 </p>
 
+<p>
+	Both membership types support the association equally in spirit. The difference is the size of the
+	fee and the rights that come with it, nothing else. The larger fee does not buy more influence:
+	voting rights belong to regular members. This is how Finnish associations work.
+</p>
+
 <div class="tiers">
 	<div class="tier">
 		<h3>{FEES.member.label}</h3>
+		<p class="muted small">The standard membership for people.</p>
 		<div class="price">
-			{FEES.member.year} €<span> / year, or {FEES.member.month} € / month</span>
+			{FEES.member.year}&nbsp;€<span> / year, or {FEES.member.month}&nbsp;€ / month</span>
 		</div>
 		<ul>
 			<li>Right to vote at the association meeting</li>
 			<li>Access to the members' channel on Matrix</li>
 			<li>Member badge on mementomori.social</li>
+			<li>A nice feeling you are supporting a good cause 💜</li>
 		</ul>
 	</div>
 	<div class="tier">
 		<h3>{FEES.supporting.label}</h3>
+		<p class="muted small">
+			A ten times larger fee, for organisations and for anyone who wants to contribute more.
+		</p>
 		<div class="price">
-			{FEES.supporting.year} €<span> / year, or {FEES.supporting.month} € / month</span>
+			{FEES.supporting.year}&nbsp;€<span> / year, or {FEES.supporting.month}&nbsp;€ / month</span>
 		</div>
 		<ul>
-			<li>Right to attend and speak at the association meeting</li>
+			<li>Right to attend and speak at the association meeting (no vote)</li>
 			<li>Access to the members' channel on Matrix</li>
 			<li>Member badge on mementomori.social</li>
 			<li>Open to individuals and organisations</li>
+			<li>An even nicer feeling you are supporting a good cause 💜</li>
 		</ul>
 	</div>
 </div>
 
 <p class="muted small">
 	Fees are fixed and set by the association meeting. The monthly option is an instalment of the
-	annual fee. Joining fee is 0 €, and membership is approved by the board.
+	annual fee. Joining fee is 0&nbsp;€, and membership is approved by the board.
 </p>
 
 <p><a class="button" href="/join">Apply for membership</a></p>
@@ -65,8 +77,8 @@
 
 <p>
 	Running the mementomori.social infrastructure, websites and social media service costs
-	<strong>{COSTS.monthlyEur} € a month</strong>, about {COSTS.annualEur} € a year. The association currently
-	has {data.memberCount} approved
+	<strong>{COSTS.monthlyEur}&nbsp;€ a month</strong>, about {COSTS.annualEur}&nbsp;€ a year. The
+	association currently has {data.memberCount} approved
 	{data.memberCount === 1 ? 'member' : 'members'}.
 </p>
 
@@ -77,7 +89,8 @@
 			<div style="width: {Math.min(100, (data.collectedEur / COSTS.annualEur) * 100)}%"></div>
 		</div>
 		<p class="muted small">
-			{data.collectedEur.toFixed(2)} € of {COSTS.annualEur} € collected in membership fees.
+			{data.collectedEur.toFixed(2)}&nbsp;€ of {COSTS.annualEur}&nbsp;€ collected in membership
+			fees.
 		</p>
 	</div>
 {/if}
