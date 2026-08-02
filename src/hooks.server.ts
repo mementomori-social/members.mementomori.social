@@ -1,5 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
-import { building } from '$app/environment';
+import { sequence } from '@sveltejs/kit/hooks';
+import { building, dev } from '$app/environment';
 import { createAuth } from '$lib/server/auth';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 
@@ -20,4 +21,16 @@ const handleBetterAuth: Handle = async ({ event, resolve }) => {
 	return svelteKitHandler({ event, resolve, auth, building });
 };
 
-export const handle: Handle = handleBetterAuth;
+/** Security headers on every response. CSP itself comes from Kit (vite.config.ts). */
+const handleSecurityHeaders: Handle = async ({ event, resolve }) => {
+	const response = await resolve(event);
+	response.headers.set('X-Content-Type-Options', 'nosniff');
+	response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+	response.headers.set('X-Frame-Options', 'DENY');
+	response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+	if (!dev)
+		response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+	return response;
+};
+
+export const handle: Handle = sequence(handleSecurityHeaders, handleBetterAuth);
