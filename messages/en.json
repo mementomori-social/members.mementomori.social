@@ -75,7 +75,7 @@
 	"login_heading": "Sign in",
 	"login_submit": "Sign in",
 	"login_masto": "Sign in with mementomori.social",
-	"login_hint": "Mastodon sign-in works once you have linked your mementomori.social account on the dashboard. New here?",
+	"login_hint": "The Mastodon button works once your account is linked on the dashboard. New here?",
 	"login_failed": "Sign-in failed.",
 	"login_masto_failed": "Mastodon sign-in failed.",
 	"dash_heading": "Dashboard",
@@ -162,6 +162,6 @@
 	"login_magic": "Email me a sign-in link",
 	"magic_sent": "Check your email for the sign-in link.",
 	"join_check_email": "Application saved. Check your email for the sign-in link to activate your account.",
-	"login_hint_magic": "No passwords: you sign in with a link sent to your email, or with your mementomori.social account.",
+	"login_hint_magic": "Sign in with a link sent to your email, or with your mementomori.social account.",
 	"or_sep": "or"
 }

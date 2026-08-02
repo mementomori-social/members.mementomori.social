@@ -75,7 +75,7 @@
 	"login_heading": "Kirjaudu",
 	"login_submit": "Kirjaudu",
 	"login_masto": "Kirjaudu mementomori.socialilla",
-	"login_hint": "Mastodon-kirjautuminen toimii, kun olet liittänyt mementomori.social-tilisi omalla sivullasi. Uusi täällä?",
+	"login_hint": "Mastodon-nappi toimii, kun tilisi on liitetty omalla sivullasi. Uusi täällä?",
 	"login_failed": "Kirjautuminen epäonnistui.",
 	"login_masto_failed": "Mastodon-kirjautuminen epäonnistui.",
 	"dash_heading": "Oma sivu",
@@ -162,6 +162,6 @@
 	"login_magic": "Lähetä kirjautumislinkki sähköpostiin",
 	"magic_sent": "Kirjautumislinkki lähetettiin sähköpostiisi.",
 	"join_check_email": "Hakemus tallennettu. Aktivoi tilisi sähköpostiin lähetetyllä kirjautumislinkillä.",
-	"login_hint_magic": "Ei salasanoja: kirjaudut sähköpostiin lähetettävällä linkillä tai mementomori.social-tililläsi.",
+	"login_hint_magic": "Kirjaudu sähköpostiisi lähetettävällä linkillä tai mementomori.social-tililläsi.",
 	"or_sep": "tai"
 }
