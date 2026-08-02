@@ -23,7 +23,7 @@
 <div class="wrap">
 	<header class="site">
 		<a class="brand" href="/">
-			<img src="/assets/logo.svg" alt="" width="27" height="34" />
+			<img src="/assets/logo.svg" alt="" width="26" height="34" />
 			Mementomori ry
 		</a>
 		<nav aria-label="Main">

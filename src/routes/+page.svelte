@@ -34,17 +34,23 @@
 		<div class="price">
 			{FEES.member.year} €<span> / year, or {FEES.member.month} € / month</span>
 		</div>
-		<p class="muted small">One vote at the association meeting.</p>
+		<ul>
+			<li>Right to vote at the association meeting</li>
+			<li>Access to the members' channel on Matrix</li>
+			<li>Member badge on mementomori.social</li>
+		</ul>
 	</div>
 	<div class="tier">
 		<h3>{FEES.supporting.label}</h3>
 		<div class="price">
 			{FEES.supporting.year} €<span> / year, or {FEES.supporting.month} € / month</span>
 		</div>
-		<p class="muted small">
-			The right to attend and speak at the association meeting. Open to individuals and
-			organisations.
-		</p>
+		<ul>
+			<li>Right to attend and speak at the association meeting</li>
+			<li>Access to the members' channel on Matrix</li>
+			<li>Member badge on mementomori.social</li>
+			<li>Open to individuals and organisations</li>
+		</ul>
 	</div>
 </div>
 

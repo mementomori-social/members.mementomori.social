@@ -76,7 +76,10 @@
 
 	<label class="check">
 		<input type="checkbox" name="listedConsent" />
-		<span>Show my name on the member list visible to other signed-in members. Optional.</span>
+		<span
+			>Show my name on the member list. The list is not public: only signed-in, approved members can
+			see it. Optional.</span
+		>
 	</label>
 
 	{#if form?.error}<p class="error">{form.error}</p>{/if}
