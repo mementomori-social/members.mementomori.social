@@ -49,7 +49,6 @@ export const actions: Actions = {
 		const fullName = String(form.get('fullName') ?? '').trim();
 		const homeMunicipality = String(form.get('homeMunicipality') ?? '').trim();
 		const email = String(form.get('email') ?? '').trim();
-		const password = String(form.get('password') ?? '');
 		const memberClass = String(form.get('memberClass') ?? 'member') as MemberClass;
 		const billingInterval = form.get('billingInterval') === 'month' ? 'month' : 'year';
 		const listedConsent = form.get('listedConsent') === 'on';
@@ -60,15 +59,13 @@ export const actions: Actions = {
 		if (!(memberClass in FEES)) return fail(400, { ...values, error: m.err_unknown_class() });
 
 		let userId = locals.user?.id;
-		if (!userId) {
+		if (!userId && pending) {
+			// Mastodon path: the account is created with a random password and the
+			// verified Mastodon account is linked for sign-in. No password exists.
 			if (!email) return fail(400, { ...values, error: m.err_email_required() });
-			// The Mastodon path has no password: the account is created with a
-			// random one and the verified Mastodon account is linked for sign-in.
-			if (!pending && !password) return fail(400, { ...values, error: m.err_password_required() });
-			const effectivePassword = pending ? crypto.randomUUID() + crypto.randomUUID() : password;
 			try {
 				const res = await locals.auth.api.signUpEmail({
-					body: { name: fullName, email, password: effectivePassword }
+					body: { name: fullName, email, password: crypto.randomUUID() + crypto.randomUUID() }
 				});
 				userId = res.user.id;
 			} catch (e) {
@@ -76,6 +73,36 @@ export const actions: Actions = {
 				return fail(400, { ...values, error: msg });
 			}
 			await applyBootstrapRole(db, email);
+		}
+
+		if (!userId && !pending) {
+			if (!email) return fail(400, { ...values, error: m.err_email_required() });
+			// Store the application without a login. The row is claimed when the
+			// magic link is used and the dashboard matches the verified email.
+			const existing = await db.query.member.findFirst({
+				where: and(eq(member.email, email), isNull(member.userId))
+			});
+			if (!existing) {
+				await db.insert(member).values({
+					fullName,
+					homeMunicipality,
+					email,
+					memberClass,
+					billingInterval,
+					listedConsent
+				});
+			}
+			try {
+				await locals.auth.api.signInMagicLink({
+					body: { email, name: fullName, callbackURL: '/dashboard' },
+					headers: request.headers
+				});
+			} catch (e) {
+				const msg = e instanceof APIError ? e.message : m.err_account_create();
+				return fail(500, { ...values, error: msg });
+			}
+			await applyBootstrapRole(db, email);
+			return { magicSent: true };
 		}
 
 		if (pending) {

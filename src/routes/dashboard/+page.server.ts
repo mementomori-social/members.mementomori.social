@@ -1,5 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { and, eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { account, member, payment } from '$lib/server/db/schema';
@@ -11,7 +11,18 @@ import { env } from '$env/dynamic/private';
 export const load: PageServerLoad = async ({ locals, platform }) => {
 	if (!locals.user) redirect(303, '/login');
 	const db = getDb(platform!.env.DB);
-	const m = await getMemberByUserId(db, locals.user.id);
+	let m = await getMemberByUserId(db, locals.user.id);
+	if (!m) {
+		// Magic-link signups store the application before the login exists.
+		// The email is verified by the link, so the row can be claimed now.
+		const unclaimed = await db.query.member.findFirst({
+			where: and(eq(member.email, locals.user.email), isNull(member.userId))
+		});
+		if (unclaimed) {
+			await db.update(member).set({ userId: locals.user.id }).where(eq(member.id, unclaimed.id));
+			m = await getMemberByUserId(db, locals.user.id);
+		}
+	}
 	if (!m) redirect(303, '/join');
 
 	const payments = await db.query.payment.findMany({

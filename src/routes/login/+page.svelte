@@ -1,22 +1,21 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { m } from '$lib/paraglide/messages.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { authClient } from '$lib/auth-client';
 
 	let email = $state('');
-	let password = $state('');
 	let error = $state('');
+	let sent = $state(false);
 	let busy = $state(false);
 
-	async function signInEmail(e: SubmitEvent) {
+	async function sendMagicLink(e: SubmitEvent) {
 		e.preventDefault();
 		busy = true;
 		error = '';
-		const res = await authClient.signIn.email({ email, password });
+		const res = await authClient.signIn.magicLink({ email, callbackURL: '/dashboard' });
 		busy = false;
 		if (res.error) error = res.error.message ?? m.login_failed();
-		else goto('/dashboard', { invalidateAll: true });
+		else sent = true;
 	}
 
 	async function signInMastodon() {
@@ -31,33 +30,29 @@
 
 <h1>{m.login_heading()}</h1>
 
-<form class="stack" onsubmit={signInEmail}>
-	<label class="field">
-		{m.field_email()}
-		<input
-			type="email"
-			bind:value={email}
-			required
-			autocomplete="email"
-			placeholder={m.ph_email()}
-		/>
-	</label>
-	<label class="field">
-		{m.field_password()}
-		<input
-			type="password"
-			bind:value={password}
-			required
-			autocomplete="current-password"
-			placeholder={m.ph_password()}
-		/>
-	</label>
-	{#if error}<p class="error">{error}</p>{/if}
-	<div style="display:flex;gap:10px;flex-wrap:wrap">
-		<button type="submit" disabled={busy}>{m.login_submit()}</button>
-		<button type="button" class="ghost" onclick={signInMastodon}>{m.login_masto()}</button>
-	</div>
-	<p class="muted small">
-		{m.login_hint()} <a href={localizeHref('/join')}>{m.apply_cta()}</a>.
-	</p>
-</form>
+<p class="muted">{m.login_hint_magic()}</p>
+
+{#if sent}
+	<p class="notice">{m.magic_sent()}</p>
+{:else}
+	<form class="stack" onsubmit={sendMagicLink}>
+		<label class="field">
+			{m.field_email()}
+			<input
+				type="email"
+				bind:value={email}
+				required
+				autocomplete="email"
+				placeholder={m.ph_email()}
+			/>
+		</label>
+		{#if error}<p class="error">{error}</p>{/if}
+		<div style="display:flex;gap:10px;flex-wrap:wrap">
+			<button type="submit" disabled={busy}>{m.login_magic()}</button>
+			<button type="button" class="ghost" onclick={signInMastodon}>{m.login_masto()}</button>
+		</div>
+		<p class="muted small">
+			{m.login_hint()} <a href={localizeHref('/join')}>{m.apply_cta()}</a>.
+		</p>
+	</form>
+{/if}

@@ -28,6 +28,8 @@
 			<a class="button ghost" href="/join?path=form">{m.choice_form_cta()}</a>
 		</div>
 	</div>
+{:else if form?.magicSent}
+	<p class="notice">{m.join_check_email()}</p>
 {:else}
 	{#if data.pendingMasto}
 		<p class="notice">{m.verified_as({ acct: data.pendingMasto.acct })}</p>
@@ -69,17 +71,6 @@
 			</label>
 			{#if data.pendingMasto}
 				<p class="muted small" style="margin:0">{m.email_masto_note()}</p>
-			{:else}
-				<label class="field">
-					{m.field_password()}
-					<input
-						type="password"
-						name="password"
-						required
-						minlength="8"
-						placeholder={m.ph_password()}
-					/>
-				</label>
 			{/if}
 		{/if}
 

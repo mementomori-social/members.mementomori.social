@@ -1,10 +1,11 @@
 import { env } from '$env/dynamic/private';
 import { betterAuth } from 'better-auth/minimal';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { genericOAuth } from 'better-auth/plugins';
+import { genericOAuth, magicLink } from 'better-auth/plugins';
 import { sveltekitCookies } from 'better-auth/svelte-kit';
 import { getRequestEvent } from '$app/server';
 import { getDb } from '$lib/server/db';
+import { sendEmail } from '$lib/server/email';
 
 const MASTODON_URL = 'https://mementomori.social';
 
@@ -22,6 +23,15 @@ const authConfig = {
 		accountLinking: { enabled: true }
 	},
 	plugins: [
+		magicLink({
+			sendMagicLink: async ({ email, url }) => {
+				await sendEmail(
+					email,
+					'Sign in to members.mementomori.social',
+					`Sign in with this link:\n\n${url}\n\nThe link is valid for a few minutes. If you did not request it, ignore this message.`
+				);
+			}
+		}),
 		genericOAuth({
 			config: [
 				{

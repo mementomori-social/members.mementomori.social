@@ -158,5 +158,9 @@
 	"err_own_application": "Et voi päättää omasta hakemuksestasi.",
 	"err_already_approved": "Olet jo hyväksynyt tämän hakemuksen.",
 	"err_payment_fields": "Jäsen, summa ja päivämäärä ovat pakollisia.",
-	"err_unknown_member": "Tuntematon jäsen."
+	"err_unknown_member": "Tuntematon jäsen.",
+	"login_magic": "Lähetä kirjautumislinkki sähköpostiin",
+	"magic_sent": "Kirjautumislinkki lähetettiin sähköpostiisi.",
+	"join_check_email": "Hakemus tallennettu. Aktivoi tilisi sähköpostiin lähetetyllä kirjautumislinkillä.",
+	"login_hint_magic": "Ei salasanoja: kirjaudut sähköpostiin lähetettävällä linkillä tai mementomori.social-tililläsi."
 }
