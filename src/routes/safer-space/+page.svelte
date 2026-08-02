@@ -19,5 +19,3 @@
 </ol>
 
 <p>{m.safer_report()}</p>
-
-<p class="muted small">{m.safer_draft_note()}</p>
