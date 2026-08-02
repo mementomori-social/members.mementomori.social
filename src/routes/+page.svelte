@@ -67,10 +67,19 @@
 
 <p>
 	Running the mementomori.social infrastructure, websites and social media service costs
-	<strong>{COSTS.monthlyEur}&nbsp;€ a month</strong>, about {COSTS.annualEur}&nbsp;€ a year. The
-	association currently has {data.memberCount} approved
-	{data.memberCount === 1 ? 'member' : 'members'}.
+	<strong>{COSTS.monthlyEur}&nbsp;€ a month</strong>, about {COSTS.annualEur}&nbsp;€ a year.
 </p>
+
+<div class="stats">
+	<div class="stat">
+		<div class="num">{data.memberCount}</div>
+		<div class="lbl">{data.memberCount === 1 ? 'member' : 'members'}</div>
+	</div>
+	<div class="stat">
+		<div class="num">{COSTS.monthlyEur}&nbsp;€</div>
+		<div class="lbl">running costs per month</div>
+	</div>
+</div>
 
 {#if data.collectedEur !== null}
 	<div class="card">

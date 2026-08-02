@@ -388,3 +388,33 @@ table.list img.avatar {
 .tier li {
 	margin: 5px 0;
 }
+
+button,
+.button {
+	white-space: nowrap;
+}
+
+.stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 18px;
+	margin: 24px 0;
+	max-width: 560px;
+}
+.stat {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	padding: 22px 26px;
+}
+.stat .num {
+	font-family: var(--font-heading);
+	font-weight: 700;
+	font-size: 40px;
+	line-height: 1.1;
+	color: var(--bright);
+}
+.stat .lbl {
+	color: var(--muted);
+	font-size: 16px;
+}
