@@ -56,7 +56,10 @@
 
 <p class="muted small">{m.fees_note()}</p>
 
-<p><a class="button" href={localizeHref('/join')}>{m.apply_cta()}</a></p>
+<p class="or-row">
+	<a class="button" href={localizeHref('/join')}>{m.apply_cta()}</a>
+	<a class="button ghost" href={localizeHref('/sponsorship')}>{m.sponsor_cta()}</a>
+</p>
 
 <h2>{m.money_heading()}</h2>
 
@@ -74,8 +77,6 @@
 		<div class="lbl">{m.stat_costs_label()}</div>
 	</div>
 </div>
-
-<p><a href={localizeHref('/sponsorship')}>{m.sponsor_cta()}</a></p>
 
 {#if data.collectedEur !== null}
 	<div class="card">
