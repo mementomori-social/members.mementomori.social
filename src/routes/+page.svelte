@@ -75,6 +75,8 @@
 	</div>
 </div>
 
+<p><a href={localizeHref('/sponsorship')}>{m.sponsor_cta()}</a></p>
+
 {#if data.collectedEur !== null}
 	<div class="card">
 		<h3>{m.covered_heading()}</h3>
