@@ -498,16 +498,28 @@ img.emoji {
 }
 
 h1.rainbow {
-	background: linear-gradient(90deg, #ff5a5f, #ffb347, #f5e663, #4cd699, #58b5ff, #b085ff, #ff5a5f);
-	background-size: 300% 100%;
+	/* Palette and cadence from the MauriciAbad rainbow-text pen; the blend-mode
+	   variant needs a light background, so this uses the pen's own clip-text
+	   fallback. Stops repeat so the 200% slide loops seamlessly. */
+	background: linear-gradient(
+		90deg,
+		#14ffe9 0%,
+		#ffc800 16.667%,
+		#ff00e0 33.333%,
+		#14ffe9 50%,
+		#ffc800 66.667%,
+		#ff00e0 83.333%,
+		#14ffe9 100%
+	);
+	background-size: 200% 100%;
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
-	animation: rainbow-slide 4s linear infinite;
+	animation: rainbow-slide 2s linear infinite;
 }
 @keyframes rainbow-slide {
 	to {
-		background-position: 200% 0;
+		background-position: -200% 0;
 	}
 }
 @media (prefers-reduced-motion: reduce) {
