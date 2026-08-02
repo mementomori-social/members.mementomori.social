@@ -43,7 +43,9 @@
 	{:else if data.m.status === 'approved'}
 		<span class="badge ok">{m.status_approved()}</span>
 	{:else}
-		<span class="badge">{data.m.status}</span>
+		<span class="badge"
+			>{data.m.status === 'rejected' ? m.status_rejected() : m.status_ended()}</span
+		>
 	{/if}
 </div>
 
@@ -96,7 +98,7 @@
 					<tr>
 						<td>{fmt(p.paidAt)}</td>
 						<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
-						<td>{p.method}</td>
+						<td>{p.method === 'bank' ? m.method_bank() : m.method_stripe()}</td>
 						<td class="muted small">{fmt(p.periodStart)} {m.period_to()} {fmt(p.periodEnd)}</td>
 					</tr>
 				{/each}

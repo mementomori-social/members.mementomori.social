@@ -2,7 +2,7 @@
 	import '../app.css';
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages.js';
-	import { localizeHref } from '$lib/paraglide/runtime';
+	import { locales, localizeHref } from '$lib/paraglide/runtime';
 	import type { LayoutProps } from './$types';
 
 	let { children, data }: LayoutProps = $props();
@@ -12,6 +12,18 @@
 	const delocalized = $derived(locale === 'fi' ? pathname.slice(3) || '/' : pathname);
 	const current = (path: string) => (delocalized === path ? 'page' : undefined);
 	const href = (path: string) => localizeHref(path);
+
+	/** Native name of a locale, capitalised: works for any future locale. */
+	const localeName = (l: string) => {
+		const name = new Intl.DisplayNames([l], { type: 'language' }).of(l) ?? l;
+		return name.charAt(0).toLocaleUpperCase(l) + name.slice(1);
+	};
+
+	/** Full page load on purpose: Paraglide resolves the locale at render time. */
+	function switchLocale(e: Event) {
+		const target = (e.currentTarget as HTMLSelectElement).value as 'en' | 'fi';
+		window.location.href = localizeHref(delocalized, { locale: target });
+	}
 </script>
 
 <svelte:head>
@@ -27,6 +39,21 @@
 <a class="skip-link" href="#content">{m.skip_to_content()}</a>
 
 <div class="wrap">
+	<div class="utility">
+		{#if data.user}
+			<a href={href('/dashboard')}>{data.user.name}</a>
+		{:else}
+			<a href={href('/login')} aria-current={current('/login')}>{m.nav_sign_in()}</a>
+		{/if}
+		<label class="lang-select">
+			<span class="visually-hidden">{m.language_label()}</span>
+			<select onchange={switchLocale} value={locale}>
+				{#each locales as l (l)}
+					<option value={l} lang={l}>{localeName(l)}</option>
+				{/each}
+			</select>
+		</label>
+	</div>
 	<header class="site">
 		<a class="brand" href={href('/')}>
 			<img src="/assets/logo.svg" alt="" width="26" height="34" />
@@ -43,25 +70,6 @@
 			{#if data.board}
 				<a href={href('/admin')} aria-current={current('/admin')}>{m.nav_board()}</a>
 			{/if}
-			{#if data.user}
-				<a href={href('/dashboard')}>{data.user.name}</a>
-			{:else}
-				<a href={href('/login')} aria-current={current('/login')}>{m.nav_sign_in()}</a>
-			{/if}
-		</nav>
-		<nav class="lang" aria-label={m.language_label()}>
-			<a
-				href={localizeHref(delocalized, { locale: 'en' })}
-				hreflang="en"
-				lang="en"
-				aria-current={locale === 'en' ? 'true' : undefined}>English</a
-			>
-			<a
-				href={localizeHref(delocalized, { locale: 'fi' })}
-				hreflang="fi"
-				lang="fi"
-				aria-current={locale === 'fi' ? 'true' : undefined}>Suomi</a
-			>
 		</nav>
 	</header>
 	<main id="content">

@@ -133,13 +133,51 @@ a:hover {
 	padding: 0 24px 112px;
 }
 
+.utility {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 16px;
+	padding: 10px 0 0;
+	font-size: 15px;
+}
+.utility a {
+	color: var(--muted);
+	text-decoration: none;
+	padding: 4px 8px;
+	border-radius: 6px;
+}
+.utility a:hover,
+.utility a[aria-current] {
+	color: var(--bright);
+	background: var(--surface-2);
+}
+.lang-select select {
+	font: inherit;
+	font-size: 15px;
+	color: var(--text);
+	background: var(--surface);
+	border: 1.5px solid var(--border);
+	border-radius: 8px;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
 header.site {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: 20px;
 	flex-wrap: wrap;
-	padding: 22px 0;
+	padding: 14px 0 22px;
 	margin-bottom: 28px;
 	border-bottom: 1px solid var(--border);
 }
@@ -428,10 +466,6 @@ button,
 	opacity: 1;
 }
 
-nav.lang {
-	border-left: 1px solid var(--border);
-	padding-left: 14px;
-}
 header.site nav a[aria-current] {
 	background: var(--surface-2);
 	color: var(--bright);

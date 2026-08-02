@@ -5,6 +5,13 @@
 
 	let { data, form }: PageProps = $props();
 	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
+	const statusLabel = (s: string) =>
+		({
+			applied: m.status_applied(),
+			approved: m.status_approved(),
+			rejected: m.status_rejected(),
+			ended: m.status_ended()
+		})[s] ?? s;
 </script>
 
 <h1>{m.admin_heading()}</h1>
@@ -100,7 +107,7 @@
 					<td>{fmt(p.paidAt)}</td>
 					<td>{p.memberName}</td>
 					<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
-					<td class="muted">{p.method}</td>
+					<td class="muted">{p.method === 'bank' ? m.method_bank() : m.method_stripe()}</td>
 					<td class="muted small">{p.reference ?? ''}</td>
 				</tr>
 			{/each}
@@ -136,7 +143,7 @@
 					>{r.memberClass === 'member' ? m.class_member() : m.class_patron()}</td
 				>
 				<td>
-					<span class="badge {r.status === 'approved' ? 'ok' : ''}">{r.status}</span>
+					<span class="badge {r.status === 'approved' ? 'ok' : ''}">{statusLabel(r.status)}</span>
 				</td>
 				<td class="muted small">{r.matrixId ?? ''}</td>
 				<td class="muted small">{r.decidedAt ? fmt(r.decidedAt) : ''}</td>
