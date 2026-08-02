@@ -663,13 +663,16 @@ img {
 	}
 }
 
-@media (max-width: 449px) {
+@media (max-width: 600px) {
 	.wide {
 		display: none;
 	}
 	.narrow {
 		display: inline;
 	}
+}
+
+@media (max-width: 449px) {
 	.wrap {
 		padding: 0 16px 72px;
 	}
