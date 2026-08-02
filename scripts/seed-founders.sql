@@ -3,7 +3,8 @@
 -- rows are inserted directly, without a login. Each row is claimed
 -- automatically when that person signs up with the matching email.
 --
--- Fill in the email addresses before running. Run against local:
+-- Fill in the full legal names (as in the PRH register) and email addresses
+-- before running. Run against local:
 --   pnpm exec wrangler d1 execute DB --local --file scripts/seed-founders.sql
 -- or production:
 --   pnpm exec wrangler d1 execute DB --remote --file scripts/seed-founders.sql
