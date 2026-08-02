@@ -13,6 +13,5 @@ export type MemberClass = keyof typeof FEES;
 /** Running costs, shown publicly as plain facts. */
 export const COSTS = {
 	monthlyEur: 204.15,
-	annualEur: 2450,
-	description: 'server infrastructure (Hetzner)'
+	annualEur: 2450
 } as const;

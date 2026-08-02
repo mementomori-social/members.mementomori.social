@@ -7,8 +7,8 @@
 <h1>Members</h1>
 
 <p class="muted small">
-	Only members who have opted in are listed here. The full member register is maintained by
-	the board as required by the Finnish Associations Act.
+	Only members who have opted in are listed here. The full member register is maintained by the
+	board as required by the Finnish Associations Act.
 </p>
 
 {#if data.members.length === 0}
@@ -25,7 +25,10 @@
 						{#if m.mastodonAvatarUrl}
 							<img class="avatar" src="/avatar/{m.id}" alt="" loading="lazy" />
 						{:else}
-							<div class="avatar" style="width:32px;height:32px;border-radius:8px;background:var(--border)"></div>
+							<div
+								class="avatar"
+								style="width:32px;height:32px;border-radius:8px;background:var(--border)"
+							></div>
 						{/if}
 					</td>
 					<td>{m.fullName}</td>

@@ -1,9 +1,22 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
+	// Keep build artifacts out of svelte-check/tsgo, which otherwise sweeps
+	// them in via checkJs once a build exists.
+	"exclude": [
+		"node_modules/**",
+		".svelte-kit/cloudflare/**",
+		".svelte-kit/cloudflare-tmp/**",
+		".svelte-kit/output/**",
+		".wrangler/**",
+		"drizzle/**"
+	],
 	"compilerOptions": {
 		"rewriteRelativeImportExtensions": true,
 		"allowJs": true,
-		"checkJs": true,
+		// The app is fully TypeScript. checkJs would also type-check generated
+		// build output (.svelte-kit/cloudflare) pulled in transitively by
+		// wrangler's worker-configuration.d.ts, which exclude cannot stop.
+		"checkJs": false,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,

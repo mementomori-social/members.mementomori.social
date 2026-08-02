@@ -9,8 +9,8 @@
 <h1>Apply for membership</h1>
 
 <p>
-	The board reviews every application. Membership begins when the board approves it, and if
-	an application is not approved, any fee already paid is refunded in full.
+	The board reviews every application. Membership begins when the board approves it, and if an
+	application is not approved, any fee already paid is refunded in full.
 </p>
 
 <form method="POST" class="stack" use:enhance>
@@ -47,8 +47,8 @@
 		<label class="check">
 			<input type="radio" name="memberClass" value="member" checked />
 			<span
-				><strong>Member</strong>, {FEES.member.year} €/year or {FEES.member.month} €/month.
-				One vote at the association meeting.</span
+				><strong>Member</strong>, {FEES.member.year} €/year or {FEES.member.month} €/month. One vote at
+				the association meeting.</span
 			>
 		</label>
 		<label class="check">
@@ -63,7 +63,10 @@
 	<fieldset style="border:none;padding:0;margin:6px 0 0;display:grid;gap:8px">
 		<label class="check">
 			<input type="radio" name="billingInterval" value="year" checked />
-			<span>Pay annually <span class="muted">(preferred, less bookkeeping for the volunteers)</span></span>
+			<span
+				>Pay annually <span class="muted">(preferred, less bookkeeping for the volunteers)</span
+				></span
+			>
 		</label>
 		<label class="check">
 			<input type="radio" name="billingInterval" value="month" />
@@ -81,7 +84,7 @@
 	<div><button type="submit">Submit application</button></div>
 
 	<p class="muted small">
-		After signing up you can link your mementomori.social account on the dashboard. It is
-		optional and never a condition of membership.
+		After signing up you can link your mementomori.social account on the dashboard. It is optional
+		and never a condition of membership.
 	</p>
 </form>

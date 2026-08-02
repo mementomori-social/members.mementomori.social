@@ -71,8 +71,8 @@
 	<h3>Payments</h3>
 	{#if data.payments.length === 0}
 		<p class="muted small">
-			No payments recorded yet. Payment instructions arrive by email once the board has
-			approved your application.
+			No payments recorded yet. Payment instructions arrive by email once the board has approved
+			your application.
 		</p>
 	{:else}
 		<table class="list">
@@ -99,8 +99,9 @@
 		<div style="width: {Math.min(100, (data.collectedEur / COSTS.annualEur) * 100)}%"></div>
 	</div>
 	<p class="muted small">
-		{data.collectedEur.toFixed(2)} € of {COSTS.annualEur} € collected in membership fees.
-		Running the platform costs {COSTS.monthlyEur} € a month.
+		{data.collectedEur.toFixed(2)} € of {COSTS.annualEur} € collected in membership fees. Running the
+		mementomori.social infrastructure, websites and social media service costs
+		{COSTS.monthlyEur} € a month.
 	</p>
 </div>
 

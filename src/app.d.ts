@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference -- wrangler-generated ambient types
 /// <reference path="../worker-configuration.d.ts" />
 import type { User, Session } from 'better-auth';
 import { createAuth } from '$lib/server/auth';

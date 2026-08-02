@@ -18,27 +18,33 @@
 	<meta name="color-scheme" content="dark" />
 </svelte:head>
 
+<a class="skip-link" href="#content">Skip to content</a>
+
 <div class="wrap">
-	<nav class="site">
-		<a href="/" aria-current={current('/')} style="border:none">
-			<img src="/assets/icon-32.png" alt="Mementomori ry" />
+	<header class="site">
+		<a class="brand" href="/">
+			<img src="/assets/logo.svg" alt="" width="27" height="34" />
+			Mementomori ry
 		</a>
-		<a href="/" aria-current={current('/')}>Overview</a>
-		{#if data.member}
-			<a href="/members" aria-current={current('/members')}>Members</a>
-			<a href="/dashboard" aria-current={current('/dashboard')}>Dashboard</a>
-		{:else}
-			<a href="/join" aria-current={current('/join')}>Join</a>
-		{/if}
-		{#if data.board}
-			<a href="/admin" aria-current={current('/admin')}>Board</a>
-		{/if}
-		<span class="spacer"></span>
-		{#if data.user}
-			<a href="/dashboard">{data.user.name}</a>
-		{:else}
-			<a href="/login" aria-current={current('/login')}>Sign in</a>
-		{/if}
-	</nav>
-	{@render children()}
+		<nav aria-label="Main">
+			<a href="/" aria-current={current('/')}>Overview</a>
+			{#if data.member}
+				<a href="/members" aria-current={current('/members')}>Members</a>
+				<a href="/dashboard" aria-current={current('/dashboard')}>Dashboard</a>
+			{:else}
+				<a href="/join" aria-current={current('/join')}>Join</a>
+			{/if}
+			{#if data.board}
+				<a href="/admin" aria-current={current('/admin')}>Board</a>
+			{/if}
+			{#if data.user}
+				<a href="/dashboard">{data.user.name}</a>
+			{:else}
+				<a href="/login" aria-current={current('/login')}>Sign in</a>
+			{/if}
+		</nav>
+	</header>
+	<main id="content">
+		{@render children()}
+	</main>
 </div>

@@ -46,7 +46,7 @@
 		</button>
 	</div>
 	<p class="muted small">
-		Mastodon sign-in works once you have linked your mementomori.social account on the
-		dashboard. New here? <a href="/join">Apply for membership</a>.
+		Mastodon sign-in works once you have linked your mementomori.social account on the dashboard.
+		New here? <a href="/join">Apply for membership</a>.
 	</p>
 </form>

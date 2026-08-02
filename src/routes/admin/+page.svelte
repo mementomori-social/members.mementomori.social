@@ -11,8 +11,8 @@
 {#if form?.adminError}<p class="error">{form.adminError}</p>{/if}
 {#if form?.refundNote}
 	<p class="notice">
-		Application rejected. If a fee was already paid, refund it in full (association meeting
-		decision 21.7.2026).
+		Application rejected. If a fee was already paid, refund it in full (association meeting decision
+		21.7.2026).
 	</p>
 {/if}
 
@@ -108,8 +108,7 @@
 
 <p class="small">
 	<a href="/admin/register.csv">Download the register (CSV)</a>
-	<span class="muted">full name and home municipality as required by yhdistyslaki 11 §</span
-	><br />
+	<span class="muted">full name and home municipality as required by yhdistyslaki 11 §</span><br />
 	<a href="/admin/ledger.csv">Download the ledger (CSV)</a>
 	<span class="muted">for bookkeeping</span>
 </p>

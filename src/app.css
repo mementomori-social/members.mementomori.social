@@ -25,21 +25,27 @@
 
 :root {
 	--bg: #0b0b0c;
-	--surface: #141416;
-	--border: #232326;
-	--text: #d5d2cb;
-	--bright: #f3f0ea;
-	--muted: #85827b;
+	--surface: #17171a;
+	--surface-2: #202024;
+	--border: #2c2c31;
+	--text: #e4e1da;
+	--bright: #ffffff;
+	--muted: #aeaba3;
 	--accent: #585aff;
-	--accent-soft: rgba(88, 90, 255, 0.14);
-	--danger: #ff5a5f;
-	--ok: #3ecf8e;
+	--accent-soft: rgba(88, 90, 255, 0.16);
+	--danger: #ff6b70;
+	--ok: #4cd699;
 	--font-body: 'Zalando Sans', system-ui, sans-serif;
 	--font-heading: 'Zalando Sans Expanded', sans-serif;
+	--radius: 10px;
 }
 
 * {
 	box-sizing: border-box;
+}
+
+html {
+	color-scheme: dark;
 }
 
 body {
@@ -47,8 +53,8 @@ body {
 	background: var(--bg);
 	color: var(--text);
 	font-family: var(--font-body);
-	font-size: 16px;
-	line-height: 1.65;
+	font-size: 17px;
+	line-height: 1.7;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -58,116 +64,171 @@ h3 {
 	font-family: var(--font-heading);
 	font-weight: 600;
 	color: var(--bright);
-	line-height: 1.25;
+	line-height: 1.2;
 	margin: 0 0 0.5em;
+	text-wrap: balance;
 }
 
 h1 {
-	font-size: 30px;
+	font-size: clamp(30px, 5vw, 40px);
+	margin-top: 0.6em;
 }
 h2 {
-	font-size: 21px;
-	margin-top: 1.8em;
+	font-size: clamp(22px, 3.5vw, 27px);
+	margin-top: 2em;
 }
 h3 {
-	font-size: 17px;
+	font-size: 19px;
 }
 
 p {
-	margin: 0.6em 0;
+	margin: 0.7em 0;
+	max-width: 70ch;
 }
 
 a {
-	color: var(--bright);
-	text-decoration: none;
-	border-bottom: 1px solid #4a4841;
+	color: var(--text);
+	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+	text-underline-offset: 3px;
 }
 a:hover {
-	border-bottom-color: var(--accent);
-	color: var(--accent);
+	color: var(--bright);
+	text-decoration-color: currentColor;
+}
+:focus-visible {
+	outline: 3px solid var(--accent);
+	outline-offset: 2px;
+	border-radius: 4px;
 }
 
 .muted {
 	color: var(--muted);
 }
 .small {
-	font-size: 14px;
+	font-size: 15.5px;
+}
+
+.skip-link {
+	position: absolute;
+	left: -9999px;
+	top: 12px;
+	background: var(--accent);
+	color: #fff;
+	padding: 10px 16px;
+	border-radius: 8px;
+	z-index: 10;
+}
+.skip-link:focus {
+	left: 12px;
 }
 
 .wrap {
-	max-width: 720px;
+	max-width: 1000px;
 	margin: 0 auto;
-	padding: 0 24px 96px;
+	padding: 0 24px 112px;
 }
 
-nav.site {
+header.site {
 	display: flex;
 	align-items: center;
-	gap: 22px;
-	padding: 26px 0 40px;
-	font-size: 15px;
+	justify-content: space-between;
+	gap: 20px;
+	flex-wrap: wrap;
+	padding: 22px 0;
+	margin-bottom: 28px;
+	border-bottom: 1px solid var(--border);
 }
-nav.site img {
-	width: 30px;
-	height: 30px;
+header.site .brand {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	text-decoration: none;
+	color: var(--bright);
+	font-family: var(--font-heading);
+	font-weight: 600;
+	font-size: 18px;
 }
-nav.site a {
-	border-bottom: none;
-	color: var(--muted);
+header.site .brand img {
+	width: 34px;
+	height: 34px;
+	display: block;
 }
-nav.site a:hover,
-nav.site a[aria-current='page'] {
+header.site nav {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+header.site nav a {
+	display: inline-block;
+	padding: 9px 15px;
+	border-radius: 999px;
+	font-size: 16.5px;
+	font-weight: 500;
+	color: var(--text);
+	text-decoration: none;
+}
+header.site nav a:hover {
+	background: var(--surface-2);
 	color: var(--bright);
 }
-nav.site .spacer {
-	flex: 1;
+header.site nav a[aria-current='page'] {
+	background: var(--surface-2);
+	color: var(--bright);
 }
 
 button,
 .button {
 	display: inline-block;
 	font-family: var(--font-body);
-	font-size: 15px;
+	font-size: 16.5px;
 	font-weight: 500;
 	color: #fff;
 	background: var(--accent);
 	border: none;
-	border-radius: 8px;
-	padding: 10px 18px;
+	border-radius: var(--radius);
+	padding: 12px 22px;
 	cursor: pointer;
+	text-decoration: none;
 }
 button:hover,
 .button:hover {
-	filter: brightness(1.12);
+	filter: brightness(1.15);
 	color: #fff;
-	border-bottom: none;
 }
 button.ghost,
 .button.ghost {
 	background: transparent;
 	color: var(--text);
-	border: 1px solid var(--border);
+	border: 1.5px solid var(--border);
 }
 button.ghost:hover {
-	border-color: var(--accent);
-	color: var(--accent);
+	background: var(--surface-2);
+	color: var(--bright);
+	filter: none;
 }
 button.danger {
 	background: transparent;
 	color: var(--danger);
-	border: 1px solid var(--border);
+	border: 1.5px solid var(--border);
+}
+button.danger:hover {
+	border-color: var(--danger);
+	filter: none;
 }
 
 form.stack {
 	display: grid;
-	gap: 14px;
-	max-width: 420px;
+	gap: 18px;
+	max-width: 480px;
 }
 label.field {
 	display: grid;
-	gap: 5px;
-	font-size: 14px;
-	color: var(--muted);
+	gap: 6px;
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--text);
 }
 input[type='text'],
 input[type='email'],
@@ -178,38 +239,39 @@ select {
 	font: inherit;
 	color: var(--bright);
 	background: var(--surface);
-	border: 1px solid var(--border);
-	border-radius: 8px;
-	padding: 9px 12px;
+	border: 1.5px solid var(--border);
+	border-radius: var(--radius);
+	padding: 12px 14px;
 	width: 100%;
 }
 input:focus,
 select:focus {
-	outline: 2px solid var(--accent);
+	outline: 3px solid var(--accent);
 	outline-offset: 0;
 	border-color: transparent;
 }
 label.check {
 	display: flex;
-	gap: 10px;
+	gap: 12px;
 	align-items: flex-start;
-	font-size: 14px;
-	color: var(--muted);
+	font-size: 16px;
+	color: var(--text);
 }
 input[type='checkbox'],
 input[type='radio'] {
 	accent-color: var(--accent);
-	width: 16px;
-	height: 16px;
-	margin-top: 3px;
+	width: 19px;
+	height: 19px;
+	margin-top: 4px;
+	flex-shrink: 0;
 }
 
 .card {
 	background: var(--surface);
 	border: 1px solid var(--border);
-	border-radius: 12px;
-	padding: 20px 22px;
-	margin: 14px 0;
+	border-radius: 14px;
+	padding: 24px 26px;
+	margin: 18px 0;
 }
 .card h3 {
 	margin-top: 0;
@@ -217,11 +279,11 @@ input[type='radio'] {
 
 .tiers {
 	display: grid;
-	gap: 14px;
+	gap: 18px;
 	grid-template-columns: 1fr 1fr;
-	margin: 20px 0;
+	margin: 24px 0;
 }
-@media (max-width: 560px) {
+@media (max-width: 640px) {
 	.tiers {
 		grid-template-columns: 1fr;
 	}
@@ -229,29 +291,29 @@ input[type='radio'] {
 .tier {
 	background: var(--surface);
 	border: 1px solid var(--border);
-	border-radius: 12px;
-	padding: 20px 22px;
+	border-radius: 14px;
+	padding: 24px 26px;
 }
 .tier .price {
 	font-family: var(--font-heading);
 	font-weight: 700;
-	font-size: 26px;
+	font-size: 32px;
 	color: var(--bright);
 }
 .tier .price span {
 	font-family: var(--font-body);
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 16px;
 	color: var(--muted);
 }
 
 .progress {
-	background: var(--surface);
+	background: var(--surface-2);
 	border: 1px solid var(--border);
 	border-radius: 999px;
-	height: 14px;
+	height: 16px;
 	overflow: hidden;
-	margin: 10px 0 6px;
+	margin: 12px 0 8px;
 }
 .progress > div {
 	height: 100%;
@@ -263,56 +325,57 @@ input[type='radio'] {
 table.list {
 	width: 100%;
 	border-collapse: collapse;
-	font-size: 15px;
+	font-size: 16.5px;
 }
 table.list th {
 	text-align: left;
 	font-weight: 500;
 	color: var(--muted);
-	font-size: 13px;
-	padding: 8px 10px;
+	font-size: 15px;
+	padding: 10px 12px;
 	border-bottom: 1px solid var(--border);
 }
 table.list td {
-	padding: 10px;
+	padding: 13px 12px;
 	border-bottom: 1px solid var(--border);
 	vertical-align: middle;
 }
 table.list img.avatar {
-	width: 32px;
-	height: 32px;
-	border-radius: 8px;
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
 	display: block;
-	background: var(--border);
+	background: var(--surface-2);
 }
 
 .badge {
 	display: inline-block;
-	font-size: 12.5px;
-	padding: 2px 9px;
+	font-size: 15px;
+	padding: 4px 13px;
 	border-radius: 999px;
-	border: 1px solid var(--border);
-	color: var(--muted);
+	border: 1.5px solid var(--border);
+	color: var(--text);
 }
 .badge.ok {
 	color: var(--ok);
-	border-color: rgba(62, 207, 142, 0.35);
+	border-color: color-mix(in srgb, var(--ok) 45%, transparent);
 }
 .badge.accent {
-	color: var(--accent);
-	border-color: rgba(88, 90, 255, 0.45);
+	color: #b9baff;
+	border-color: rgba(88, 90, 255, 0.55);
 	background: var(--accent-soft);
 }
 
 .notice {
-	border-left: 3px solid var(--accent);
+	border-left: 4px solid var(--accent);
 	background: var(--accent-soft);
-	border-radius: 0 8px 8px 0;
-	padding: 12px 16px;
-	font-size: 14.5px;
-	margin: 16px 0;
+	border-radius: 0 var(--radius) var(--radius) 0;
+	padding: 14px 18px;
+	font-size: 16px;
+	margin: 18px 0;
+	max-width: 70ch;
 }
 .error {
 	color: var(--danger);
-	font-size: 14.5px;
+	font-size: 16px;
 }
