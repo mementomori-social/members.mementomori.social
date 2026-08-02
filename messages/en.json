@@ -108,5 +108,8 @@
 	"th_municipality": "Municipality",
 	"th_class": "Class",
 	"th_fediverse": "Fediverse",
-	"ph_password": "At least 8 characters"
+	"ph_password": "At least 8 characters",
+	"pay_now": "Pay the membership fee",
+	"pay_redirect_note": "Payment opens in Stripe Checkout. The fee is fixed.",
+	"paid_thanks": "Payment completed. It shows up in the list within a minute or two."
 }

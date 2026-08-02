@@ -108,5 +108,8 @@
 	"th_municipality": "Kotikunta",
 	"th_class": "Jäsenluokka",
 	"th_fediverse": "Fediversumi",
-	"ph_password": "Vähintään 8 merkkiä"
+	"ph_password": "Vähintään 8 merkkiä",
+	"pay_now": "Maksa jäsenmaksu",
+	"pay_redirect_note": "Maksu avautuu Stripe Checkoutissa. Maksu on kiinteä.",
+	"paid_thanks": "Maksu suoritettu. Se näkyy listalla parin minuutin sisällä."
 }

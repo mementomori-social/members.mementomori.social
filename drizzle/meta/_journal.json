@@ -15,6 +15,13 @@
       "when": 1785673660708,
       "tag": "0001_member_user_optional",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1785676363952,
+      "tag": "0002_member_stripe_ids",
+      "breakpoints": true
     }
   ]
 }

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { m } from '$lib/paraglide/messages.js';
 	import { authClient } from '$lib/auth-client';
@@ -21,6 +22,10 @@
 </script>
 
 <h1>{m.dash_heading()}</h1>
+
+{#if page.url.searchParams.get('paid') === '1'}
+	<p class="notice">{m.paid_thanks()}</p>
+{/if}
 
 <div class="card">
 	<h3>{m.card_membership()}</h3>
@@ -68,6 +73,13 @@
 
 <div class="card">
 	<h3>{m.card_payments()}</h3>
+	{#if data.canPay}
+		<form method="POST" action="?/pay" style="margin-bottom:14px">
+			<button type="submit">{m.pay_now()}</button>
+			<p class="muted small" style="margin:8px 0 0">{m.pay_redirect_note()}</p>
+			{#if form?.payError}<p class="error">{form.payError}</p>{/if}
+		</form>
+	{/if}
 	{#if data.payments.length === 0}
 		<p class="muted small">{m.payments_none()}</p>
 	{:else}

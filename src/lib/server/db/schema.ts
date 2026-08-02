@@ -30,6 +30,9 @@ export const member = sqliteTable('member', {
 	/** Optional, never a condition of membership (board decision 21.7.2026). */
 	mastodonAcct: text('mastodon_acct'),
 	mastodonAvatarUrl: text('mastodon_avatar_url'),
+	/** Set by the Stripe webhook when a checkout completes. */
+	stripeCustomerId: text('stripe_customer_id'),
+	stripeSubscriptionId: text('stripe_subscription_id'),
 	/** Opt-in consent to appear on the member list shown to other members. */
 	listedConsent: integer('listed_consent', { mode: 'boolean' }).notNull().default(false),
 	status: text('status', { enum: ['applied', 'approved', 'rejected', 'ended'] })
