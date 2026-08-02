@@ -115,7 +115,6 @@
 		{#if form?.error}<p class="error">{form.error}</p>{/if}
 
 		<div><button type="submit">{m.submit_application()}</button></div>
-
-		<p class="muted small">{m.join_footer()}</p>
 	</form>
+	<p class="muted small">{m.join_footer()}</p>
 {/if}

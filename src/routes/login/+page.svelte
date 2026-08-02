@@ -54,8 +54,8 @@
 				<img class="btn-icon" src="/assets/mastodon.svg" alt="" />{m.login_masto()}</button
 			>
 		</div>
-		<p class="muted small">
-			{m.login_hint()} <a href={localizeHref('/join')}>{m.apply_cta()}</a>.
-		</p>
 	</form>
+	<p class="muted small">
+		{m.login_hint()} <a href={localizeHref('/join')}>{m.apply_cta()}</a>.
+	</p>
 {/if}
