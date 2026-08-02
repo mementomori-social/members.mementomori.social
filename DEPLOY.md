@@ -1,32 +1,48 @@
 # Deploying members.mementomori.social
 
-This is a static site: plain HTML, self-hosted fonts, no build step. It is served by
-nginx and proxied through Cloudflare. No credentials live in this repository.
+The app runs on Cloudflare Workers with a D1 database. No credentials live in
+this repository.
+
+## One-time setup
+
+1. Create the database and put the real id into `wrangler.jsonc`:
+
+   ```sh
+   pnpm exec wrangler d1 create mementomori-members
+   ```
+
+2. Apply migrations to the remote database:
+
+   ```sh
+   pnpm exec wrangler d1 migrations apply DB --remote
+   ```
+
+3. Set the production secrets:
+
+   ```sh
+   pnpm exec wrangler secret put BETTER_AUTH_SECRET
+   pnpm exec wrangler secret put MASTODON_CLIENT_ID
+   pnpm exec wrangler secret put MASTODON_CLIENT_SECRET
+   pnpm exec wrangler secret put BOOTSTRAP_ROLES
+   ```
+
+   `ORIGIN` is plain config, set it as a var:
+   `wrangler.jsonc` → `"vars": { "ORIGIN": "https://members.mementomori.social" }`.
+
+4. The custom domain is declared in `wrangler.jsonc` (`routes`); Cloudflare
+   attaches it on first deploy. Remove the old DNS record pointing at the
+   static site first.
 
 ## Deploy
 
-Sync the site files to the web server's document root, for example:
-
-    rsync -az --delete \
-      --exclude='.git' --exclude='.github' --exclude='README.md' --exclude='DEPLOY.md' \
-      ./ <user>@<server>:<webroot>/
-
-nginx serves the files directly, so no build or service restart is needed for content
-changes. Update the files, sync, done.
-
-## nginx
-
-A minimal server block is enough:
-
-    server {
-        listen 80;
-        server_name members.mementomori.social;
-        root <webroot>;
-        index index.html;
-        location / { try_files $uri $uri/ =404; }
-    }
+```sh
+pnpm run build
+pnpm exec wrangler deploy
+```
 
 ## Notes
 
-- TLS is terminated at Cloudflare; keep the Cloudflare proxy enabled for the domain.
-- The site is fully static, so any static host or CDN can serve it as-is.
+- The Mastodon OAuth app on mementomori.social already includes both the
+  localhost and production redirect URIs.
+- After a schema change: `pnpm exec drizzle-kit generate`, commit the SQL in
+  `drizzle/`, then `wrangler d1 migrations apply DB --remote`.

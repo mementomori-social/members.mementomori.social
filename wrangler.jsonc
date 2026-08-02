@@ -1,0 +1,24 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "members-mementomori-social",
+	"compatibility_date": "2026-07-30",
+	"compatibility_flags": ["nodejs_als"],
+	"main": ".svelte-kit/cloudflare/_worker.js",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare"
+	},
+	"workers_dev": false,
+	"preview_urls": true,
+	"routes": [{ "pattern": "members.mementomori.social", "custom_domain": true }],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "mementomori-members",
+			// Placeholder id: local dev (miniflare) ignores it. Replace with the
+			// real id from `wrangler d1 create mementomori-members` before deploy.
+			"database_id": "00000000-0000-0000-0000-000000000000",
+			"migrations_dir": "drizzle"
+		}
+	]
+}
