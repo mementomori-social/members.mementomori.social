@@ -544,22 +544,24 @@ h1.rainbow {
 	gap: 18px;
 	margin: 24px 0;
 }
-.person {
-	background: var(--surface);
-	border: 1px solid var(--border);
-	border-radius: 14px;
-	padding: 24px 26px;
-}
 .person h3 {
 	margin: 14px 0 2px;
 }
 .person .portrait {
 	width: 96px;
 	height: 96px;
-	border-radius: 18px;
+	border-radius: 50%;
 	background: var(--surface-2);
 	object-fit: cover;
 	display: block;
+}
+.contact-links svg {
+	vertical-align: -3px;
+	margin-right: 4px;
+	color: var(--muted);
+}
+.contact-links a::after {
+	content: none;
 }
 
 footer.site {
