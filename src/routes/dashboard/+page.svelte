@@ -82,6 +82,16 @@
 			{#if form?.payError}<p class="error">{form.payError}</p>{/if}
 		</form>
 	{/if}
+	{#if data.bank}
+		<div class="notice" style="margin-bottom:14px">
+			<strong>{m.bank_heading()}</strong><br />
+			{m.bank_recipient()}: Mementomori ry<br />
+			{m.bank_iban()}: {data.bank.iban}<br />
+			{m.bank_reference()}: <strong>{data.bank.viite}</strong><br />
+			{m.bank_amount()}: {data.bank.amount.year}&nbsp;€
+			<br /><span class="small">{m.bank_note()}</span>
+		</div>
+	{/if}
 	{#if data.payments.length === 0}
 		<p class="muted small">{m.payments_none()}</p>
 	{:else}

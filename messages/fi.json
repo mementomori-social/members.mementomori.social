@@ -203,5 +203,11 @@
 	"safer_6": "Virheitä sattuu. Kun sinulle kerrotaan, että olet loukannut jotakuta, kuuntele, pyydä anteeksi ja muuta toimintaasi.",
 	"safer_report": "Jos koet tai näet näiden periaatteiden vastaista toimintaa, tee ilmoitus mementomori.socialissa tai kirjoita moderaattoreille. Ilmoitukset käsittelee ihminen, luottamuksellisesti.",
 	"safer_read_more": "Lue lisää turvallisemman tilan periaatteista",
-	"safer_read_more_url": "https://www.vaestoliitto.fi/vaestoliitto/turvallisemman-tilan-periaatteet/"
+	"safer_read_more_url": "https://www.vaestoliitto.fi/vaestoliitto/turvallisemman-tilan-periaatteet/",
+	"bank_heading": "Maksa tilisiirtona",
+	"bank_recipient": "Saaja",
+	"bank_iban": "IBAN",
+	"bank_reference": "Viitenumero",
+	"bank_amount": "Summa",
+	"bank_note": "Käytä viitenumeroa, niin maksu kohdistuu automaattisesti."
 }

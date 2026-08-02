@@ -29,6 +29,13 @@
       "when": 1785676500255,
       "tag": "0003_member_matrix_id",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1785683640222,
+      "tag": "0004_member_viite_reminder",
+      "breakpoints": true
     }
   ]
 }

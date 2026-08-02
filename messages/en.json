@@ -203,5 +203,11 @@
 	"safer_6": "Mistakes happen. When told you have hurt someone, listen, apologise and adjust.",
 	"safer_report": "If you experience or witness something that breaks these principles, report it on mementomori.social or write to the moderators. Reports are handled by people, confidentially.",
 	"safer_read_more": "Read more about the principles for a safer space",
-	"safer_read_more_url": "https://www.vaestoliitto.fi/en/organisation/operations/principles-for-a-safer-space/"
+	"safer_read_more_url": "https://www.vaestoliitto.fi/en/organisation/operations/principles-for-a-safer-space/",
+	"bank_heading": "Pay by bank transfer",
+	"bank_recipient": "Recipient",
+	"bank_iban": "IBAN",
+	"bank_reference": "Reference number",
+	"bank_amount": "Amount",
+	"bank_note": "Use the reference number so the payment matches automatically."
 }

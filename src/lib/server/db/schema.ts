@@ -32,6 +32,10 @@ export const member = sqliteTable('member', {
 	/** Matrix user id (@user:server) for the members' channel invite. Optional. */
 	matrixId: text('matrix_id'),
 	mastodonAvatarUrl: text('mastodon_avatar_url'),
+	/** Finnish bank reference number (viitenumero) for bank-transfer payments. */
+	viite: text('viite').unique(),
+	/** Rate limiter for payment reminder emails. */
+	lastReminderAt: integer('last_reminder_at', { mode: 'timestamp' }),
 	/** Set by the Stripe webhook when a checkout completes. */
 	stripeCustomerId: text('stripe_customer_id'),
 	stripeSubscriptionId: text('stripe_subscription_id'),

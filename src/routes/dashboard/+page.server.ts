@@ -6,6 +6,7 @@ import { account, member, payment } from '$lib/server/db/schema';
 import { collectedThisYearEur, getMemberByUserId } from '$lib/server/members';
 import { FEES } from '$lib/fees';
 import { getStripe, priceIdFor, stripeEnabled } from '$lib/server/stripe';
+import { assignViite, formatViite } from '$lib/server/viite';
 import { env } from '$env/dynamic/private';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
@@ -36,6 +37,9 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	const now = Date.now();
 	const covered = payments.some((p) => p.periodEnd.getTime() > now);
 
+	let viite = m.viite;
+	if (!viite && m.status === 'approved') viite = await assignViite(db, m.id);
+
 	return {
 		m,
 		payments: payments.map((p) => ({
@@ -48,7 +52,11 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		mastodonLinked: Boolean(linked),
 		fee: FEES[m.memberClass],
 		collectedEur: await collectedThisYearEur(db),
-		canPay: stripeEnabled() && !covered && Boolean(priceIdFor(m.memberClass, m.billingInterval))
+		canPay: stripeEnabled() && !covered && Boolean(priceIdFor(m.memberClass, m.billingInterval)),
+		bank:
+			m.status === 'approved' && !covered && env.BANK_IBAN
+				? { iban: env.BANK_IBAN, viite: formatViite(viite ?? ''), amount: FEES[m.memberClass] }
+				: null
 	};
 };
 
