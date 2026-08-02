@@ -14,3 +14,4 @@
 - Cost transparency: public figures, members-only progress
 - English and Finnish with URL-based locales
 - WCAG AAA contrast, CSP and security headers
+- Architecture documentation
