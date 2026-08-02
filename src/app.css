@@ -263,6 +263,9 @@ button.danger:hover {
 form.stack {
 	display: grid;
 	gap: 18px;
+	max-width: 560px;
+}
+form.stack label.field {
 	max-width: 360px;
 }
 label.field {
@@ -492,4 +495,74 @@ img.emoji {
 }
 .or-row .or {
 	color: var(--muted);
+}
+
+h1.rainbow {
+	background: linear-gradient(90deg, #ff5a5f, #ffb347, #f5e663, #4cd699, #58b5ff, #b085ff, #ff5a5f);
+	background-size: 300% 100%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	animation: rainbow-slide 6s linear infinite;
+}
+@keyframes rainbow-slide {
+	to {
+		background-position: 300% 0;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	h1.rainbow {
+		animation: none;
+	}
+}
+
+.people {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 18px;
+	margin: 24px 0;
+}
+.person {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	padding: 24px 26px;
+}
+.person h3 {
+	margin: 14px 0 2px;
+}
+.person .portrait {
+	width: 96px;
+	height: 96px;
+	border-radius: 18px;
+	background: var(--surface-2);
+	object-fit: cover;
+	display: block;
+}
+
+footer.site {
+	margin-top: 72px;
+	border-top: 1px solid var(--border);
+	padding: 26px 0 0;
+	font-size: 15px;
+	color: var(--muted);
+}
+footer.site nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 18px;
+	margin-bottom: 14px;
+}
+footer.site a {
+	color: var(--muted);
+	text-decoration: none;
+}
+footer.site a:hover {
+	color: var(--bright);
+	text-decoration: underline;
+}
+footer.site .meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 18px;
 }
