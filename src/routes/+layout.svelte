@@ -79,14 +79,18 @@
 	</main>
 	<footer class="site">
 		<nav aria-label={m.footer_links()}>
-			<a href={href('/')}>{m.nav_overview()}</a>
-			<a href={href('/join')}>{m.nav_join()}</a>
-			<a href={href('/sponsorship')}>{m.sponsor_heading()}</a>
-			<a href={href('/contact')}>{m.nav_contact()}</a>
-			<a href={href('/safer-space')}>{m.nav_safer_space()}</a>
-			<a href="https://mementomori.social" rel="me">mementomori.social</a>
-			<a href="https://help.mementomori.social">help.mementomori.social</a>
-			<a href="https://github.com/mementomori-social">GitHub</a>
+			<span class="group">
+				<a href={href('/')}>{m.nav_overview()}</a>
+				<a href={href('/join')}>{m.nav_join()}</a>
+				<a href={href('/sponsorship')}>{m.sponsor_heading()}</a>
+				<a href={href('/contact')}>{m.nav_contact()}</a>
+				<a href={href('/safer-space')}>{m.nav_safer_space()}</a>
+			</span>
+			<span class="group external">
+				<a href="https://mementomori.social" rel="me">mementomori.social</a>
+				<a href="https://help.mementomori.social">help.mementomori.social</a>
+				<a href="https://github.com/mementomori-social">GitHub</a>
+			</span>
 		</nav>
 		<div class="meta">
 			<span>
