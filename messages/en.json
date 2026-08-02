@@ -1,7 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"site_title": "Mementomori ry members",
-	"site_description": "Membership of Mementomori ry, the non-profit behind mementomori.social",
+	"site_description": "The registered non-profit that runs and funds mementomori.social.",
 	"skip_to_content": "Skip to content",
 	"language_label": "Language",
 	"nav_overview": "Overview",

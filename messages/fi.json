@@ -1,7 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"site_title": "Mementomori ry:n jäsenet",
-	"site_description": "Mementomori ry:n jäsenyys. Yhdistys ylläpitää mementomori.social-palvelua.",
+	"site_description": "Rekisteröity yhdistys, joka ylläpitää ja rahoittaa mementomori.socialia.",
 	"skip_to_content": "Siirry sisältöön",
 	"language_label": "Kieli",
 	"nav_overview": "Etusivu",
