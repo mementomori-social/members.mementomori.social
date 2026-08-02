@@ -20,7 +20,9 @@
 		<div class="tier">
 			<h3>{m.choice_masto_title()}</h3>
 			<p class="muted small">{m.choice_masto_desc()}</p>
-			<a class="button" href="/join/mastodon">{m.choice_masto_cta()}</a>
+			<a class="button" href="/join/mastodon">
+				<img class="btn-icon" src="/assets/mastodon.svg" alt="" />{m.choice_masto_cta()}</a
+			>
 		</div>
 		<div class="tier">
 			<h3>{m.choice_form_title()}</h3>
