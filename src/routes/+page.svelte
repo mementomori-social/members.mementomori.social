@@ -37,7 +37,7 @@
 <div class="tiers">
 	<div class="tier">
 		<h3>{FEES.member.label}</h3>
-		<p class="muted small">The standard membership for people.</p>
+		<p class="muted small">The standard membership for people who want to support our cause.</p>
 		<div class="price">
 			{FEES.member.year}&nbsp;€<span> / year, or {FEES.member.month}&nbsp;€ / month</span>
 		</div>
@@ -50,17 +50,14 @@
 	</div>
 	<div class="tier">
 		<h3>{FEES.supporting.label}</h3>
-		<p class="muted small">
-			A ten times larger fee, for organisations and for anyone who wants to contribute more.
-		</p>
+		<p class="muted small">The larger membership for organisations and generous individuals.</p>
 		<div class="price">
 			{FEES.supporting.year}&nbsp;€<span> / year, or {FEES.supporting.month}&nbsp;€ / month</span>
 		</div>
 		<ul>
-			<li>Right to attend and speak at the association meeting (no vote)</li>
+			<li>Right to attend and speak at the association meeting</li>
 			<li>Access to the members' channel on Matrix</li>
 			<li>Member badge on mementomori.social</li>
-			<li>Open to individuals and organisations</li>
 			<li>An even nicer feeling you are supporting a good cause 💜</li>
 		</ul>
 	</div>
