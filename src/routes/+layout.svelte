@@ -76,8 +76,14 @@
 		{#if data.user}
 			<a href={href('/dashboard')}>{data.user.name}</a>
 		{:else}
-			<a href={href('/join')} aria-current={current('/join')}>{m.nav_join()}</a>
-			<a href={href('/login')} aria-current={current('/login')}>{m.nav_sign_in()}</a>
+			<a href={href('/join')} aria-current={current('/join')}>
+				<span class="wide">{m.nav_join()}</span><span class="narrow">{m.nav_join_short()}</span>
+			</a>
+			<a href={href('/login')} aria-current={current('/login')}>
+				<span class="wide">{m.nav_sign_in()}</span><span class="narrow"
+					>{m.nav_sign_in_short()}</span
+				>
+			</a>
 		{/if}
 		<label class="lang-select">
 			<span class="visually-hidden">{m.language_label()}</span>
