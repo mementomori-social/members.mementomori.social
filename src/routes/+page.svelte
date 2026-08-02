@@ -5,7 +5,7 @@
 	let { data }: PageProps = $props();
 </script>
 
-<h1>Mementomori ry</h1>
+<h1>Sustainable, open source social media.</h1>
 
 <p>
 	Mementomori ry is a registered non-profit in Finland. It runs and funds the
