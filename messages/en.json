@@ -70,7 +70,7 @@
 	"submit_application": "Submit application",
 	"err_name_municipality_required": "Full name and home municipality are required.",
 	"err_unknown_class": "Unknown membership class.",
-	"billing_heading": "Payment schedule",
+	"billing_heading": "Membership fee",
 	"billing_locked": "Card payment is recurring. Cancel it first if you want to change the schedule.",
 	"error_heading": "Error: {message}",
 	"error_code_note": "Error code: {status}. Please contact ry@mementomori.social if the problem continues.",
