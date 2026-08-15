@@ -392,7 +392,7 @@ input[type='radio'] {
 }
 .profile-actions {
 	display: flex;
-	gap: 14px;
+	gap: 2px 14px;
 	align-items: baseline;
 	margin-top: 4px;
 	flex-wrap: wrap;
@@ -484,6 +484,60 @@ button.linklike:disabled {
 }
 .dash-grid .span2 {
 	grid-column: 1 / -1;
+}
+
+.member-rows {
+	list-style: none;
+	margin: 24px 0;
+	padding: 0;
+	max-width: 680px;
+}
+.member-row {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 14px 0;
+	margin: 0;
+}
+.member-row + .member-row {
+	border-top: 1px solid var(--border);
+}
+.row-avatar {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	object-fit: cover;
+	aspect-ratio: 1;
+	flex-shrink: 0;
+	background: var(--surface-2);
+}
+.member-id {
+	display: grid;
+	gap: 1px;
+	min-width: 0;
+}
+.member-name {
+	color: var(--bright);
+	font-weight: 500;
+}
+.member-id .handle {
+	color: var(--muted);
+	text-decoration: none;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.member-id .handle:hover {
+	color: var(--bright);
+	text-decoration: underline;
+}
+.member-id .handle::after {
+	content: none;
+}
+.member-meta {
+	margin-left: auto;
+	text-align: right;
+	flex-shrink: 0;
 }
 @media (max-width: 760px) {
 	.dash-grid {
@@ -623,6 +677,41 @@ table.list img.avatar {
 }
 .card .notice {
 	max-width: none;
+}
+
+.callout {
+	background: color-mix(in srgb, var(--accent) 8%, transparent);
+	border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+	border-radius: var(--radius);
+	padding: 18px 20px;
+	margin: 18px 0;
+}
+.callout h4 {
+	margin: 0 0 10px;
+	font-size: 16.5px;
+	color: var(--bright);
+}
+.callout .kv {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 4px 18px;
+	margin: 0;
+}
+.callout .kv dt {
+	color: var(--muted);
+	font-size: 15.5px;
+}
+.callout .kv dd {
+	margin: 0;
+	color: var(--bright);
+}
+.callout .kv dd strong {
+	font-size: 17.5px;
+}
+.callout .hint {
+	margin: 10px 0 0;
+	font-size: 15px;
+	color: var(--muted);
 }
 .error {
 	color: var(--danger);

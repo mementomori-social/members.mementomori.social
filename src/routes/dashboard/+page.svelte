@@ -58,13 +58,19 @@
 			</form>
 		{/if}
 		{#if data.bank}
-			<div class="notice" style="margin-bottom:14px">
-				<strong>{m.bank_heading()}</strong><br />
-				{m.bank_recipient()}: Mementomori ry<br />
-				{m.bank_iban()}: {data.bank.iban}<br />
-				{m.bank_reference()}: <strong>{data.bank.viite}</strong><br />
-				{m.bank_amount()}: {data.bank.amount.year}&nbsp;€
-				<br /><span class="small">{m.bank_note()}</span>
+			<div class="callout" style="margin-bottom:14px">
+				<h4>{m.bank_heading()}</h4>
+				<dl class="kv">
+					<dt>{m.bank_recipient()}</dt>
+					<dd>Mementomori ry</dd>
+					<dt>{m.bank_iban()}</dt>
+					<dd>{data.bank.iban}</dd>
+					<dt>{m.bank_reference()}</dt>
+					<dd><strong>{data.bank.viite}</strong></dd>
+					<dt>{m.bank_amount()}</dt>
+					<dd>{data.bank.amount.year}&nbsp;€</dd>
+				</dl>
+				<p class="hint">{m.bank_note()}</p>
 			</div>
 		{/if}
 		{#if data.payments.length === 0}
@@ -144,10 +150,10 @@
 	<div class="card">
 		<h3>{m.card_matrix()}</h3>
 		<p class="muted small">{m.dash_matrix_note()}</p>
-		<a class="button ghost" href="/matrix">{m.matrix_heading()}</a>
+		<a class="button ghost" href="/matrix">{m.matrix_open_cta()}</a>
 	</div>
 
-	<div class="card">
+	<div class="card span2">
 		<h3>{m.covered_heading()}</h3>
 		<div class="progress">
 			<div style="width: {Math.min(100, (data.collectedEur / COSTS.annualEur) * 100)}%"></div>

@@ -92,6 +92,11 @@
 				<span class="muted">{m.signed_in_as()}</span>
 				<a href={href('/dashboard')}>{data.user.name}</a>
 			</span>
+			{#if data.board}
+				<a class="utility-btn" href={href('/admin')} aria-current={current('/admin')}
+					>{m.nav_board()}</a
+				>
+			{/if}
 			<button class="utility-btn leave" onclick={signOut}>{m.sign_out()}</button>
 		{:else}
 			<a href={href('/join')} aria-current={current('/join')}>
@@ -122,9 +127,6 @@
 				<a href={href('/dashboard')} aria-current={current('/dashboard')}>{m.nav_dashboard()}</a>
 				{#if data.member}
 					<a href={href('/members')} aria-current={current('/members')}>{m.nav_members()}</a>
-				{/if}
-				{#if data.board}
-					<a href={href('/admin')} aria-current={current('/admin')}>{m.nav_board()}</a>
 				{/if}
 				<a href={href('/contact')} aria-current={current('/contact')}>{m.nav_contact()}</a>
 			{:else}
