@@ -71,7 +71,7 @@
 	"err_name_municipality_required": "Koko nimi ja kotikunta ovat pakollisia.",
 	"err_unknown_class": "Tuntematon jäsenluokka.",
 	"billing_heading": "Jäsenmaksu",
-	"billing_locked": "Jäsenmaksusi veloitetaan kortilta automaattisesti, joten maksuväliä ei voi vaihtaa täällä. Lähetä viesti osoitteeseen ry@mementomori.social, niin hoidamme sen puolestasi.",
+	"billing_locked": "Jäsenmaksusi veloitetaan kortilta automaattisesti, joten maksuväliä ei voi vaihtaa itse. Lähetä viesti osoitteeseen ry@mementomori.social, niin hoidamme sen puolestasi.",
 	"error_heading": "Virhe: {message}",
 	"error_code_note": "Virhekoodi: {status}. Otathan yhteyttä ry@mementomori.social mikäli ongelmat jatkuu.",
 	"err_too_many": "Liian monta yritystä. Yritä uudelleen muutaman minuutin kuluttua.",
