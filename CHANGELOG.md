@@ -28,6 +28,7 @@
 - Finnish and international Matrix servers suggested
 - External link arrows removed
 - Shorter Matrix and member list wording
+- Member list no longer scrolls sideways on phones
 
 ## 1.1.1 (15.8.2026)
 

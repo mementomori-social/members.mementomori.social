@@ -793,7 +793,9 @@ button.compact {
 		font-size: 13.5px;
 	}
 	.member-meta {
-		width: 100%;
+		/* The 66px indent lines it up under the name, so it has to come out of
+		   the width or the row runs past the screen edge. */
+		width: calc(100% - 66px);
 		margin-left: 66px;
 		text-align: left;
 	}
