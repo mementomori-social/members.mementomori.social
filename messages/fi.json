@@ -274,6 +274,10 @@
 	"bank_barcode": "Virtuaaliviivakoodi",
 	"bank_barcode_note": "Liitä virtuaaliviivakoodi pankkisovellukseesi, niin kaikki tiedot täyttyvät kerralla.",
 	"admin_payments_h": "Maksut",
-	"admin_payments_auto_note": "Korttimaksut kirjautuvat itsestään Stripen kautta. Tilisiirrot kirjautuvat itsestään, kun Holvi-yhteys on käytössä; siihen asti ne kirjataan käsin alta.",
-	"open_actions": "{count} avointa hallituksen tehtävää"
+	"open_actions": "{count} avointa hallituksen tehtävää",
+	"admin_auto_p1": "Korttimaksut kirjautuvat itsestään",
+	"admin_auto_stripe": "Stripen",
+	"admin_auto_p2": "kautta. Tilisiirrot kirjautuvat itsestään, kun",
+	"admin_auto_holvi": "Holvi-yhteys",
+	"admin_auto_p3": "on käytössä; siihen asti ne kirjataan käsin alta."
 }

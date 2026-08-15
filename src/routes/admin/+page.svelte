@@ -64,7 +64,13 @@
 
 <h2>{m.admin_payments_h()}</h2>
 
-<p class="muted small">{m.admin_payments_auto_note()}</p>
+<p class="muted small">
+	{m.admin_auto_p1()}
+	<a href="https://dashboard.stripe.com">{m.admin_auto_stripe()}</a>
+	{m.admin_auto_p2()}
+	<a href="https://holvi.com/login/">{m.admin_auto_holvi()}</a>
+	{m.admin_auto_p3()}
+</p>
 
 <details class="fold">
 	<summary>{m.admin_record_bank()}</summary>

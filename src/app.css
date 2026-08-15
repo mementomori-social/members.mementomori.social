@@ -594,6 +594,10 @@ button.linklike:disabled {
 .apply-rows {
 	max-width: none;
 }
+.rule {
+	font-size: 14px;
+	color: var(--muted);
+}
 .row-actions {
 	margin-left: auto;
 	display: flex;
@@ -641,10 +645,10 @@ button.compact {
 	height: 56px;
 }
 .contact-links {
-	margin-left: auto;
-	display: grid;
-	gap: 4px;
-	justify-items: start;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 18px;
+	margin-top: 2px;
 }
 .contact-link {
 	display: inline-flex;
