@@ -522,9 +522,8 @@ button.linklike:disabled {
 
 .dash-head {
 	display: flex;
-	justify-content: space-between;
 	align-items: flex-start;
-	gap: 24px;
+	gap: 56px;
 	flex-wrap: wrap;
 	margin-bottom: 26px;
 }
@@ -536,9 +535,13 @@ button.linklike:disabled {
 	flex-direction: column;
 	align-items: flex-start;
 	gap: 4px;
-	margin-left: auto;
-	padding-top: 0.9em;
+	padding-top: 1.6em;
 	font-size: 15.5px;
+}
+@media (max-width: 700px) {
+	.dash-head .billing-mini {
+		padding-top: 0.6em;
+	}
 }
 .billing-mini .mini-opt {
 	display: flex;
@@ -548,7 +551,7 @@ button.linklike:disabled {
 	cursor: pointer;
 }
 .billing-mini .linklike {
-	margin-top: 2px;
+	margin-top: 10px;
 }
 .dash-head h1 {
 	margin-bottom: 0.15em;
