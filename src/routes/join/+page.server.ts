@@ -9,6 +9,7 @@ import { getMemberByUserId } from '$lib/server/members';
 import { FEES, type MemberClass } from '$lib/fees';
 import type { PendingMastodon } from '$lib/server/mastodon-oauth';
 import { m } from '$lib/paraglide/messages.js';
+import { boardMessage, notifyBoard } from '$lib/server/notify';
 
 const readPending = (raw: string | undefined): PendingMastodon | null => {
 	if (!raw) return null;
@@ -92,6 +93,17 @@ export const actions: Actions = {
 					billingInterval,
 					listedConsent
 				});
+				const msg = boardMessage(
+					'📝 New membership application',
+					[
+						['Name', fullName],
+						['Municipality', homeMunicipality],
+						['Class', memberClass === 'member' ? 'member' : 'supporting member'],
+						['Billing', billingInterval === 'year' ? 'annual' : 'monthly']
+					],
+					{ label: 'Review and approve', url: 'https://members.mementomori.social/admin' }
+				);
+				await notifyBoard(msg.plain, msg.html);
 			}
 			try {
 				await locals.auth.api.signInMagicLink({
@@ -127,6 +139,7 @@ export const actions: Actions = {
 				})
 			: undefined;
 
+		let isNewApplication = false;
 		if (unclaimed) {
 			await db
 				.update(member)
@@ -138,6 +151,7 @@ export const actions: Actions = {
 					mastodonAvatarUrl: pending?.avatar ?? unclaimed.mastodonAvatarUrl
 				})
 				.where(eq(member.id, unclaimed.id));
+			isNewApplication = unclaimed.status === 'applied';
 		} else {
 			await db.insert(member).values({
 				userId: userId!,
@@ -150,6 +164,22 @@ export const actions: Actions = {
 				mastodonAcct: pending?.acct ?? null,
 				mastodonAvatarUrl: pending?.avatar ?? null
 			});
+			isNewApplication = true;
+		}
+
+		if (isNewApplication) {
+			const fields: Array<[string, string]> = [
+				['Name', fullName],
+				['Municipality', homeMunicipality],
+				['Class', memberClass === 'member' ? 'member' : 'supporting member'],
+				['Billing', billingInterval === 'year' ? 'annual' : 'monthly']
+			];
+			if (pending?.acct) fields.push(['Mastodon', `@${pending.acct}`]);
+			const msg = boardMessage('📝 New membership application', fields, {
+				label: 'Review and approve',
+				url: 'https://members.mementomori.social/admin'
+			});
+			await notifyBoard(msg.plain, msg.html);
 		}
 
 		// A fresh Mastodon-path account has no session yet (sign-ups require a

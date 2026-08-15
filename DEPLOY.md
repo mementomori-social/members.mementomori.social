@@ -32,7 +32,12 @@ The app runs on [Cloudflare Workers](https://developers.cloudflare.com/workers/)
    pnpm exec wrangler secret put STRIPE_PRICE_SUPPORTING_MONTH
    pnpm exec wrangler secret put BANK_IBAN
    pnpm exec wrangler secret put CRON_SECRET
+   pnpm exec wrangler secret put MATRIX_BASE_URL
+   pnpm exec wrangler secret put MATRIX_ACCESS_TOKEN
+   pnpm exec wrangler secret put MATRIX_ROOM_ID
    ```
+
+   The `MATRIX_*` values are the signup-report-monitor bot's credentials on the Matrix host; with them set, new membership applications are announced in the admins room.
 
    Holvi bank import stays off until `HOLVI_API_BASE`, `HOLVI_API_KEY` and `HOLVI_POOL_HANDLE` are set. Until then the board records bank transfers by hand in the admin view.
 

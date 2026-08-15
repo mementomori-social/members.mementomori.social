@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 (unreleased)
+## 0.9.0 (unreleased)
 
 - Membership application with Mastodon OAuth or form + magic link sign-in
 - Finnish reference numbers and bank transfer instructions per member
@@ -26,3 +26,4 @@
 - Mastodon sign-in for linked accounts
 - Compact board view with automation-first payment recording
 - Board notification bell with open-application count
+- New applications announced in the Matrix admins room

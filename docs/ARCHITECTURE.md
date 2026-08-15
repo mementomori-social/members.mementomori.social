@@ -34,6 +34,7 @@ flowchart TB
     end
 
     C["Scheduler<br/>daily cron"]
+    MX["Matrix admins room"]
 
     M -->|"apply, sign in, pay"| W
     B -->|"approve, record, export"| W
@@ -46,6 +47,7 @@ flowchart TB
     M -->|"bank transfer with reference number"| H
     C -->|"POST /internal/cron"| W
     H -.->|"transaction import<br/>(pending API access)"| W
+    W -->|"new application"| MX
 ```
 
 Every arrow into the Worker is authenticated: sessions for members and the board, a signed webhook for Stripe, a bearer token for the cron endpoint, PKCE and state cookies for OAuth.
@@ -93,6 +95,8 @@ All payments land in the `payment` ledger:
 - **Bank transfers.** Each approved member gets a unique Finnish reference number (viitenumero, 7-3-1 check digit). The daily job imports bank transactions when Holvi API access is configured and matches them to members by reference. Until then the board records transfers in the admin view.
 
 ## Automation
+
+New applications are announced in the board's Matrix room using the same bot that relays Mastodon signups and reports, so the board sees them where it already works.
 
 `POST /internal/cron`, protected by a bearer token, runs the daily jobs: bank transaction import, payment reminders to bank payers (subscribers renew on their own), and an overdue summary to the board. Memberships are never terminated automatically, because ending one is a board decision under the association's rules.
 
