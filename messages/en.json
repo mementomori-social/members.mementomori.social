@@ -59,7 +59,7 @@
 	"municipality_note": "Required by the Finnish Associations Act for the member register.",
 	"field_email": "Email",
 	"ph_email": "name@example.com",
-	"email_masto_note": "Mastodon does not share your email address, and the association needs one for official communication.",
+	"email_masto_note": "Your Mastodon account does not give us your email address, so please type it here. The association uses it for things like meeting invitations and payment reminders.",
 	"field_password": "Password",
 	"option_member_rest": "{year} €/year or {month} €/month. Right to vote at the association meeting.",
 	"option_patron_rest": "{year} €/year or {month} €/month. For organisations and for anyone who wants to contribute more. Attendance and speaking rights, no vote.",

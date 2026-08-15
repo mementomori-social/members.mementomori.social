@@ -59,7 +59,7 @@
 	"municipality_note": "Yhdistyslaki edellyttää tätä jäsenluetteloon.",
 	"field_email": "Sähköposti",
 	"ph_email": "nimi@example.com",
-	"email_masto_note": "Mastodon ei kerro sähköpostiosoitettasi, ja yhdistys tarvitsee sen viralliseen viestintään.",
+	"email_masto_note": "Mastodon-tilisi ei kerro meille sähköpostiosoitettasi, joten kirjoita se tähän. Yhdistys käyttää sitä esimerkiksi kokouskutsuihin ja maksumuistutuksiin.",
 	"field_password": "Salasana",
 	"option_member_rest": "{year} €/vuosi tai {month} €/kk. Äänioikeus yhdistyksen kokouksessa.",
 	"option_patron_rest": "{year} €/vuosi tai {month} €/kk. Yhteisöille ja kaikille, jotka haluavat tukea enemmän. Läsnäolo- ja puheoikeus, ei äänioikeutta.",
