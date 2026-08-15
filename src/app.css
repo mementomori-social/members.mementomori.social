@@ -1030,7 +1030,8 @@ table.list img.avatar {
 .notice.ok {
 	background: color-mix(in srgb, var(--ok) 8%, transparent);
 	border-color: color-mix(in srgb, var(--ok) 32%, transparent);
-	color: var(--bright);
+	color: var(--ok);
+	max-width: 415px;
 }
 
 .callout {
