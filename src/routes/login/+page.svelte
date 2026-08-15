@@ -37,6 +37,15 @@
 {:else}
 	<div class="tiers">
 		<div class="tier">
+			<h3>{m.login_masto_heading()}</h3>
+			<p class="muted small">
+				{m.login_hint()} <a href={localizeHref('/join')}>{m.apply_cta()}</a>.
+			</p>
+			<button type="button" onclick={signInMastodon}>
+				<img class="btn-icon" src="/assets/mastodon.svg" alt="" />{m.login_masto()}</button
+			>
+		</div>
+		<div class="tier">
 			<h3>{m.login_email_heading()}</h3>
 			<p class="muted small">{m.login_magic_note()}</p>
 			<form class="stack" onsubmit={sendMagicLink}>
@@ -53,15 +62,6 @@
 					<button type="submit" disabled={busy}>{m.login_submit()}</button>
 				</div>
 			</form>
-		</div>
-		<div class="tier">
-			<h3>{m.login_masto_heading()}</h3>
-			<p class="muted small">
-				{m.login_hint()} <a href={localizeHref('/join')}>{m.apply_cta()}</a>.
-			</p>
-			<button type="button" class="masto-signin" onclick={signInMastodon}>
-				<img class="btn-icon" src="/assets/mastodon.svg" alt="" />{m.login_masto()}</button
-			>
 		</div>
 	</div>
 	{#if error}
