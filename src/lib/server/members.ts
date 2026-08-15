@@ -37,7 +37,7 @@ export const publicMembers = (db: Db) =>
 			mastodonAcct: true,
 			mastodonAvatarUrl: true
 		},
-		orderBy: (m, { asc }) => [asc(m.fullName)]
+		orderBy: (m, { desc }) => [desc(m.appliedAt)]
 	});
 
 export const listedMembers = (db: Db) =>
@@ -52,5 +52,5 @@ export const listedMembers = (db: Db) =>
 			mastodonAcct: true,
 			mastodonAvatarUrl: true
 		},
-		orderBy: (m, { asc }) => [asc(m.fullName)]
+		orderBy: (m, { desc }) => [desc(m.appliedAt)]
 	});

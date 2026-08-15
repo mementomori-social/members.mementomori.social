@@ -17,6 +17,7 @@
 - Test addresses never notify the board
 - Membership status kept on one line
 - Tables scroll instead of wrapping on phones
+- Member lists show newest members first
 
 ## 1.1.1 (15.8.2026)
 
