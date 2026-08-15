@@ -255,7 +255,7 @@
 	"income_grant": "Grant",
 	"income_other": "Other",
 	"login_masto_not_linked": "This mementomori.social account is not linked to a membership yet. Apply for membership first, or sign in with your email.",
-	"admin_record_bank_note": "When a member pays by bank transfer, the payment appears on their bank statement but not here by itself. Record it below so it shows in the member's payment history and the ledger. This step disappears once the Holvi bank connection is active.",
+	"admin_record_bank_note": "When a member pays by bank transfer, the payment appears on their bank statement but not here by itself. Record it below so it shows in the member's payment history and the ledger.",
 	"copy": "Copy",
 	"copied": "Copied",
 	"bank_barcode": "Virtual barcode",

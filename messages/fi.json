@@ -255,7 +255,7 @@
 	"income_grant": "Avustus",
 	"income_other": "Muu",
 	"login_masto_not_linked": "Tätä mementomori.social-tiliä ei ole vielä liitetty jäsenyyteen. Hae ensin jäsenyyttä tai kirjaudu sähköpostilla.",
-	"admin_record_bank_note": "Kun jäsen maksaa tilisiirrolla, maksu näkyy tiliotteella mutta ei itsestään täällä. Kirjaa se alla, niin se näkyy jäsenen maksuhistoriassa ja maksupäiväkirjassa. Tämä vaihe poistuu, kun Holvi-pankkiyhteys on käytössä.",
+	"admin_record_bank_note": "Kun jäsen maksaa tilisiirrolla, maksu näkyy tiliotteella mutta ei itsestään täällä. Kirjaa se alla, niin se näkyy jäsenen maksuhistoriassa ja maksupäiväkirjassa.",
 	"copy": "Kopioi",
 	"copied": "Kopioitu",
 	"bank_barcode": "Virtuaaliviivakoodi",
