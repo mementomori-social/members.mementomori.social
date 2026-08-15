@@ -35,10 +35,10 @@
 	<p class="notice ok" role="status">✓ {m.join_check_email()}</p>
 {:else}
 	{#if data.pendingMasto}
-		<p class="notice">{m.verified_as({ acct: data.pendingMasto.acct })}</p>
+		<p class="notice ok" role="status">✓ {m.verified_as({ acct: data.pendingMasto.acct })}</p>
 	{/if}
 
-	<form method="POST" class="stack" use:enhance>
+	<form method="POST" action="?/apply" class="stack" use:enhance>
 		<label class="field">
 			{m.field_full_name()}
 			<input
@@ -115,6 +115,11 @@
 
 		{#if form?.error}<p class="error">{form.error}</p>{/if}
 
-		<div><button type="submit">{m.submit_application()}</button></div>
+		<div class="btn-row">
+			<button type="submit">{m.submit_application()}</button>
+			<button type="submit" class="danger" formaction="?/cancel" formnovalidate>
+				{m.join_cancel()}
+			</button>
+		</div>
 	</form>
 {/if}

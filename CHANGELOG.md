@@ -4,6 +4,8 @@
 
 - Green success style for confirmation notices
 - Clarify member list visibility in join notes
+- Cancel button on the join form
+- Join CTA says join, not sign in
 
 ## 1.0.0 (15.8.2026)
 

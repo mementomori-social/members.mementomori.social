@@ -334,6 +334,11 @@ button.ghost:hover,
 	border-color: #4a4a52;
 	filter: none;
 }
+.btn-row {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
 button.danger {
 	background: transparent;
 	color: var(--danger);

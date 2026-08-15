@@ -8,6 +8,7 @@ import { account, member, user } from '$lib/server/db/schema';
 import { getMemberByUserId } from '$lib/server/members';
 import { FEES, type MemberClass } from '$lib/fees';
 import type { PendingMastodon } from '$lib/server/mastodon-oauth';
+import { localizeHref } from '$lib/paraglide/runtime';
 import { m } from '$lib/paraglide/messages.js';
 import { boardMessage, notifyBoard } from '$lib/server/notify';
 
@@ -42,7 +43,12 @@ const applyBootstrapRole = async (db: ReturnType<typeof getDb>, email: string) =
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals, platform, cookies }) => {
+	cancel: async ({ cookies }) => {
+		cookies.delete('join_masto', { path: '/join' });
+		redirect(303, localizeHref('/join'));
+	},
+
+	apply: async ({ request, locals, platform, cookies }) => {
 		const db = getDb(platform!.env.DB);
 		const form = await request.formData();
 		const pending = readPending(cookies.get('join_masto'));
