@@ -71,7 +71,7 @@
 	"err_name_municipality_required": "Full name and home municipality are required.",
 	"err_unknown_class": "Unknown membership class.",
 	"billing_heading": "Membership fee",
-	"billing_locked": "Card payment is recurring. Cancel it first if you want to change the schedule.",
+	"billing_locked": "Your fee is charged automatically from your card, so the schedule cannot be changed here. Send a message to ry@mementomori.social and we will take care of it.",
 	"error_heading": "Error: {message}",
 	"error_code_note": "Error code: {status}. Please contact ry@mementomori.social if the problem continues.",
 	"err_too_many": "Too many attempts. Please try again in a few minutes.",

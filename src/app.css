@@ -535,8 +535,16 @@ button.linklike:disabled {
 	flex-direction: column;
 	align-items: flex-start;
 	gap: 4px;
+	/* Capped so a long message wraps inside the column instead of widening it
+	   until the whole block drops onto its own row. */
+	max-width: 340px;
 	padding-top: 1.6em;
 	font-size: 15.5px;
+}
+.billing-mini .error,
+.billing-mini .ok-note {
+	max-width: 100%;
+	margin: 6px 0 0;
 }
 @media (max-width: 700px) {
 	.dash-head .billing-mini {
