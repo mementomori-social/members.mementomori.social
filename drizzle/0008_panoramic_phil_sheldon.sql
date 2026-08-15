@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `payment_reference_unique` ON `payment` (`reference`);

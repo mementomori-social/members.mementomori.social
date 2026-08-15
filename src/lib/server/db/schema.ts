@@ -1,4 +1,4 @@
-import { integer, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { integer, real, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 import { user } from './auth.schema';
 
 /**
@@ -84,26 +84,31 @@ export const approval = sqliteTable('approval', {
  * Payment ledger. Stripe rows are written by the webhook, bank transfers are
  * recorded manually by the board. This is the bookkeeping source of truth.
  */
-export const payment = sqliteTable('payment', {
-	id: text('id')
-		.primaryKey()
-		.$defaultFn(() => crypto.randomUUID()),
-	memberId: text('member_id')
-		.notNull()
-		.references(() => member.id, { onDelete: 'cascade' }),
-	amountEur: real('amount_eur').notNull(),
-	method: text('method', { enum: ['stripe', 'bank'] }).notNull(),
-	/** Stripe invoice/charge id, or bank transfer reference. */
-	reference: text('reference'),
-	paidAt: integer('paid_at', { mode: 'timestamp' }).notNull(),
-	periodStart: integer('period_start', { mode: 'timestamp' }).notNull(),
-	periodEnd: integer('period_end', { mode: 'timestamp' }).notNull(),
-	/** User id of the board member who recorded a manual payment. */
-	recordedBy: text('recorded_by').references(() => user.id),
-	createdAt: integer('created_at', { mode: 'timestamp' })
-		.notNull()
-		.$defaultFn(() => new Date())
-});
+export const payment = sqliteTable(
+	'payment',
+	{
+		id: text('id')
+			.primaryKey()
+			.$defaultFn(() => crypto.randomUUID()),
+		memberId: text('member_id')
+			.notNull()
+			.references(() => member.id, { onDelete: 'cascade' }),
+		amountEur: real('amount_eur').notNull(),
+		method: text('method', { enum: ['stripe', 'bank'] }).notNull(),
+		/** Stripe invoice/charge id, or bank transfer reference. */
+		reference: text('reference'),
+		paidAt: integer('paid_at', { mode: 'timestamp' }).notNull(),
+		periodStart: integer('period_start', { mode: 'timestamp' }).notNull(),
+		periodEnd: integer('period_end', { mode: 'timestamp' }).notNull(),
+		/** User id of the board member who recorded a manual payment. */
+		recordedBy: text('recorded_by').references(() => user.id),
+		createdAt: integer('created_at', { mode: 'timestamp' })
+			.notNull()
+			.$defaultFn(() => new Date())
+	},
+	// Webhook deliveries race; the database is the only reliable dedup point.
+	(t) => [uniqueIndex('payment_reference_unique').on(t.reference)]
+);
 
 /**
  * Non-member income: sponsorships and similar agreed, invoiced income.

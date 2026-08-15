@@ -82,15 +82,18 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 			const line = invoice.lines?.data?.[0];
 			const periodStart = line?.period?.start ? new Date(line.period.start * 1000) : new Date();
 			const periodEnd = line?.period?.end ? new Date(line.period.end * 1000) : new Date();
-			await db.insert(payment).values({
-				memberId,
-				amountEur: (invoice.amount_paid ?? 0) / 100,
-				method: 'stripe',
-				reference: invoice.id,
-				paidAt: new Date(event.created * 1000),
-				periodStart,
-				periodEnd
-			});
+			await db
+				.insert(payment)
+				.values({
+					memberId,
+					amountEur: (invoice.amount_paid ?? 0) / 100,
+					method: 'stripe',
+					reference: invoice.id,
+					paidAt: new Date(event.created * 1000),
+					periodStart,
+					periodEnd
+				})
+				.onConflictDoNothing();
 		}
 	}
 
