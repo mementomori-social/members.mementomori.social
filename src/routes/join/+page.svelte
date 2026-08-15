@@ -4,6 +4,7 @@
 	import { m } from '$lib/paraglide/messages.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { FEES } from '$lib/fees';
+	import { isFullName } from '$lib/name';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -15,6 +16,12 @@
 		Boolean(data.pendingMasto) || chosePlain || data.signedIn || Boolean(form?.error)
 	);
 	const sentTo = $derived(form?.email ?? '');
+
+	// A Mastodon display name is usually a handle, and offering it as the
+	// register name is what put handles in the register to begin with.
+	const prefillName = $derived(
+		data.pendingMasto?.name && isFullName(data.pendingMasto.name) ? data.pendingMasto.name : ''
+	);
 
 	// The billing labels quote the price of the class chosen just above.
 	let memberClass = $state<'member' | 'supporting'>('member');
@@ -55,8 +62,10 @@
 				type="text"
 				name="fullName"
 				required
+				minlength="4"
+				title={m.err_full_name_required()}
 				placeholder={m.ph_full_name()}
-				value={form?.fullName ?? data.pendingMasto?.name ?? ''}
+				value={form?.fullName ?? prefillName}
 			/>
 		</label>
 		<p class="muted small" style="margin:0">{m.join_full_name_note()}</p>

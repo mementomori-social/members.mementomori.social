@@ -69,6 +69,7 @@
 	"pay_month": "Maksan kuukausittain ({month} € kuukaudessa)",
 	"consent_label": "Nimeni saa näkyä jäsenille näkyvällä jäsenlistalla.",
 	"submit_application": "Lähetä hakemus",
+	"err_full_name_required": "Kirjoita koko nimesi, etunimi ja sukunimi. Yhdistyslaki edellyttää täydellistä nimeä jäsenluetteloon, joten lempinimi tai käyttäjätunnus ei riitä. Voit valita erikseen nimen, joka näkyy muille jäsenille.",
 	"err_name_municipality_required": "Koko nimi ja kotikunta ovat pakollisia.",
 	"err_unknown_class": "Tuntematon jäsenluokka.",
 	"billing_heading": "Jäsenmaksu",

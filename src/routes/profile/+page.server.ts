@@ -4,6 +4,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { account, member } from '$lib/server/db/schema';
 import { getMemberByUserId } from '$lib/server/members';
+import { isFullName } from '$lib/name';
 import { m } from '$lib/paraglide/messages.js';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
@@ -42,6 +43,7 @@ export const actions: Actions = {
 		const homeMunicipality = String(form.get('homeMunicipality') ?? '').trim();
 		if (!fullName || !homeMunicipality)
 			return fail(400, { profileError: m.err_name_municipality_required() });
+		if (!isFullName(fullName)) return fail(400, { profileError: m.err_full_name_required() });
 
 		await db
 			.update(member)

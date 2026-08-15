@@ -5,6 +5,8 @@
 - Cost coverage now moves with every payment
 - Coverage date counts days, not whole months
 - Remaining cost labelled for the rest of the year
+- Full name required, handles and emoji rejected
+- Mastodon display name no longer prefills the register name
 
 ## 1.1.1 (15.8.2026)
 
