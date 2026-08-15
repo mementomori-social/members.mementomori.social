@@ -11,7 +11,7 @@
 
 <p>{m.matrix_intro()}</p>
 
-<div class="card card-text-width">
+<div class="card card-fit">
 	<h3>{m.matrix_room()}</h3>
 	<CopyField display="#members:chat.mementomori.social" />
 </div>
