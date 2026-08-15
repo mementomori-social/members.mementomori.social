@@ -89,7 +89,7 @@
 	"status_approved": "hyväksytty",
 	"card_masto": "mementomori.social-tili",
 	"masto_linked": "Liitetty",
-	"masto_refresh": "Päivitä nimi ja profiilikuva",
+	"masto_refresh": "Päivitä tiedot Mastodonista",
 	"masto_signin_note": "Voit jatkossa kirjautua myös Mastodonilla.",
 	"masto_link_cta": "Liitä mementomori.social-tili",
 	"masto_link_note": "Vapaaehtoinen. Vahvistaa käyttäjätunnuksesi ja näyttää profiilikuvasi jäsenlistalla.",
@@ -244,5 +244,5 @@
 	"privacy_security": "Salasanoja ei ole: kirjaudut kertakäyttöisellä linkillä tai Mastodon-tililläsi. Tiedot siirtyvät salattuina, ja jäsenluettelo näkyy vain hallitukselle. Jäsenlista näkyy vain kirjautuneille, hyväksytyille jäsenille, jotka ovat antaneet siihen suostumuksensa.",
 	"privacy_changes_h": "Muutokset",
 	"privacy_changes": "Jos tämä seloste muuttuu, päivitetty versio julkaistaan tällä sivulla.",
-	"masto_view_profile": "Avaa profiili"
+	"masto_view_profile": "Katso profiilisi"
 }

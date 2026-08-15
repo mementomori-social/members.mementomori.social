@@ -89,7 +89,7 @@
 	"status_approved": "approved",
 	"card_masto": "mementomori.social account",
 	"masto_linked": "Linked",
-	"masto_refresh": "Refresh name and avatar",
+	"masto_refresh": "Refresh details from Mastodon",
 	"masto_signin_note": "You can also sign in with Mastodon from now on.",
 	"masto_link_cta": "Link mementomori.social account",
 	"masto_link_note": "Optional. Verifies your handle and shows your avatar on the member list.",
@@ -244,5 +244,5 @@
 	"privacy_security": "There are no passwords: you sign in with a one-time link or with your Mastodon account. Data is transmitted over encrypted connections, and the register is visible only to the board. The member list is visible only to signed-in, approved members who have opted into it.",
 	"privacy_changes_h": "Changes",
 	"privacy_changes": "If this notice changes, the updated version is published on this page.",
-	"masto_view_profile": "View profile"
+	"masto_view_profile": "View your profile"
 }

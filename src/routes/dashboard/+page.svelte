@@ -62,15 +62,17 @@
 				{#if data.mastoProfile?.bio}
 					<p class="small profile-bio">{data.mastoProfile.bio}</p>
 				{/if}
-				{#if data.mastoProfile?.url}
-					<a class="small" href={data.mastoProfile.url}>{m.masto_view_profile()}</a>
-				{/if}
+				<span class="profile-actions small">
+					{#if data.mastoProfile?.url}
+						<a href={data.mastoProfile.url}>{m.masto_view_profile()}</a>
+					{/if}
+					<form method="POST" action="?/syncMastodon" use:enhance>
+						<button class="linklike" type="submit">{m.masto_refresh()}</button>
+					</form>
+				</span>
+				{#if form?.syncError}<p class="error">{form.syncError}</p>{/if}
 			</div>
 		</div>
-		<form method="POST" action="?/syncMastodon" use:enhance>
-			<button class="ghost" type="submit">{m.masto_refresh()}</button>
-			{#if form?.syncError}<p class="error">{form.syncError}</p>{/if}
-		</form>
 		<p class="muted small">{m.masto_signin_note()}</p>
 	{:else}
 		<button class="ghost" onclick={linkMastodon}>{m.masto_link_cta()}</button>
