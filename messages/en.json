@@ -57,6 +57,7 @@
 	"ph_full_name": "Firstname Lastname",
 	"field_municipality": "Home municipality",
 	"ph_municipality": "e.g. Jyväskylä",
+	"join_full_name_note": "Your full name for the statutory member register (Associations Act 11 §). Visible to the board only. You can choose a separate display name on your own page.",
 	"municipality_note": "Required by the Finnish Associations Act for the member register.",
 	"field_email": "Email",
 	"ph_email": "name@example.com",

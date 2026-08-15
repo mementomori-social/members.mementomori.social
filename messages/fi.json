@@ -57,6 +57,7 @@
 	"ph_full_name": "Etunimi Sukunimi",
 	"field_municipality": "Kotikunta",
 	"ph_municipality": "esim. Jyväskylä",
+	"join_full_name_note": "Täydellinen nimi lakisääteiseen jäsenluetteloon (yhdistyslaki 11 §). Näkyy vain hallitukselle. Voit valita omalla sivullasi erikseen nimen, joka näkyy muille jäsenille.",
 	"municipality_note": "Yhdistyslaki edellyttää tätä jäsenluetteloon.",
 	"field_email": "Sähköposti",
 	"ph_email": "nimi@example.com",
