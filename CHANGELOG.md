@@ -14,6 +14,7 @@
 - Joining never blocked by the name check
 - Member area asks for a complete name before use
 - Board sees which members need a name check
+- Test addresses never notify the board
 
 ## 1.1.1 (15.8.2026)
 

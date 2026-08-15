@@ -11,7 +11,7 @@ import type { PendingMastodon } from '$lib/server/mastodon-oauth';
 import { localizeHref } from '$lib/paraglide/runtime';
 import { tooManyRequests } from '$lib/server/rate-limit';
 import { m } from '$lib/paraglide/messages.js';
-import { boardMessage, notifyBoard } from '$lib/server/notify';
+import { boardMessage, isTestAddress, notifyBoard } from '$lib/server/notify';
 
 const readPending = (raw: string | undefined): PendingMastodon | null => {
 	if (!raw) return null;
@@ -147,7 +147,7 @@ export const actions: Actions = {
 					],
 					{ label: 'Review and approve', url: 'https://members.mementomori.social/admin' }
 				);
-				await notifyBoard(msg.plain, msg.html);
+				if (!isTestAddress(email)) await notifyBoard(msg.plain, msg.html);
 			}
 			try {
 				await locals.auth.api.signInMagicLink({
@@ -266,7 +266,7 @@ export const actions: Actions = {
 				label: 'Review and approve',
 				url: 'https://members.mementomori.social/admin'
 			});
-			await notifyBoard(msg.plain, msg.html);
+			if (!isTestAddress(email)) await notifyBoard(msg.plain, msg.html);
 		}
 
 		// A fresh Mastodon-path account has no session yet (sign-ups require a

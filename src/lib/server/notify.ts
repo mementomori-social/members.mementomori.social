@@ -9,6 +9,10 @@ import { env } from '$env/dynamic/private';
 export const notifyEnabled = () =>
 	Boolean(env.MATRIX_BASE_URL && env.MATRIX_ACCESS_TOKEN && env.MATRIX_ROOM_ID);
 
+/** RFC 2606 reserves .invalid, so no real applicant can hold such an address. */
+export const isTestAddress = (email: string | null | undefined) =>
+	Boolean(email && /\.invalid$/i.test(email.trim()));
+
 const esc = (v: string) =>
 	v.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
