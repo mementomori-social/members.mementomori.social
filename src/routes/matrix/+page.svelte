@@ -25,16 +25,21 @@
 </ol>
 
 <form method="POST" action="?/saveMatrix" class="stack" use:enhance>
-	<label class="field">
-		{m.matrix_id_label()}
+	<label class="field" for="matrix-id">{m.matrix_id_label()}</label>
+	<div class="input-group">
 		<input
+			id="matrix-id"
 			type="text"
 			name="matrixId"
 			placeholder="@you:matrix.org"
 			value={form?.matrixError ? '' : data.matrixId}
 		/>
-	</label>
+		<button type="submit">{m.save()}</button>
+	</div>
 	{#if form?.matrixError}<p class="error">{form.matrixError}</p>{/if}
-	{#if form?.matrixSaved}<p class="notice">{m.matrix_id_saved()}</p>{/if}
-	<div><button type="submit" class="ghost">{m.save()}</button></div>
+	{#if form?.matrixSaved}
+		<p class="ok-note small" role="status">
+			✓ {form.cleared ? m.matrix_id_cleared() : m.matrix_id_saved()}
+		</p>
+	{/if}
 </form>

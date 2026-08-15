@@ -32,6 +32,6 @@ export const actions: Actions = {
 			.update(member)
 			.set({ matrixId: matrixId || null })
 			.where(eq(member.id, me.id));
-		return { matrixSaved: true };
+		return { matrixSaved: true, cleared: !matrixId };
 	}
 };
