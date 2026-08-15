@@ -49,7 +49,7 @@
 	"choice_masto_desc": "Nimesi esitäytetään mementomori.social-tililtäsi ja profiilikuvasi näkyy jäsenlistalla. Jatkossa kirjaudut Mastodonilla.",
 	"choice_masto_cta": "Kirjaudu Mastodonilla",
 	"choice_form_title": "Haluan liittyä lomakkeella",
-	"choice_form_desc": "Täytä lomake ja kirjaudu sähköpostiisi lähetettävällä linkillä. Voit liittää Mastodon-tilin myöhemmin omalla sivullasi.",
+	"choice_form_desc": "Täytä lomake ja kirjaudu sähköpostiisi lähetettävällä linkillä. Salasanaa ei tarvita missään vaiheessa. Voit liittää Mastodon-tilin myöhemmin omalla sivullasi.",
 	"choice_form_cta": "Jatka lomakkeella",
 	"verified_as": "Vahvistettu: @{acct} mementomori.socialissa. Täytä hakemus loppuun, salasanaa ei tarvita.",
 	"field_full_name": "Koko nimi",
@@ -267,5 +267,6 @@
 	"income_sponsorship": "Sponsorointi",
 	"income_grant": "Avustus",
 	"income_other": "Muu",
-	"login_masto_not_linked": "Tätä Mastodon-tiliä ei ole vielä liitetty jäsenyyteen. Hae ensin jäsenyyttä tai kirjaudu sähköpostilla."
+	"login_masto_not_linked": "Tätä Mastodon-tiliä ei ole vielä liitetty jäsenyyteen. Hae ensin jäsenyyttä tai kirjaudu sähköpostilla.",
+	"admin_record_bank_note": "Kun jäsen maksaa tilisiirrolla, maksu näkyy tiliotteella mutta ei itsestään täällä. Kirjaa se alla, niin se näkyy jäsenen maksuhistoriassa ja maksupäiväkirjassa. Tämä vaihe poistuu, kun Holvi-pankkiyhteys on käytössä."
 }

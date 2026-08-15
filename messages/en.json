@@ -49,7 +49,7 @@
 	"choice_masto_desc": "Your name is prefilled from your mementomori.social account and your avatar shows on the member list. From then on you sign in with Mastodon.",
 	"choice_masto_cta": "Sign in with Mastodon",
 	"choice_form_title": "I want to join with the form",
-	"choice_form_desc": "Fill in the form and sign in with a link sent to your email. You can link a Mastodon account later on the dashboard.",
+	"choice_form_desc": "Fill in the form and sign in with a link sent to your email. No password is needed at any point. You can link a Mastodon account later on your member page.",
 	"choice_form_cta": "Continue with the form",
 	"verified_as": "Verified as @{acct} on mementomori.social. Finish the application below, no password needed.",
 	"field_full_name": "Full name",
@@ -267,5 +267,6 @@
 	"income_sponsorship": "Sponsorship",
 	"income_grant": "Grant",
 	"income_other": "Other",
-	"login_masto_not_linked": "This Mastodon account is not linked to a membership yet. Apply for membership first, or sign in with your email."
+	"login_masto_not_linked": "This Mastodon account is not linked to a membership yet. Apply for membership first, or sign in with your email.",
+	"admin_record_bank_note": "When a member pays by bank transfer, the payment appears on their bank statement but not here by itself. Record it below so it shows in the member's payment history and the ledger. This step disappears once the Holvi bank connection is active."
 }

@@ -62,6 +62,8 @@
 
 <h2>{m.admin_record_bank()}</h2>
 
+<p class="muted small">{m.admin_record_bank_note()}</p>
+
 <div class="card">
 	<form method="POST" action="?/recordPayment" class="stack" use:enhance>
 		<label class="field">
@@ -209,7 +211,7 @@
 		<tr
 			><th>{m.th_name()}</th><th>{m.th_municipality()}</th><th>{m.th_class()}</th><th
 				>{m.th_status()}</th
-			><th>{m.th_matrix()}</th><th>{m.th_decided()}</th></tr
+			>{#if data.roster.some((r) => r.matrixId)}<th>{m.th_matrix()}</th>{/if}<th>{m.th_decided()}</th></tr
 		>
 	</thead>
 	<tbody>
@@ -223,7 +225,7 @@
 				<td>
 					<span class="badge {r.status === 'approved' ? 'ok' : ''}">{statusLabel(r.status)}</span>
 				</td>
-				<td class="muted small">{r.matrixId ?? ''}</td>
+				{#if data.roster.some((x) => x.matrixId)}<td class="muted small">{r.matrixId ?? ''}</td>{/if}
 				<td class="muted small">{r.decidedAt ? fmt(r.decidedAt) : ''}</td>
 			</tr>
 		{/each}
