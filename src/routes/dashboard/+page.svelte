@@ -55,8 +55,8 @@
 	<div class="card span2">
 		<h3>{m.card_payments()}</h3>
 		{#if data.m.status === 'approved'}
-			<p class="status-pill fee-status">
-				<span class="dot" class:ok={data.covered} class:bad={!data.covered}></span>
+			<p class="fee-state" class:ok={data.covered} class:bad={!data.covered}>
+				<span class="dot"></span>
 				{#if data.covered && data.paidUntil}
 					{m.fee_status_paid({ date: new Date(data.paidUntil).toLocaleDateString('fi-FI') })}
 				{:else}
@@ -65,9 +65,9 @@
 			</p>
 		{/if}
 		{#if data.canPay}
-			<form method="POST" action="?/pay" style="margin-bottom:14px">
+			<form method="POST" action="?/pay" class="fee-actions">
 				<button type="submit">{m.pay_now()}</button>
-				<p class="muted small" style="margin:8px 0 0">{m.pay_redirect_note()}</p>
+				<span class="muted small">{m.pay_redirect_note()}</span>
 				{#if form?.payError}<p class="error">{form.payError}</p>{/if}
 			</form>
 		{/if}
@@ -102,6 +102,7 @@
 				{data.m.status === 'approved' ? m.payments_none_approved() : m.payments_none()}
 			</p>
 		{:else}
+			<h4 class="subhead">{m.payment_history()}</h4>
 			<table class="list">
 				<thead>
 					<tr

@@ -292,5 +292,6 @@
 	"matrix_how_3_1": "No Matrix account yet? Create one with any Matrix client, such as",
 	"matrix_intro_word": "Matrix",
 	"fee_status_paid": "Paid, valid until {date}",
-	"fee_status_due": "Unpaid: {amount} € due"
+	"fee_status_due": "Unpaid: {amount} € due",
+	"payment_history": "Payment history"
 }

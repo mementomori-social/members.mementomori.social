@@ -292,5 +292,6 @@
 	"matrix_how_3_1": "Ei vielä Matrix-tiliä? Luo sellainen millä tahansa Matrix-sovelluksella, esimerkiksi",
 	"matrix_intro_word": "Matrixissa",
 	"fee_status_paid": "Maksettu, voimassa {date} asti",
-	"fee_status_due": "Maksamatta: {amount} €"
+	"fee_status_due": "Maksamatta: {amount} €",
+	"payment_history": "Maksuhistoria"
 }
