@@ -14,6 +14,11 @@
 - Language stays selected after signing out
 - Live card payments via Stripe
 - Rate limiting on sign-in and sign-up, stored in the database
+- Member register rows claimable only with a verified address
+- Rate limit on the join form
+- Matrix ID saving checks membership status
+- One Mastodon account links to one member only
+- Database dumps ignored by git, preview URLs off
 
 ## 1.0.0 (15.8.2026)
 

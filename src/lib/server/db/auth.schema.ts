@@ -1,5 +1,5 @@
 import { relations, sql } from 'drizzle-orm';
-import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, index, uniqueIndex } from 'drizzle-orm/sqlite-core';
 
 export const user = sqliteTable('user', {
 	id: text('id').primaryKey(),
@@ -65,7 +65,12 @@ export const account = sqliteTable(
 			.$onUpdate(() => /* @__PURE__ */ new Date())
 			.notNull()
 	},
-	(table) => [index('account_userId_idx').on(table.userId)]
+	(table) => [
+		index('account_userId_idx').on(table.userId),
+		// One external account belongs to one member, or it becomes a spare key
+		// to somebody else's login.
+		uniqueIndex('account_provider_account_unique').on(table.providerId, table.accountId)
+	]
 );
 
 export const verification = sqliteTable(

@@ -32,3 +32,28 @@ export const rateLimitStorage = (db: Db) => ({
 		}
 	}
 });
+
+/**
+ * Limiter for form actions that send email. Better Auth only rate-limits its
+ * own HTTP routes, and the join flow calls `auth.api.signInMagicLink` directly,
+ * which never passes through that check.
+ */
+export async function tooManyRequests(
+	db: Db,
+	key: string,
+	{ window, max }: { window: number; max: number }
+): Promise<boolean> {
+	const now = Date.now();
+	const row = await db.query.rateLimit.findFirst({ where: eq(rateLimit.key, key) });
+	const fresh = !row || now - row.lastRequest > window * 1000;
+	const count = fresh ? 1 : row.count + 1;
+	if (!fresh && row.count >= max) return true;
+	await db
+		.insert(rateLimit)
+		.values({ key, count, lastRequest: fresh ? now : row.lastRequest })
+		.onConflictDoUpdate({
+			target: rateLimit.key,
+			set: { count, lastRequest: fresh ? now : row.lastRequest }
+		});
+	return false;
+}

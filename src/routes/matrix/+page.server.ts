@@ -22,6 +22,14 @@ export const actions: Actions = {
 		const db = getDb(platform!.env.DB);
 		const me = await getMemberByUserId(db, locals.user.id);
 		if (!me) redirect(303, '/join');
+		// Same gate as the load: a rejected member must not land in the board's
+		// invite column by posting straight to the action.
+		if (
+			!isBoard((locals.user as { role?: string }).role) &&
+			me.status !== 'approved' &&
+			me.status !== 'applied'
+		)
+			error(403, 'Members only.');
 
 		const matrixId = String((await request.formData()).get('matrixId') ?? '').trim();
 		// @localpart:server.tld, permissive on localpart, requires a dotted server

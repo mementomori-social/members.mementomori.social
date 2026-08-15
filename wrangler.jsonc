@@ -8,8 +8,9 @@
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
 	},
-	"workers_dev": true,
-	"preview_urls": true,
+	// Versioned preview URLs would serve the real member register from an
+	// unlisted workers.dev host. The custom domain is the only entrance.
+	"preview_urls": false,
 	"vars": { "ORIGIN": "https://members.mementomori.social" },
 	"routes": [{ "pattern": "members.mementomori.social", "custom_domain": true }],
 	"workers_dev": false,
@@ -17,8 +18,9 @@
 		{
 			"binding": "DB",
 			"database_name": "mementomori-members",
-			// Placeholder id: local dev (miniflare) ignores it. Replace with the
-			// real id from `wrangler d1 create mementomori-members` before deploy.
+			// The live production database. Reaching it still requires an
+			// account-scoped Cloudflare token, so the id alone grants nothing.
+			// Changing it orphans the local dev data, which is keyed by this id.
 			"database_id": "11f4772b-1c68-49a9-b381-5ea93dbe1906",
 			"migrations_dir": "drizzle"
 		}

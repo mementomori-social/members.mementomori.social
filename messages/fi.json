@@ -69,6 +69,7 @@
 	"submit_application": "Lähetä hakemus",
 	"err_name_municipality_required": "Koko nimi ja kotikunta ovat pakollisia.",
 	"err_unknown_class": "Tuntematon jäsenluokka.",
+	"err_too_many": "Liian monta yritystä. Yritä uudelleen muutaman minuutin kuluttua.",
 	"err_email_required": "Sähköposti on pakollinen.",
 	"err_password_required": "Salasana on pakollinen.",
 	"err_account_create": "Tilin luonti ei onnistunut.",

@@ -9,6 +9,7 @@ import { getMemberByUserId } from '$lib/server/members';
 import { FEES, type MemberClass } from '$lib/fees';
 import type { PendingMastodon } from '$lib/server/mastodon-oauth';
 import { localizeHref } from '$lib/paraglide/runtime';
+import { tooManyRequests } from '$lib/server/rate-limit';
 import { m } from '$lib/paraglide/messages.js';
 import { boardMessage, notifyBoard } from '$lib/server/notify';
 
@@ -48,7 +49,7 @@ export const actions: Actions = {
 		redirect(303, localizeHref('/join'));
 	},
 
-	apply: async ({ request, locals, platform, cookies }) => {
+	apply: async ({ request, locals, platform, cookies, getClientAddress }) => {
 		const db = getDb(platform!.env.DB);
 		const form = await request.formData();
 		const pending = readPending(cookies.get('join_masto'));
@@ -65,6 +66,16 @@ export const actions: Actions = {
 		if (!fullName || !homeMunicipality)
 			return fail(400, { ...values, error: m.err_name_municipality_required() });
 		if (!(memberClass in FEES)) return fail(400, { ...values, error: m.err_unknown_class() });
+
+		// This action sends mail, so it is a flooding tool until it is capped.
+		if (!locals.user) {
+			const ip = getClientAddress();
+			if (
+				(await tooManyRequests(db, `join|ip|${ip}`, { window: 3600, max: 5 })) ||
+				(email && (await tooManyRequests(db, `join|email|${email.toLowerCase()}`, { window: 3600, max: 3 })))
+			)
+				return fail(429, { ...values, error: m.err_too_many() });
+		}
 
 		let userId = locals.user?.id;
 		const createdViaMastodon = !userId && Boolean(pending);
@@ -139,13 +150,18 @@ export const actions: Actions = {
 		}
 
 		// A register row may already exist without a login: founding members and
-		// anyone entered by the board. Claim it by email instead of duplicating.
+		// anyone entered by the board. Claiming one takes the identity behind it,
+		// so it is only ever done for an address the session has already proven.
+		// A typed address proves nothing; that path claims later, on the
+		// dashboard, once the magic link has verified it.
 		const claimEmail = email || locals.user?.email || '';
-		const unclaimed = claimEmail
-			? await db.query.member.findFirst({
-					where: and(eq(member.email, claimEmail), isNull(member.userId))
-				})
-			: undefined;
+		const verifiedEmail = locals.user?.emailVerified ? (locals.user.email ?? '') : '';
+		const unclaimed =
+			verifiedEmail && verifiedEmail.toLowerCase() === claimEmail.toLowerCase()
+				? await db.query.member.findFirst({
+						where: and(eq(member.email, verifiedEmail), isNull(member.userId))
+					})
+				: undefined;
 
 		let isNewApplication = false;
 		if (unclaimed) {

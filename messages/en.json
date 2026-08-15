@@ -69,6 +69,7 @@
 	"submit_application": "Submit application",
 	"err_name_municipality_required": "Full name and home municipality are required.",
 	"err_unknown_class": "Unknown membership class.",
+	"err_too_many": "Too many attempts. Please try again in a few minutes.",
 	"err_email_required": "Email is required.",
 	"err_password_required": "Password is required.",
 	"err_account_create": "Could not create the account.",
