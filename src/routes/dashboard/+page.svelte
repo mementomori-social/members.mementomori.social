@@ -9,6 +9,8 @@
 
 	let { data, form }: PageProps = $props();
 
+	let syncing = $state(false);
+
 	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
 
 	async function linkMastodon() {
@@ -66,9 +68,24 @@
 					{#if data.mastoProfile?.url}
 						<a href={data.mastoProfile.url}>{m.masto_view_profile()}</a>
 					{/if}
-					<form method="POST" action="?/syncMastodon" use:enhance>
-						<button class="linklike" type="submit">{m.masto_refresh()}</button>
+					<form
+						method="POST"
+						action="?/syncMastodon"
+						use:enhance={() => {
+							syncing = true;
+							return async ({ update }) => {
+								await update();
+								syncing = false;
+							};
+						}}
+					>
+						<button class="linklike" type="submit" disabled={syncing}>
+							{syncing ? m.masto_refreshing() : m.masto_refresh()}
+						</button>
 					</form>
+					{#if form?.synced && !syncing}
+						<span class="ok-note" role="status">✓ {m.masto_synced()}</span>
+					{/if}
 				</span>
 				{#if form?.syncError}<p class="error">{form.syncError}</p>{/if}
 			</div>

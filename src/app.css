@@ -416,6 +416,13 @@ button.linklike:hover {
 	color: var(--bright);
 	text-decoration-color: currentColor;
 }
+button.linklike:disabled {
+	color: var(--muted);
+	cursor: default;
+}
+.ok-note {
+	color: var(--ok);
+}
 
 .tiers {
 	display: grid;

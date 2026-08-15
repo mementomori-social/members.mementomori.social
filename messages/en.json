@@ -244,5 +244,7 @@
 	"privacy_security": "There are no passwords: you sign in with a one-time link or with your Mastodon account. Data is transmitted over encrypted connections, and the register is visible only to the board. The member list is visible only to signed-in, approved members who have opted into it.",
 	"privacy_changes_h": "Changes",
 	"privacy_changes": "If this notice changes, the updated version is published on this page.",
-	"masto_view_profile": "View your profile"
+	"masto_view_profile": "View your profile",
+	"masto_refreshing": "Refreshing...",
+	"masto_synced": "Updated"
 }
