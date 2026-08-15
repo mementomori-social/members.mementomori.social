@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages.js';
 	import { authClient } from '$lib/auth-client';
+	import CopyField from '$lib/components/CopyField.svelte';
 	import { COSTS } from '$lib/fees';
 	import type { PageProps } from './$types';
 
@@ -60,16 +61,26 @@
 		{#if data.bank}
 			<div class="callout" style="margin-bottom:14px">
 				<h4>{m.bank_heading()}</h4>
-				<dl class="kv">
-					<dt>{m.bank_recipient()}</dt>
-					<dd>Mementomori ry</dd>
-					<dt>{m.bank_iban()}</dt>
-					<dd>{data.bank.iban}</dd>
-					<dt>{m.bank_reference()}</dt>
-					<dd><strong>{data.bank.viite}</strong></dd>
-					<dt>{m.bank_amount()}</dt>
-					<dd>{data.bank.amount.year}&nbsp;€</dd>
-				</dl>
+				<CopyField label={m.bank_recipient()} display="Mementomori ry" />
+				<CopyField
+					label={m.bank_iban()}
+					display={data.bank.iban}
+					copyValue={data.bank.ibanCompact}
+				/>
+				<CopyField
+					label={m.bank_reference()}
+					display={data.bank.viite}
+					copyValue={data.bank.viiteRaw}
+				/>
+				<CopyField
+					label={m.bank_amount()}
+					display="{data.bank.amountEur} €"
+					copyValue={data.bank.amountEur.toFixed(2).replace('.', ',')}
+				/>
+				{#if data.bank.barcode}
+					<CopyField label={m.bank_barcode()} display={data.bank.barcode} />
+					<p class="hint">{m.bank_barcode_note()}</p>
+				{/if}
 				<p class="hint">{m.bank_note()}</p>
 			</div>
 		{/if}

@@ -8,6 +8,7 @@ import { FEES } from '$lib/fees';
 import { getStripe, priceIdFor, stripeEnabled } from '$lib/server/stripe';
 import { assignViite, formatViite } from '$lib/server/viite';
 import { lookupAccount } from '$lib/server/mastodon';
+import { virtualBarcode } from '$lib/server/barcode';
 import { env } from '$env/dynamic/private';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
@@ -57,7 +58,23 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		canPay: stripeEnabled() && !covered && Boolean(priceIdFor(m.memberClass, m.billingInterval)),
 		bank:
 			m.status === 'approved' && !covered && env.BANK_IBAN
-				? { iban: env.BANK_IBAN, viite: formatViite(viite ?? ''), amount: FEES[m.memberClass] }
+				? {
+						iban: env.BANK_IBAN,
+						ibanCompact: env.BANK_IBAN.replace(/\s/g, ''),
+						viite: formatViite(viite ?? ''),
+						viiteRaw: viite ?? '',
+						amountEur:
+							m.billingInterval === 'month' ? FEES[m.memberClass].month : FEES[m.memberClass].year,
+						barcode: viite
+							? virtualBarcode(
+									env.BANK_IBAN,
+									m.billingInterval === 'month'
+										? FEES[m.memberClass].month
+										: FEES[m.memberClass].year,
+									viite
+								)
+							: null
+					}
 				: null
 	};
 };

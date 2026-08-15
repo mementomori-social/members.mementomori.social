@@ -11,6 +11,12 @@
 	src: url('/assets/fonts/zalando-sans-expanded-700.woff2') format('woff2');
 }
 @font-face {
+	font-family: 'Fira Code';
+	font-weight: 500;
+	font-display: swap;
+	src: url('/assets/fonts/fira-code-500.woff2') format('woff2');
+}
+@font-face {
 	font-family: 'Zalando Sans';
 	font-weight: 400;
 	font-display: swap;
@@ -41,6 +47,7 @@
 	--ok: #4cd699;
 	--font-body: 'Zalando Sans', system-ui, sans-serif;
 	--font-heading: 'Zalando Sans Expanded', sans-serif;
+	--font-code: 'Fira Code', ui-monospace, monospace;
 	--radius: 10px;
 }
 
@@ -716,6 +723,9 @@ table.list td {
 	border-bottom: 1px solid var(--border);
 	vertical-align: middle;
 }
+table.list tbody tr:last-child td {
+	border-bottom: none;
+}
 table.list img.avatar {
 	width: 40px;
 	height: 40px;
@@ -759,6 +769,66 @@ table.list img.avatar {
 	padding: 18px 20px;
 	margin: 18px 0;
 }
+.copy-field {
+	display: grid;
+	gap: 4px;
+	margin: 0 0 10px;
+}
+.copy-label {
+	color: var(--muted);
+	font-size: 15px;
+}
+.copy-box {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	text-align: left;
+	font-family: var(--font-code);
+	font-weight: 500;
+	font-size: 15.5px;
+	color: #b9baff;
+	background: var(--surface);
+	border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+	border-radius: 8px;
+	padding: 9px 12px;
+	cursor: copy;
+}
+.copy-box:hover {
+	background: var(--surface-2);
+	color: #b9baff;
+	border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.copy-value {
+	overflow-wrap: anywhere;
+}
+.copy-state {
+	display: grid;
+	flex-shrink: 0;
+	font-family: var(--font-body);
+	font-size: 14px;
+	color: var(--muted);
+}
+.copy-state > * {
+	grid-area: 1 / 1;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	justify-content: flex-end;
+	transition: opacity 0.15s;
+}
+.copy-box .state-done {
+	opacity: 0;
+	color: var(--ok);
+}
+.copy-box.copied .state-done {
+	opacity: 1;
+}
+.copy-box.copied .state-idle {
+	opacity: 0;
+}
+
 .callout h4 {
 	margin: 0 0 10px;
 	font-size: 16.5px;
