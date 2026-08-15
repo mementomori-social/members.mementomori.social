@@ -15,6 +15,8 @@
 - Member area asks for a complete name before use
 - Board sees which members need a name check
 - Test addresses never notify the board
+- Membership status kept on one line
+- Tables scroll instead of wrapping on phones
 
 ## 1.1.1 (15.8.2026)
 

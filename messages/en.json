@@ -255,7 +255,7 @@
 	"card_matrix": "Members' chat",
 	"signed_in_as": "Signed in as",
 	"dash_status_active": "Your membership is active",
-	"dash_status_active_until": "Your membership is valid until {date}",
+	"dash_status_active_until": "Valid until {date}",
 	"dash_status_applied": "Your application is being processed",
 	"dash_status_rejected": "Your application was not approved",
 	"dash_status_ended": "Your membership has ended",
