@@ -19,37 +19,66 @@
 	async function linkMastodon() {
 		await authClient.oauth2.link({ providerId: 'mastodon', callbackURL: '/dashboard' });
 	}
+
+	// The billing message floats over the page, so it needs the dismissal
+	// behaviour of a popover rather than that of inline form text.
+	let billingForm = $state<HTMLElement>();
+	let hideBillingError = $state(false);
+	let lastBillingError: string | undefined;
+	$effect(() => {
+		if (form?.billingError !== lastBillingError) {
+			lastBillingError = form?.billingError;
+			hideBillingError = false;
+		}
+	});
+	const showBillingError = $derived(Boolean(form?.billingError) && !hideBillingError);
+
+	function dismissBillingError(e: MouseEvent) {
+		if (showBillingError && billingForm && !billingForm.contains(e.target as Node))
+			hideBillingError = true;
+	}
+	function dismissOnEscape(e: KeyboardEvent) {
+		if (e.key === 'Escape') hideBillingError = true;
+	}
 </script>
+
+<svelte:window onclick={dismissBillingError} onkeydown={dismissOnEscape} />
 
 <header class="dash-head">
 	<div class="dash-id">
-	<h1>{m.dash_greeting({ name: (data.m.displayName ?? data.m.fullName).split(' ')[0] })}</h1>
-	<p class="dash-summary">
-		{data.m.displayName ?? data.m.fullName} · {data.m.homeMunicipality} ·
-		{data.m.memberClass === 'member' ? m.class_member() : m.class_patron()} ·
-		{data.m.billingInterval === 'month'
-			? m.fee_month_line({ month: data.fee.month, year: data.fee.year })
-			: m.fee_year_line({ year: data.fee.year })}
-	</p>
-	<p class="status-pill">
-		<span
-			class="dot"
-			class:ok={data.m.status === 'approved'}
-			class:pending={data.m.status === 'applied'}
-			class:bad={data.m.status === 'rejected' || data.m.status === 'ended'}
-		></span>
-		{data.m.status === 'approved'
-			? data.covered && data.paidUntil
-				? m.dash_status_active_until({ date: fmt(data.paidUntil) })
-				: m.dash_status_active()
-			: data.m.status === 'applied'
-				? m.dash_status_applied()
-				: data.m.status === 'rejected'
-					? m.dash_status_rejected()
-					: m.dash_status_ended()}
-	</p>
+		<h1>{m.dash_greeting({ name: (data.m.displayName ?? data.m.fullName).split(' ')[0] })}</h1>
+		<p class="dash-summary">
+			{data.m.displayName ?? data.m.fullName} · {data.m.homeMunicipality} ·
+			{data.m.memberClass === 'member' ? m.class_member() : m.class_patron()} ·
+			{data.m.billingInterval === 'month'
+				? m.fee_month_line({ month: data.fee.month, year: data.fee.year })
+				: m.fee_year_line({ year: data.fee.year })}
+		</p>
+		<p class="status-pill">
+			<span
+				class="dot"
+				class:ok={data.m.status === 'approved'}
+				class:pending={data.m.status === 'applied'}
+				class:bad={data.m.status === 'rejected' || data.m.status === 'ended'}
+			></span>
+			{data.m.status === 'approved'
+				? data.covered && data.paidUntil
+					? m.dash_status_active_until({ date: fmt(data.paidUntil) })
+					: m.dash_status_active()
+				: data.m.status === 'applied'
+					? m.dash_status_applied()
+					: data.m.status === 'rejected'
+						? m.dash_status_rejected()
+						: m.dash_status_ended()}
+		</p>
 	</div>
-	<form method="POST" action="?/saveBilling" class="billing-mini" use:enhance>
+	<form
+		method="POST"
+		action="?/saveBilling"
+		class="billing-mini"
+		bind:this={billingForm}
+		use:enhance
+	>
 		<span class="muted small">{m.billing_heading()}</span>
 		<label class="mini-opt">
 			<input
@@ -71,7 +100,7 @@
 		</label>
 		<button type="submit" class="linklike">{m.save()}</button>
 		{#if form?.billingSaved}<span class="ok-note small" role="status">✓ {m.saved()}</span>{/if}
-		{#if form?.billingError}<span class="error small">{form.billingError}</span>{/if}
+		{#if showBillingError}<p class="error">{form?.billingError}</p>{/if}
 	</form>
 </header>
 
