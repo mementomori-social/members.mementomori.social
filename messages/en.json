@@ -308,5 +308,15 @@
 	"privacy_proc_github": "source code hosting (Microsoft, USA); the code contains no personal data",
 	"privacy_recipients_2": "These providers process data on our behalf and only for these purposes, in accordance with the EU GDPR and Finnish law.",
 	"privacy_recipients_3": "Data is not sold, and it is not disclosed to anyone else except where the law requires it.",
-	"privacy_ombudsman_url": "https://tietosuoja.fi/en/home"
+	"privacy_ombudsman_url": "https://tietosuoja.fi/en/home",
+	"profile_heading": "Your details",
+	"profile_intro": "The details the association holds about you. Changes take effect immediately.",
+	"profile_details": "Name and municipality",
+	"field_display_name": "Display name",
+	"ph_display_name": "The name shown to others",
+	"display_name_note": "Shown in greetings and on member lists. Leave empty to use your full name.",
+	"full_name_note": "The full name for the statutory member register, visible to the board only.",
+	"email_change_note": "Email changes are handled by the board so the register stays verified. Send a message to",
+	"masto_unlink": "Unlink account",
+	"masto_unlinked": "Account unlinked. You can still sign in with your email."
 }

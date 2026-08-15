@@ -22,6 +22,7 @@
 - Mastodon profile card with refresh feedback on the dashboard
 - Copyable payment details and Finnish virtual bank barcode
 - Paid or unpaid fee status on the member page
+- Profile page for editing own details and managing the Mastodon link
 - Unique ledger references end webhook double booking
 - Servers-covered-until date with live margin indicator and year timeline
 - Sponsorship income tracking in the costs-covered figure

@@ -308,5 +308,15 @@
 	"privacy_proc_github": "lähdekoodin säilytys (Microsoft, Yhdysvallat); koodi ei sisällä henkilötietoja",
 	"privacy_recipients_2": "Nämä palveluntarjoajat käsittelevät tietoja yhdistyksen lukuun ja vain näihin tarkoituksiin EU:n tietosuoja-asetuksen ja Suomen lain mukaisesti.",
 	"privacy_recipients_3": "Tietoja ei myydä eikä luovuteta muille kuin lain niin vaatiessa.",
-	"privacy_ombudsman_url": "https://tietosuoja.fi"
+	"privacy_ombudsman_url": "https://tietosuoja.fi",
+	"profile_heading": "Omat tiedot",
+	"profile_intro": "Yhdistyksen sinusta pitämät tiedot. Muutokset tulevat voimaan heti.",
+	"profile_details": "Nimi ja kotikunta",
+	"field_display_name": "Kutsumanimi",
+	"ph_display_name": "Muille näytettävä nimi",
+	"display_name_note": "Näkyy tervehdyksissä ja jäsenlistoilla. Jätä tyhjäksi, niin käytetään koko nimeä.",
+	"full_name_note": "Lakisääteisen jäsenluettelon täydellinen nimi, näkyy vain hallitukselle.",
+	"email_change_note": "Sähköpostimuutokset hoitaa hallitus, jotta rekisteri pysyy varmennettuna. Lähetä viesti osoitteeseen",
+	"masto_unlink": "Poista tilin liitos",
+	"masto_unlinked": "Liitos poistettu. Voit yhä kirjautua sähköpostillasi."
 }
