@@ -645,10 +645,10 @@ button.compact {
 	height: 56px;
 }
 .contact-links {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 4px 18px;
-	margin-top: 2px;
+	margin-left: auto;
+	display: grid;
+	gap: 4px;
+	justify-items: start;
 }
 .contact-link {
 	display: inline-flex;
