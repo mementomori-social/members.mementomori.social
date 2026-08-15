@@ -266,5 +266,6 @@
 	"admin_record_income": "Record income",
 	"income_sponsorship": "Sponsorship",
 	"income_grant": "Grant",
-	"income_other": "Other"
+	"income_other": "Other",
+	"login_masto_not_linked": "This Mastodon account is not linked to a membership yet. Apply for membership first, or sign in with your email."
 }

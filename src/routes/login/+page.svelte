@@ -1,10 +1,11 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { authClient } from '$lib/auth-client';
 
 	let email = $state('');
-	let error = $state('');
+	let error = $state(page.url.searchParams.get('oauth') === 'failed' ? 'oauth_failed' : '');
 	let sent = $state(false);
 	let busy = $state(false);
 
@@ -22,7 +23,8 @@
 		error = '';
 		const res = await authClient.signIn.oauth2({
 			providerId: 'mastodon',
-			callbackURL: '/dashboard'
+			callbackURL: '/dashboard',
+			errorCallbackURL: '/login?oauth=failed'
 		});
 		if (res.error) error = res.error.message ?? m.login_masto_failed();
 	}
@@ -62,5 +64,7 @@
 			>
 		</div>
 	</div>
-	{#if error}<p class="error">{error}</p>{/if}
+	{#if error}
+		<p class="error">{error === 'oauth_failed' ? m.login_masto_not_linked() : error}</p>
+	{/if}
 {/if}

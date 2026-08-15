@@ -266,5 +266,6 @@
 	"admin_record_income": "Kirjaa tulo",
 	"income_sponsorship": "Sponsorointi",
 	"income_grant": "Avustus",
-	"income_other": "Muu"
+	"income_other": "Muu",
+	"login_masto_not_linked": "Tätä Mastodon-tiliä ei ole vielä liitetty jäsenyyteen. Hae ensin jäsenyyttä tai kirjaudu sähköpostilla."
 }

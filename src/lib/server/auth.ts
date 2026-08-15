@@ -46,8 +46,13 @@ const authConfig = {
 					// Mastodon never returns an email address, so a Mastodon account can
 					// only be LINKED to an existing account (and used for sign-in after
 					// that), never used to create one. The join form collects the email.
-					mapProfileToUser: (profile: { acct?: string; display_name?: string }) => ({
-						name: profile.display_name || profile.acct || 'Mastodon user'
+					// The synthetic address satisfies the plugin's email requirement for
+					// the sign-in lookup; with implicit sign-up disabled it is never
+					// stored as a real user email (.invalid cannot receive mail).
+					disableImplicitSignUp: true,
+					mapProfileToUser: (profile: { id?: string; acct?: string; display_name?: string }) => ({
+						name: profile.display_name || profile.acct || 'Mastodon user',
+						email: `masto-${profile.id ?? 'unknown'}@login.invalid`
 					})
 				}
 			]
