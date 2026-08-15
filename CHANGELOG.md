@@ -15,6 +15,7 @@
 - English and Finnish with URL-based locales
 - WCAG AAA contrast, CSP and security headers
 - Architecture documentation with infrastructure diagram
+- Database access and backup documentation with a curl-only export script
 - Privacy notice (GDPR) in both languages
 - Responsive layout down to 320 px
 - Separate signed-in navigation with top-bar sign out

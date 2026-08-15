@@ -102,7 +102,7 @@ New applications are announced in the board's Matrix room using the same bot tha
 
 ## Tables
 
-Better Auth owns `user`, `session`, `account` and `verification`. The domain tables are `member` (the statutory member register), `approval` and `payment`. Migrations live in `drizzle/` and are applied with `wrangler d1 migrations apply`.
+Better Auth owns `user`, `session`, `account` and `verification`. The domain tables are `member` (the statutory member register), `approval` and `payment`. Migrations live in `drizzle/` and are applied with `wrangler d1 migrations apply`. Access and backups: [DATABASE.md](DATABASE.md).
 
 ## Security
 

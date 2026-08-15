@@ -61,7 +61,7 @@ pnpm exec wrangler deploy
   curl -X POST -H "Authorization: Bearer $CRON_SECRET" https://members.mementomori.social/internal/cron
   ```
 
-- Turn on scheduled D1 exports before the first real member joins.
+- Set up the backup layers before the first real member joins: see [docs/DATABASE.md](docs/DATABASE.md) for Time Travel and the nightly export cron.
 
 ## Notes
 
