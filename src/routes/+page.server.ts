@@ -8,6 +8,6 @@ export const load: PageServerLoad = async ({ platform, locals }) => {
 		memberCount: await approvedMemberCount(db),
 		// The coverage figure is only sent to signed-in members: members are not
 		// "the public" under rahankeräyslaki, the general audience is.
-		collectedEur: locals.user ? await collectedThisYearEur(db) : null
+		collected: locals.user ? await collectedThisYearEur(db) : null
 	};
 };

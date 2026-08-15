@@ -2,7 +2,7 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
-import { approval, member, payment } from '$lib/server/db/schema';
+import { approval, income, member, payment } from '$lib/server/db/schema';
 import { isBoard } from '$lib/server/members';
 import { m } from '$lib/paraglide/messages.js';
 
@@ -36,7 +36,8 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 					.map((a) => ({ approverUserId: a.approverUserId, approverRole: a.approverRole }))
 			})),
 		roster: members.filter((r) => r.status !== 'applied'),
-		ledger: payments.map((p) => ({ ...p, memberName: nameById.get(p.memberId) ?? '?' }))
+		ledger: payments.map((p) => ({ ...p, memberName: nameById.get(p.memberId) ?? '?' })),
+		incomeRows: await db.query.income.findMany({ orderBy: (i, { desc }) => [desc(i.paidAt)] })
 	};
 };
 
@@ -121,6 +122,41 @@ export const actions: Actions = {
 			paidAt,
 			periodStart,
 			periodEnd,
+			recordedBy: userId
+		});
+		return { adminOk: true };
+	},
+
+	recordIncome: async ({ request, locals, platform }) => {
+		const { userId } = requireBoard(locals);
+		const db = getDb(platform!.env.DB);
+		const form = await request.formData();
+
+		const source = String(form.get('source') ?? '');
+		const payer = String(form.get('payer') ?? '').trim();
+		const amountEur = Number(form.get('amountEur'));
+		const rawDate = String(form.get('paidAt') ?? '').trim();
+		const fiMatch = rawDate.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+		const paidAt = fiMatch
+			? new Date(Date.UTC(Number(fiMatch[3]), Number(fiMatch[2]) - 1, Number(fiMatch[1])))
+			: new Date(rawDate);
+		const note = String(form.get('note') ?? '').trim() || null;
+
+		if (
+			!['sponsorship', 'grant', 'other'].includes(source) ||
+			!payer ||
+			!Number.isFinite(amountEur) ||
+			amountEur <= 0 ||
+			isNaN(paidAt.getTime())
+		)
+			return fail(400, { incomeError: m.err_payment_fields() });
+
+		await db.insert(income).values({
+			source: source as 'sponsorship' | 'grant' | 'other',
+			payer,
+			amountEur,
+			paidAt,
+			note,
 			recordedBy: userId
 		});
 		return { adminOk: true };

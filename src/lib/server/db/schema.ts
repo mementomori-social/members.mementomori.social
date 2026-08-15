@@ -97,4 +97,25 @@ export const payment = sqliteTable('payment', {
 		.$defaultFn(() => new Date())
 });
 
+/**
+ * Non-member income: sponsorships and similar agreed, invoiced income.
+ * Donations from the public are not accepted (rahankeräyslaki), so there is
+ * no donation source. Counted into the costs-covered figure with member fees.
+ */
+export const income = sqliteTable('income', {
+	id: text('id')
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID()),
+	source: text('source', { enum: ['sponsorship', 'grant', 'other'] }).notNull(),
+	/** Payer shown in bookkeeping, e.g. the sponsor's name. */
+	payer: text('payer').notNull(),
+	amountEur: real('amount_eur').notNull(),
+	paidAt: integer('paid_at', { mode: 'timestamp' }).notNull(),
+	note: text('note'),
+	recordedBy: text('recorded_by').references(() => user.id),
+	createdAt: integer('created_at', { mode: 'timestamp' })
+		.notNull()
+		.$defaultFn(() => new Date())
+});
+
 export * from './auth.schema';

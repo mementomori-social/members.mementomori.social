@@ -254,5 +254,17 @@
 	"dash_status_rejected": "Hakemustasi ei hyväksytty.",
 	"dash_status_ended": "Jäsenyytesi on päättynyt.",
 	"payments_none_approved": "Maksuja ei ole vielä kirjattu. Maksa yllä olevalla napilla tai tilisiirrolla viitenumerollasi.",
-	"matrix_open_cta": "Näin liityt keskusteluun"
+	"matrix_open_cta": "Näin liityt keskusteluun",
+	"covered_line_split": "Jäsenmaksuja {fees} € ja sponsorituloja {income} € kerätty tänä vuonna, vuosikulut {annual} €.",
+	"sponsor_credit": "Erotuksen kattaa sponsorimme Digitoimisto Dude.",
+	"admin_income": "Muut tulot",
+	"admin_income_note": "Sponsoroinnit ja muut sovitut, laskutetut tulot. Ei jäsenmaksuja, eikä koskaan yleisölahjoituksia.",
+	"admin_income_source": "Tyyppi",
+	"admin_income_payer": "Maksaja",
+	"admin_income_note_field": "Huomautus",
+	"ph_income_note": "Elokuun sponsorilasku",
+	"admin_record_income": "Kirjaa tulo",
+	"income_sponsorship": "Sponsorointi",
+	"income_grant": "Avustus",
+	"income_other": "Muu"
 }

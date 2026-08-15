@@ -78,14 +78,24 @@
 	</div>
 </div>
 
-{#if data.collectedEur !== null}
+{#if data.collected !== null}
 	<div class="card">
 		<h3>{m.covered_heading()}</h3>
 		<div class="progress">
-			<div style="width: {Math.min(100, (data.collectedEur / COSTS.annualEur) * 100)}%"></div>
+			<div
+				style="width: {Math.min(
+					100,
+					((data.collected.fees + data.collected.income) / COSTS.annualEur) * 100
+				)}%"
+			></div>
 		</div>
 		<p class="muted small">
-			{m.covered_line({ collected: data.collectedEur.toFixed(2), annual: COSTS.annualEur })}
+			{m.covered_line_split({
+				fees: data.collected.fees.toFixed(2),
+				income: data.collected.income.toFixed(2),
+				annual: COSTS.annualEur
+			})}
+			{m.sponsor_credit()}
 		</p>
 	</div>
 {/if}

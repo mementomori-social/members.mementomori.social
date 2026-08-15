@@ -123,6 +123,76 @@
 	</table>
 {/if}
 
+<h2>{m.admin_income()}</h2>
+
+<p class="muted small">{m.admin_income_note()}</p>
+
+<div class="card">
+	<form method="POST" action="?/recordIncome" class="stack" use:enhance>
+		<label class="field">
+			{m.admin_income_source()}
+			<select name="source" required>
+				<option value="sponsorship">{m.income_sponsorship()}</option>
+				<option value="grant">{m.income_grant()}</option>
+				<option value="other">{m.income_other()}</option>
+			</select>
+		</label>
+		<label class="field">
+			{m.admin_income_payer()}
+			<input type="text" name="payer" required placeholder="Digitoimisto Dude Oy" />
+		</label>
+		<label class="field">
+			{m.admin_amount()}
+			<input type="number" name="amountEur" step="0.01" min="0" required placeholder="200.00" />
+		</label>
+		<label class="field">
+			{m.admin_paid_on()}
+			<input
+				type="text"
+				name="paidAt"
+				required
+				placeholder="15.8.2026"
+				pattern={finnishDatePattern}
+				inputmode="numeric"
+			/>
+		</label>
+		<label class="field">
+			{m.admin_income_note_field()}
+			<input type="text" name="note" placeholder={m.ph_income_note()} />
+		</label>
+		<div><button type="submit" class="ghost">{m.admin_record_income()}</button></div>
+		{#if form?.incomeError}<p class="error">{form.incomeError}</p>{/if}
+	</form>
+</div>
+
+{#if data.incomeRows.length > 0}
+	<table class="list">
+		<thead>
+			<tr
+				><th>{m.th_date()}</th><th>{m.admin_income_payer()}</th><th>{m.th_amount()}</th><th
+					>{m.admin_income_source()}</th
+				></tr
+			>
+		</thead>
+		<tbody>
+			{#each data.incomeRows as r (r.id)}
+				<tr>
+					<td>{fmt(r.paidAt)}</td>
+					<td>{r.payer}</td>
+					<td>{r.amountEur.toFixed(2)}&nbsp;€</td>
+					<td class="muted"
+						>{r.source === 'sponsorship'
+							? m.income_sponsorship()
+							: r.source === 'grant'
+								? m.income_grant()
+								: m.income_other()}</td
+					>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+{/if}
+
 <h2>{m.admin_register()}</h2>
 
 <p class="small">

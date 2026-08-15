@@ -254,5 +254,17 @@
 	"dash_status_rejected": "Your application was not approved.",
 	"dash_status_ended": "Your membership has ended.",
 	"payments_none_approved": "No payments recorded yet. Pay with the button above, or by bank transfer with your reference number.",
-	"matrix_open_cta": "How to join the chat"
+	"matrix_open_cta": "How to join the chat",
+	"covered_line_split": "{fees} € in membership fees and {income} € in sponsorships collected this year, of {annual} € in yearly costs.",
+	"sponsor_credit": "The shortfall is covered by our sponsor Digitoimisto Dude.",
+	"admin_income": "Other income",
+	"admin_income_note": "Sponsorships and other agreed, invoiced income. Not membership fees, and never public donations.",
+	"admin_income_source": "Type",
+	"admin_income_payer": "Payer",
+	"admin_income_note_field": "Note",
+	"ph_income_note": "August sponsorship invoice",
+	"admin_record_income": "Record income",
+	"income_sponsorship": "Sponsorship",
+	"income_grant": "Grant",
+	"income_other": "Other"
 }

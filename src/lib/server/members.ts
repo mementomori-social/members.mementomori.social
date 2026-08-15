@@ -1,6 +1,6 @@
 import { and, eq, gte, sum } from 'drizzle-orm';
 import type { getDb } from '$lib/server/db';
-import { member, payment } from '$lib/server/db/schema';
+import { income, member, payment } from '$lib/server/db/schema';
 
 export const BOARD_ROLES = ['board', 'vice', 'chair'] as const;
 export const isBoard = (role?: string) => BOARD_ROLES.includes(role as never);
@@ -11,13 +11,17 @@ export const getMemberByUserId = (db: Db, userId: string) =>
 	db.query.member.findFirst({ where: eq(member.userId, userId) });
 
 /** Sum of membership payments received during the current calendar year. */
-export async function collectedThisYearEur(db: Db): Promise<number> {
+export async function collectedThisYearEur(db: Db): Promise<{ fees: number; income: number }> {
 	const yearStart = new Date(new Date().getFullYear(), 0, 1);
-	const rows = await db
+	const fees = await db
 		.select({ total: sum(payment.amountEur) })
 		.from(payment)
 		.where(gte(payment.paidAt, yearStart));
-	return Number(rows[0]?.total ?? 0);
+	const other = await db
+		.select({ total: sum(income.amountEur) })
+		.from(income)
+		.where(gte(income.paidAt, yearStart));
+	return { fees: Number(fees[0]?.total ?? 0), income: Number(other[0]?.total ?? 0) };
 }
 
 export const approvedMemberCount = async (db: Db) =>

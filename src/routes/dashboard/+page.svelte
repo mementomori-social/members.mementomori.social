@@ -156,11 +156,21 @@
 	<div class="card span2">
 		<h3>{m.covered_heading()}</h3>
 		<div class="progress">
-			<div style="width: {Math.min(100, (data.collectedEur / COSTS.annualEur) * 100)}%"></div>
+			<div
+				style="width: {Math.min(
+					100,
+					((data.collectedEur.fees + data.collectedEur.income) / COSTS.annualEur) * 100
+				)}%"
+			></div>
 		</div>
 		<p class="muted small">
-			{m.covered_line({ collected: data.collectedEur.toFixed(2), annual: COSTS.annualEur })}
+			{m.covered_line_split({
+				fees: data.collectedEur.fees.toFixed(2),
+				income: data.collectedEur.income.toFixed(2),
+				annual: COSTS.annualEur
+			})}
 			{m.costs_monthly_note({ monthly: COSTS.monthlyEur })}
+			{m.sponsor_credit()}
 		</p>
 	</div>
 </div>
