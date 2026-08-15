@@ -11,6 +11,8 @@
 - Green notice tweaks
 - One board member approves members
 - Status texts without trailing periods
+- Language stays selected after signing out
+- Live card payments via Stripe
 
 ## 1.0.0 (15.8.2026)
 
