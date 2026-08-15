@@ -194,7 +194,11 @@
 	<div class="card span2">
 		<h3>{m.covered_heading()}</h3>
 		<p class="covered-total">
-			<strong>{cov.total.toFixed(2).replace('.', ',')}&nbsp;€</strong>
+			<strong
+				>{Math.max(0, COSTS.annualEur - cov.total)
+					.toFixed(2)
+					.replace('.', ',')}&nbsp;€</strong
+			>
 			<span class="muted small">{m.covered_big_label()}</span>
 		</p>
 		<div class="progress stacked">
@@ -203,7 +207,10 @@
 			<div class="seg-upcoming" style="width: {(cov.upcoming / COSTS.annualEur) * 100}%"></div>
 		</div>
 		<p class="legend small">
-			<span><span class="dot accent"></span> {m.covered_seg_earlier()}</span>
+			<span
+				><span class="dot accent"></span>
+				{m.covered_seg_earlier()}: {cov.earlier.toFixed(2).replace('.', ',')}&nbsp;€</span
+			>
 			<span
 				><span class="dot ok"></span>
 				{m.covered_seg_month()}: {cov.currentMonth.toFixed(2).replace('.', ',')}&nbsp;€</span

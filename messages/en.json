@@ -36,7 +36,7 @@
 	"stat_member_singular": "member",
 	"stat_member_plural": "members",
 	"stat_costs_label": "running costs per month",
-	"covered_heading": "Costs covered",
+	"covered_heading": "Association costs",
 	"elsewhere_heading": "Elsewhere",
 	"note_platform": "social media platform",
 	"note_docs": "documentation",
@@ -282,9 +282,9 @@
 	"visibility_heading": "Consent",
 	"visibility_note": "Changes take effect immediately.",
 	"saved": "Saved",
-	"covered_big_label": "covered this year",
-	"covered_left": "{left} € left to cover",
+	"covered_big_label": "left to pay this term",
 	"covered_seg_earlier": "Covered earlier",
 	"covered_seg_month": "This month's payments",
-	"covered_seg_upcoming": "Upcoming bill"
+	"covered_seg_upcoming": "Upcoming bill",
+	"covered_left": "{left} € left to cover"
 }

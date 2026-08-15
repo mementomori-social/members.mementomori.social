@@ -36,7 +36,7 @@
 	"stat_member_singular": "jäsen",
 	"stat_member_plural": "jäsentä",
 	"stat_costs_label": "kulut kuukaudessa",
-	"covered_heading": "Kuluista katettu",
+	"covered_heading": "Yhdistyksen kulut",
 	"elsewhere_heading": "Muualla",
 	"note_platform": "yhteisöpalvelu",
 	"note_docs": "ohjeet",
@@ -282,9 +282,9 @@
 	"visibility_heading": "Suostumukset",
 	"visibility_note": "Muutokset tulevat voimaan heti.",
 	"saved": "Tallennettu",
-	"covered_big_label": "katettu tänä vuonna",
-	"covered_left": "{left} € kattamatta",
+	"covered_big_label": "maksettavaa tällä toimikaudella",
 	"covered_seg_earlier": "Aiemmin katettu",
 	"covered_seg_month": "Tämän kuun maksut",
-	"covered_seg_upcoming": "Tuleva lasku"
+	"covered_seg_upcoming": "Tuleva lasku",
+	"covered_left": "{left} € kattamatta"
 }
