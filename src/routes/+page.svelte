@@ -121,6 +121,24 @@
 			>
 		</p>
 	</div>
+
+	<div class="card">
+		<h3>{m.servers_covered_heading()}</h3>
+		<p class="covered-total">
+			<strong>{cov.coveredUntil.toLocaleDateString('fi-FI')}</strong>
+			<span
+				class="fee-state inline"
+				class:ok={cov.marginDays > 14}
+				class:warn={cov.marginDays > 0 && cov.marginDays <= 14}
+				class:bad={cov.marginDays <= 0}
+			>
+				<span class="dot"></span>
+				{cov.marginDays > 0
+					? m.servers_covered_days({ days: cov.marginDays })
+					: m.servers_covered_past()}
+			</span>
+		</p>
+	</div>
 {/if}
 
 <h2>{m.elsewhere_heading()}</h2>

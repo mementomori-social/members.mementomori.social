@@ -293,5 +293,8 @@
 	"matrix_intro_word": "Matrix",
 	"fee_status_paid": "Paid, valid until {date}",
 	"fee_status_due": "Unpaid: {amount} € due",
-	"payment_history": "Payment history"
+	"payment_history": "Payment history",
+	"servers_covered_heading": "Servers covered until",
+	"servers_covered_days": "{days} days from now",
+	"servers_covered_past": "Coverage has run out"
 }

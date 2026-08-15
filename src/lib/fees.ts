@@ -35,5 +35,12 @@ export function coverage(fees: number, income: number, now = new Date()) {
 	const total = members + support;
 	/** The next monthly bill, still ahead of us this year. */
 	const upcoming = monthsPaid < 12 ? COSTS.monthlyEur : 0;
-	return { members, support, total, upcoming };
+	/**
+	 * Bills land on the 15th; each covered bill keeps the servers running
+	 * until the next one. Money beyond the passed bills extends the date.
+	 */
+	const monthsCovered = Math.floor(total / COSTS.monthlyEur);
+	const coveredUntil = new Date(now.getFullYear(), monthsCovered, 15);
+	const marginDays = Math.floor((coveredUntil.getTime() - now.getTime()) / 86_400_000);
+	return { members, support, total, upcoming, coveredUntil, marginDays };
 }

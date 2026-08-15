@@ -33,7 +33,7 @@
 	--bg: #0b0b0c;
 	--surface: #17171a;
 	--surface-2: #202024;
-	--border: #2c2c31;
+	--border: #2c2c317a;
 	--text: #e4e1da;
 	--bright: #ffffff;
 	--muted: #aeaba3;
@@ -544,6 +544,18 @@ button.linklike:disabled {
 }
 .fee-state.bad .dot {
 	background: var(--danger);
+}
+.fee-state.warn {
+	color: var(--warn);
+}
+.fee-state.warn .dot {
+	background: var(--warn);
+}
+.fee-state.inline {
+	display: inline-flex;
+	margin: 0 0 0 8px;
+	font-size: 15.5px;
+	vertical-align: middle;
 }
 .status-pill .dot {
 	width: 10px;

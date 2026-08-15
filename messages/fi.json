@@ -293,5 +293,8 @@
 	"matrix_intro_word": "Matrixissa",
 	"fee_status_paid": "Maksettu, voimassa {date} asti",
 	"fee_status_due": "Maksamatta: {amount} €",
-	"payment_history": "Maksuhistoria"
+	"payment_history": "Maksuhistoria",
+	"servers_covered_heading": "Palvelimet katettu",
+	"servers_covered_days": "{days} päivän päästä",
+	"servers_covered_past": "Kate on loppunut"
 }
