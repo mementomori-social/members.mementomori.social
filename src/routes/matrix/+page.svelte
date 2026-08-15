@@ -9,7 +9,10 @@
 
 <h1>{m.matrix_heading()}</h1>
 
-<p>{m.matrix_intro()}</p>
+<p>
+	{m.matrix_intro_1()}
+	<a href="https://matrix.org">{m.matrix_intro_word()}</a>{m.matrix_intro_2()}
+</p>
 
 <div class="card card-fit">
 	<h3>{m.matrix_room()}</h3>
@@ -21,7 +24,7 @@
 <ol>
 	<li>{m.matrix_how_1()}</li>
 	<li>{m.matrix_how_2()}</li>
-	<li>{m.matrix_how_3()}</li>
+	<li>{m.matrix_how_3_1()} <a href="https://element.io">Element</a>.</li>
 </ol>
 
 <form method="POST" action="?/saveMatrix" class="stack" use:enhance>
