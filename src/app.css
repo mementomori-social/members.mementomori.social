@@ -44,6 +44,7 @@
 	--accent-btn-hover: #383ab0;
 	--accent-soft: rgba(88, 90, 255, 0.16);
 	--danger: #ff8a8e;
+	--warn: #e8c547;
 	--ok: #4cd699;
 	--font-body: 'Zalando Sans', system-ui, sans-serif;
 	--font-heading: 'Zalando Sans Expanded', sans-serif;
@@ -766,13 +767,27 @@ button.compact {
 	display: flex;
 	overflow: hidden;
 }
-.progress .seg-fees {
+.progress .seg-earlier {
+	background: var(--accent);
+	height: 100%;
+}
+.progress .seg-month {
 	background: var(--ok);
 	height: 100%;
 }
-.progress .seg-sponsor {
-	background: var(--accent);
+.progress .seg-upcoming {
+	background: var(--warn);
 	height: 100%;
+	opacity: 0.55;
+}
+.bar-meta {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	margin: 8px 0 4px;
+}
+.bar-meta span:last-child {
+	color: var(--text);
 }
 .legend {
 	display: flex;
@@ -791,8 +806,14 @@ button.compact {
 .legend .dot.ok {
 	background: var(--ok);
 }
-.legend .dot.pending {
+.legend .dot.accent {
 	background: var(--accent);
+}
+.legend .dot.warn {
+	background: var(--warn);
+}
+.legend .dot.bad {
+	background: var(--danger);
 }
 .progress {
 	background: var(--surface-2);

@@ -177,7 +177,10 @@
 			</label>
 			<label class="check">
 				<input type="checkbox" name="publicConsent" checked={data.m.publicConsent} />
-				<span>{m.consent_public_label()}</span>
+				<span
+					>{m.consent_public_label()}
+					<a href={localizeHref('/privacy')}>{m.nav_privacy()}</a></span
+				>
 			</label>
 			<div>
 				<button type="submit" class="ghost">{m.save()}</button>
@@ -192,11 +195,33 @@
 		<h3>{m.covered_heading()}</h3>
 		<p class="covered-total">
 			<strong>{cov.total.toFixed(2).replace('.', ',')}&nbsp;€</strong>
-			<span class="muted small">{m.covered_total_label({ annual: COSTS.annualEur })}</span>
+			<span class="muted small">{m.covered_big_label()}</span>
 		</p>
-		<div class="progress">
-			<div style="width: {(cov.total / COSTS.annualEur) * 100}%"></div>
+		<div class="progress stacked">
+			<div class="seg-earlier" style="width: {(cov.earlier / COSTS.annualEur) * 100}%"></div>
+			<div class="seg-month" style="width: {(cov.currentMonth / COSTS.annualEur) * 100}%"></div>
+			<div class="seg-upcoming" style="width: {(cov.upcoming / COSTS.annualEur) * 100}%"></div>
 		</div>
+		<p class="legend small">
+			<span><span class="dot accent"></span> {m.covered_seg_earlier()}</span>
+			<span
+				><span class="dot ok"></span>
+				{m.covered_seg_month()}: {cov.currentMonth.toFixed(2).replace('.', ',')}&nbsp;€</span
+			>
+			<span
+				><span class="dot warn"></span>
+				{m.covered_seg_upcoming()}: {cov.upcoming.toFixed(2).replace('.', ',')}&nbsp;€</span
+			>
+			<span
+				><span class="dot bad"></span>
+				{m.covered_left({
+					left: Math.max(0, COSTS.annualEur - cov.total)
+						.toFixed(2)
+						.replace('.', ',')
+				})}</span
+			>
+		</p>
+
 		<p class="muted small">{m.costs_monthly_note({ monthly: COSTS.monthlyEur })}</p>
 	</div>
 </div>

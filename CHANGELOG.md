@@ -30,4 +30,5 @@
 - Locale preserved across sign-in, OAuth and payment redirects
 - Costs-covered card with sponsor-paid months and stacked bar
 - Public member list behind its own consent, visibility controls on the member page
-- Single covered figure without sponsor split, unbreakable prices
+- Coverage chart: earlier, this month, upcoming bill and remaining
+- Consent card with pre-checked member list and privacy notice links

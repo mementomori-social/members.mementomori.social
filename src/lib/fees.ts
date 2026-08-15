@@ -25,5 +25,11 @@ export function coverage(fees: number, income: number, now = new Date()) {
 	const monthsPaid = now.getDate() >= 15 ? now.getMonth() + 1 : now.getMonth();
 	const collected = fees + income;
 	const sponsorDirect = Math.max(0, monthsPaid * COSTS.monthlyEur - collected);
-	return { collected, sponsorDirect, total: collected + sponsorDirect };
+	const total = collected + sponsorDirect;
+	/** The bill paid in the current month, shown as its own segment. */
+	const currentMonth = now.getDate() >= 15 ? Math.min(COSTS.monthlyEur, total) : 0;
+	const earlier = Math.max(0, total - currentMonth);
+	/** The next monthly bill, still ahead of us this year. */
+	const upcoming = monthsPaid < 12 ? COSTS.monthlyEur : 0;
+	return { collected, sponsorDirect, total, earlier, currentMonth, upcoming };
 }
