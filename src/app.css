@@ -424,6 +424,52 @@ button.linklike:disabled {
 	color: var(--ok);
 }
 
+.dash-head {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+.dash-head h1 {
+	margin-bottom: 0.3em;
+}
+.dash-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 18px;
+	margin: 18px 0;
+}
+.dash-grid .card {
+	margin: 0;
+}
+.dash-grid .span2 {
+	grid-column: 1 / -1;
+}
+@media (max-width: 760px) {
+	.dash-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+.signed-in-as {
+	display: inline-flex;
+	gap: 6px;
+	align-items: baseline;
+}
+.utility-btn {
+	font-size: 15px;
+	font-weight: 400;
+	color: var(--muted);
+	background: transparent;
+	border: 1.5px solid var(--border);
+	border-radius: 8px;
+	padding: 4px 12px;
+}
+.utility-btn:hover {
+	background: var(--surface-2);
+	color: var(--bright);
+}
+
 .tiers {
 	display: grid;
 	gap: 18px;

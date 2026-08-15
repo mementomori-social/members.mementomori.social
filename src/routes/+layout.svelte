@@ -1,11 +1,18 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
 	import { m } from '$lib/paraglide/messages.js';
 	import { locales, localizeHref } from '$lib/paraglide/runtime';
+	import { authClient } from '$lib/auth-client';
 	import type { LayoutProps } from './$types';
 
 	let { children, data }: LayoutProps = $props();
+
+	async function signOut() {
+		await authClient.signOut();
+		await goto('/', { invalidateAll: true });
+	}
 
 	const pathname = $derived(String(page.url.pathname));
 	const locale = $derived(pathname === '/fi' || pathname.startsWith('/fi/') ? 'fi' : 'en');
@@ -81,7 +88,11 @@
 <div class="wrap">
 	<div class="utility">
 		{#if data.user}
-			<a href={href('/dashboard')}>{data.user.name}</a>
+			<span class="signed-in-as">
+				<span class="muted">{m.signed_in_as()}</span>
+				<a href={href('/dashboard')}>{data.user.name}</a>
+			</span>
+			<button class="utility-btn" onclick={signOut}>{m.sign_out()}</button>
 		{:else}
 			<a href={href('/join')} aria-current={current('/join')}>
 				<span class="wide">{m.nav_join()}</span><span class="narrow">{m.nav_join_short()}</span>
@@ -107,17 +118,22 @@
 			Mementomori ry
 		</a>
 		<nav aria-label="Main">
-			<a href={href('/')} aria-current={current('/')}>{m.nav_overview()}</a>
-			<a href={href('/sponsorship')} aria-current={current('/sponsorship')}>{m.sponsor_heading()}</a
-			>
-			{#if data.member}
-				<a href={href('/members')} aria-current={current('/members')}>{m.nav_members()}</a>
+			{#if data.user}
 				<a href={href('/dashboard')} aria-current={current('/dashboard')}>{m.nav_dashboard()}</a>
+				{#if data.member}
+					<a href={href('/members')} aria-current={current('/members')}>{m.nav_members()}</a>
+				{/if}
+				{#if data.board}
+					<a href={href('/admin')} aria-current={current('/admin')}>{m.nav_board()}</a>
+				{/if}
+				<a href={href('/contact')} aria-current={current('/contact')}>{m.nav_contact()}</a>
+			{:else}
+				<a href={href('/')} aria-current={current('/')}>{m.nav_overview()}</a>
+				<a href={href('/sponsorship')} aria-current={current('/sponsorship')}
+					>{m.sponsor_heading()}</a
+				>
+				<a href={href('/contact')} aria-current={current('/contact')}>{m.nav_contact()}</a>
 			{/if}
-			{#if data.board}
-				<a href={href('/admin')} aria-current={current('/admin')}>{m.nav_board()}</a>
-			{/if}
-			<a href={href('/contact')} aria-current={current('/contact')}>{m.nav_contact()}</a>
 		</nav>
 	</header>
 	<main id="content">
