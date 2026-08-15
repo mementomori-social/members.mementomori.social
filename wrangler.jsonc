@@ -10,10 +10,9 @@
 	},
 	"workers_dev": true,
 	"preview_urls": true,
-	"vars": { "ORIGIN": "https://members-mementomori-social.digitoimisto-dude.workers.dev" },
-	// Custom domain attaches at cutover; preview runs on workers.dev.
-	// "routes": [{ "pattern": "members.mementomori.social", "custom_domain": true }],
-	"workers_dev": true,
+	"vars": { "ORIGIN": "https://members.mementomori.social" },
+	"routes": [{ "pattern": "members.mementomori.social", "custom_domain": true }],
+	"workers_dev": false,
 	"d1_databases": [
 		{
 			"binding": "DB",

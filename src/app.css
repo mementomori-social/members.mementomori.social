@@ -883,7 +883,7 @@ button.compact {
 	height: 100%;
 	opacity: 0.55;
 }
-.year-track {
+.progress.year-track {
 	position: relative;
 	overflow: visible;
 }
@@ -892,15 +892,7 @@ button.compact {
 	height: 100%;
 	border-radius: 999px;
 }
-.year-track .today-mark {
-	position: absolute;
-	top: -5px;
-	bottom: -5px;
-	width: 3px;
-	background: var(--warn);
-	border-radius: 2px;
-	box-shadow: 0 0 0 2px var(--bg);
-}
+
 .year-track + .bar-meta {
 	font-size: 13px;
 	margin-top: 6px;
@@ -913,6 +905,7 @@ button.compact {
 	justify-content: space-between;
 	gap: 12px;
 	margin: 8px 0 4px;
+	max-width: none;
 }
 
 .legend {

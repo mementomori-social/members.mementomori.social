@@ -261,7 +261,6 @@
 		</p>
 		<div class="progress year-track">
 			<div class="fill" style="width: {cov.coveredPct}%"></div>
-			<span class="today-mark" style="left: {cov.todayPct}%"></span>
 		</div>
 		<p class="bar-meta small">
 			<span class="muted">1.1.{new Date().getFullYear()}</span>
