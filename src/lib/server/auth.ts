@@ -12,7 +12,10 @@ const MASTODON_URL = 'https://mementomori.social';
 const authConfig = {
 	baseURL: env.ORIGIN,
 	secret: env.BETTER_AUTH_SECRET,
-	emailAndPassword: { enabled: true },
+	// Passwords exist only internally (random, set by the join flow). Requiring
+	// a verified email blocks account pre-registration: nobody can claim an
+	// address they cannot read and later sign in with their own password.
+	emailAndPassword: { enabled: true, requireEmailVerification: true },
 	user: {
 		additionalFields: {
 			// member = regular user, board roles: board | vice | chair

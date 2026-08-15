@@ -59,6 +59,7 @@ export const actions: Actions = {
 		if (!(memberClass in FEES)) return fail(400, { ...values, error: m.err_unknown_class() });
 
 		let userId = locals.user?.id;
+		const createdViaMastodon = !userId && Boolean(pending);
 		if (!userId && pending) {
 			// Mastodon path: the account is created with a random password and the
 			// verified Mastodon account is linked for sign-in. No password exists.
@@ -149,6 +150,22 @@ export const actions: Actions = {
 				mastodonAcct: pending?.acct ?? null,
 				mastodonAvatarUrl: pending?.avatar ?? null
 			});
+		}
+
+		// A fresh Mastodon-path account has no session yet (sign-ups require a
+		// verified email), so the application ends with a sign-in link. Using it
+		// verifies the typed address, keeping the member register trustworthy.
+		if (createdViaMastodon) {
+			try {
+				await locals.auth.api.signInMagicLink({
+					body: { email: claimEmail, name: fullName, callbackURL: '/dashboard' },
+					headers: request.headers
+				});
+			} catch (e) {
+				const msg = e instanceof APIError ? e.message : m.err_account_create();
+				return fail(500, { ...values, error: msg });
+			}
+			return { magicSent: true };
 		}
 
 		redirect(303, '/dashboard');

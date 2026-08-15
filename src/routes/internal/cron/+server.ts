@@ -24,8 +24,18 @@ const REMIND_INTERVAL = 14 * DAY;
  */
 export const POST: RequestHandler = async ({ request, platform }) => {
 	if (!env.CRON_SECRET) error(503, 'CRON_SECRET not set');
-	if (request.headers.get('authorization') !== `Bearer ${env.CRON_SECRET}`)
-		error(401, 'Unauthorized');
+	// Constant-time comparison; Workers' native helper when available.
+	const given = new TextEncoder().encode(request.headers.get('authorization') ?? '');
+	const expected = new TextEncoder().encode(`Bearer ${env.CRON_SECRET}`);
+	const subtle = crypto.subtle as SubtleCrypto & {
+		timingSafeEqual?: (a: BufferSource, b: BufferSource) => boolean;
+	};
+	const equal =
+		given.byteLength === expected.byteLength &&
+		(subtle.timingSafeEqual
+			? subtle.timingSafeEqual(given, expected)
+			: given.reduce((acc, v, i) => acc | (v ^ expected[i]), 0) === 0);
+	if (!equal) error(401, 'Unauthorized');
 
 	const db = getDb(platform!.env.DB);
 	const now = Date.now();
