@@ -5,7 +5,11 @@ import { exchangeCode, fetchProfile } from '$lib/server/mastodon-oauth';
 
 export const GET: RequestHandler = async ({ url, cookies }) => {
 	const stored = cookies.get('join_masto_oauth');
+	cookies.delete('join_masto_oauth', { path: '/' });
+	// Cookies from before these moved to the root path would otherwise shadow
+	// the new ones on /join for anyone mid-flow during the change.
 	cookies.delete('join_masto_oauth', { path: '/join' });
+	cookies.delete('join_masto', { path: '/join' });
 	if (!stored) redirect(303, '/join');
 
 	const { state, verifier, locale } = JSON.parse(stored) as {
@@ -26,7 +30,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	const profile = await fetchProfile(access_token);
 
 	cookies.set('join_masto', JSON.stringify({ ...profile, accessToken: access_token }), {
-		path: '/join',
+		path: '/',
 		httpOnly: true,
 		secure: !dev,
 		sameSite: 'lax',

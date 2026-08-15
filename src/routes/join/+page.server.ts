@@ -45,7 +45,7 @@ const applyBootstrapRole = async (db: ReturnType<typeof getDb>, email: string) =
 
 export const actions: Actions = {
 	cancel: async ({ cookies }) => {
-		cookies.delete('join_masto', { path: '/join' });
+		cookies.delete('join_masto', { path: '/' });
 		redirect(303, localizeHref('/join'));
 	},
 
@@ -146,7 +146,7 @@ export const actions: Actions = {
 				accessToken: pending.accessToken,
 				scope: 'profile'
 			});
-			cookies.delete('join_masto', { path: '/join' });
+			cookies.delete('join_masto', { path: '/' });
 		}
 
 		// A register row may already exist without a login: founding members and
