@@ -307,5 +307,6 @@
 	"privacy_proc_nextcloud": "toinen varmuuskopio yhdistyksen omassa instanssissa, sekin Hetznerillä Euroopassa",
 	"privacy_proc_github": "lähdekoodin säilytys (Microsoft, Yhdysvallat); koodi ei sisällä henkilötietoja",
 	"privacy_recipients_2": "Nämä palveluntarjoajat käsittelevät tietoja yhdistyksen lukuun ja vain näihin tarkoituksiin EU:n tietosuoja-asetuksen ja Suomen lain mukaisesti.",
-	"privacy_recipients_3": "Tietoja ei myydä eikä luovuteta muille kuin lain niin vaatiessa."
+	"privacy_recipients_3": "Tietoja ei myydä eikä luovuteta muille kuin lain niin vaatiessa.",
+	"privacy_ombudsman_url": "https://tietosuoja.fi"
 }

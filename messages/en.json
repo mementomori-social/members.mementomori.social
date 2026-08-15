@@ -307,5 +307,6 @@
 	"privacy_proc_nextcloud": "second backup copy on the association's own instance, also on Hetzner in Europe",
 	"privacy_proc_github": "source code hosting (Microsoft, USA); the code contains no personal data",
 	"privacy_recipients_2": "These providers process data on our behalf and only for these purposes, in accordance with the EU GDPR and Finnish law.",
-	"privacy_recipients_3": "Data is not sold, and it is not disclosed to anyone else except where the law requires it."
+	"privacy_recipients_3": "Data is not sold, and it is not disclosed to anyone else except where the law requires it.",
+	"privacy_ombudsman_url": "https://tietosuoja.fi/en/home"
 }
