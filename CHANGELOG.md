@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 (unreleased)
+
+- Paid status merged into one line
+
 ## 1.1.0 (15.8.2026)
 
 - Green success style for confirmation notices

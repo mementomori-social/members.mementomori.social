@@ -39,7 +39,9 @@
 			class:bad={data.m.status === 'rejected' || data.m.status === 'ended'}
 		></span>
 		{data.m.status === 'approved'
-			? m.dash_status_active()
+			? data.covered && data.paidUntil
+				? m.dash_status_active_until({ date: fmt(data.paidUntil) })
+				: m.dash_status_active()
 			: data.m.status === 'applied'
 				? m.dash_status_applied()
 				: data.m.status === 'rejected'
@@ -80,14 +82,10 @@
 <div class="dash-grid">
 	<div class="card span2">
 		<h3>{m.card_payments()}</h3>
-		{#if data.m.status === 'approved'}
-			<p class="fee-state" class:ok={data.covered} class:bad={!data.covered}>
+		{#if data.m.status === 'approved' && !data.covered}
+			<p class="fee-state bad">
 				<span class="dot"></span>
-				{#if data.covered && data.paidUntil}
-					{m.fee_status_paid({ date: new Date(data.paidUntil).toLocaleDateString('fi-FI') })}
-				{:else}
-					{m.fee_status_due({ amount: data.dueAmountEur })}
-				{/if}
+				{m.fee_status_due({ amount: data.dueAmountEur })}
 			</p>
 		{/if}
 		{#if data.canPay}
