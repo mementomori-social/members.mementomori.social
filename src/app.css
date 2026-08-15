@@ -173,7 +173,7 @@ a[href^='http']::after {
 	gap: 6px;
 	border: 1px solid var(--border);
 	border-radius: 8px;
-	padding: 4px 12px;
+	padding: 4px 14px;
 	font-size: 15px;
 	color: var(--muted);
 	cursor: pointer;
@@ -613,7 +613,7 @@ button.linklike:disabled {
 	background: transparent;
 	border: 1px solid var(--border);
 	border-radius: 8px;
-	padding: 4px 12px;
+	padding: 4px 16px;
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -629,11 +629,13 @@ button.linklike:disabled {
 	color: var(--danger);
 }
 .utility-btn.enter {
-	color: var(--ok);
+	color: #fff;
+	background: var(--accent-btn);
+	border-color: transparent;
 }
 .utility-btn.enter:hover {
-	background: color-mix(in srgb, var(--ok) 12%, transparent);
-	color: var(--ok);
+	background: var(--accent-btn-hover);
+	color: #fff;
 }
 
 .tiers {

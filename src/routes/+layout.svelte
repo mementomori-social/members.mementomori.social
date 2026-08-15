@@ -87,27 +87,6 @@
 
 <div class="wrap">
 	<div class="utility">
-		{#if data.user}
-			<span class="signed-in-as">
-				<span class="muted">{m.signed_in_as()}</span>
-				<a href={href('/dashboard')}>{data.user.name}</a>
-			</span>
-			{#if data.board}
-				<a class="utility-btn" href={href('/admin')} aria-current={current('/admin')}
-					>{m.nav_board()}</a
-				>
-			{/if}
-			<button class="utility-btn leave" onclick={signOut}>{m.sign_out()}</button>
-		{:else}
-			<a href={href('/join')} aria-current={current('/join')}>
-				<span class="wide">{m.nav_join()}</span><span class="narrow">{m.nav_join_short()}</span>
-			</a>
-			<a class="utility-btn enter" href={href('/login')} aria-current={current('/login')}>
-				<span class="wide">{m.nav_sign_in()}</span><span class="narrow"
-					>{m.nav_sign_in_short()}</span
-				>
-			</a>
-		{/if}
 		<label class="lang-select">
 			<span class="visually-hidden">{m.language_label()}</span>
 			<svg
@@ -132,6 +111,27 @@
 				{/each}
 			</select>
 		</label>
+		{#if data.user}
+			<span class="signed-in-as">
+				<span class="muted">{m.signed_in_as()}</span>
+				<a href={href('/dashboard')}>{data.user.name}</a>
+			</span>
+			{#if data.board}
+				<a class="utility-btn" href={href('/admin')} aria-current={current('/admin')}
+					>{m.nav_board()}</a
+				>
+			{/if}
+			<button class="utility-btn leave" onclick={signOut}>{m.sign_out()}</button>
+		{:else}
+			<a class="utility-btn" href={href('/login')} aria-current={current('/login')}>
+				<span class="wide">{m.nav_sign_in()}</span><span class="narrow"
+					>{m.nav_sign_in_short()}</span
+				>
+			</a>
+			<a class="utility-btn enter" href={href('/join')} aria-current={current('/join')}>
+				<span class="wide">{m.nav_join()}</span><span class="narrow">{m.nav_join_short()}</span>
+			</a>
+		{/if}
 	</div>
 	<header class="site">
 		<a class="brand" href={href('/')}>
