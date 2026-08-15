@@ -110,7 +110,7 @@
 	"ph_password": "***********",
 	"pay_now": "Pay the membership fee",
 	"pay_redirect_note": "Payments are handled by Stripe.",
-	"paid_thanks": "Payment completed. It shows up in the list within a minute or two.",
+	"paid_thanks": "Payment successful. Thank you!",
 	"matrix_heading": "Members' Matrix channel",
 	"matrix_intro": "The association has a private Matrix room for members on the chat.mementomori.social server. It is invite only and never listed publicly.",
 	"matrix_room": "Room address",

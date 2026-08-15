@@ -110,7 +110,7 @@
 	"ph_password": "***********",
 	"pay_now": "Maksa jäsenmaksu",
 	"pay_redirect_note": "Maksunvälityspalveluna Stripe.",
-	"paid_thanks": "Maksu suoritettu. Se näkyy listalla parin minuutin sisällä.",
+	"paid_thanks": "Maksu onnistui. Kiitos!",
 	"matrix_heading": "Jäsenten Matrix-kanava",
 	"matrix_intro": "Yhdistyksellä on jäsenten oma yksityinen Matrix-huone chat.mementomori.social-palvelimella. Huone on kutsuvieraille eikä sitä listata julkisesti.",
 	"matrix_room": "Huoneen osoite",
