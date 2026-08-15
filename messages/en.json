@@ -222,7 +222,7 @@
 	"privacy_basis_accounting": "Payment records are kept to satisfy accounting law.",
 	"privacy_basis_consent": "Appearing on the member list, and giving a Matrix user id, are based on your consent. You can withdraw either at any time.",
 	"privacy_basis_security": "Session data is processed on the basis of legitimate interest, to keep accounts secure.",
-	"privacy_recipients_h": "Who else handles the data",
+	"privacy_recipients_h": "Who processes the data",
 	"privacy_retention_h": "How long we keep it",
 	"privacy_retention": "Register data is kept while the membership lasts. Payment records and other accounting material are kept for at least six years from the end of the year in which the accounting period ended, as accounting law requires. Sessions expire on their own, and sign-in link tokens are single use.",
 	"privacy_rights_h": "Your rights",

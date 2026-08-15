@@ -222,7 +222,7 @@
 	"privacy_basis_accounting": "Maksutiedot säilytetään kirjanpitolain velvoitteiden täyttämiseksi.",
 	"privacy_basis_consent": "Jäsenlistalla näkyminen ja Matrix-tunnuksen antaminen perustuvat suostumukseesi. Voit peruuttaa kummankin milloin tahansa.",
 	"privacy_basis_security": "Istuntotietoja käsitellään oikeutetun edun perusteella tilien turvallisuuden varmistamiseksi.",
-	"privacy_recipients_h": "Kenelle tietoja luovutetaan",
+	"privacy_recipients_h": "Tietojen käsittelijät",
 	"privacy_retention_h": "Säilytysaika",
 	"privacy_retention": "Jäsenluettelon tietoja säilytetään jäsenyyden ajan. Maksutiedot ja muu kirjanpitoaineisto säilytetään kirjanpitolain mukaisesti vähintään kuusi vuotta sen vuoden lopusta, jonka aikana tilikausi päättyi. Istunnot vanhenevat itsestään ja kirjautumislinkit ovat kertakäyttöisiä.",
 	"privacy_rights_h": "Oikeutesi",
