@@ -286,5 +286,6 @@
 	"covered_seg_upcoming": "Upcoming bill",
 	"covered_left": "{left} € left to cover",
 	"covered_seg_members": "Covered by member fees",
-	"covered_seg_support": "Covered by other support"
+	"covered_seg_support": "Covered by other support",
+	"matrix_id_cleared": "Matrix ID removed."
 }
