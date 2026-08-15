@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.2 (unreleased)
+## 1.2.0 (16.8.2026)
 
 - Cost coverage now moves with every payment
 - Coverage date counts days, not whole months
