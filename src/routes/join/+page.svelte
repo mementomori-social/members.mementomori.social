@@ -100,7 +100,7 @@
 		<fieldset style="border:none;padding:0;margin:6px 0 0;display:grid;gap:8px">
 			<label class="check">
 				<input type="radio" name="billingInterval" value="year" checked />
-				<span>{m.pay_year()} <span class="muted">{m.pay_year_hint()}</span></span>
+				<span>{m.pay_year()}</span>
 			</label>
 			<label class="check">
 				<input type="radio" name="billingInterval" value="month" />

@@ -194,20 +194,9 @@
 			<strong>{cov.total.toFixed(2).replace('.', ',')}&nbsp;€</strong>
 			<span class="muted small">{m.covered_total_label({ annual: COSTS.annualEur })}</span>
 		</p>
-		<div class="progress stacked">
-			<div class="seg-fees" style="width: {(cov.collected / COSTS.annualEur) * 100}%"></div>
-			<div class="seg-sponsor" style="width: {(cov.sponsorDirect / COSTS.annualEur) * 100}%"></div>
+		<div class="progress">
+			<div style="width: {(cov.total / COSTS.annualEur) * 100}%"></div>
 		</div>
-		<p class="legend small">
-			<span
-				><span class="dot ok"></span>
-				{m.covered_collected()}: {cov.collected.toFixed(2).replace('.', ',')}&nbsp;€</span
-			>
-			<span
-				><span class="dot pending"></span>
-				{m.covered_sponsor_direct()}: {cov.sponsorDirect.toFixed(2).replace('.', ',')}&nbsp;€</span
-			>
-		</p>
 		<p class="muted small">{m.costs_monthly_note({ monthly: COSTS.monthlyEur })}</p>
 	</div>
 </div>
