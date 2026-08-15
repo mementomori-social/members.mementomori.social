@@ -7,6 +7,7 @@
 - Remaining cost labelled for the rest of the year
 - Full name required, handles and emoji rejected
 - Mastodon display name no longer prefills the register name
+- Dev server no longer posts to the board's Matrix room
 
 ## 1.1.1 (15.8.2026)
 

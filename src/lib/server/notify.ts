@@ -1,3 +1,4 @@
+import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
 
 /**
@@ -32,6 +33,12 @@ export function boardMessage(
 }
 
 export async function notifyBoard(plain: string, html?: string): Promise<void> {
+	// The dev server shares production Matrix credentials, so without this a
+	// local test lands in the board's room as a real application.
+	if (dev) {
+		console.log(`[notify:dev] ${plain}`);
+		return;
+	}
 	if (!notifyEnabled()) {
 		console.log(`[notify] ${plain}`);
 		return;
