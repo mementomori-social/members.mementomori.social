@@ -41,7 +41,3 @@ pnpm run build
 ## Deploying
 
 See [DEPLOY.md](DEPLOY.md).
-
-## Licence
-
-MIT.
