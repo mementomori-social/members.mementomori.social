@@ -54,15 +54,25 @@ Every arrow into the Worker is authenticated: sessions for members and the board
 
 The association's entire yearly budget is about 2 450 €, nearly all of it already committed to the Hetzner server that runs mementomori.social. That constraint decided most of these choices.
 
-**Cloudflare Workers instead of a server.** Running this next to Mastodon on the existing Hetzner box would have been free in money but expensive in risk: a bug or a traffic spike on the membership app could take down the social media platform the association exists to run. A separate platform is a separate failure domain. Workers also costs nothing at this scale and has no operating system to patch.
+### Cloudflare Workers instead of a server
 
-**D1 instead of Postgres.** A managed Postgres instance is a recurring bill, and a self-hosted one is another service to back up and upgrade. The dataset here is a few hundred members and their payments, which SQLite handles without effort. D1 lives next to the Worker, so there is no connection pool to tune and no network hop.
+Running this next to Mastodon on the existing Hetzner box would have been free in money but expensive in risk: a bug or a traffic spike on the membership app could take down the social media platform the association exists to run. A separate platform is a separate failure domain. Workers also costs nothing at this scale and has no operating system to patch.
 
-**Stripe instead of a Finnish payment provider.** Stripe has no monthly fee, handles recurring subscriptions natively, and pays out to a normal Finnish IBAN. Providers with monthly minimums are hard to justify when the association's income is expected to be a few hundred euros a year at the start. Bank transfers with Finnish reference numbers exist alongside cards precisely so that nobody is forced through Stripe.
+### D1 instead of Postgres
 
-**Our own Mastodon as the identity provider.** Most prospective members already have an account on mementomori.social. Letting them prove that with OAuth removes a password and prefills the application. Mastodon does not release email addresses, so the form still asks for one, and OAuth verifies and links the account rather than creating it.
+A managed Postgres instance is a recurring bill, and a self-hosted one is another service to back up and upgrade. The dataset here is a few hundred members and their payments, which SQLite handles without effort. D1 lives next to the Worker, so there is no connection pool to tune and no network hop.
 
-**Building rather than buying.** A hosted membership service would add a recurring fee to a budget that has no room for one, and the requirements here are specific: sign-in with our own Mastodon instance, two fixed fee tiers set by the association meeting, Finnish reference-number matching for bank transfers, a member register that satisfies yhdistyslaki 11 §, and a two-approver rule for board decisions. Self-hosting the membership data also matches the association's stated purpose in its rules: promoting digitally sovereign, European social media.
+### Stripe instead of a Finnish payment provider
+
+Stripe has no monthly fee, handles recurring subscriptions natively, and pays out to a normal Finnish IBAN. Providers with monthly minimums are hard to justify when the association's income is expected to be a few hundred euros a year at the start. Bank transfers with Finnish reference numbers exist alongside cards precisely so that nobody is forced through Stripe.
+
+### Our own Mastodon as the identity provider
+
+Most prospective members already have an account on mementomori.social. Letting them prove that with OAuth removes a password and prefills the application. Mastodon does not release email addresses, so the form still asks for one, and OAuth verifies and links the account rather than creating it.
+
+### Building rather than buying
+
+A hosted membership service would add a recurring fee to a budget that has no room for one, and the requirements here are specific: sign-in with our own Mastodon instance, two fixed fee tiers set by the association meeting, Finnish reference-number matching for bank transfers, a member register that satisfies yhdistyslaki 11 §, and a two-approver rule for board decisions. Self-hosting the membership data also matches the association's stated purpose in its rules: promoting digitally sovereign, European social media.
 
 ## Authentication
 
