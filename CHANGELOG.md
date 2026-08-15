@@ -14,4 +14,8 @@
 - Cost transparency: public figures, members-only progress
 - English and Finnish with URL-based locales
 - WCAG AAA contrast, CSP and security headers
-- Architecture documentation
+- Architecture documentation with infrastructure diagram
+- Privacy notice (GDPR) in both languages
+- Responsive layout down to 320 px
+- Separate signed-in navigation with top-bar sign out
+- Mastodon profile card with refresh feedback on the dashboard
