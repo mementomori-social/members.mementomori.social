@@ -1,29 +1,18 @@
 # members.mementomori.social
 
-Membership site of **Mementomori ry**, the registered non-profit that runs and
-funds the [mementomori.social](https://mementomori.social) social media
-platform.
+Membership site of **Mementomori ry**, the registered non-profit that runs and funds the [mementomori.social](https://mementomori.social) social media platform.
 
-Members apply on the site, the board approves applications, and membership
-fees are tracked in a payment ledger. The member register required by the
-Finnish Associations Act (full name and home municipality) is maintained here
-and exportable as CSV.
+Members apply on the site, the board approves applications, and membership fees are tracked in a payment ledger. The member register required by the Finnish Associations Act (full name and home municipality) is maintained here and exportable as CSV.
 
 ## Stack
 
-- [SvelteKit](https://svelte.dev/docs/kit) on
-  [Cloudflare Workers](https://developers.cloudflare.com/workers/)
-  (`@sveltejs/adapter-cloudflare`)
-- [Cloudflare D1](https://developers.cloudflare.com/d1/) with
-  [Drizzle ORM](https://orm.drizzle.team)
-- [Better Auth](https://better-auth.com) with magic links and
-  mementomori.social (Mastodon) OAuth, no passwords
-- [Paraglide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)
-  i18n, English and Finnish
-- [Stripe](https://stripe.com) Checkout for card payments, Finnish bank
-  reference numbers (viitenumero) for bank transfers
+- [SvelteKit](https://svelte.dev/docs/kit) on [Cloudflare Workers](https://developers.cloudflare.com/workers/), via [@sveltejs/adapter-cloudflare](https://svelte.dev/docs/kit/adapter-cloudflare)
+- [Cloudflare D1](https://developers.cloudflare.com/d1/) with [Drizzle ORM](https://orm.drizzle.team)
+- [Better Auth](https://better-auth.com) with magic links and [Mastodon](https://joinmastodon.org) OAuth, no passwords
+- [Paraglide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs) for i18n, English and Finnish
+- [Stripe](https://stripe.com) Checkout for card payments, Finnish reference numbers (viitenumero) for bank transfers
 
-How it all fits together: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+How it all fits together, including an infrastructure diagram and the reasoning behind these choices: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Development
 
@@ -35,17 +24,16 @@ pnpm exec wrangler d1 migrations apply DB --local
 pnpm dev
 ```
 
-The local D1 database lives under `.wrangler/` and is applied from the SQL
-migrations in `drizzle/`. No Cloudflare account is needed for local
-development.
+The local D1 database lives under `.wrangler/` and is built from the SQL migrations in `drizzle/`. No Cloudflare account is needed for local development.
 
-Board roles are bootstrapped from `BOOTSTRAP_ROLES` in `.env`
-(`email=chair,email=vice,email=board`), applied when that email signs up.
+Board roles are bootstrapped from `BOOTSTRAP_ROLES` in `.env` (`email=chair,email=vice,email=board`), applied when that email signs up.
+
+Without `MAILGUN_API_KEY` set, emails are printed to the dev server console instead of being sent, so magic links work offline.
 
 ## Checks
 
 ```sh
-pnpm run check   # wrangler types + svelte-check (tsgo)
+pnpm run check   # wrangler types + svelte-check
 pnpm run lint
 pnpm run build
 ```
@@ -53,3 +41,7 @@ pnpm run build
 ## Deploying
 
 See [DEPLOY.md](DEPLOY.md).
+
+## Licence
+
+MIT.
