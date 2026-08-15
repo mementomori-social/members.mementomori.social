@@ -56,9 +56,7 @@
 	<li>{m.privacy_right_erase()}</li>
 	<li>{m.privacy_right_restrict()}</li>
 	<li>{m.privacy_right_withdraw()}</li>
-	<li>
-		{m.privacy_right_complain_1()} (<a href={m.privacy_ombudsman_url()}>tietosuoja.fi</a>)
-	</li>
+	<li><a href={m.privacy_ombudsman_url()}>{m.privacy_right_complain_1()}</a></li>
 </ul>
 <p>
 	{m.privacy_rights_how_1()}
