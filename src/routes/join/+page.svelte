@@ -59,6 +59,7 @@
 				value={form?.fullName ?? data.pendingMasto?.name ?? ''}
 			/>
 		</label>
+		<p class="muted small" style="margin:0">{m.join_full_name_note()}</p>
 		<label class="field">
 			{m.field_municipality()}
 			<input
