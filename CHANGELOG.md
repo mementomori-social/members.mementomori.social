@@ -22,6 +22,9 @@
 - Members can switch between monthly and yearly
 - Monthly is the default payment schedule
 - Styled error page with contact address
+- No horizontal scrolling on phones
+- Overdue fee summary also to Matrix
+- Clearer coverage legend labels
 
 ## 1.0.0 (15.8.2026)
 

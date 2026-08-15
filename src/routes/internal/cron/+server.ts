@@ -6,6 +6,7 @@ import { getDb } from '$lib/server/db';
 import { member } from '$lib/server/db/schema';
 import { sendEmail } from '$lib/server/email';
 import { syncHolvi, holviEnabled } from '$lib/server/holvi';
+import { boardMessage, notifyBoard } from '$lib/server/notify';
 import { FEES } from '$lib/fees';
 
 const DAY = 86_400_000;
@@ -74,6 +75,15 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	}
 
 	if (overdue.length > 0) {
+		const msg = boardMessage(
+			'\u23f0 Membership fees overdue',
+			[
+				['Members', String(overdue.length)],
+				['Who', overdue.join(', ')]
+			],
+			{ label: 'Open the board page', url: 'https://members.mementomori.social/admin' }
+		);
+		await notifyBoard(msg.plain, msg.html);
 		await sendEmail(
 			'ry@mementomori.social',
 			`Jäsenmaksut myöhässä: ${overdue.length}`,

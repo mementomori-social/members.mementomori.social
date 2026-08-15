@@ -592,6 +592,9 @@ button.linklike:disabled {
 }
 .dash-grid .card {
 	margin: 0;
+	/* Grid items default to min-width:auto, so one unbreakable string (the
+	   virtual barcode) would widen the whole column past the viewport. */
+	min-width: 0;
 }
 .dash-grid .span2 {
 	grid-column: 1 / -1;
@@ -1038,6 +1041,9 @@ table.list img.avatar {
 }
 
 .callout {
+	/* Anything too wide for a phone scrolls inside its own box; the page itself
+	   must never scroll sideways. */
+	overflow-x: auto;
 	background: color-mix(in srgb, var(--accent) 8%, transparent);
 	border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
 	border-radius: var(--radius);
@@ -1055,6 +1061,7 @@ table.list img.avatar {
 }
 .copy-box {
 	display: flex;
+	min-width: 0;
 	align-items: center;
 	justify-content: space-between;
 	gap: 12px;
@@ -1076,7 +1083,12 @@ table.list img.avatar {
 	border-color: color-mix(in srgb, var(--accent) 70%, transparent);
 }
 .copy-value {
+	/* The virtual barcode is 54 unbreakable digits; as a flex item it needs the
+	   explicit shrink and a hard break to stay inside a phone screen. */
+	flex: 1 1 auto;
+	min-width: 0;
 	overflow-wrap: anywhere;
+	word-break: break-all;
 }
 .copy-state {
 	display: grid;
