@@ -16,7 +16,7 @@
 <ul class="member-rows contact-rows">
 	{#each data.board as person (person.acct)}
 		<li class="member-row">
-			<img class="row-avatar portrait-lg" src="/board-avatar/{person.acct}" alt="" loading="lazy" />
+			<img class="row-avatar" src="/board-avatar/{person.acct}" alt="" loading="lazy" />
 			<div class="member-id">
 				<span class="member-name">{person.displayName}</span>
 				<span class="muted small">{roleLabel(person.role)}</span>

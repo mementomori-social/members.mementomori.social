@@ -602,8 +602,8 @@ button.linklike:disabled {
 	border-top: 1px solid var(--border);
 }
 .row-avatar {
-	width: 44px;
-	height: 44px;
+	width: 52px;
+	height: 52px;
 	border-radius: 50%;
 	object-fit: cover;
 	aspect-ratio: 1;
@@ -713,7 +713,7 @@ button.compact {
 	}
 	.member-meta {
 		width: 100%;
-		margin-left: 58px;
+		margin-left: 66px;
 		text-align: left;
 	}
 	.contact-rows .member-row {
@@ -721,13 +721,9 @@ button.compact {
 	}
 	.contact-rows .contact-links {
 		width: 100%;
-		/* line up under the name: avatar 56px + 14px gap */
-		margin-left: 70px;
+		/* line up under the name: avatar 52px + 14px gap */
+		margin-left: 66px;
 	}
-}
-.portrait-lg {
-	width: 56px;
-	height: 56px;
 }
 .contact-links {
 	margin-left: auto;
