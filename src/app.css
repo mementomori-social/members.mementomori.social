@@ -891,11 +891,19 @@ button.compact {
 }
 .year-track .today-mark {
 	position: absolute;
-	top: -4px;
-	bottom: -4px;
-	width: 2px;
-	background: var(--bright);
+	top: -5px;
+	bottom: -5px;
+	width: 3px;
+	background: var(--warn);
 	border-radius: 2px;
+	box-shadow: 0 0 0 2px var(--bg);
+}
+.year-track + .bar-meta {
+	font-size: 13px;
+	margin-top: 6px;
+}
+.year-track + .bar-meta span:last-child {
+	text-align: right;
 }
 .bar-meta {
 	display: flex;
