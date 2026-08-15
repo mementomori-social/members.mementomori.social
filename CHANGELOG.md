@@ -19,3 +19,9 @@
 - Responsive layout down to 320 px
 - Separate signed-in navigation with top-bar sign out
 - Mastodon profile card with refresh feedback on the dashboard
+- Copyable payment details and Finnish virtual bank barcode
+- Sponsorship income tracking in the costs-covered figure
+- Display name separate from the statutory register name
+- Verified email required for password sign-in
+- Mastodon sign-in for linked accounts
+- Compact board view with automation-first payment recording
