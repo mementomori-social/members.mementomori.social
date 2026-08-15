@@ -110,10 +110,20 @@
 		{/if}
 		<label class="lang-select">
 			<span class="visually-hidden">{m.language_label()}</span>
-			<svg viewBox="0 0 24 24" width="15" height="15" fill="none" aria-hidden="true">
-				<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.7" />
-				<ellipse cx="12" cy="12" rx="4.2" ry="10" stroke="currentColor" stroke-width="1.7" />
-				<path d="M2.5 8.5h19M2.5 15.5h19" stroke="currentColor" stroke-width="1.7" />
+			<svg
+				viewBox="0 0 24 24"
+				width="15"
+				height="15"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<circle cx="12" cy="12" r="10" />
+				<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+				<path d="M2 12h20" />
 			</svg>
 			<span class="lang-code" aria-hidden="true">{locale.toUpperCase()}</span>
 			<select onchange={switchLocale} value={locale}>
