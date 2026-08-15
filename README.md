@@ -4,6 +4,8 @@ Membership site of **Mementomori ry**, the registered non-profit that runs and f
 
 Members apply on the site, the board approves applications, and membership fees are tracked in a payment ledger. The member register required by the Finnish Associations Act (full name and home municipality) is maintained here and exportable as CSV.
 
+<img width="1267" height="1024" alt="members mementomori social_" src="https://github.com/user-attachments/assets/6480601a-4a7d-42ec-b3e9-0fcf56a58d71" />
+
 ## Stack
 
 - [SvelteKit](https://svelte.dev/docs/kit) on [Cloudflare Workers](https://developers.cloudflare.com/workers/), via [@sveltejs/adapter-cloudflare](https://svelte.dev/docs/kit/adapter-cloudflare)
