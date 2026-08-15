@@ -1,10 +1,16 @@
 # Changelog
 
-## 1.1.1 (unreleased)
+## 1.1.1 (15.8.2026)
 
-- Paid status merged into one line
 - Payment state shown on the board page
+- Paid membership shown as one status line
+- Payment history is now the card heading
+- Payment schedule label reads Jäsenmaksu
+- Billing errors float as a dismissable bubble
+- Locked card schedule explained with next step
+- Full name requirement explained on the join form
 - Matrix alert names the association
+- Finnish wording and punctuation fixes
 
 ## 1.1.0 (15.8.2026)
 
