@@ -277,7 +277,7 @@
 	"admin_auto_holvi": "Holvi-yhteys",
 	"admin_auto_p3": "on käytössä; siihen asti ne kirjataan käsin alta.",
 	"consent_public_label": "Nimeni saa näkyä myös julkisella jäsenlistalla, joka näkyy kaikille internetissä.",
-	"members_public_note": "Nämä jäsenet ovat halunneet näkyä julkisesti. Täyttä jäsenluetteloa ylläpitää hallitus yhdistyslain mukaisesti.",
+	"members_public_note": "Nämä jäsenet ovat halunneet näkyä julkisesti. Täysi jäsenluettelo on vain hallituksen käytettävissä.",
 	"privacy_public_list": "Sivustolla on julkinen jäsenlista. Jäsen näkyy sillä vain, jos hän on erikseen antanut suostumuksen julkiseen listaukseen; jäsenille näkyvällä listalla on oma suostumuksensa. Molemmat voi perua omalla sivulla milloin tahansa, ja peruminen poistaa listalta heti.",
 	"visibility_heading": "Suostumukset",
 	"visibility_note": "Muutokset tulevat voimaan heti.",

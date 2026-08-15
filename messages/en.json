@@ -277,7 +277,7 @@
 	"admin_auto_holvi": "Holvi connection",
 	"admin_auto_p3": "is active; until then, record them manually below.",
 	"consent_public_label": "My name may also appear on the public member list, visible to anyone on the internet.",
-	"members_public_note": "These members have chosen to appear publicly. The full member register is maintained by the board as required by the Finnish Associations Act.",
+	"members_public_note": "These members have chosen to appear publicly. The full member register is available to the board only.",
 	"privacy_public_list": "The site has a public member list. A member appears on it only after ticking a separate consent for public listing; the members-only list has its own consent. Both can be withdrawn on your member page at any time, and withdrawal removes you from the list immediately.",
 	"visibility_heading": "Consent",
 	"visibility_note": "Changes take effect immediately.",
