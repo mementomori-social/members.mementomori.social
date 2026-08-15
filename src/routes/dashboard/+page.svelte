@@ -50,6 +50,7 @@
 	</p>
 	</div>
 	<form method="POST" action="?/saveBilling" class="billing-mini" use:enhance>
+		<span class="muted small">{m.billing_heading()}</span>
 		<label class="mini-opt">
 			<input
 				type="radio"
@@ -80,7 +81,6 @@
 
 <div class="dash-grid">
 	<div class="card span2">
-		<h3>{m.card_payments()}</h3>
 		{#if data.m.status === 'approved' && !data.covered}
 			<p class="fee-state bad">
 				<span class="dot"></span>
@@ -127,7 +127,7 @@
 				{data.m.status === 'approved' ? m.payments_none_approved() : m.payments_none()}
 			</p>
 		{:else}
-			<h4 class="subhead">{m.payment_history()}</h4>
+			<h3>{m.payment_history()}</h3>
 			<table class="list">
 				<thead>
 					<tr
