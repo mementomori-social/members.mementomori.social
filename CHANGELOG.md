@@ -19,6 +19,7 @@
 - Privacy notice (GDPR) in both languages
 - Responsive layout down to 320 px
 - Custom language dropdown, identical across browsers
+- Front page money section renamed to Members and costs
 - Separate signed-in navigation with top-bar sign out
 - Mastodon profile card with refresh feedback on the dashboard
 - Copyable payment details and Finnish virtual bank barcode
