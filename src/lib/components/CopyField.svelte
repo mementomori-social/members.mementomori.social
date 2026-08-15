@@ -2,10 +2,10 @@
 	import { m } from '$lib/paraglide/messages.js';
 
 	let {
-		label,
+		label = '',
 		display,
 		copyValue = display
-	}: { label: string; display: string; copyValue?: string } = $props();
+	}: { label?: string; display: string; copyValue?: string } = $props();
 
 	let copied = $state(false);
 	let timer: ReturnType<typeof setTimeout>;
@@ -23,7 +23,7 @@
 </script>
 
 <div class="copy-field">
-	<span class="copy-label">{label}</span>
+	{#if label}<span class="copy-label">{label}</span>{/if}
 	<button type="button" class="copy-box" class:copied onclick={copy}>
 		<span class="copy-value">{display}</span>
 		<span class="copy-state" aria-live="polite">

@@ -286,7 +286,5 @@
 	"covered_seg_upcoming": "Tuleva lasku",
 	"covered_left": "{left} € kattamatta",
 	"covered_seg_members": "Jäsenmaksuilla katettu",
-	"covered_seg_support": "Muulla tuella katettu",
-	"matrix_room_alias": "Huone",
-	"matrix_room_server": "Palvelin"
+	"covered_seg_support": "Muulla tuella katettu"
 }

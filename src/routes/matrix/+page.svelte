@@ -13,8 +13,7 @@
 
 <div class="card card-text-width">
 	<h3>{m.matrix_room()}</h3>
-	<CopyField label={m.matrix_room_alias()} display="#members:chat.mementomori.social" />
-	<CopyField label={m.matrix_room_server()} display="chat.mementomori.social" />
+	<CopyField display="#members:chat.mementomori.social" />
 </div>
 
 <h2>{m.matrix_how_heading()}</h2>

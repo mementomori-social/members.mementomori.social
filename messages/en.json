@@ -286,7 +286,5 @@
 	"covered_seg_upcoming": "Upcoming bill",
 	"covered_left": "{left} € left to cover",
 	"covered_seg_members": "Covered by member fees",
-	"covered_seg_support": "Covered by other support",
-	"matrix_room_alias": "Room",
-	"matrix_room_server": "Server"
+	"covered_seg_support": "Covered by other support"
 }
