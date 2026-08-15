@@ -58,7 +58,7 @@ export const actions: Actions = {
 		const homeMunicipality = String(form.get('homeMunicipality') ?? '').trim();
 		const email = String(form.get('email') ?? '').trim();
 		const memberClass = String(form.get('memberClass') ?? 'member') as MemberClass;
-		const billingInterval = form.get('billingInterval') === 'month' ? 'month' : 'year';
+		const billingInterval = form.get('billingInterval') === 'year' ? 'year' : 'month';
 		const listedConsent = form.get('listedConsent') === 'on';
 		const publicConsent = form.get('publicConsent') === 'on';
 

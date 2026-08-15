@@ -180,6 +180,37 @@
 		<a class="button ghost" href={localizeHref('/matrix')}>{m.matrix_open_cta()}</a>
 	</div>
 
+	<div class="card">
+		<h3>{m.billing_heading()}</h3>
+		<form method="POST" action="?/saveBilling" class="stack consent-form" use:enhance>
+			<label class="check">
+				<input
+					type="radio"
+					name="billingInterval"
+					value="month"
+					checked={data.m.billingInterval === 'month'}
+				/>
+				<span>{m.pay_month({ month: data.fee.month })}</span>
+			</label>
+			<label class="check">
+				<input
+					type="radio"
+					name="billingInterval"
+					value="year"
+					checked={data.m.billingInterval === 'year'}
+				/>
+				<span>{m.pay_year({ year: data.fee.year })}</span>
+			</label>
+			<div>
+				<button type="submit" class="ghost">{m.save()}</button>
+				{#if form?.billingSaved}
+					<span class="ok-note" role="status">✓ {m.saved()}</span>
+				{/if}
+			</div>
+			{#if form?.billingError}<p class="error">{form.billingError}</p>{/if}
+		</form>
+	</div>
+
 	<div class="card span2">
 		<h3>{m.visibility_heading()}</h3>
 		<form method="POST" action="?/saveVisibility" class="stack consent-form" use:enhance>

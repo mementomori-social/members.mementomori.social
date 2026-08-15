@@ -11,6 +11,7 @@ import { lookupAccount } from '$lib/server/mastodon';
 import { virtualBarcode } from '$lib/server/barcode';
 import { getLocale } from '$lib/paraglide/runtime';
 import { env } from '$env/dynamic/private';
+import { m as msg } from '$lib/paraglide/messages.js';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
 	if (!locals.user) redirect(303, '/login');
@@ -129,6 +130,23 @@ export const actions: Actions = {
 			})
 			.where(eq(member.id, m.id));
 		return { visibilitySaved: true };
+	},
+
+	/**
+	 * The fee is the same either way, so switching only changes the schedule of
+	 * what is still unpaid. An active card subscription keeps its own cadence
+	 * until it is cancelled, so it is refused here rather than silently ignored.
+	 */
+	saveBilling: async ({ request, locals, platform }) => {
+		if (!locals.user) redirect(303, '/login');
+		const db = getDb(platform!.env.DB);
+		const me = await getMemberByUserId(db, locals.user.id);
+		if (!me) redirect(303, '/join');
+		if (me.stripeSubscriptionId) return fail(400, { billingError: msg.billing_locked() });
+
+		const billingInterval = (await request.formData()).get('billingInterval') === 'year' ? 'year' : 'month';
+		await db.update(member).set({ billingInterval }).where(eq(member.id, me.id));
+		return { billingSaved: true };
 	},
 
 	/**

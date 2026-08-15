@@ -19,6 +19,9 @@
 - Matrix ID saving checks membership status
 - One Mastodon account links to one member only
 - Database dumps ignored by git, preview URLs off
+- Members can switch between monthly and yearly
+- Monthly is the default payment schedule
+- Styled error page with contact address
 
 ## 1.0.0 (15.8.2026)
 

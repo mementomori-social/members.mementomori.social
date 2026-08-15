@@ -29,7 +29,8 @@ export const member = sqliteTable('member', {
 	email: text('email'),
 	/** member = varsinainen jäsen, supporting = kannatusjäsen */
 	memberClass: text('member_class', { enum: ['member', 'supporting'] }).notNull(),
-	/** Payment schedule for the fixed annual fee. Annual preferred. */
+	/** Payment schedule for the fixed annual fee. The join form always sets this
+	    explicitly; the column default is only a backstop. */
 	billingInterval: text('billing_interval', { enum: ['year', 'month'] })
 		.notNull()
 		.default('year'),
