@@ -298,5 +298,7 @@
 	"privacy_right_complain_1": "tehdä valitus tietosuojavaltuutetun toimistolle",
 	"privacy_controller_1": "Mementomori ry, Y-tunnus 3637371-4, kotipaikka Jyväskylä. Tietojasi koskevat kysymykset:",
 	"privacy_security_1": "Varastettavia salasanoja ei ole: kirjautuminen tapahtuu kertakäyttölinkillä tai Mastodon-tilillä. Kaikki liikenne on salattua, sovellus asettaa tiukat selainsuojaukset (Content Security Policy ja muut otsakkeet), ja Cloudflaren alusta tuo infrastruktuuritason kovennukset ja DDoS-suojan. Jäsenluettelo näkyy vain hallitukselle ja jäsenlista vain kirjautuneille, hyväksytyille jäsenille, jotka ovat siihen suostuneet. Koko lähdekoodi on kenen tahansa tarkastettavissa osoitteessa",
-	"privacy_updated": "Päivitetty viimeksi {date}."
+	"privacy_updated": "Päivitetty viimeksi {date}.",
+	"privacy_security_2": "Jäsenten Matrix-keskusteluhuone on päästä päähän salattu.",
+	"matrix_e2e_note": "Huone on päästä päähän salattu: viestit voivat lukea vain sen jäsenet."
 }

@@ -12,6 +12,7 @@
 <p>
 	{m.matrix_intro_1()}
 	<a href="https://matrix.org">{m.matrix_intro_word()}</a>{m.matrix_intro_2()}
+	{m.matrix_e2e_note()}
 </p>
 
 <div class="card card-fit">

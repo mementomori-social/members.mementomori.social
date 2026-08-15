@@ -57,6 +57,7 @@
 <p>
 	{m.privacy_security_1()}
 	<a href="https://github.com/mementomori-social/members.mementomori.social">GitHub</a>.
+	{m.privacy_security_2()}
 </p>
 <p>{m.privacy_public_list()}</p>
 

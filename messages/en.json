@@ -298,5 +298,7 @@
 	"privacy_right_complain_1": "lodge a complaint with the Finnish Data Protection Ombudsman",
 	"privacy_controller_1": "Mementomori ry, business ID 3637371-4, domiciled in Jyväskylä, Finland. Questions about your data:",
 	"privacy_security_1": "There are no passwords to steal: sign-in uses one-time links or Mastodon. All traffic is encrypted, the application sets strict browser protections (Content Security Policy and related headers), and Cloudflare's platform provides infrastructure-level hardening and DDoS protection. The register is visible only to the board, and the member list only to signed-in, approved members who opted in. The entire source code is open for anyone to inspect at",
-	"privacy_updated": "Last updated {date}."
+	"privacy_updated": "Last updated {date}.",
+	"privacy_security_2": "The members' Matrix chat room is end-to-end encrypted.",
+	"matrix_e2e_note": "The room is end-to-end encrypted: only its members can read the messages."
 }
