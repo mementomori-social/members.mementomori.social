@@ -52,16 +52,21 @@
 <div class="card">
 	<h3>{m.card_masto()}</h3>
 	{#if data.mastodonLinked}
-		<p class="small">
-			{m.masto_linked()}{data.m.mastodonAcct ? `: @${data.m.mastodonAcct}` : ''}.
+		<div class="profile">
 			{#if data.m.mastodonAvatarUrl}
-				<img
-					src="/avatar/{data.m.id}"
-					alt=""
-					style="width:44px;height:44px;border-radius:10px;vertical-align:middle;margin-left:10px"
-				/>
+				<img class="profile-avatar" src="/avatar/{data.m.id}" alt="" />
 			{/if}
-		</p>
+			<div class="profile-body">
+				<strong class="profile-name">{data.mastoProfile?.displayName ?? data.m.mastodonAcct}</strong>
+				<span class="muted small">@{data.m.mastodonAcct}@mementomori.social</span>
+				{#if data.mastoProfile?.bio}
+					<p class="small profile-bio">{data.mastoProfile.bio}</p>
+				{/if}
+				{#if data.mastoProfile?.url}
+					<a class="small" href={data.mastoProfile.url}>{m.masto_view_profile()}</a>
+				{/if}
+			</div>
+		</div>
 		<form method="POST" action="?/syncMastodon" use:enhance>
 			<button class="ghost" type="submit">{m.masto_refresh()}</button>
 			{#if form?.syncError}<p class="error">{form.syncError}</p>{/if}

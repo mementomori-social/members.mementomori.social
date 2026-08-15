@@ -7,6 +7,7 @@ import { collectedThisYearEur, getMemberByUserId } from '$lib/server/members';
 import { FEES } from '$lib/fees';
 import { getStripe, priceIdFor, stripeEnabled } from '$lib/server/stripe';
 import { assignViite, formatViite } from '$lib/server/viite';
+import { lookupAccount } from '$lib/server/mastodon';
 import { env } from '$env/dynamic/private';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
@@ -50,6 +51,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			periodEnd: p.periodEnd
 		})),
 		mastodonLinked: Boolean(linked),
+		mastoProfile: linked && m.mastodonAcct ? await lookupAccount(m.mastodonAcct) : null,
 		fee: FEES[m.memberClass],
 		collectedEur: await collectedThisYearEur(db),
 		canPay: stripeEnabled() && !covered && Boolean(priceIdFor(m.memberClass, m.billingInterval)),

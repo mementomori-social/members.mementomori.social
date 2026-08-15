@@ -360,6 +360,36 @@ input[type='radio'] {
 .card h3 {
 	margin-top: 0;
 }
+.card > :last-child,
+.tier > :last-child {
+	margin-bottom: 0;
+}
+
+.profile {
+	display: flex;
+	gap: 16px;
+	align-items: flex-start;
+	margin: 4px 0 14px;
+}
+.profile-avatar {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	background: var(--surface-2);
+	flex-shrink: 0;
+}
+.profile-body {
+	display: grid;
+	gap: 2px;
+	min-width: 0;
+}
+.profile-name {
+	color: var(--bright);
+	font-size: 17px;
+}
+.profile-bio {
+	margin: 4px 0 2px;
+}
 
 .tiers {
 	display: grid;
