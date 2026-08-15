@@ -106,6 +106,23 @@ export const actions: Actions = {
 		redirect(303, session.url);
 	},
 
+	/** Both list consents, editable so they can be withdrawn at any time. */
+	saveVisibility: async ({ request, locals, platform }) => {
+		if (!locals.user) redirect(303, '/login');
+		const db = getDb(platform!.env.DB);
+		const m = await getMemberByUserId(db, locals.user.id);
+		if (!m) redirect(303, '/join');
+		const form = await request.formData();
+		await db
+			.update(member)
+			.set({
+				listedConsent: form.get('listedConsent') === 'on',
+				publicConsent: form.get('publicConsent') === 'on'
+			})
+			.where(eq(member.id, m.id));
+		return { visibilitySaved: true };
+	},
+
 	/**
 	 * Pull acct + avatar from Mastodon using the token stored at link time.
 	 * Explicit rather than automatic so the member controls when data updates.

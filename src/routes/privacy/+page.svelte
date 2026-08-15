@@ -46,6 +46,7 @@
 
 <h2>{m.privacy_security_h()}</h2>
 <p>{m.privacy_security()}</p>
+<p>{m.privacy_public_list()}</p>
 
 <h2>{m.privacy_changes_h()}</h2>
 <p>{m.privacy_changes()}</p>

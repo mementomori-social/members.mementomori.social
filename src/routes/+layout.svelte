@@ -58,7 +58,9 @@
 	/** Full page load on purpose: Paraglide resolves the locale at render time. */
 	function switchLocale(e: Event) {
 		const target = (e.currentTarget as HTMLSelectElement).value as 'en' | 'fi';
-		window.location.href = localizeHref(delocalized, { locale: target });
+		// Keep query and hash: ?path=form on the join page must survive the switch.
+		window.location.href =
+			localizeHref(delocalized, { locale: target }) + page.url.search + page.url.hash;
 	}
 </script>
 
@@ -174,6 +176,7 @@
 				<a href={href('/sponsorship')} aria-current={current('/sponsorship')}
 					>{m.sponsor_heading()}</a
 				>
+				<a href={href('/members')} aria-current={current('/members')}>{m.nav_members()}</a>
 				<a href={href('/contact')} aria-current={current('/contact')}>{m.nav_contact()}</a>
 			{/if}
 		</nav>

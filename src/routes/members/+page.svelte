@@ -7,7 +7,7 @@
 
 <h1>{m.members_heading()}</h1>
 
-<p class="muted small">{m.members_note()}</p>
+<p class="muted small">{data.publicOnly ? m.members_public_note() : m.members_note()}</p>
 
 {#if data.members.length === 0}
 	<p class="muted">{m.members_empty()}</p>
@@ -28,10 +28,12 @@
 						>
 					{/if}
 				</div>
-				<span class="muted small member-meta">
-					{member.homeMunicipality} ·
-					{member.memberClass === 'member' ? m.class_member() : m.class_patron()}
-				</span>
+				{#if member.homeMunicipality && member.memberClass}
+					<span class="muted small member-meta">
+						{member.homeMunicipality} ·
+						{member.memberClass === 'member' ? m.class_member() : m.class_patron()}
+					</span>
+				{/if}
 			</li>
 		{/each}
 	</ul>

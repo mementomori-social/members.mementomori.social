@@ -168,6 +168,27 @@
 	</div>
 
 	<div class="card span2">
+		<h3>{m.visibility_heading()}</h3>
+		<p class="muted small">{m.visibility_note()}</p>
+		<form method="POST" action="?/saveVisibility" class="stack" use:enhance>
+			<label class="check">
+				<input type="checkbox" name="listedConsent" checked={data.m.listedConsent} />
+				<span>{m.consent_label()}</span>
+			</label>
+			<label class="check">
+				<input type="checkbox" name="publicConsent" checked={data.m.publicConsent} />
+				<span>{m.consent_public_label()}</span>
+			</label>
+			<div>
+				<button type="submit" class="ghost">{m.save()}</button>
+				{#if form?.visibilitySaved}
+					<span class="ok-note" role="status">✓ {m.saved()}</span>
+				{/if}
+			</div>
+		</form>
+	</div>
+
+	<div class="card span2">
 		<h3>{m.covered_heading()}</h3>
 		<p class="covered-total">
 			<strong>{cov.total.toFixed(2).replace('.', ',')}&nbsp;€</strong>

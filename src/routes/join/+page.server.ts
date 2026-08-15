@@ -53,6 +53,7 @@ export const actions: Actions = {
 		const memberClass = String(form.get('memberClass') ?? 'member') as MemberClass;
 		const billingInterval = form.get('billingInterval') === 'month' ? 'month' : 'year';
 		const listedConsent = form.get('listedConsent') === 'on';
+		const publicConsent = form.get('publicConsent') === 'on';
 
 		const values = { fullName, homeMunicipality, email, memberClass, billingInterval };
 		if (!fullName || !homeMunicipality)
@@ -91,7 +92,8 @@ export const actions: Actions = {
 					email,
 					memberClass,
 					billingInterval,
-					listedConsent
+					listedConsent,
+					publicConsent
 				});
 				const msg = boardMessage(
 					'📝 New membership application',
@@ -147,6 +149,7 @@ export const actions: Actions = {
 					userId: userId!,
 					billingInterval,
 					listedConsent,
+					publicConsent,
 					mastodonAcct: pending?.acct ?? unclaimed.mastodonAcct,
 					mastodonAvatarUrl: pending?.avatar ?? unclaimed.mastodonAvatarUrl
 				})
@@ -161,6 +164,7 @@ export const actions: Actions = {
 				memberClass,
 				billingInterval,
 				listedConsent,
+				publicConsent,
 				mastodonAcct: pending?.acct ?? null,
 				mastodonAvatarUrl: pending?.avatar ?? null
 			});

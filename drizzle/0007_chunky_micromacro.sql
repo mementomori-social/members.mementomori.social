@@ -1,0 +1,1 @@
+ALTER TABLE `member` ADD `public_consent` integer DEFAULT false NOT NULL;

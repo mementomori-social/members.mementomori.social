@@ -27,6 +27,19 @@ export async function collectedThisYearEur(db: Db): Promise<{ fees: number; inco
 export const approvedMemberCount = async (db: Db) =>
 	(await db.select({ id: member.id }).from(member).where(eq(member.status, 'approved'))).length;
 
+export const publicMembers = (db: Db) =>
+	db.query.member.findMany({
+		where: and(eq(member.status, 'approved'), eq(member.publicConsent, true)),
+		columns: {
+			id: true,
+			fullName: true,
+			displayName: true,
+			mastodonAcct: true,
+			mastodonAvatarUrl: true
+		},
+		orderBy: (m, { asc }) => [asc(m.fullName)]
+	});
+
 export const listedMembers = (db: Db) =>
 	db.query.member.findMany({
 		where: and(eq(member.status, 'approved'), eq(member.listedConsent, true)),

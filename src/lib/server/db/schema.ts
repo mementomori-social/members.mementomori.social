@@ -47,6 +47,8 @@ export const member = sqliteTable('member', {
 	stripeSubscriptionId: text('stripe_subscription_id'),
 	/** Opt-in consent to appear on the member list shown to other members. */
 	listedConsent: integer('listed_consent', { mode: 'boolean' }).notNull().default(false),
+	/** Separate opt-in consent to appear on the PUBLIC member list. */
+	publicConsent: integer('public_consent', { mode: 'boolean' }).notNull().default(false),
 	status: text('status', { enum: ['applied', 'approved', 'rejected', 'ended'] })
 		.notNull()
 		.default('applied'),

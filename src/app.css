@@ -638,7 +638,11 @@ button.compact {
 	margin-bottom: 18px;
 }
 .contact-rows {
-	max-width: 620px;
+	max-width: none;
+}
+.contact-rows .contact-links {
+	width: 340px;
+	justify-items: start;
 }
 .portrait-lg {
 	width: 56px;

@@ -52,10 +52,10 @@
 			<h3>{m.login_email_heading()}</h3>
 			<p class="muted small">{m.login_magic_note()}</p>
 			<form class="stack" onsubmit={sendMagicLink}>
-				<label class="field" for="login-email">{m.field_email()}</label>
 				<div class="input-group">
 					<input
 						id="login-email"
+						aria-label={m.field_email()}
 						type="email"
 						bind:value={email}
 						required
