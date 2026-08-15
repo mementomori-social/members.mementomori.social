@@ -78,11 +78,31 @@ export const actions: Actions = {
 		}
 
 		let userId = locals.user?.id;
-		const createdViaMastodon = !userId && Boolean(pending);
+		let createdViaMastodon = !userId && Boolean(pending);
 		if (!userId && pending) {
 			// Mastodon path: the account is created with a random password and the
 			// verified Mastodon account is linked for sign-in. No password exists.
 			if (!email) return fail(400, { ...values, error: m.err_email_required() });
+
+			// Someone applying a second time already has an account. Creating another
+			// one throws, and linking this Mastodon account to an address the visitor
+			// merely typed would hand over a login, so the flow ends the safe way it
+			// always ends: a link to the address itself.
+			const existingUser = await db.query.user.findFirst({ where: eq(user.email, email) });
+			if (existingUser) {
+				cookies.delete('join_masto', { path: '/' });
+				try {
+					await locals.auth.api.signInMagicLink({
+						body: { email, name: fullName, callbackURL: '/dashboard' },
+						headers: request.headers
+					});
+				} catch (e) {
+					const msg = e instanceof APIError ? e.message : m.err_account_create();
+					return fail(500, { ...values, error: msg });
+				}
+				return { magicSent: true, email };
+			}
+
 			try {
 				const res = await locals.auth.api.signUpEmail({
 					body: { name: fullName, email, password: crypto.randomUUID() + crypto.randomUUID() }
@@ -93,6 +113,7 @@ export const actions: Actions = {
 				return fail(400, { ...values, error: msg });
 			}
 			await applyBootstrapRole(db, email);
+			createdViaMastodon = true;
 		}
 
 		if (!userId && !pending) {
@@ -138,14 +159,19 @@ export const actions: Actions = {
 		}
 
 		if (pending) {
-			await db.insert(account).values({
-				id: crypto.randomUUID(),
-				accountId: pending.accountId,
-				providerId: 'mastodon',
-				userId: userId!,
-				accessToken: pending.accessToken,
-				scope: 'profile'
-			});
+			// Re-applying sends the same Mastodon account through again; the link
+			// already exists and must not turn a resubmit into a 500.
+			await db
+				.insert(account)
+				.values({
+					id: crypto.randomUUID(),
+					accountId: pending.accountId,
+					providerId: 'mastodon',
+					userId: userId!,
+					accessToken: pending.accessToken,
+					scope: 'profile'
+				})
+				.onConflictDoNothing();
 			cookies.delete('join_masto', { path: '/' });
 		}
 
@@ -162,6 +188,37 @@ export const actions: Actions = {
 						where: and(eq(member.email, verifiedEmail), isNull(member.userId))
 					})
 				: undefined;
+
+		// Applying twice must update the existing row, never insert a second one:
+		// member.userId is unique, so a duplicate insert would fail as a 500.
+		const mine = await getMemberByUserId(db, userId!);
+		if (mine) {
+			await db
+				.update(member)
+				.set({
+					fullName,
+					homeMunicipality,
+					memberClass,
+					billingInterval,
+					listedConsent,
+					publicConsent,
+					mastodonAcct: pending?.acct ?? mine.mastodonAcct,
+					mastodonAvatarUrl: pending?.avatar ?? mine.mastodonAvatarUrl
+				})
+				.where(eq(member.id, mine.id));
+			if (createdViaMastodon) {
+				try {
+					await locals.auth.api.signInMagicLink({
+						body: { email: email || mine.email || '', name: fullName, callbackURL: '/dashboard' },
+						headers: request.headers
+					});
+				} catch {
+					// The application is saved either way; sign-in can be retried.
+				}
+				return { magicSent: true, email: email || mine.email || '' };
+			}
+			redirect(303, '/dashboard');
+		}
 
 		let isNewApplication = false;
 		if (unclaimed) {

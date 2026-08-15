@@ -9,12 +9,24 @@
 	let { data, form }: PageProps = $props();
 
 	const chosePlain = $derived(page.url.searchParams.get('path') === 'form');
-	const showForm = $derived(Boolean(data.pendingMasto) || chosePlain || data.signedIn);
+	// An error must keep the form on screen: dropping back to the choice screen
+	// looks like the submit silently did nothing and loses what was typed.
+	const showForm = $derived(
+		Boolean(data.pendingMasto) || chosePlain || data.signedIn || Boolean(form?.error)
+	);
+	const sentTo = $derived(form?.email ?? '');
+
+	// The billing labels quote the price of the class chosen just above.
+	let memberClass = $state<'member' | 'supporting'>('member');
+	const fee = $derived(FEES[memberClass]);
 </script>
 
-<h1>{m.join_heading()}</h1>
+<h1>{form?.magicSent ? m.check_email_heading() : m.join_heading()}</h1>
 
-{#if !showForm}
+{#if form?.magicSent}
+	<p class="notice ok" role="status">✓ {m.join_check_email()}</p>
+	<p>{m.check_email_steps({ email: sentTo })}</p>
+{:else if !showForm}
 	<p>{m.join_intro()}</p>
 
 	<div class="tiers">
@@ -31,8 +43,6 @@
 			<a class="button ghost" href={localizeHref('/join?path=form')}>{m.choice_form_cta()}</a>
 		</div>
 	</div>
-{:else if form?.magicSent}
-	<p class="notice ok" role="status">✓ {m.join_check_email()}</p>
 {:else}
 	{#if data.pendingMasto}
 		<p class="notice ok" role="status">✓ {m.verified_as({ acct: data.pendingMasto.acct })}</p>
@@ -79,14 +89,14 @@
 
 		<fieldset style="border:none;padding:0;margin:6px 0 0;display:grid;gap:8px">
 			<label class="check">
-				<input type="radio" name="memberClass" value="member" checked />
+				<input type="radio" name="memberClass" value="member" bind:group={memberClass} />
 				<span
 					><strong>{m.class_member()}</strong>,
 					{m.option_member_rest({ year: FEES.member.year, month: FEES.member.month })}</span
 				>
 			</label>
 			<label class="check">
-				<input type="radio" name="memberClass" value="supporting" />
+				<input type="radio" name="memberClass" value="supporting" bind:group={memberClass} />
 				<span
 					><strong>{m.class_patron()}</strong>,
 					{m.option_patron_rest({
@@ -99,12 +109,12 @@
 
 		<fieldset style="border:none;padding:0;margin:6px 0 0;display:grid;gap:8px">
 			<label class="check">
-				<input type="radio" name="billingInterval" value="year" checked />
-				<span>{m.pay_year()}</span>
+				<input type="radio" name="billingInterval" value="month" checked />
+				<span>{m.pay_month({ month: fee.month })}</span>
 			</label>
 			<label class="check">
-				<input type="radio" name="billingInterval" value="month" />
-				<span>{m.pay_month()}</span>
+				<input type="radio" name="billingInterval" value="year" />
+				<span>{m.pay_year({ year: fee.year })}</span>
 			</label>
 		</fieldset>
 
