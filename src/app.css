@@ -181,20 +181,26 @@ a[href^='http']::after {
 .lang-select {
 	position: relative;
 	display: inline-flex;
+}
+.lang-btn {
+	display: inline-flex;
 	align-items: center;
 	gap: 6px;
 	border: 1px solid var(--border);
 	border-radius: 8px;
 	padding: 4px 14px;
+	font: inherit;
 	font-size: 15px;
+	background: none;
 	color: var(--muted);
 	cursor: pointer;
 }
-.lang-select:hover {
+.lang-btn:hover,
+.lang-btn[aria-expanded='true'] {
 	background: var(--surface-2);
 	color: var(--bright);
 }
-.lang-select:focus-within {
+.lang-btn:focus-visible {
 	outline: 3px solid var(--accent);
 	outline-offset: 2px;
 }
@@ -203,41 +209,39 @@ a[href^='http']::after {
 	/* Match the 15px/1.4 line box of .utility-btn so all pills share a height. */
 	line-height: 21px;
 }
-.lang-select select {
+.lang-menu {
 	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	opacity: 0;
-	cursor: pointer;
-	font: inherit;
-}
-/* Styled option list where supported (Chromium); elsewhere the native
-   popup is used, which stays fully accessible. */
-.lang-select select,
-.lang-select select::picker(select) {
-	appearance: base-select;
-}
-.lang-select select::picker(select) {
+	top: calc(100% + 6px);
+	right: 0;
+	z-index: 30;
+	margin: 0;
+	padding: 4px;
+	list-style: none;
+	min-width: 130px;
 	background: var(--surface);
 	border: 1px solid var(--border);
 	border-radius: 10px;
-	padding: 4px;
 	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
-.lang-select option {
+.lang-menu button {
+	display: block;
+	width: 100%;
 	padding: 8px 14px;
+	border: 0;
 	border-radius: 6px;
+	font: inherit;
 	font-size: 15px;
+	text-align: left;
+	background: none;
 	color: var(--text);
-	background: var(--surface);
+	cursor: pointer;
 }
-.lang-select option:hover,
-.lang-select option:focus {
+.lang-menu button:hover,
+.lang-menu button:focus-visible {
 	background: var(--surface-2);
 	color: var(--bright);
 }
-.lang-select option:checked {
+.lang-menu button[aria-selected='true'] {
 	color: var(--bright);
 }
 .visually-hidden {

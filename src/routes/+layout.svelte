@@ -63,14 +63,29 @@
 		pageMeta.title ? `${pageMeta.title} - Mementomori ry` : 'Mementomori ry'
 	);
 
+	let langOpen = $state(false);
+	let langWrap = $state<HTMLElement>();
+
 	/** Full page load on purpose: Paraglide resolves the locale at render time. */
-	function switchLocale(e: Event) {
-		const target = (e.currentTarget as HTMLSelectElement).value as 'en' | 'fi';
+	function switchLocale(target: 'en' | 'fi') {
+		langOpen = false;
 		// Keep query and hash: ?path=form on the join page must survive the switch.
 		window.location.href =
 			localizeHref(delocalized, { locale: target }) + page.url.search + page.url.hash;
 	}
+
+	function onWindowClick(e: MouseEvent) {
+		if (langOpen && langWrap && !langWrap.contains(e.target as Node)) langOpen = false;
+	}
+	function onWindowKeydown(e: KeyboardEvent) {
+		if (e.key === 'Escape' && langOpen) {
+			langOpen = false;
+			langWrap?.querySelector('button')?.focus();
+		}
+	}
 </script>
+
+<svelte:window onclick={onWindowClick} onkeydown={onWindowKeydown} />
 
 <svelte:head>
 	<title>{pageTitle}</title>
@@ -97,30 +112,50 @@
 
 <div class="wrap">
 	<div class="utility">
-		<label class="lang-select">
-			<span class="visually-hidden">{m.language_label()}</span>
-			<svg
-				viewBox="0 0 24 24"
-				width="15"
-				height="15"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				aria-hidden="true"
+		<div class="lang-select" bind:this={langWrap}>
+			<button
+				type="button"
+				class="lang-btn"
+				aria-haspopup="listbox"
+				aria-expanded={langOpen}
+				onclick={() => (langOpen = !langOpen)}
 			>
-				<circle cx="12" cy="12" r="10" />
-				<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-				<path d="M2 12h20" />
-			</svg>
-			<span class="lang-code" aria-hidden="true">{locale.toUpperCase()}</span>
-			<select onchange={switchLocale} value={locale}>
-				{#each locales as l (l)}
-					<option value={l} lang={l}>{localeName(l)}</option>
-				{/each}
-			</select>
-		</label>
+				<span class="visually-hidden">{m.language_label()}</span>
+				<svg
+					viewBox="0 0 24 24"
+					width="15"
+					height="15"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<circle cx="12" cy="12" r="10" />
+					<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+					<path d="M2 12h20" />
+				</svg>
+				<span class="lang-code" aria-hidden="true">{locale.toUpperCase()}</span>
+			</button>
+			{#if langOpen}
+				<ul class="lang-menu" role="listbox" aria-label={m.language_label()}>
+					{#each locales as l (l)}
+						<li>
+							<button
+								type="button"
+								role="option"
+								aria-selected={l === locale}
+								lang={l}
+								onclick={() => switchLocale(l)}
+							>
+								{localeName(l)}
+							</button>
+						</li>
+					{/each}
+				</ul>
+			{/if}
+		</div>
 		{#if data.user}
 			{#if data.board}
 				<a
