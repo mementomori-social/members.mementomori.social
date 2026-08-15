@@ -101,7 +101,7 @@
 	"payments_none": "Maksuja ei ole vielä kirjattu. Maksuohjeet tulevat sähköpostiin, kun hakemuksesi on hyväksytty.",
 	"th_date": "Päivä",
 	"th_amount": "Summa",
-	"th_method": "Tapa",
+	"th_method": "Maksutapa",
 	"th_period": "Kausi",
 	"period_to": "-",
 	"costs_monthly_note": "Mementomori.socialin infrastruktuuri, verkkosivut ja yhteisöpalvelu maksavat {monthly} € kuukaudessa.",
