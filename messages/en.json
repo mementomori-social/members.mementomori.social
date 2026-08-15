@@ -272,5 +272,7 @@
 	"copy": "Copy",
 	"copied": "Copied",
 	"bank_barcode": "Virtual barcode",
-	"bank_barcode_note": "Paste the virtual barcode into your banking app and every detail fills in at once."
+	"bank_barcode_note": "Paste the virtual barcode into your banking app and every detail fills in at once.",
+	"admin_payments_h": "Payments",
+	"admin_payments_auto_note": "Card payments book themselves through Stripe. Bank transfers book themselves once the Holvi connection is active; until then, record them manually below."
 }

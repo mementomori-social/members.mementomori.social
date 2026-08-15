@@ -591,6 +591,48 @@ button.linklike:disabled {
 	text-align: right;
 	flex-shrink: 0;
 }
+.apply-rows {
+	max-width: none;
+}
+.row-actions {
+	margin-left: auto;
+	display: flex;
+	gap: 10px;
+	flex-shrink: 0;
+}
+button.compact {
+	padding: 8px 16px;
+	font-size: 15.5px;
+}
+.fold {
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 0;
+	margin: 18px 0;
+	max-width: 640px;
+}
+.fold summary {
+	cursor: pointer;
+	padding: 13px 18px;
+	font-weight: 500;
+	color: var(--text);
+	border-radius: var(--radius);
+}
+.fold summary:hover {
+	background: var(--surface-2);
+	color: var(--bright);
+}
+.fold[open] summary {
+	border-bottom: 1px solid var(--border);
+	border-radius: var(--radius) var(--radius) 0 0;
+}
+.fold > :not(summary) {
+	margin-left: 18px;
+	margin-right: 18px;
+}
+.fold > form {
+	margin-bottom: 18px;
+}
 .contact-rows {
 	max-width: 620px;
 }

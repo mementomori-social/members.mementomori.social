@@ -27,44 +27,48 @@
 {#if data.applied.length === 0}
 	<p class="muted">{m.admin_no_open()}</p>
 {:else}
-	{#each data.applied as a (a.id)}
-		<div class="card">
-			<h3>{a.fullName} <span class="muted small">({a.homeMunicipality})</span></h3>
-			<p class="muted small">
-				{a.memberClass === 'member' ? m.class_member() : m.class_patron()},
-				{a.billingInterval === 'year' ? m.pays_annually() : m.pays_monthly()},
-				{m.admin_applied()}
-				{fmt(a.appliedAt)}
-				{#if a.mastodonAcct}, @{a.mastodonAcct}{/if}
-				{#if a.matrixId}, Matrix: {a.matrixId}{/if}
-			</p>
-			<p class="small">
-				{m.admin_approvals_so_far()}
-				{a.approvals.length}
-				{#if a.approvals.length > 0}
-					({a.approvals.map((x) => x.approverRole).join(', ')})
-				{/if}
-				<span class="muted"> - {m.admin_approval_rule()}</span>
-			</p>
-			<div style="display:flex;gap:10px">
-				<form method="POST" action="?/approve" use:enhance>
-					<input type="hidden" name="memberId" value={a.id} />
-					<button type="submit">{m.admin_approve()}</button>
-				</form>
-				<form method="POST" action="?/reject" use:enhance>
-					<input type="hidden" name="memberId" value={a.id} />
-					<button type="submit" class="danger">{m.admin_reject()}</button>
-				</form>
-			</div>
-		</div>
-	{/each}
+	<ul class="member-rows apply-rows">
+		{#each data.applied as a (a.id)}
+			<li class="member-row">
+				<div class="member-id">
+					<span class="member-name">{a.fullName}</span>
+					<span class="muted small">
+						{a.homeMunicipality} ·
+						{a.memberClass === 'member' ? m.class_member() : m.class_patron()} ·
+						{a.billingInterval === 'year' ? m.pays_annually() : m.pays_monthly()} ·
+						{m.admin_applied()}
+						{fmt(a.appliedAt)}{#if a.mastodonAcct}&nbsp;· @{a.mastodonAcct}{/if}{#if a.matrixId}&nbsp;·
+							{a.matrixId}{/if}
+					</span>
+					<span class="muted small">
+						{m.admin_approvals_so_far()}
+						{a.approvals.length}{#if a.approvals.length > 0}&nbsp;({a.approvals
+								.map((x) => x.approverRole)
+								.join(', ')}){/if} - {m.admin_approval_rule()}
+					</span>
+				</div>
+				<span class="row-actions">
+					<form method="POST" action="?/approve" use:enhance>
+						<input type="hidden" name="memberId" value={a.id} />
+						<button type="submit" class="compact">{m.admin_approve()}</button>
+					</form>
+					<form method="POST" action="?/reject" use:enhance>
+						<input type="hidden" name="memberId" value={a.id} />
+						<button type="submit" class="danger compact">{m.admin_reject()}</button>
+					</form>
+				</span>
+			</li>
+		{/each}
+	</ul>
 {/if}
 
-<h2>{m.admin_record_bank()}</h2>
+<h2>{m.admin_payments_h()}</h2>
 
-<p class="muted small">{m.admin_record_bank_note()}</p>
+<p class="muted small">{m.admin_payments_auto_note()}</p>
 
-<div class="card">
+<details class="fold">
+	<summary>{m.admin_record_bank()}</summary>
+	<p class="muted small">{m.admin_record_bank_note()}</p>
 	<form method="POST" action="?/recordPayment" class="stack" use:enhance>
 		<label class="field">
 			{m.admin_member()}
@@ -94,9 +98,8 @@
 			<input type="text" name="reference" />
 		</label>
 		<div><button type="submit" class="ghost">{m.admin_record_payment()}</button></div>
-		<p class="muted small">{m.admin_stripe_auto()}</p>
 	</form>
-</div>
+</details>
 
 <h2>{m.admin_ledger()}</h2>
 
@@ -127,9 +130,9 @@
 
 <h2>{m.admin_income()}</h2>
 
-<p class="muted small">{m.admin_income_note()}</p>
-
-<div class="card">
+<details class="fold">
+	<summary>{m.admin_record_income()}</summary>
+	<p class="muted small">{m.admin_income_note()}</p>
 	<form method="POST" action="?/recordIncome" class="stack" use:enhance>
 		<label class="field">
 			{m.admin_income_source()}
@@ -165,7 +168,7 @@
 		<div><button type="submit" class="ghost">{m.admin_record_income()}</button></div>
 		{#if form?.incomeError}<p class="error">{form.incomeError}</p>{/if}
 	</form>
-</div>
+</details>
 
 {#if data.incomeRows.length > 0}
 	<table class="list">
@@ -211,7 +214,9 @@
 		<tr
 			><th>{m.th_name()}</th><th>{m.th_municipality()}</th><th>{m.th_class()}</th><th
 				>{m.th_status()}</th
-			>{#if data.roster.some((r) => r.matrixId)}<th>{m.th_matrix()}</th>{/if}<th>{m.th_decided()}</th></tr
+			>{#if data.roster.some((r) => r.matrixId)}<th>{m.th_matrix()}</th>{/if}<th
+				>{m.th_decided()}</th
+			></tr
 		>
 	</thead>
 	<tbody>
@@ -225,7 +230,8 @@
 				<td>
 					<span class="badge {r.status === 'approved' ? 'ok' : ''}">{statusLabel(r.status)}</span>
 				</td>
-				{#if data.roster.some((x) => x.matrixId)}<td class="muted small">{r.matrixId ?? ''}</td>{/if}
+				{#if data.roster.some((x) => x.matrixId)}<td class="muted small">{r.matrixId ?? ''}</td
+					>{/if}
 				<td class="muted small">{r.decidedAt ? fmt(r.decidedAt) : ''}</td>
 			</tr>
 		{/each}
