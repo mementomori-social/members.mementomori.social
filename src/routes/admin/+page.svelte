@@ -4,6 +4,7 @@
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
+	const finnishDatePattern = '\\d{1,2}\\.\\d{1,2}\\.\\d{4}';
 	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
 	const statusLabel = (s: string) =>
 		({
@@ -77,7 +78,14 @@
 		</label>
 		<label class="field">
 			{m.admin_paid_on()}
-			<input type="date" name="paidAt" required />
+			<input
+				type="text"
+				name="paidAt"
+				required
+				placeholder="15.8.2026"
+				pattern={finnishDatePattern}
+				inputmode="numeric"
+			/>
 		</label>
 		<label class="field">
 			{m.admin_reference()} <span class="muted">{m.admin_reference_hint()}</span>

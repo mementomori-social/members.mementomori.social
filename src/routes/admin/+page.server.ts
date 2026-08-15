@@ -94,7 +94,12 @@ export const actions: Actions = {
 
 		const memberId = String(form.get('memberId') ?? '');
 		const amountEur = Number(form.get('amountEur'));
-		const paidAt = new Date(String(form.get('paidAt') ?? ''));
+		// Finnish d.M.yyyy from the form; ISO accepted as a fallback.
+		const rawDate = String(form.get('paidAt') ?? '').trim();
+		const fiMatch = rawDate.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+		const paidAt = fiMatch
+			? new Date(Date.UTC(Number(fiMatch[3]), Number(fiMatch[2]) - 1, Number(fiMatch[1])))
+			: new Date(rawDate);
 		const reference = String(form.get('reference') ?? '').trim() || null;
 
 		if (!memberId || !Number.isFinite(amountEur) || amountEur <= 0 || isNaN(paidAt.getTime()))
