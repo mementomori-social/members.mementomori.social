@@ -283,8 +283,8 @@
 	"visibility_note": "Changes take effect immediately.",
 	"saved": "Saved",
 	"covered_big_label": "left to pay this term",
-	"covered_seg_earlier": "Covered earlier",
-	"covered_seg_month": "This month's payments",
 	"covered_seg_upcoming": "Upcoming bill",
-	"covered_left": "{left} € left to cover"
+	"covered_left": "{left} € left to cover",
+	"covered_seg_members": "Covered by member fees",
+	"covered_seg_support": "Covered by other support"
 }

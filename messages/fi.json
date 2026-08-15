@@ -283,8 +283,8 @@
 	"visibility_note": "Muutokset tulevat voimaan heti.",
 	"saved": "Tallennettu",
 	"covered_big_label": "maksettavaa tällä toimikaudella",
-	"covered_seg_earlier": "Aiemmin katettu",
-	"covered_seg_month": "Tämän kuun maksut",
 	"covered_seg_upcoming": "Tuleva lasku",
-	"covered_left": "{left} € kattamatta"
+	"covered_left": "{left} € kattamatta",
+	"covered_seg_members": "Jäsenmaksuilla katettu",
+	"covered_seg_support": "Muulla tuella katettu"
 }

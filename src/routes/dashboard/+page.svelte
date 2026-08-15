@@ -202,18 +202,18 @@
 			<span class="muted small">{m.covered_big_label()}</span>
 		</p>
 		<div class="progress stacked">
-			<div class="seg-earlier" style="width: {(cov.earlier / COSTS.annualEur) * 100}%"></div>
-			<div class="seg-month" style="width: {(cov.currentMonth / COSTS.annualEur) * 100}%"></div>
+			<div class="seg-month" style="width: {(cov.members / COSTS.annualEur) * 100}%"></div>
+			<div class="seg-earlier" style="width: {(cov.support / COSTS.annualEur) * 100}%"></div>
 			<div class="seg-upcoming" style="width: {(cov.upcoming / COSTS.annualEur) * 100}%"></div>
 		</div>
 		<p class="legend small">
 			<span
-				><span class="dot accent"></span>
-				{m.covered_seg_earlier()}: {cov.earlier.toFixed(2).replace('.', ',')}&nbsp;€</span
+				><span class="dot ok"></span>
+				{m.covered_seg_members()}: {cov.members.toFixed(2).replace('.', ',')}&nbsp;€</span
 			>
 			<span
-				><span class="dot ok"></span>
-				{m.covered_seg_month()}: {cov.currentMonth.toFixed(2).replace('.', ',')}&nbsp;€</span
+				><span class="dot accent"></span>
+				{m.covered_seg_support()}: {cov.support.toFixed(2).replace('.', ',')}&nbsp;€</span
 			>
 			<span
 				><span class="dot warn"></span>

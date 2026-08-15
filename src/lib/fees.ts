@@ -23,13 +23,17 @@ export const COSTS = {
  */
 export function coverage(fees: number, income: number, now = new Date()) {
 	const monthsPaid = now.getDate() >= 15 ? now.getMonth() + 1 : now.getMonth();
-	const collected = fees + income;
-	const sponsorDirect = Math.max(0, monthsPaid * COSTS.monthlyEur - collected);
-	const total = collected + sponsorDirect;
-	/** The bill paid in the current month, shown as its own segment. */
-	const currentMonth = now.getDate() >= 15 ? Math.min(COSTS.monthlyEur, total) : 0;
-	const earlier = Math.max(0, total - currentMonth);
+	/** Fees paid by members: grows as the membership grows. */
+	const members = fees;
+	/**
+	 * Everything else keeping the lights on: recorded sponsorship income plus
+	 * the transitional share of bills the sponsor has paid directly. As
+	 * invoiced income catches up with the bills, the transitional share
+	 * shrinks to zero by itself.
+	 */
+	const support = income + Math.max(0, monthsPaid * COSTS.monthlyEur - fees - income);
+	const total = members + support;
 	/** The next monthly bill, still ahead of us this year. */
 	const upcoming = monthsPaid < 12 ? COSTS.monthlyEur : 0;
-	return { collected, sponsorDirect, total, earlier, currentMonth, upcoming };
+	return { members, support, total, upcoming };
 }
