@@ -1461,3 +1461,14 @@ img {
 		margin-top: 48px;
 	}
 }
+
+.pay-chip {
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--danger);
+	white-space: nowrap;
+}
+.pay-chip.paid {
+	color: var(--ok);
+}

@@ -72,7 +72,11 @@ export const actions: Actions = {
 			const ip = getClientAddress();
 			if (
 				(await tooManyRequests(db, `join|ip|${ip}`, { window: 3600, max: 5 })) ||
-				(email && (await tooManyRequests(db, `join|email|${email.toLowerCase()}`, { window: 3600, max: 3 })))
+				(email &&
+					(await tooManyRequests(db, `join|email|${email.toLowerCase()}`, {
+						window: 3600,
+						max: 3
+					})))
 			)
 				return fail(429, { ...values, error: m.err_too_many() });
 		}
@@ -134,7 +138,7 @@ export const actions: Actions = {
 					publicConsent
 				});
 				const msg = boardMessage(
-					'📝 New membership application',
+					'📝 New Mementomori ry membership application',
 					[
 						['Name', fullName],
 						['Municipality', homeMunicipality],
@@ -258,7 +262,7 @@ export const actions: Actions = {
 				['Billing', billingInterval === 'year' ? 'annual' : 'monthly']
 			];
 			if (pending?.acct) fields.push(['Mastodon', `@${pending.acct}`]);
-			const msg = boardMessage('📝 New membership application', fields, {
+			const msg = boardMessage('📝 New Mementomori ry membership application', fields, {
 				label: 'Review and approve',
 				url: 'https://members.mementomori.social/admin'
 			});

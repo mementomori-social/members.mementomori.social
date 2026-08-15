@@ -6,6 +6,8 @@
 	let { data, form }: PageProps = $props();
 	const finnishDatePattern = '\\d{1,2}\\.\\d{1,2}\\.\\d{4}';
 	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
+	const isPaid = (until: Date | string | null) =>
+		Boolean(until && new Date(until).getTime() > Date.now());
 	const statusLabel = (s: string) =>
 		({
 			applied: m.status_applied(),
@@ -39,6 +41,11 @@
 						{m.admin_applied()}
 						{fmt(a.appliedAt)}{#if a.mastodonAcct}&nbsp;· @{a.mastodonAcct}{/if}{#if a.matrixId}&nbsp;·
 							{a.matrixId}{/if}
+					</span>
+					<span class="pay-chip" class:paid={isPaid(a.paidUntil)}>
+						{isPaid(a.paidUntil)
+							? m.admin_paid_until({ date: fmt(a.paidUntil!) })
+							: m.admin_unpaid()}
 					</span>
 				</div>
 				<span class="row-actions">
@@ -214,9 +221,8 @@
 		<tr
 			><th>{m.th_name()}</th><th>{m.th_municipality()}</th><th>{m.th_class()}</th><th
 				>{m.th_status()}</th
-			>{#if data.roster.some((r) => r.matrixId)}<th>{m.th_matrix()}</th>{/if}<th
-				>{m.th_decided()}</th
-			></tr
+			><th>{m.th_payment()}</th>{#if data.roster.some((r) => r.matrixId)}<th>{m.th_matrix()}</th
+				>{/if}<th>{m.th_decided()}</th></tr
 		>
 	</thead>
 	<tbody>
@@ -229,6 +235,13 @@
 				>
 				<td>
 					<span class="badge {r.status === 'approved' ? 'ok' : ''}">{statusLabel(r.status)}</span>
+				</td>
+				<td>
+					<span class="pay-chip" class:paid={isPaid(r.paidUntil)}>
+						{isPaid(r.paidUntil)
+							? m.admin_paid_until({ date: fmt(r.paidUntil!) })
+							: m.admin_unpaid()}
+					</span>
 				</td>
 				{#if data.roster.some((x) => x.matrixId)}<td class="muted small">{r.matrixId ?? ''}</td
 					>{/if}

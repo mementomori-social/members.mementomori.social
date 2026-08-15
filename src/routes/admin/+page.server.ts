@@ -25,9 +25,17 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	});
 
 	const nameById = new Map(members.map((r) => [r.id, r.fullName]));
+	// The board's first question about any row is whether the fee is in.
+	const now = Date.now();
+	const withPaid = <T extends { id: string }>(r: T) => ({
+		...r,
+		paidUntil: payments
+			.filter((p) => p.memberId === r.id)
+			.reduce<Date | null>((max, p) => (!max || p.periodEnd > max ? p.periodEnd : max), null)
+	});
 	return {
-		applied: members.filter((r) => r.status === 'applied'),
-		roster: members.filter((r) => r.status !== 'applied'),
+		applied: members.filter((r) => r.status === 'applied').map(withPaid),
+		roster: members.filter((r) => r.status !== 'applied').map(withPaid),
 		ledger: payments.map((p) => ({ ...p, memberName: nameById.get(p.memberId) ?? '?' })),
 		incomeRows: await db.query.income.findMany({ orderBy: (i, { desc }) => [desc(i.paidAt)] })
 	};

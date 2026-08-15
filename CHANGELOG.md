@@ -3,6 +3,8 @@
 ## 1.1.1 (unreleased)
 
 - Paid status merged into one line
+- Payment state shown on the board page
+- Matrix alert names the association
 
 ## 1.1.0 (15.8.2026)
 
