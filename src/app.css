@@ -104,6 +104,9 @@ ol {
 	padding-inline-start: 20px;
 	max-width: 70ch;
 }
+ol {
+	padding-inline-start: 26px;
+}
 li {
 	margin: 6px 0;
 }
