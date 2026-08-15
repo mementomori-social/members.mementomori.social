@@ -92,9 +92,11 @@
 				/>
 				{#if data.bank.barcode}
 					<CopyField label={m.bank_barcode()} display={data.bank.barcode} />
-					<p class="hint">{m.bank_barcode_note()}</p>
 				{/if}
-				<p class="hint">{m.bank_note()}</p>
+				<p class="hint">
+					{#if data.bank.barcode}{m.bank_barcode_note()}{/if}
+					{m.bank_note()}
+				</p>
 			</div>
 		{/if}
 		{#if data.payments.length === 0}

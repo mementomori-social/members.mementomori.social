@@ -203,7 +203,7 @@
 	"bank_iban": "IBAN",
 	"bank_reference": "Reference number",
 	"bank_amount": "Amount",
-	"bank_note": "Use the reference number so the payment matches automatically.",
+	"bank_note": "Please check that the reference number is correct.",
 	"nav_privacy": "Privacy notice",
 	"privacy_heading": "Privacy notice",
 	"privacy_intro": "This notice explains what personal data Mementomori ry collects on this site, why, and what rights you have. The member register is a personal data file under the EU General Data Protection Regulation.",

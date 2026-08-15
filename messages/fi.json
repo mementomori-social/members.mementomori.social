@@ -203,7 +203,7 @@
 	"bank_iban": "IBAN",
 	"bank_reference": "Viitenumero",
 	"bank_amount": "Summa",
-	"bank_note": "Käytä viitenumeroa, niin maksu kohdistuu automaattisesti.",
+	"bank_note": "Tarkistathan, että viitenumero on oikein.",
 	"nav_privacy": "Tietosuojaseloste",
 	"privacy_heading": "Tietosuojaseloste",
 	"privacy_intro": "Tässä selosteessa kerrotaan, mitä henkilötietoja Mementomori ry kerää tällä sivustolla, miksi ja mitä oikeuksia sinulla on. Jäsenluettelo on EU:n yleisen tietosuoja-asetuksen tarkoittama henkilörekisteri.",
