@@ -123,7 +123,7 @@
 	"matrix_id_saved": "Matrix ID saved.",
 	"matrix_id_invalid": "A Matrix ID looks like @user:server, for example @you:matrix.org.",
 	"save": "Save",
-	"dash_matrix_note": "Members have a private chat room on Matrix. Save your Matrix ID to get an invite.",
+	"dash_matrix_note": "Members have their own private chat room. It runs on Matrix, an open messaging network, and works in the browser or with an app. The page below explains how to get in, step by step.",
 	"th_matrix": "Matrix",
 	"admin_heading": "Board",
 	"admin_open_apps": "Open applications",
@@ -253,5 +253,6 @@
 	"dash_status_applied": "Your application is waiting for the board's decision.",
 	"dash_status_rejected": "Your application was not approved.",
 	"dash_status_ended": "Your membership has ended.",
-	"payments_none_approved": "No payments recorded yet. Pay with the button above, or by bank transfer with your reference number."
+	"payments_none_approved": "No payments recorded yet. Pay with the button above, or by bank transfer with your reference number.",
+	"matrix_open_cta": "How to join the chat"
 }

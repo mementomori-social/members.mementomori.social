@@ -123,7 +123,7 @@
 	"matrix_id_saved": "Matrix-tunnus tallennettu.",
 	"matrix_id_invalid": "Matrix-tunnus on muotoa @tunnus:palvelin, esimerkiksi @sina:matrix.org.",
 	"save": "Tallenna",
-	"dash_matrix_note": "Jäsenillä on oma keskusteluhuone Matrixissa. Tallenna Matrix-tunnuksesi, niin saat kutsun.",
+	"dash_matrix_note": "Jäsenillä on oma suljettu keskusteluhuone. Se toimii Matrixissa, avoimessa viestintäverkossa, selaimella tai sovelluksella. Alla oleva sivu kertoo vaihe vaiheelta, miten pääset mukaan.",
 	"th_matrix": "Matrix",
 	"admin_heading": "Hallitus",
 	"admin_open_apps": "Avoimet hakemukset",
@@ -253,5 +253,6 @@
 	"dash_status_applied": "Hakemuksesi odottaa hallituksen päätöstä.",
 	"dash_status_rejected": "Hakemustasi ei hyväksytty.",
 	"dash_status_ended": "Jäsenyytesi on päättynyt.",
-	"payments_none_approved": "Maksuja ei ole vielä kirjattu. Maksa yllä olevalla napilla tai tilisiirrolla viitenumerollasi."
+	"payments_none_approved": "Maksuja ei ole vielä kirjattu. Maksa yllä olevalla napilla tai tilisiirrolla viitenumerollasi.",
+	"matrix_open_cta": "Näin liityt keskusteluun"
 }
