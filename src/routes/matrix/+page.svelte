@@ -28,7 +28,14 @@
 	<li>{m.matrix_how_3_1()} <a href="https://element.io">Element</a>.</li>
 </ol>
 
-<form method="POST" action="?/saveMatrix" class="stack" use:enhance>
+<form
+	method="POST"
+	action="?/saveMatrix"
+	class="stack"
+	use:enhance={() =>
+		async ({ update }) =>
+			update({ reset: false })}
+>
 	<label class="field" for="matrix-id">{m.matrix_id_label()}</label>
 	<div class="input-group">
 		<input

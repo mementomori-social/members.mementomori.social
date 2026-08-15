@@ -24,6 +24,7 @@
 - Days of coverage shown as the main figure
 - Language menu stays on screen on phones
 - Sign out shown as an icon on phones
+- Saved forms keep showing the saved values
 
 ## 1.1.1 (15.8.2026)
 

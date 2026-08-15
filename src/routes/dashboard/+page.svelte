@@ -77,7 +77,9 @@
 		action="?/saveBilling"
 		class="billing-mini"
 		bind:this={billingForm}
-		use:enhance
+		use:enhance={() =>
+			async ({ update }) =>
+				update({ reset: false })}
 	>
 		<span class="muted small">{m.billing_heading()}</span>
 		<label class="mini-opt">
@@ -235,7 +237,14 @@
 
 	<div class="card span2">
 		<h3>{m.visibility_heading()}</h3>
-		<form method="POST" action="?/saveVisibility" class="stack consent-form" use:enhance>
+		<form
+			method="POST"
+			action="?/saveVisibility"
+			class="stack consent-form"
+			use:enhance={() =>
+				async ({ update }) =>
+					update({ reset: false })}
+		>
 			<label class="check">
 				<input type="checkbox" name="listedConsent" checked={data.m.listedConsent} />
 				<span>{m.consent_label()}</span>

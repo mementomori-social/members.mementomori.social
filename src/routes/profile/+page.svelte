@@ -22,7 +22,14 @@
 
 <div class="card card-text-width">
 	<h3>{m.profile_details()}</h3>
-	<form method="POST" action="?/saveProfile" class="stack" use:enhance>
+	<form
+		method="POST"
+		action="?/saveProfile"
+		class="stack"
+		use:enhance={() =>
+			async ({ update }) =>
+				update({ reset: false })}
+	>
 		<label class="field">
 			{m.field_display_name()}
 			<input
