@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { m } from '$lib/paraglide/messages.js';
+	import CopyField from '$lib/components/CopyField.svelte';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -10,9 +11,10 @@
 
 <p>{m.matrix_intro()}</p>
 
-<div class="card">
+<div class="card card-text-width">
 	<h3>{m.matrix_room()}</h3>
-	<p><code>#members:chat.mementomori.social</code></p>
+	<CopyField label={m.matrix_room_alias()} display="#members:chat.mementomori.social" />
+	<CopyField label={m.matrix_room_server()} display="chat.mementomori.social" />
 </div>
 
 <h2>{m.matrix_how_heading()}</h2>
