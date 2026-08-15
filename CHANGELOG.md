@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 (unreleased)
+
+- Green success style for confirmation notices
+- Clarify member list visibility in join notes
+
 ## 1.0.0 (15.8.2026)
 
 - Membership application with Mastodon OAuth or form + magic link sign-in
