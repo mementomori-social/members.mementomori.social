@@ -6,6 +6,9 @@
 - Clarify member list visibility in join notes
 - Cancel button on the join form
 - Join CTA says join, not sign in
+- Board members can decide their own applications
+- Plain-language email note, profile intro and other text fixes
+- Green notice tweaks
 
 ## 1.0.0 (15.8.2026)
 

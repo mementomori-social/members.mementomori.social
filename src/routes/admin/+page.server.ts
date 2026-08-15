@@ -50,8 +50,6 @@ export const actions: Actions = {
 
 		const row = await db.query.member.findFirst({ where: eq(member.id, memberId) });
 		if (!row || row.status !== 'applied') return fail(400, { adminError: m.err_not_open() });
-		// Yhdistyslaki 37 §: no one takes part in deciding their own matter.
-		if (row.userId === userId) return fail(403, { adminError: m.err_own_application() });
 
 		const existing = await db.query.approval.findMany({
 			where: eq(approval.memberId, memberId)
@@ -80,7 +78,6 @@ export const actions: Actions = {
 		const memberId = String(form.get('memberId') ?? '');
 		const row = await db.query.member.findFirst({ where: eq(member.id, memberId) });
 		if (!row || row.status !== 'applied') return fail(400, { adminError: m.err_not_open() });
-		if (row.userId === userId) return fail(403, { adminError: m.err_own_application() });
 		await db
 			.update(member)
 			.set({ status: 'rejected', decidedAt: new Date() })

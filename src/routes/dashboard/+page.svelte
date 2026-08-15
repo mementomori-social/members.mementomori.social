@@ -180,7 +180,6 @@
 
 	<div class="card span2">
 		<h3>{m.visibility_heading()}</h3>
-		<p class="muted small">{m.visibility_note()}</p>
 		<form method="POST" action="?/saveVisibility" class="stack" use:enhance>
 			<label class="check">
 				<input type="checkbox" name="listedConsent" checked={data.m.listedConsent} />
