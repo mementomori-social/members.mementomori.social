@@ -9,6 +9,13 @@
 
 	let { children, data }: LayoutProps = $props();
 
+	const initials = (name: string) =>
+		name
+			.split(/\s+/)
+			.slice(0, 2)
+			.map((w) => w[0]?.toLocaleUpperCase() ?? '')
+			.join('');
+
 	async function signOut() {
 		await authClient.signOut();
 		await goto('/', { invalidateAll: true });
@@ -114,10 +121,6 @@
 			</select>
 		</label>
 		{#if data.user}
-			<span class="signed-in-as">
-				<span class="muted">{m.signed_in_as()}</span>
-				<a href={href('/dashboard')}>{data.user.name}</a>
-			</span>
 			{#if data.board}
 				<a
 					class="utility-btn bell"
@@ -148,6 +151,14 @@
 				>
 			{/if}
 			<button class="utility-btn leave" onclick={signOut}>{m.sign_out()}</button>
+			<a class="avatar-chip" href={href('/dashboard')} title={data.user.name}>
+				{#if data.member?.hasAvatar}
+					<img src="/avatar/{data.member.id}" alt={data.user.name} />
+				{:else}
+					<span class="initials" aria-hidden="true">{initials(data.user.name)}</span>
+					<span class="visually-hidden">{data.user.name}</span>
+				{/if}
+			</a>
 		{:else}
 			<a class="utility-btn" href={href('/login')} aria-current={current('/login')}>
 				<span class="wide">{m.nav_sign_in()}</span><span class="narrow"

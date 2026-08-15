@@ -15,7 +15,13 @@ export const load: LayoutServerLoad = async ({ locals, platform }) => {
 	return {
 		user: { id: locals.user.id, name: locals.user.name, email: locals.user.email },
 		member: m
-			? { id: m.id, status: m.status, memberClass: m.memberClass, fullName: m.fullName }
+			? {
+					id: m.id,
+					status: m.status,
+					memberClass: m.memberClass,
+					fullName: m.fullName,
+					hasAvatar: Boolean(m.mastodonAvatarUrl)
+				}
 			: null,
 		board,
 		openActions
