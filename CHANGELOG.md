@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.9.0 (unreleased)
+## 1.0.0 (15.8.2026)
 
 - Membership application with Mastodon OAuth or form + magic link sign-in
 - Finnish reference numbers and bank transfer instructions per member
