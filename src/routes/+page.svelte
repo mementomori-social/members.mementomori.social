@@ -121,7 +121,11 @@
 	<div class="card">
 		<h3>{m.servers_covered_heading()}</h3>
 		<p class="covered-total">
-			<strong>{cov.coveredUntil.toLocaleDateString('fi-FI')}</strong>
+			{#if cov.marginDays > 0}
+				<strong><span class="days-count">{cov.marginDays}</span> {m.servers_covered_unit()}</strong>
+			{:else}
+				<strong>{m.servers_covered_past()}</strong>
+			{/if}
 			<span
 				class="fee-state inline"
 				class:ok={cov.marginDays > 14}
@@ -129,9 +133,7 @@
 				class:bad={cov.marginDays <= 0}
 			>
 				<span class="dot"></span>
-				{cov.marginDays > 0
-					? m.servers_covered_days({ days: cov.marginDays })
-					: m.servers_covered_past()}
+				{m.servers_covered_until({ date: cov.coveredUntil.toLocaleDateString('fi-FI') })}
 			</span>
 		</p>
 		<div class="progress year-track">

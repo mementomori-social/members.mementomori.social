@@ -223,7 +223,9 @@ a[href^='http']::after {
 .lang-menu {
 	position: absolute;
 	top: calc(100% + 6px);
-	right: 0;
+	/* The pill sits at the left of the cluster, so a right-aligned menu runs
+	   off the edge on a narrow screen. */
+	left: 0;
 	z-index: 30;
 	margin: 0;
 	padding: 4px;
@@ -1543,4 +1545,25 @@ img {
 		overflow-x: auto;
 		white-space: nowrap;
 	}
+}
+
+.utility-btn.leave {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+.utility-btn.leave .leave-icon {
+	display: none;
+}
+@media (max-width: 620px) {
+	.utility-btn.leave .leave-icon {
+		display: block;
+	}
+	.utility-btn.leave .leave-label {
+		display: none;
+	}
+}
+
+.covered-total .days-count {
+	color: var(--ok);
 }

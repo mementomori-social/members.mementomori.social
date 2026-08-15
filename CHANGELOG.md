@@ -21,6 +21,9 @@
 - Email shown with open applications
 - Email addresses treated case-insensitively
 - Tighter dashboard spacing on phones
+- Days of coverage shown as the main figure
+- Language menu stays on screen on phones
+- Sign out shown as an icon on phones
 
 ## 1.1.1 (15.8.2026)
 
