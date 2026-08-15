@@ -39,6 +39,10 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 
 	const now = Date.now();
 	const covered = payments.some((p) => p.periodEnd.getTime() > now);
+	const paidUntil = payments.reduce(
+		(max, p) => (p.periodEnd.getTime() > max ? p.periodEnd.getTime() : max),
+		0
+	);
 
 	let viite = m.viite;
 	if (!viite && m.status === 'approved') viite = await assignViite(db, m.id);
@@ -55,6 +59,10 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		mastodonLinked: Boolean(linked),
 		mastoProfile: linked && m.mastodonAcct ? await lookupAccount(m.mastodonAcct) : null,
 		fee: FEES[m.memberClass],
+		covered,
+		paidUntil: covered ? new Date(paidUntil) : null,
+		dueAmountEur:
+			m.billingInterval === 'month' ? FEES[m.memberClass].month : FEES[m.memberClass].year,
 		collectedEur: await collectedThisYearEur(db),
 		canPay: stripeEnabled() && !covered && Boolean(priceIdFor(m.memberClass, m.billingInterval)),
 		bank:

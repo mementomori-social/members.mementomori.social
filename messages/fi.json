@@ -290,5 +290,7 @@
 	"matrix_intro_1": "Yhdistyksellä on jäsenten oma yksityinen huone",
 	"matrix_intro_2": ", avoimessa viestintäverkossa. Huone on chat.mementomori.social-palvelimella, kutsuvieraille eikä sitä listata julkisesti.",
 	"matrix_how_3_1": "Ei vielä Matrix-tiliä? Luo sellainen millä tahansa Matrix-sovelluksella, esimerkiksi",
-	"matrix_intro_word": "Matrixissa"
+	"matrix_intro_word": "Matrixissa",
+	"fee_status_paid": "Maksettu, voimassa {date} asti",
+	"fee_status_due": "Maksamatta: {amount} €"
 }

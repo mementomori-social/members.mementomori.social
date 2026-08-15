@@ -520,6 +520,9 @@ button.linklike:disabled {
 	padding: 6px 14px;
 	margin: 0;
 }
+.fee-status {
+	margin: 0 0 14px;
+}
 .status-pill .dot {
 	width: 8px;
 	height: 8px;

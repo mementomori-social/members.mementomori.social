@@ -290,5 +290,7 @@
 	"matrix_intro_1": "The association has a private room for members on",
 	"matrix_intro_2": ", an open messaging network. The room lives on the chat.mementomori.social server, is invite only and never listed publicly.",
 	"matrix_how_3_1": "No Matrix account yet? Create one with any Matrix client, such as",
-	"matrix_intro_word": "Matrix"
+	"matrix_intro_word": "Matrix",
+	"fee_status_paid": "Paid, valid until {date}",
+	"fee_status_due": "Unpaid: {amount} € due"
 }

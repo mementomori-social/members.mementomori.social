@@ -54,6 +54,16 @@
 <div class="dash-grid">
 	<div class="card span2">
 		<h3>{m.card_payments()}</h3>
+		{#if data.m.status === 'approved'}
+			<p class="status-pill fee-status">
+				<span class="dot" class:ok={data.covered} class:bad={!data.covered}></span>
+				{#if data.covered && data.paidUntil}
+					{m.fee_status_paid({ date: new Date(data.paidUntil).toLocaleDateString('fi-FI') })}
+				{:else}
+					{m.fee_status_due({ amount: data.dueAmountEur })}
+				{/if}
+			</p>
+		{/if}
 		{#if data.canPay}
 			<form method="POST" action="?/pay" style="margin-bottom:14px">
 				<button type="submit">{m.pay_now()}</button>

@@ -20,6 +20,7 @@
 - Separate signed-in navigation with top-bar sign out
 - Mastodon profile card with refresh feedback on the dashboard
 - Copyable payment details and Finnish virtual bank barcode
+- Paid or unpaid fee status on the member page
 - Sponsorship income tracking in the costs-covered figure
 - Display name separate from the statutory register name
 - Verified email required for password sign-in
