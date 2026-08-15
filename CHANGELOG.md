@@ -25,6 +25,9 @@
 - No horizontal scrolling on phones
 - Overdue fee summary also to Matrix
 - Clearer coverage legend labels
+- External link arrows as SVG, never emoji
+- Prices lead with the monthly option
+- Payment schedule moved into the dashboard header
 
 ## 1.0.0 (15.8.2026)
 

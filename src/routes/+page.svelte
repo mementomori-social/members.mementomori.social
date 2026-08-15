@@ -35,8 +35,9 @@
 		<h3>{m.tier_member_title()}</h3>
 		<p class="muted small">{m.tier_member_sub()}</p>
 		<div class="price">
-			{FEES.member.year}&nbsp;€<span> {m.price_line({ month: FEES.member.month })}</span>
+			{FEES.member.month}&nbsp;€<span> {m.price_line()}</span>
 		</div>
+		<p class="price-alt small muted">{m.price_alt({ year: FEES.member.year })}</p>
 		<ul>
 			<li>{m.benefit_vote()}</li>
 			<li>{m.benefit_matrix()}</li>
@@ -48,8 +49,9 @@
 		<h3>{m.tier_patron_title()}</h3>
 		<p class="muted small">{m.tier_patron_sub()}</p>
 		<div class="price">
-			{FEES.supporting.year}&nbsp;€<span> {m.price_line({ month: FEES.supporting.month })}</span>
+			{FEES.supporting.month}&nbsp;€<span> {m.price_line()}</span>
 		</div>
+		<p class="price-alt small muted">{m.price_alt({ year: FEES.supporting.year })}</p>
 		<ul>
 			<li>{m.benefit_speak()}</li>
 			<li>{m.benefit_matrix()}</li>

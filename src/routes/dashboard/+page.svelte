@@ -22,13 +22,14 @@
 </script>
 
 <header class="dash-head">
+	<div class="dash-id">
 	<h1>{m.dash_greeting({ name: (data.m.displayName ?? data.m.fullName).split(' ')[0] })}</h1>
 	<p class="dash-summary">
 		{data.m.displayName ?? data.m.fullName} · {data.m.homeMunicipality} ·
 		{data.m.memberClass === 'member' ? m.class_member() : m.class_patron()} ·
-		{m.fee_year_line({ year: data.fee.year })}{data.m.billingInterval === 'month'
-			? ` ${m.fee_month_suffix({ month: data.fee.month })}`
-			: ''}
+		{data.m.billingInterval === 'month'
+			? m.fee_month_line({ month: data.fee.month, year: data.fee.year })
+			: m.fee_year_line({ year: data.fee.year })}
 	</p>
 	<p class="status-pill">
 		<span
@@ -45,6 +46,31 @@
 					? m.dash_status_rejected()
 					: m.dash_status_ended()}
 	</p>
+	</div>
+	<form method="POST" action="?/saveBilling" class="billing-mini" use:enhance>
+		<span class="muted small">{m.billing_heading()}</span>
+		<label class="mini-opt">
+			<input
+				type="radio"
+				name="billingInterval"
+				value="month"
+				checked={data.m.billingInterval === 'month'}
+			/>
+			<span>{m.pay_month({ month: data.fee.month })}</span>
+		</label>
+		<label class="mini-opt">
+			<input
+				type="radio"
+				name="billingInterval"
+				value="year"
+				checked={data.m.billingInterval === 'year'}
+			/>
+			<span>{m.pay_year({ year: data.fee.year })}</span>
+		</label>
+		<button type="submit" class="linklike">{m.save()}</button>
+		{#if form?.billingSaved}<span class="ok-note small" role="status">✓ {m.saved()}</span>{/if}
+		{#if form?.billingError}<span class="error small">{form.billingError}</span>{/if}
+	</form>
 </header>
 
 {#if page.url.searchParams.get('paid') === '1'}
@@ -178,37 +204,6 @@
 		<h3>{m.card_matrix()}</h3>
 		<p class="muted small">{m.dash_matrix_note()}</p>
 		<a class="button ghost" href={localizeHref('/matrix')}>{m.matrix_open_cta()}</a>
-	</div>
-
-	<div class="card">
-		<h3>{m.billing_heading()}</h3>
-		<form method="POST" action="?/saveBilling" class="stack consent-form" use:enhance>
-			<label class="check">
-				<input
-					type="radio"
-					name="billingInterval"
-					value="month"
-					checked={data.m.billingInterval === 'month'}
-				/>
-				<span>{m.pay_month({ month: data.fee.month })}</span>
-			</label>
-			<label class="check">
-				<input
-					type="radio"
-					name="billingInterval"
-					value="year"
-					checked={data.m.billingInterval === 'year'}
-				/>
-				<span>{m.pay_year({ year: data.fee.year })}</span>
-			</label>
-			<div>
-				<button type="submit" class="ghost">{m.save()}</button>
-				{#if form?.billingSaved}
-					<span class="ok-note" role="status">✓ {m.saved()}</span>
-				{/if}
-			</div>
-			{#if form?.billingError}<p class="error">{form.billingError}</p>{/if}
-		</form>
 	</div>
 
 	<div class="card span2">
