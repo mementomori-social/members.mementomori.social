@@ -17,6 +17,9 @@ export async function sendEmail(to: string, subject: string, text: string) {
 
 	const body = new URLSearchParams({
 		from: 'Mementomori ry <members@mementomori.social>',
+		// members@ is send-only and has no forwarding route; replies go to the
+		// board address so a member answering a reminder reaches all of them.
+		'h:Reply-To': 'ry@mementomori.social',
 		to,
 		subject,
 		text
