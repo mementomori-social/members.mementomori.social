@@ -104,7 +104,7 @@ a {
 	color: var(--text);
 	text-decoration: underline;
 	text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
-	text-underline-offset: 3px;
+	text-underline-offset: 5px;
 }
 a:hover {
 	color: var(--bright);
@@ -311,9 +311,11 @@ button.ghost,
 	color: var(--text);
 	border: 1.5px solid var(--border);
 }
-button.ghost:hover {
+button.ghost:hover,
+.button.ghost:hover {
 	background: var(--surface-2);
 	color: var(--bright);
+	border-color: #4a4a52;
 	filter: none;
 }
 button.danger {
@@ -376,15 +378,6 @@ form.stack .field + .input-group {
 .input-group button {
 	border-radius: 0 var(--radius) var(--radius) 0;
 	flex-shrink: 0;
-}
-button.masto-signin {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	height: 55px;
-	margin-top: 6px;
-	width: 100%;
-	max-width: 360px;
 }
 label.check {
 	display: flex;
@@ -471,7 +464,7 @@ button.linklike {
 	color: var(--text);
 	text-decoration: underline;
 	text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
-	text-underline-offset: 3px;
+	text-underline-offset: 5px;
 	border-radius: 0;
 }
 button.linklike:hover {
@@ -589,6 +582,28 @@ button.linklike:disabled {
 .member-meta {
 	margin-left: auto;
 	text-align: right;
+	flex-shrink: 0;
+}
+.contact-rows {
+	max-width: 620px;
+}
+.portrait-lg {
+	width: 56px;
+	height: 56px;
+}
+.contact-links {
+	margin-left: auto;
+	display: grid;
+	gap: 4px;
+	justify-items: start;
+}
+.contact-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+.contact-link svg {
+	color: var(--muted);
 	flex-shrink: 0;
 }
 @media (max-width: 760px) {
@@ -875,28 +890,6 @@ h1.rainbow {
 	}
 }
 
-.people {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: 18px;
-	margin: 24px 0;
-}
-.person h3 {
-	margin: 14px 0 2px;
-}
-.person .portrait {
-	width: 96px;
-	height: 96px;
-	border-radius: 50%;
-	background: var(--surface-2);
-	object-fit: cover;
-	display: block;
-}
-.contact-links svg {
-	vertical-align: -3px;
-	margin-right: 4px;
-	color: var(--muted);
-}
 .contact-links a::after {
 	content: none;
 }
@@ -1036,10 +1029,6 @@ img {
 		white-space: normal;
 		font-size: 15.5px;
 		padding: 10px 16px;
-	}
-	button.masto-signin {
-		height: auto;
-		min-height: 48px;
 	}
 	.tier,
 	.card {
