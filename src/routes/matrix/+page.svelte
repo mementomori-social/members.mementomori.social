@@ -25,7 +25,11 @@
 <ol>
 	<li>{m.matrix_how_1()}</li>
 	<li>{m.matrix_how_2()}</li>
-	<li>{m.matrix_how_3_1()} <a href="https://element.io">Element</a>.</li>
+	<li>
+		{m.matrix_how_3_1()} <a href="https://pikaviestin.fi">pikaviestin.fi</a>
+		{m.matrix_how_3_2()} <a href="https://matrix.org">matrix.org</a>
+		{m.matrix_how_3_3()} <a href="https://element.io">Element</a>.
+	</li>
 </ol>
 
 <form

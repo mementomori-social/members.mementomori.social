@@ -25,6 +25,9 @@
 - Language menu stays on screen on phones
 - Sign out shown as an icon on phones
 - Saved forms keep showing the saved values
+- Finnish and international Matrix servers suggested
+- External link arrows removed
+- Shorter Matrix and member list wording
 
 ## 1.1.1 (15.8.2026)
 

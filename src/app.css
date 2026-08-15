@@ -50,7 +50,6 @@
 	--font-heading: 'Zalando Sans Expanded', sans-serif;
 	--font-code: 'Fira Code', ui-monospace, monospace;
 	--radius: 10px;
-	--icon-external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7'/%3E%3Cpath d='M8 7h9v9'/%3E%3C/svg%3E");
 }
 
 * {
@@ -122,20 +121,6 @@ a {
 a:hover {
 	color: var(--bright);
 	text-decoration-color: currentColor;
-}
-/* An SVG mask, not a glyph: the arrow character picks up emoji presentation on
-   some systems (KDE, iOS) and renders as a coloured emoji. */
-a[href^='http']::after {
-	content: '';
-	display: inline-block;
-	width: 0.62em;
-	height: 0.62em;
-	margin-left: 0.28em;
-	vertical-align: baseline;
-	background: currentColor;
-	opacity: 0.75;
-	mask: var(--icon-external) center / contain no-repeat;
-	-webkit-mask: var(--icon-external) center / contain no-repeat;
 }
 :focus-visible {
 	outline: 3px solid var(--accent);
