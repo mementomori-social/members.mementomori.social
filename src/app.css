@@ -880,15 +880,30 @@ button.compact {
 	height: 100%;
 	opacity: 0.55;
 }
+.year-track {
+	position: relative;
+	overflow: visible;
+}
+.year-track .fill {
+	background: var(--ok);
+	height: 100%;
+	border-radius: 999px;
+}
+.year-track .today-mark {
+	position: absolute;
+	top: -4px;
+	bottom: -4px;
+	width: 2px;
+	background: var(--bright);
+	border-radius: 2px;
+}
 .bar-meta {
 	display: flex;
 	justify-content: space-between;
 	gap: 12px;
 	margin: 8px 0 4px;
 }
-.bar-meta span:last-child {
-	color: var(--text);
-}
+
 .legend {
 	display: flex;
 	flex-wrap: wrap;

@@ -42,5 +42,19 @@ export function coverage(fees: number, income: number, now = new Date()) {
 	const monthsCovered = Math.floor(total / COSTS.monthlyEur);
 	const coveredUntil = new Date(now.getFullYear(), monthsCovered, 15);
 	const marginDays = Math.floor((coveredUntil.getTime() - now.getTime()) / 86_400_000);
-	return { members, support, total, upcoming, coveredUntil, marginDays };
+	/** Positions on a January-December track, for the timeline bar. */
+	const yearStart = new Date(now.getFullYear(), 0, 1).getTime();
+	const yearEnd = new Date(now.getFullYear() + 1, 0, 1).getTime();
+	const pct = (t: number) =>
+		Math.max(0, Math.min(100, ((t - yearStart) / (yearEnd - yearStart)) * 100));
+	return {
+		members,
+		support,
+		total,
+		upcoming,
+		coveredUntil,
+		marginDays,
+		coveredPct: pct(coveredUntil.getTime()),
+		todayPct: pct(now.getTime())
+	};
 }

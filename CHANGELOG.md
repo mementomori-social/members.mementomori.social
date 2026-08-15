@@ -23,7 +23,7 @@
 - Copyable payment details and Finnish virtual bank barcode
 - Paid or unpaid fee status on the member page
 - Unique ledger references end webhook double booking
-- Servers-covered-until date with live margin indicator
+- Servers-covered-until date with live margin indicator and year timeline
 - Sponsorship income tracking in the costs-covered figure
 - Display name separate from the statutory register name
 - Verified email required for password sign-in
