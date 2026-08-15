@@ -140,9 +140,14 @@
 		</p>
 		<div class="progress year-track">
 			<div class="fill" style="width: {cov.coveredPct}%"></div>
+			<span class="covered-date" style="left: {cov.coveredPct}%"
+				>{cov.coveredUntil.toLocaleDateString('fi-FI')}</span
+			>
 		</div>
 		<p class="bar-meta small">
-			<span class="muted">1.1.{new Date().getFullYear()}</span>
+			<span class:ok={cov.total > 0} class:muted={cov.total === 0}
+				>1.1.{new Date().getFullYear()}</span
+			>
 			<span class="muted">31.12.{new Date().getFullYear()}</span>
 		</p>
 	</div>

@@ -893,6 +893,19 @@ button.compact {
 	border-radius: 999px;
 }
 
+.year-track .covered-date {
+	position: absolute;
+	top: calc(100% + 6px);
+	transform: translateX(-50%);
+	color: var(--ok);
+	font-weight: 600;
+	font-size: 13px;
+	white-space: nowrap;
+}
+.bar-meta .ok {
+	color: var(--ok);
+	font-weight: 600;
+}
 .year-track + .bar-meta {
 	font-size: 13px;
 	margin-top: 6px;
