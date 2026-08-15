@@ -32,6 +32,7 @@
 			'/sponsorship': { title: m.sponsor_heading, description: m.sponsor_intro },
 			'/contact': { title: m.contact_heading, description: m.contact_intro },
 			'/safer-space': { title: m.safer_heading, description: m.safer_intro },
+			'/privacy': { title: m.privacy_heading, description: m.privacy_intro },
 			'/login': { title: m.login_heading, description: m.login_hint_magic },
 			'/members': { title: m.members_heading, description: m.members_note },
 			'/dashboard': { title: m.dash_heading, description: m.site_description },
@@ -129,6 +130,7 @@
 				<a href={href('/join')}>{m.nav_join()}</a>
 				<a href={href('/sponsorship')}>{m.sponsor_heading()}</a>
 				<a href={href('/safer-space')}>{m.nav_safer_space()}</a>
+				<a href={href('/privacy')}>{m.nav_privacy()}</a>
 				<a href={href('/contact')}>{m.nav_contact()}</a>
 			</span>
 			<span class="icons">
