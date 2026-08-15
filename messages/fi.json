@@ -242,7 +242,7 @@
 	"card_matrix": "Jäsenten keskustelukanava",
 	"signed_in_as": "Kirjautuneena",
 	"dash_status_active": "Jäsenyytesi on voimassa.",
-	"dash_status_applied": "Hakemuksesi odottaa hyväksyntää.",
+	"dash_status_applied": "Hakemuksesi on käsittelyssä",
 	"dash_status_rejected": "Hakemustasi ei hyväksytty.",
 	"dash_status_ended": "Jäsenyytesi on päättynyt.",
 	"payments_none_approved": "Maksuja ei ole vielä kirjattu. Maksa yllä olevalla napilla tai tilisiirrolla viitenumerollasi.",
