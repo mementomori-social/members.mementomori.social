@@ -109,7 +109,7 @@
 	"costs_monthly_note": "Running the mementomori.social infrastructure, websites and social media service costs {monthly} € a month.",
 	"sign_out": "Sign out",
 	"members_heading": "Members",
-	"members_note": "Only members who have opted in are listed here. The full member register is maintained by the board as required by the Finnish Associations Act.",
+	"members_note": "Members listed here have agreed to be shown to other members of the association. The full member register is maintained by the board as required by the Finnish Associations Act.",
 	"members_empty": "No members have opted into the list yet.",
 	"th_name": "Name",
 	"th_municipality": "Municipality",
