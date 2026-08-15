@@ -17,7 +17,8 @@ const version = JSON.parse(readFileSync('./package.json', 'utf8')).version as st
 export default defineConfig({
 	define: {
 		__COMMIT__: JSON.stringify(commit),
-		__VERSION__: JSON.stringify(version)
+		__VERSION__: JSON.stringify(version),
+		__BUILDDATE__: JSON.stringify(new Date().toISOString().slice(0, 10))
 	},
 	plugins: [
 		sveltekit({

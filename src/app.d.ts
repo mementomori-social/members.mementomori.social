@@ -8,6 +8,7 @@ import { createAuth } from '$lib/server/auth';
 declare global {
 	const __COMMIT__: string;
 	const __VERSION__: string;
+	const __BUILDDATE__: string;
 
 	namespace App {
 		interface Platform {

@@ -7,7 +7,10 @@
 <p>{m.privacy_intro()}</p>
 
 <h2>{m.privacy_controller_h()}</h2>
-<p>{m.privacy_controller()}</p>
+<p>
+	{m.privacy_controller_1()}
+	<a href="mailto:ry@mementomori.social">ry@mementomori.social</a>
+</p>
 
 <h2>{m.privacy_data_h()}</h2>
 <ul>
@@ -40,13 +43,25 @@
 	<li>{m.privacy_right_erase()}</li>
 	<li>{m.privacy_right_restrict()}</li>
 	<li>{m.privacy_right_withdraw()}</li>
-	<li>{m.privacy_right_complain()}</li>
+	<li>
+		{m.privacy_right_complain_1()} (<a href="https://tietosuoja.fi">tietosuoja.fi</a>)
+	</li>
 </ul>
-<p>{m.privacy_rights_how()}</p>
+<p>
+	{m.privacy_rights_how_1()}
+	<a href="mailto:ry@mementomori.social">ry@mementomori.social</a>.
+	{m.privacy_rights_how_2()}
+</p>
 
 <h2>{m.privacy_security_h()}</h2>
-<p>{m.privacy_security()}</p>
+<p>
+	{m.privacy_security_1()}
+	<a href="https://github.com/mementomori-social/members.mementomori.social">GitHub</a>.
+</p>
 <p>{m.privacy_public_list()}</p>
 
 <h2>{m.privacy_changes_h()}</h2>
-<p>{m.privacy_changes()}</p>
+<p>
+	{m.privacy_changes()}
+	{m.privacy_updated({ date: new Date(__BUILDDATE__).toLocaleDateString('fi-FI') })}
+</p>
