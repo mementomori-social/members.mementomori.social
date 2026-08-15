@@ -248,5 +248,10 @@
 	"masto_synced": "Updated",
 	"dash_greeting": "Hi, {name}",
 	"card_matrix": "Members' chat",
-	"signed_in_as": "Signed in as"
+	"signed_in_as": "Signed in as",
+	"dash_status_active": "Your membership is active.",
+	"dash_status_applied": "Your application is waiting for the board's decision.",
+	"dash_status_rejected": "Your application was not approved.",
+	"dash_status_ended": "Your membership has ended.",
+	"payments_none_approved": "No payments recorded yet. Pay with the button above, or by bank transfer with your reference number."
 }

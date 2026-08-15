@@ -92,12 +92,12 @@
 				<span class="muted">{m.signed_in_as()}</span>
 				<a href={href('/dashboard')}>{data.user.name}</a>
 			</span>
-			<button class="utility-btn" onclick={signOut}>{m.sign_out()}</button>
+			<button class="utility-btn leave" onclick={signOut}>{m.sign_out()}</button>
 		{:else}
 			<a href={href('/join')} aria-current={current('/join')}>
 				<span class="wide">{m.nav_join()}</span><span class="narrow">{m.nav_join_short()}</span>
 			</a>
-			<a href={href('/login')} aria-current={current('/login')}>
+			<a class="utility-btn enter" href={href('/login')} aria-current={current('/login')}>
 				<span class="wide">{m.nav_sign_in()}</span><span class="narrow"
 					>{m.nav_sign_in_short()}</span
 				>

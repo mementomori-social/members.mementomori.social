@@ -17,35 +17,81 @@
 	}
 </script>
 
-<div class="dash-head">
+<header class="dash-head">
 	<h1>{m.dash_greeting({ name: data.m.fullName.split(' ')[0] })}</h1>
-	{#if data.m.status === 'applied'}
-		<span class="badge accent">{m.status_awaiting()}</span>
-	{:else if data.m.status === 'approved'}
-		<span class="badge ok">{m.status_approved()}</span>
-	{:else}
-		<span class="badge"
-			>{data.m.status === 'rejected' ? m.status_rejected() : m.status_ended()}</span
-		>
-	{/if}
-</div>
+	<p class="dash-summary">
+		{data.m.fullName} · {data.m.homeMunicipality} ·
+		{data.m.memberClass === 'member' ? m.class_member() : m.class_patron()} ·
+		{m.fee_year_line({ year: data.fee.year })}{data.m.billingInterval === 'month'
+			? ` ${m.fee_month_suffix({ month: data.fee.month })}`
+			: ''}
+	</p>
+	<p class="status-pill">
+		<span
+			class="dot"
+			class:ok={data.m.status === 'approved'}
+			class:pending={data.m.status === 'applied'}
+			class:bad={data.m.status === 'rejected' || data.m.status === 'ended'}
+		></span>
+		{data.m.status === 'approved'
+			? m.dash_status_active()
+			: data.m.status === 'applied'
+				? m.dash_status_applied()
+				: data.m.status === 'rejected'
+					? m.dash_status_rejected()
+					: m.dash_status_ended()}
+	</p>
+</header>
 
 {#if page.url.searchParams.get('paid') === '1'}
 	<p class="notice">{m.paid_thanks()}</p>
 {/if}
 
 <div class="dash-grid">
-	<div class="card">
-		<h3>{m.card_membership()}</h3>
-		<p>
-			{data.m.fullName}, {data.m.homeMunicipality}<br />
-			<span class="muted small">
-				{data.m.memberClass === 'member' ? m.class_member() : m.class_patron()},
-				{m.fee_year_line({ year: data.fee.year })}{data.m.billingInterval === 'month'
-					? ` ${m.fee_month_suffix({ month: data.fee.month })}`
-					: ''}
-			</span>
-		</p>
+	<div class="card span2">
+		<h3>{m.card_payments()}</h3>
+		{#if data.canPay}
+			<form method="POST" action="?/pay" style="margin-bottom:14px">
+				<button type="submit">{m.pay_now()}</button>
+				<p class="muted small" style="margin:8px 0 0">{m.pay_redirect_note()}</p>
+				{#if form?.payError}<p class="error">{form.payError}</p>{/if}
+			</form>
+		{/if}
+		{#if data.bank}
+			<div class="notice" style="margin-bottom:14px">
+				<strong>{m.bank_heading()}</strong><br />
+				{m.bank_recipient()}: Mementomori ry<br />
+				{m.bank_iban()}: {data.bank.iban}<br />
+				{m.bank_reference()}: <strong>{data.bank.viite}</strong><br />
+				{m.bank_amount()}: {data.bank.amount.year}&nbsp;€
+				<br /><span class="small">{m.bank_note()}</span>
+			</div>
+		{/if}
+		{#if data.payments.length === 0}
+			<p class="muted small">
+				{data.m.status === 'approved' ? m.payments_none_approved() : m.payments_none()}
+			</p>
+		{:else}
+			<table class="list">
+				<thead>
+					<tr
+						><th>{m.th_date()}</th><th>{m.th_amount()}</th><th>{m.th_method()}</th><th
+							>{m.th_period()}</th
+						></tr
+					>
+				</thead>
+				<tbody>
+					{#each data.payments as p (p.paidAt)}
+						<tr>
+							<td>{fmt(p.paidAt)}</td>
+							<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
+							<td>{p.method === 'bank' ? m.method_bank() : m.method_stripe()}</td>
+							<td class="muted small">{fmt(p.periodStart)} {m.period_to()} {fmt(p.periodEnd)}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		{/if}
 	</div>
 
 	<div class="card">
@@ -92,50 +138,6 @@
 		{:else}
 			<button class="ghost" onclick={linkMastodon}>{m.masto_link_cta()}</button>
 			<p class="muted small">{m.masto_link_note()}</p>
-		{/if}
-	</div>
-
-	<div class="card span2">
-		<h3>{m.card_payments()}</h3>
-		{#if data.canPay}
-			<form method="POST" action="?/pay" style="margin-bottom:14px">
-				<button type="submit">{m.pay_now()}</button>
-				<p class="muted small" style="margin:8px 0 0">{m.pay_redirect_note()}</p>
-				{#if form?.payError}<p class="error">{form.payError}</p>{/if}
-			</form>
-		{/if}
-		{#if data.bank}
-			<div class="notice" style="margin-bottom:14px">
-				<strong>{m.bank_heading()}</strong><br />
-				{m.bank_recipient()}: Mementomori ry<br />
-				{m.bank_iban()}: {data.bank.iban}<br />
-				{m.bank_reference()}: <strong>{data.bank.viite}</strong><br />
-				{m.bank_amount()}: {data.bank.amount.year}&nbsp;€
-				<br /><span class="small">{m.bank_note()}</span>
-			</div>
-		{/if}
-		{#if data.payments.length === 0}
-			<p class="muted small">{m.payments_none()}</p>
-		{:else}
-			<table class="list">
-				<thead>
-					<tr
-						><th>{m.th_date()}</th><th>{m.th_amount()}</th><th>{m.th_method()}</th><th
-							>{m.th_period()}</th
-						></tr
-					>
-				</thead>
-				<tbody>
-					{#each data.payments as p (p.paidAt)}
-						<tr>
-							<td>{fmt(p.paidAt)}</td>
-							<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
-							<td>{p.method === 'bank' ? m.method_bank() : m.method_stripe()}</td>
-							<td class="muted small">{fmt(p.periodStart)} {m.period_to()} {fmt(p.periodEnd)}</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
 		{/if}
 	</div>
 

@@ -395,6 +395,17 @@ input[type='radio'] {
 	gap: 14px;
 	align-items: baseline;
 	margin-top: 4px;
+	flex-wrap: wrap;
+}
+.profile-actions a,
+.profile-actions button {
+	white-space: nowrap;
+}
+.profile-bio {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 .profile-actions form {
 	display: inline;
@@ -425,13 +436,42 @@ button.linklike:disabled {
 }
 
 .dash-head {
-	display: flex;
-	align-items: center;
-	gap: 16px;
-	flex-wrap: wrap;
+	margin-bottom: 26px;
 }
 .dash-head h1 {
-	margin-bottom: 0.3em;
+	margin-bottom: 0.15em;
+}
+.dash-summary {
+	color: var(--muted);
+	font-size: 15.5px;
+	margin: 0 0 12px;
+}
+.status-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 9px;
+	font-size: 15px;
+	color: var(--text);
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	padding: 6px 14px;
+	margin: 0;
+}
+.status-pill .dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--muted);
+}
+.status-pill .dot.ok {
+	background: var(--ok);
+}
+.status-pill .dot.pending {
+	background: var(--accent);
+}
+.status-pill .dot.bad {
+	background: var(--danger);
 }
 .dash-grid {
 	display: grid;
@@ -461,13 +501,29 @@ button.linklike:disabled {
 	font-weight: 400;
 	color: var(--muted);
 	background: transparent;
-	border: 1.5px solid var(--border);
+	border: 1px solid var(--border);
 	border-radius: 8px;
 	padding: 4px 12px;
+	text-decoration: none;
+	cursor: pointer;
 }
 .utility-btn:hover {
 	background: var(--surface-2);
 	color: var(--bright);
+}
+.utility-btn.leave {
+	color: var(--danger);
+}
+.utility-btn.leave:hover {
+	background: color-mix(in srgb, var(--danger) 12%, transparent);
+	color: var(--danger);
+}
+.utility-btn.enter {
+	color: var(--ok);
+}
+.utility-btn.enter:hover {
+	background: color-mix(in srgb, var(--ok) 12%, transparent);
+	color: var(--ok);
 }
 
 .tiers {
@@ -551,22 +607,22 @@ table.list img.avatar {
 }
 .badge.ok {
 	color: var(--ok);
-	border-color: color-mix(in srgb, var(--ok) 45%, transparent);
 }
 .badge.accent {
 	color: #b9baff;
-	border-color: rgba(88, 90, 255, 0.55);
-	background: var(--accent-soft);
 }
 
 .notice {
-	border-left: 4px solid var(--accent);
-	background: var(--accent-soft);
-	border-radius: 0 var(--radius) var(--radius) 0;
+	background: var(--surface-2);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
 	padding: 14px 18px;
 	font-size: 16px;
 	margin: 18px 0;
 	max-width: 70ch;
+}
+.card .notice {
+	max-width: none;
 }
 .error {
 	color: var(--danger);
