@@ -537,14 +537,39 @@ button.linklike:disabled {
 	gap: 4px;
 	/* Capped so a long message wraps inside the column instead of widening it
 	   until the whole block drops onto its own row. */
+	position: relative;
 	max-width: 340px;
 	padding-top: 1.6em;
 	font-size: 15.5px;
 }
-.billing-mini .error,
 .billing-mini .ok-note {
 	max-width: 100%;
 	margin: 6px 0 0;
+}
+/* Floating bubble: an inline message would resize the column and shove the
+   whole block onto its own row. */
+.billing-mini .error {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 20;
+	width: max(260px, 100%);
+	margin: 8px 0 0;
+	padding: 10px 14px;
+	font-size: 15px;
+	color: var(--text);
+	background: var(--surface);
+	border: 1px solid color-mix(in srgb, var(--danger) 45%, transparent);
+	border-radius: 10px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+.billing-mini .error::before {
+	content: '';
+	position: absolute;
+	bottom: 100%;
+	left: 18px;
+	border: 7px solid transparent;
+	border-bottom-color: color-mix(in srgb, var(--danger) 45%, transparent);
 }
 @media (max-width: 700px) {
 	.dash-head .billing-mini {
