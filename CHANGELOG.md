@@ -29,3 +29,4 @@
 - New applications announced in the Matrix admins room
 - Locale preserved across sign-in, OAuth and payment redirects
 - Costs-covered card with sponsor-paid months and stacked bar
+- Public member list behind its own consent, visibility controls on the member page
