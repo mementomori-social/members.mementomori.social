@@ -21,7 +21,7 @@
 					<div class="row-avatar placeholder" aria-hidden="true"></div>
 				{/if}
 				<div class="member-id">
-					<span class="member-name">{member.fullName}</span>
+					<span class="member-name">{member.displayName ?? member.fullName}</span>
 					{#if member.mastodonAcct}
 						<a class="small handle" href="https://mementomori.social/@{member.mastodonAcct}"
 							>@{member.mastodonAcct}@mementomori.social</a

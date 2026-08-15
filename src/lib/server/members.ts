@@ -33,6 +33,7 @@ export const listedMembers = (db: Db) =>
 		columns: {
 			id: true,
 			fullName: true,
+			displayName: true,
 			homeMunicipality: true,
 			memberClass: true,
 			mastodonAcct: true,

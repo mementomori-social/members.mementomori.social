@@ -18,9 +18,9 @@
 </script>
 
 <header class="dash-head">
-	<h1>{m.dash_greeting({ name: data.m.fullName.split(' ')[0] })}</h1>
+	<h1>{m.dash_greeting({ name: (data.m.displayName ?? data.m.fullName).split(' ')[0] })}</h1>
 	<p class="dash-summary">
-		{data.m.fullName} · {data.m.homeMunicipality} ·
+		{data.m.displayName ?? data.m.fullName} · {data.m.homeMunicipality} ·
 		{data.m.memberClass === 'member' ? m.class_member() : m.class_patron()} ·
 		{m.fee_year_line({ year: data.fee.year })}{data.m.billingInterval === 'month'
 			? ` ${m.fee_month_suffix({ month: data.fee.month })}`

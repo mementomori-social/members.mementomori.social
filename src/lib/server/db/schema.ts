@@ -19,6 +19,12 @@ export const member = sqliteTable('member', {
 		.unique()
 		.references(() => user.id, { onDelete: 'cascade' }),
 	fullName: text('full_name').notNull(),
+	/**
+	 * Name shown in the UI (greeting, member list). The register keeps the
+	 * full legal name in fullName (yhdistyslaki 11 § "täydellinen nimi"),
+	 * visible only to the board; members are addressed by the name they chose.
+	 */
+	displayName: text('display_name'),
 	homeMunicipality: text('home_municipality').notNull(),
 	email: text('email'),
 	/** member = varsinainen jäsen, supporting = kannatusjäsen */
