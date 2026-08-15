@@ -92,7 +92,7 @@
 	"masto_link_cta": "Link your Mastodon account",
 	"masto_link_note": "Optional. Lets you sign in with your mementomori.social account. Your avatar shows on the member list only if you have allowed being listed.",
 	"card_payments": "Membership fee",
-	"payments_none": "No payments recorded yet. Payment instructions arrive by email once the board has approved your application.",
+	"payments_none": "No payments recorded yet. Payment instructions arrive by email once your application is approved.",
 	"th_date": "Date",
 	"th_amount": "Amount",
 	"th_method": "Method",
