@@ -50,7 +50,6 @@
 	</p>
 	</div>
 	<form method="POST" action="?/saveBilling" class="billing-mini" use:enhance>
-		<span class="muted small">{m.billing_heading()}</span>
 		<label class="mini-opt">
 			<input
 				type="radio"
