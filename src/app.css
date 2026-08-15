@@ -354,6 +354,9 @@ form.stack {
 	gap: 18px;
 	max-width: 560px;
 }
+form.stack.consent-form {
+	gap: 10px;
+}
 form.stack label.field {
 	max-width: 360px;
 }

@@ -18,7 +18,7 @@
 
 	async function signOut() {
 		await authClient.signOut();
-		await goto('/', { invalidateAll: true });
+		await goto(localizeHref('/', { locale }), { invalidateAll: true });
 	}
 
 	const pathname = $derived(String(page.url.pathname));

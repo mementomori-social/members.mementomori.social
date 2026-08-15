@@ -182,7 +182,7 @@
 
 	<div class="card span2">
 		<h3>{m.visibility_heading()}</h3>
-		<form method="POST" action="?/saveVisibility" class="stack" use:enhance>
+		<form method="POST" action="?/saveVisibility" class="stack consent-form" use:enhance>
 			<label class="check">
 				<input type="checkbox" name="listedConsent" checked={data.m.listedConsent} />
 				<span>{m.consent_label()}</span>
