@@ -4,6 +4,8 @@ import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { member } from '$lib/server/db/schema';
 import { getMemberByUserId, isBoard } from '$lib/server/members';
+import { isFullName } from '$lib/name';
+import { localizeHref } from '$lib/paraglide/runtime';
 import { m } from '$lib/paraglide/messages.js';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
@@ -13,6 +15,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	const board = isBoard((locals.user as { role?: string }).role);
 	if (!me && !board) redirect(303, '/join');
 	if (!board && me?.status !== 'approved' && me?.status !== 'applied') error(403, 'Members only.');
+	if (me && !isFullName(me.fullName, me.mastodonAcct)) redirect(303, localizeHref('/profile'));
 	return { matrixId: me?.matrixId ?? '', approved: me?.status === 'approved' };
 };
 

@@ -1511,3 +1511,9 @@ img {
 	font-weight: 500;
 	color: var(--bright);
 }
+
+.notice.name-required {
+	border-color: color-mix(in srgb, var(--warn) 45%, transparent);
+	background: color-mix(in srgb, var(--warn) 8%, transparent);
+	color: var(--bright);
+}

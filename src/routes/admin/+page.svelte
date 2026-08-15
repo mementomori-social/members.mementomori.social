@@ -242,6 +242,9 @@
 							? m.admin_paid_until({ date: fmt(r.paidUntil!) })
 							: m.admin_unpaid()}
 					</span>
+					{#if r.nameIncomplete}<br /><span class="pay-chip warn-chip"
+							>{m.admin_name_incomplete()}</span
+						>{/if}
 				</td>
 				{#if data.roster.some((x) => x.matrixId)}<td class="muted small">{r.matrixId ?? ''}</td
 					>{/if}

@@ -7,7 +7,6 @@ import { getDb } from '$lib/server/db';
 import { account, member, user } from '$lib/server/db/schema';
 import { getMemberByUserId } from '$lib/server/members';
 import { FEES, type MemberClass } from '$lib/fees';
-import { isFullName } from '$lib/name';
 import type { PendingMastodon } from '$lib/server/mastodon-oauth';
 import { localizeHref } from '$lib/paraglide/runtime';
 import { tooManyRequests } from '$lib/server/rate-limit';
@@ -66,8 +65,6 @@ export const actions: Actions = {
 		const values = { fullName, homeMunicipality, email, memberClass, billingInterval };
 		if (!fullName || !homeMunicipality)
 			return fail(400, { ...values, error: m.err_name_municipality_required() });
-		if (!isFullName(fullName, pending?.acct))
-			return fail(400, { ...values, error: m.err_full_name_required() });
 		if (!(memberClass in FEES)) return fail(400, { ...values, error: m.err_unknown_class() });
 
 		// This action sends mail, so it is a flooding tool until it is capped.

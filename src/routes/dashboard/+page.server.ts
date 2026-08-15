@@ -5,11 +5,12 @@ import { getDb } from '$lib/server/db';
 import { account, member, payment } from '$lib/server/db/schema';
 import { collectedThisYearEur, getMemberByUserId } from '$lib/server/members';
 import { FEES } from '$lib/fees';
+import { isFullName } from '$lib/name';
 import { getStripe, priceIdFor, stripeEnabled } from '$lib/server/stripe';
 import { assignViite, formatViite } from '$lib/server/viite';
 import { lookupAccount } from '$lib/server/mastodon';
 import { virtualBarcode } from '$lib/server/barcode';
-import { getLocale } from '$lib/paraglide/runtime';
+import { getLocale, localizeHref } from '$lib/paraglide/runtime';
 import { env } from '$env/dynamic/private';
 import { m as msg } from '$lib/paraglide/messages.js';
 
@@ -29,6 +30,10 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		}
 	}
 	if (!m) redirect(303, '/join');
+
+	// Yhdistyslaki 11 § needs a complete name; without it the register is not
+	// valid, so the member area stays closed until it is corrected.
+	if (!isFullName(m.fullName, m.mastodonAcct)) redirect(303, localizeHref('/profile'));
 
 	const payments = await db.query.payment.findMany({
 		where: eq(payment.memberId, m.id),
@@ -50,6 +55,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 
 	return {
 		m,
+		nameIncomplete: !isFullName(m.fullName, m.mastodonAcct),
 		payments: payments.map((p) => ({
 			amountEur: p.amountEur,
 			method: p.method,
@@ -144,7 +150,8 @@ export const actions: Actions = {
 		if (!me) redirect(303, '/join');
 		if (me.stripeSubscriptionId) return fail(400, { billingError: msg.billing_locked() });
 
-		const billingInterval = (await request.formData()).get('billingInterval') === 'year' ? 'year' : 'month';
+		const billingInterval =
+			(await request.formData()).get('billingInterval') === 'year' ? 'year' : 'month';
 		await db.update(member).set({ billingInterval }).where(eq(member.id, me.id));
 		return { billingSaved: true };
 	},

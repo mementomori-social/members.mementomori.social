@@ -16,6 +16,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		where: and(eq(account.userId, locals.user.id), eq(account.providerId, 'mastodon'))
 	});
 	return {
+		nameIncomplete: !isFullName(me.fullName, me.mastodonAcct),
 		me: {
 			id: me.id,
 			fullName: me.fullName,

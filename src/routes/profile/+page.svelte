@@ -16,6 +16,10 @@
 
 <p class="muted small">{m.profile_intro()}</p>
 
+{#if data.nameIncomplete}
+	<p class="notice name-required" role="alert">{m.fix_name_prompt()}</p>
+{/if}
+
 <div class="card card-text-width">
 	<h3>{m.profile_details()}</h3>
 	<form method="POST" action="?/saveProfile" class="stack" use:enhance>

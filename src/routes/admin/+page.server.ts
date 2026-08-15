@@ -4,6 +4,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { approval, income, member, payment } from '$lib/server/db/schema';
 import { isBoard } from '$lib/server/members';
+import { isFullName } from '$lib/name';
 import { m } from '$lib/paraglide/messages.js';
 
 const requireBoard = (locals: App.Locals) => {
@@ -27,8 +28,11 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	const nameById = new Map(members.map((r) => [r.id, r.fullName]));
 	// The board's first question about any row is whether the fee is in.
 	const now = Date.now();
-	const withPaid = <T extends { id: string }>(r: T) => ({
+	const withPaid = <T extends { id: string; fullName: string; mastodonAcct: string | null }>(
+		r: T
+	) => ({
 		...r,
+		nameIncomplete: !isFullName(r.fullName, r.mastodonAcct),
 		paidUntil: payments
 			.filter((p) => p.memberId === r.id)
 			.reduce<Date | null>((max, p) => (!max || p.periodEnd > max ? p.periodEnd : max), null)
