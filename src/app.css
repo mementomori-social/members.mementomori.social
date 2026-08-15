@@ -1526,6 +1526,13 @@ img {
 		padding: 7px 14px;
 		gap: 8px;
 	}
+	.dash-head {
+		gap: 14px;
+		margin-bottom: 16px;
+	}
+	.dash-head .billing-mini {
+		padding-top: 0;
+	}
 }
 
 @media (max-width: 700px) {

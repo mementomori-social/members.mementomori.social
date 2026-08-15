@@ -1,5 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, eq, isNull, sql } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { account, member, payment } from '$lib/server/db/schema';
@@ -22,7 +22,10 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		// Magic-link signups store the application before the login exists.
 		// The email is verified by the link, so the row can be claimed now.
 		const unclaimed = await db.query.member.findFirst({
-			where: and(eq(member.email, locals.user.email), isNull(member.userId))
+			where: and(
+				sql`lower(${member.email}) = ${locals.user.email.toLowerCase()}`,
+				isNull(member.userId)
+			)
 		});
 		if (unclaimed) {
 			await db.update(member).set({ userId: locals.user.id }).where(eq(member.id, unclaimed.id));

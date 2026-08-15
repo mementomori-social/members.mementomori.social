@@ -18,6 +18,9 @@
 - Membership status kept on one line
 - Tables scroll instead of wrapping on phones
 - Member lists show newest members first
+- Email shown with open applications
+- Email addresses treated case-insensitively
+- Tighter dashboard spacing on phones
 
 ## 1.1.1 (15.8.2026)
 

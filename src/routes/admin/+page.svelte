@@ -38,6 +38,7 @@
 						{a.homeMunicipality} ·
 						{a.memberClass === 'member' ? m.class_member() : m.class_patron()} ·
 						{a.billingInterval === 'year' ? m.pays_annually() : m.pays_monthly()} ·
+						{a.email} ·
 						{m.admin_applied()}
 						{fmt(a.appliedAt)}{#if a.mastodonAcct}&nbsp;· @{a.mastodonAcct}{/if}{#if a.matrixId}&nbsp;·
 							{a.matrixId}{/if}

@@ -56,7 +56,11 @@ export const actions: Actions = {
 
 		const fullName = String(form.get('fullName') ?? '').trim();
 		const homeMunicipality = String(form.get('homeMunicipality') ?? '').trim();
-		const email = String(form.get('email') ?? '').trim();
+		// Addresses are case-insensitive in practice: "O@" and "o@" are one
+		// mailbox, and treating them as two created duplicate applications.
+		const email = String(form.get('email') ?? '')
+			.trim()
+			.toLowerCase();
 		const memberClass = String(form.get('memberClass') ?? 'member') as MemberClass;
 		const billingInterval = form.get('billingInterval') === 'year' ? 'year' : 'month';
 		const listedConsent = form.get('listedConsent') === 'on';
