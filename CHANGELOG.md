@@ -9,6 +9,8 @@
 - Board members can decide their own applications
 - Plain-language email note, profile intro and other text fixes
 - Green notice tweaks
+- One board member approves members
+- Status texts without trailing periods
 
 ## 1.0.0 (15.8.2026)
 

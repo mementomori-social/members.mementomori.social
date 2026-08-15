@@ -74,7 +74,7 @@ Most prospective members already have an account on mementomori.social. Letting 
 
 ### Building rather than buying
 
-A hosted membership service would add a recurring fee to a budget that has no room for one, and the requirements here are specific: sign-in with our own Mastodon instance, two fixed fee tiers set by the association meeting, Finnish reference-number matching for bank transfers, a member register that satisfies yhdistyslaki 11 §, and a two-approver rule for board decisions. Self-hosting the membership data also matches the association's stated purpose in its rules: promoting digitally sovereign, European social media.
+A hosted membership service would add a recurring fee to a budget that has no room for one, and the requirements here are specific: sign-in with our own Mastodon instance, two fixed fee tiers set by the association meeting, Finnish reference-number matching for bank transfers, a member register that satisfies yhdistyslaki 11 §, and board approval of members with an audit trail. Self-hosting the membership data also matches the association's stated purpose in its rules: promoting digitally sovereign, European social media.
 
 ## Authentication
 

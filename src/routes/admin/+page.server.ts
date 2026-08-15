@@ -20,21 +20,13 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	const members = await db.query.member.findMany({
 		orderBy: (r, { desc }) => [desc(r.appliedAt)]
 	});
-	const approvals = await db.query.approval.findMany();
 	const payments = await db.query.payment.findMany({
 		orderBy: (p, { desc }) => [desc(p.paidAt)]
 	});
 
 	const nameById = new Map(members.map((r) => [r.id, r.fullName]));
 	return {
-		applied: members
-			.filter((r) => r.status === 'applied')
-			.map((r) => ({
-				...r,
-				approvals: approvals
-					.filter((a) => a.memberId === r.id)
-					.map((a) => ({ approverUserId: a.approverUserId, approverRole: a.approverRole }))
-			})),
+		applied: members.filter((r) => r.status === 'applied'),
 		roster: members.filter((r) => r.status !== 'applied'),
 		ledger: payments.map((p) => ({ ...p, memberName: nameById.get(p.memberId) ?? '?' })),
 		incomeRows: await db.query.income.findMany({ orderBy: (i, { desc }) => [desc(i.paidAt)] })
@@ -51,23 +43,13 @@ export const actions: Actions = {
 		const row = await db.query.member.findFirst({ where: eq(member.id, memberId) });
 		if (!row || row.status !== 'applied') return fail(400, { adminError: m.err_not_open() });
 
-		const existing = await db.query.approval.findMany({
-			where: eq(approval.memberId, memberId)
-		});
-		if (existing.some((a) => a.approverUserId === userId))
-			return fail(400, { adminError: m.err_already_approved() });
-
+		// Board decision 15.8.2026: one board member approves. The approval row
+		// keeps the audit trail of who decided.
 		await db.insert(approval).values({ memberId, approverUserId: userId, approverRole: role });
-
-		// Board decision 21.7.2026: two approvers, at least one chair or vice chair.
-		const all = [...existing, { approverUserId: userId, approverRole: role }];
-		const hasLead = all.some((a) => a.approverRole === 'chair' || a.approverRole === 'vice');
-		if (all.length >= 2 && hasLead) {
-			await db
-				.update(member)
-				.set({ status: 'approved', decidedAt: new Date() })
-				.where(eq(member.id, memberId));
-		}
+		await db
+			.update(member)
+			.set({ status: 'approved', decidedAt: new Date() })
+			.where(eq(member.id, memberId));
 		return { adminOk: true };
 	},
 

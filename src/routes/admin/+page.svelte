@@ -40,12 +40,6 @@
 						{fmt(a.appliedAt)}{#if a.mastodonAcct}&nbsp;· @{a.mastodonAcct}{/if}{#if a.matrixId}&nbsp;·
 							{a.matrixId}{/if}
 					</span>
-					<span class="muted small">
-						{m.admin_approvals_so_far()}
-						{a.approvals.length}{#if a.approvals.length > 0}&nbsp;({a.approvals
-								.map((x) => x.approverRole)
-								.join(', ')}){/if} - {m.admin_approval_rule()}
-					</span>
 				</div>
 				<span class="row-actions">
 					<form method="POST" action="?/approve" use:enhance>
