@@ -88,11 +88,7 @@
 	<div class="card">
 		<h3>{m.covered_heading({ year: new Date().getFullYear() })}</h3>
 		<p class="covered-total">
-			<strong
-				>{Math.max(0, COSTS.annualEur - cov.total)
-					.toFixed(2)
-					.replace('.', ',')}&nbsp;€</strong
-			>
+			<strong>{cov.remaining.toFixed(2).replace('.', ',')}&nbsp;€</strong>
 			<span class="muted small">{m.covered_big_label()}</span>
 		</p>
 		<div class="progress stacked">
@@ -116,9 +112,7 @@
 			<span
 				><span class="dot bad"></span>
 				{m.covered_left({
-					left: Math.max(0, COSTS.annualEur - cov.total)
-						.toFixed(2)
-						.replace('.', ',')
+					left: cov.remaining.toFixed(2).replace('.', ',')
 				})}</span
 			>
 		</p>

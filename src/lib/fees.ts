@@ -17,31 +17,36 @@ export const COSTS = {
 } as const;
 
 /**
- * Yearly cost coverage. The infrastructure bill lands on the 15th each month
- * and the sponsor has paid every one directly so far, so months up to the
- * current bill count as covered even before they flow through the books.
+ * Cost coverage, day by day. Bills land on the 15th of each month. Bills
+ * already passed were paid by the sponsor straight to the provider, so the
+ * money collected from members has not been spent: it buys days beyond the
+ * next bill, and every payment moves the date.
  */
 export function coverage(fees: number, income: number, now = new Date()) {
-	const monthsPaid = now.getDate() >= 15 ? now.getMonth() + 1 : now.getMonth();
-	/** Fees paid by members: grows as the membership grows. */
+	const dailyEur = COSTS.annualEur / 365;
+	/** Bills already issued this year, this month's included once it lands. */
+	const monthsBilled = now.getDate() >= 15 ? now.getMonth() + 1 : now.getMonth();
+	const billedSoFar = monthsBilled * COSTS.monthlyEur;
+
+	/** Money in the association's own account, all of it still unspent. */
+	const available = fees + income;
+	/** Past bills settled outside the account; shrinks as real income lands. */
+	const sponsorDirect = Math.max(0, billedSoFar - available);
+
 	const members = fees;
-	/**
-	 * Everything else keeping the lights on: recorded sponsorship income plus
-	 * the transitional share of bills the sponsor has paid directly. As
-	 * invoiced income catches up with the bills, the transitional share
-	 * shrinks to zero by itself.
-	 */
-	const support = income + Math.max(0, monthsPaid * COSTS.monthlyEur - fees - income);
+	const support = income + sponsorDirect;
 	const total = members + support;
-	/** The next monthly bill, still ahead of us this year. */
-	const upcoming = monthsPaid < 12 ? COSTS.monthlyEur : 0;
-	/**
-	 * Bills land on the 15th; each covered bill keeps the servers running
-	 * until the next one. Money beyond the passed bills extends the date.
-	 */
-	const monthsCovered = Math.floor(total / COSTS.monthlyEur);
-	const coveredUntil = new Date(now.getFullYear(), monthsCovered, 15);
+
+	/** Bills still ahead this year, and what is not yet funded of them. */
+	const remainingBills = Math.max(0, COSTS.annualEur - billedSoFar);
+	const remaining = Math.max(0, remainingBills - available);
+	const upcoming = monthsBilled < 12 ? COSTS.monthlyEur : 0;
+
+	/** Coverage runs from the next bill, extended by the days money buys. */
+	const nextBill = new Date(now.getFullYear(), monthsBilled, 15);
+	const coveredUntil = new Date(nextBill.getTime() + (available / dailyEur) * 86_400_000);
 	const marginDays = Math.floor((coveredUntil.getTime() - now.getTime()) / 86_400_000);
+
 	/** Positions on a January-December track, for the timeline bar. */
 	const yearStart = new Date(now.getFullYear(), 0, 1).getTime();
 	const yearEnd = new Date(now.getFullYear() + 1, 0, 1).getTime();
@@ -51,6 +56,8 @@ export function coverage(fees: number, income: number, now = new Date()) {
 		members,
 		support,
 		total,
+		available,
+		remaining,
 		upcoming,
 		coveredUntil,
 		marginDays,

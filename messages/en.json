@@ -285,7 +285,7 @@
 	"privacy_public_list": "The site has a public member list. A member appears on it only after ticking a separate consent for public listing; the members-only list has its own consent. Both can be withdrawn on your member page at any time, and withdrawal removes you from the list immediately.",
 	"visibility_heading": "Consent",
 	"saved": "Saved",
-	"covered_big_label": "left to pay this term",
+	"covered_big_label": "left to cover this year",
 	"covered_seg_upcoming": "Upcoming bill",
 	"covered_left": "{left} € left to cover",
 	"covered_seg_members": "Membership fees",

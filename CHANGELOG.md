@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.2 (unreleased)
+
+- Cost coverage now moves with every payment
+- Coverage date counts days, not whole months
+- Remaining cost labelled for the rest of the year
+
 ## 1.1.1 (15.8.2026)
 
 - Payment state shown on the board page
