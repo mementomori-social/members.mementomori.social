@@ -13,6 +13,7 @@
 - Status texts without trailing periods
 - Language stays selected after signing out
 - Live card payments via Stripe
+- Rate limiting on sign-in and sign-up, stored in the database
 
 ## 1.0.0 (15.8.2026)
 

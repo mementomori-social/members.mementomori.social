@@ -5,6 +5,7 @@ import { genericOAuth, magicLink } from 'better-auth/plugins';
 import { sveltekitCookies } from 'better-auth/svelte-kit';
 import { getRequestEvent } from '$app/server';
 import { getDb } from '$lib/server/db';
+import { rateLimitStorage } from '$lib/server/rate-limit';
 import { sendEmail } from '$lib/server/email';
 
 const MASTODON_URL = 'https://mementomori.social';
@@ -24,6 +25,19 @@ const authConfig = {
 	},
 	account: {
 		accountLinking: { enabled: true }
+	},
+	// Workers have no NODE_ENV, so Better Auth would leave the limiter off and
+	// let anyone flood magic links to arbitrary addresses. Storage is D1: each
+	// request may hit a different isolate, so in-memory counters miss most of it.
+	rateLimit: {
+		enabled: true,
+		window: 60,
+		max: 60,
+		customRules: {
+			'/sign-in/magic-link': { window: 300, max: 3 },
+			'/sign-in/email': { window: 300, max: 5 },
+			'/sign-up/email': { window: 3600, max: 5 }
+		}
 	},
 	plugins: [
 		magicLink({
@@ -64,11 +78,14 @@ const authConfig = {
 	]
 } satisfies Omit<Parameters<typeof betterAuth>[0], 'database'>;
 
-export const createAuth = (d1: D1Database) =>
-	betterAuth({
+export const createAuth = (d1: D1Database) => {
+	const db = getDb(d1);
+	return betterAuth({
 		...authConfig,
-		database: drizzleAdapter(getDb(d1), { provider: 'sqlite' })
+		rateLimit: { ...authConfig.rateLimit, customStorage: rateLimitStorage(db) },
+		database: drizzleAdapter(db, { provider: 'sqlite' })
 	});
+};
 
 /**
  * DO NOT USE!
