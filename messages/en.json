@@ -36,8 +36,7 @@
 	"stat_member_singular": "member",
 	"stat_member_plural": "members",
 	"stat_costs_label": "running costs per month",
-	"covered_heading": "Where your fee goes",
-	"covered_line": "{collected} € of {annual} € collected in membership fees.",
+	"covered_heading": "Costs covered",
 	"elsewhere_heading": "Elsewhere",
 	"note_platform": "social media platform",
 	"note_docs": "documentation",
@@ -255,8 +254,6 @@
 	"dash_status_ended": "Your membership has ended.",
 	"payments_none_approved": "No payments recorded yet. Pay with the button above, or by bank transfer with your reference number.",
 	"matrix_open_cta": "How to join the chat",
-	"covered_line_split": "{fees} € in membership fees and {income} € in sponsorships collected this year, of {annual} € in yearly costs.",
-	"sponsor_credit": "The shortfall is covered by our sponsor Digitoimisto Dude.",
 	"admin_income": "Other income",
 	"admin_income_note": "Sponsorships and other agreed, invoiced income. Not membership fees, and never public donations.",
 	"admin_income_source": "Type",
@@ -279,5 +276,8 @@
 	"admin_auto_stripe": "Stripe",
 	"admin_auto_p2": ". Bank transfers book themselves once the",
 	"admin_auto_holvi": "Holvi connection",
-	"admin_auto_p3": "is active; until then, record them manually below."
+	"admin_auto_p3": "is active; until then, record them manually below.",
+	"covered_total_label": "of this year's {annual} € costs covered",
+	"covered_collected": "Collected by the association",
+	"covered_sponsor_direct": "Paid directly by our sponsor Digitoimisto Dude"
 }

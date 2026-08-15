@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages.js';
+	import { localizeHref } from '$lib/paraglide/runtime';
 	import { FEES } from '$lib/fees';
 	import type { PageProps } from './$types';
 
@@ -20,14 +21,14 @@
 		<div class="tier">
 			<h3>{m.choice_masto_title()}</h3>
 			<p class="muted small">{m.choice_masto_desc()}</p>
-			<a class="button" href="/join/mastodon">
+			<a class="button" href={localizeHref('/join/mastodon')}>
 				<img class="btn-icon" src="/assets/mastodon.svg" alt="" />{m.choice_masto_cta()}</a
 			>
 		</div>
 		<div class="tier">
 			<h3>{m.choice_form_title()}</h3>
 			<p class="muted small">{m.choice_form_desc()}</p>
-			<a class="button ghost" href="/join?path=form">{m.choice_form_cta()}</a>
+			<a class="button ghost" href={localizeHref('/join?path=form')}>{m.choice_form_cta()}</a>
 		</div>
 	</div>
 {:else if form?.magicSent}

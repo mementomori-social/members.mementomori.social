@@ -27,3 +27,5 @@
 - Compact board view with automation-first payment recording
 - Board notification bell with open-application count
 - New applications announced in the Matrix admins room
+- Locale preserved across sign-in, OAuth and payment redirects
+- Costs-covered card with sponsor-paid months and stacked bar

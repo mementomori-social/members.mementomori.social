@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { m } from '$lib/paraglide/messages.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
-	import { FEES, COSTS } from '$lib/fees';
+	import { FEES, COSTS, coverage } from '$lib/fees';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+
+	const cov = $derived(
+		data.collected ? coverage(data.collected.fees, data.collected.income) : null
+	);
 </script>
 
 <h1>{m.home_heading()}</h1>
@@ -78,24 +82,26 @@
 	</div>
 </div>
 
-{#if data.collected !== null}
+{#if cov !== null}
 	<div class="card">
 		<h3>{m.covered_heading()}</h3>
-		<div class="progress">
-			<div
-				style="width: {Math.min(
-					100,
-					((data.collected.fees + data.collected.income) / COSTS.annualEur) * 100
-				)}%"
-			></div>
+		<p class="covered-total">
+			<strong>{cov.total.toFixed(2).replace('.', ',')}&nbsp;€</strong>
+			<span class="muted small">{m.covered_total_label({ annual: COSTS.annualEur })}</span>
+		</p>
+		<div class="progress stacked">
+			<div class="seg-fees" style="width: {(cov.collected / COSTS.annualEur) * 100}%"></div>
+			<div class="seg-sponsor" style="width: {(cov.sponsorDirect / COSTS.annualEur) * 100}%"></div>
 		</div>
-		<p class="muted small">
-			{m.covered_line_split({
-				fees: data.collected.fees.toFixed(2),
-				income: data.collected.income.toFixed(2),
-				annual: COSTS.annualEur
-			})}
-			{m.sponsor_credit()}
+		<p class="legend small">
+			<span
+				><span class="dot ok"></span>
+				{m.covered_collected()}: {cov.collected.toFixed(2).replace('.', ',')}&nbsp;€</span
+			>
+			<span
+				><span class="dot pending"></span>
+				{m.covered_sponsor_direct()}: {cov.sponsorDirect.toFixed(2).replace('.', ',')}&nbsp;€</span
+			>
 		</p>
 	</div>
 {/if}

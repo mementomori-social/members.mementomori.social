@@ -13,7 +13,10 @@
 		e.preventDefault();
 		busy = true;
 		error = '';
-		const res = await authClient.signIn.magicLink({ email, callbackURL: '/dashboard' });
+		const res = await authClient.signIn.magicLink({
+			email,
+			callbackURL: localizeHref('/dashboard')
+		});
 		busy = false;
 		if (res.error) error = res.error.message ?? m.login_failed();
 		else sent = true;
@@ -23,8 +26,8 @@
 		error = '';
 		const res = await authClient.signIn.oauth2({
 			providerId: 'mastodon',
-			callbackURL: '/dashboard',
-			errorCallbackURL: '/login?oauth=failed'
+			callbackURL: localizeHref('/dashboard'),
+			errorCallbackURL: localizeHref('/login?oauth=failed')
 		});
 		if (res.error) error = res.error.message ?? m.login_masto_failed();
 	}

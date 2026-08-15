@@ -2,14 +2,17 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages.js';
+	import { localizeHref } from '$lib/paraglide/runtime';
 	import { authClient } from '$lib/auth-client';
 	import CopyField from '$lib/components/CopyField.svelte';
-	import { COSTS } from '$lib/fees';
+	import { COSTS, coverage } from '$lib/fees';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
 
 	let syncing = $state(false);
+
+	const cov = $derived(coverage(data.collectedEur.fees, data.collectedEur.income));
 
 	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
 
@@ -161,27 +164,29 @@
 	<div class="card">
 		<h3>{m.card_matrix()}</h3>
 		<p class="muted small">{m.dash_matrix_note()}</p>
-		<a class="button ghost" href="/matrix">{m.matrix_open_cta()}</a>
+		<a class="button ghost" href={localizeHref('/matrix')}>{m.matrix_open_cta()}</a>
 	</div>
 
 	<div class="card span2">
 		<h3>{m.covered_heading()}</h3>
-		<div class="progress">
-			<div
-				style="width: {Math.min(
-					100,
-					((data.collectedEur.fees + data.collectedEur.income) / COSTS.annualEur) * 100
-				)}%"
-			></div>
-		</div>
-		<p class="muted small">
-			{m.covered_line_split({
-				fees: data.collectedEur.fees.toFixed(2),
-				income: data.collectedEur.income.toFixed(2),
-				annual: COSTS.annualEur
-			})}
-			{m.costs_monthly_note({ monthly: COSTS.monthlyEur })}
-			{m.sponsor_credit()}
+		<p class="covered-total">
+			<strong>{cov.total.toFixed(2).replace('.', ',')}&nbsp;€</strong>
+			<span class="muted small">{m.covered_total_label({ annual: COSTS.annualEur })}</span>
 		</p>
+		<div class="progress stacked">
+			<div class="seg-fees" style="width: {(cov.collected / COSTS.annualEur) * 100}%"></div>
+			<div class="seg-sponsor" style="width: {(cov.sponsorDirect / COSTS.annualEur) * 100}%"></div>
+		</div>
+		<p class="legend small">
+			<span
+				><span class="dot ok"></span>
+				{m.covered_collected()}: {cov.collected.toFixed(2).replace('.', ',')}&nbsp;€</span
+			>
+			<span
+				><span class="dot pending"></span>
+				{m.covered_sponsor_direct()}: {cov.sponsorDirect.toFixed(2).replace('.', ',')}&nbsp;€</span
+			>
+		</p>
+		<p class="muted small">{m.costs_monthly_note({ monthly: COSTS.monthlyEur })}</p>
 	</div>
 </div>

@@ -8,10 +8,15 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	cookies.delete('join_masto_oauth', { path: '/join' });
 	if (!stored) redirect(303, '/join');
 
-	const { state, verifier } = JSON.parse(stored) as { state: string; verifier: string };
+	const { state, verifier, locale } = JSON.parse(stored) as {
+		state: string;
+		verifier: string;
+		locale?: string;
+	};
+	const prefix = locale === 'fi' ? '/fi' : '';
 	if (url.searchParams.get('state') !== state) error(400, 'OAuth state mismatch.');
 	const code = url.searchParams.get('code');
-	if (!code) redirect(303, '/join'); // user cancelled on Mastodon
+	if (!code) redirect(303, `${prefix}/join`); // user cancelled on Mastodon
 
 	const { access_token } = await exchangeCode(
 		`${url.origin}/join/mastodon/callback`,
@@ -27,5 +32,5 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 		sameSite: 'lax',
 		maxAge: 1800
 	});
-	redirect(303, '/join?path=mastodon');
+	redirect(303, `${prefix}/join?path=mastodon`);
 };

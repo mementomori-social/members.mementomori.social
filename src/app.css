@@ -749,6 +749,47 @@ button.compact {
 	color: var(--muted);
 }
 
+.covered-total {
+	margin: 4px 0 10px;
+}
+.covered-total strong {
+	font-family: var(--font-heading);
+	font-size: 26px;
+	color: var(--bright);
+	margin-right: 8px;
+}
+.progress.stacked {
+	display: flex;
+	overflow: hidden;
+}
+.progress .seg-fees {
+	background: var(--ok);
+	height: 100%;
+}
+.progress .seg-sponsor {
+	background: var(--accent);
+	height: 100%;
+}
+.legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 22px;
+	margin: 10px 0 4px;
+}
+.legend .dot {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	margin-right: 6px;
+	background: var(--muted);
+}
+.legend .dot.ok {
+	background: var(--ok);
+}
+.legend .dot.pending {
+	background: var(--accent);
+}
 .progress {
 	background: var(--surface-2);
 	border: 1px solid var(--border);

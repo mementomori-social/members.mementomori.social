@@ -36,8 +36,7 @@
 	"stat_member_singular": "jäsen",
 	"stat_member_plural": "jäsentä",
 	"stat_costs_label": "kulut kuukaudessa",
-	"covered_heading": "Mihin jäsenmaksusi menee",
-	"covered_line": "Jäsenmaksuja kerätty {collected} € / {annual} €.",
+	"covered_heading": "Kuluista katettu",
 	"elsewhere_heading": "Muualla",
 	"note_platform": "yhteisöpalvelu",
 	"note_docs": "ohjeet",
@@ -255,8 +254,6 @@
 	"dash_status_ended": "Jäsenyytesi on päättynyt.",
 	"payments_none_approved": "Maksuja ei ole vielä kirjattu. Maksa yllä olevalla napilla tai tilisiirrolla viitenumerollasi.",
 	"matrix_open_cta": "Näin liityt keskusteluun",
-	"covered_line_split": "Jäsenmaksuja {fees} € ja sponsorituloja {income} € kerätty tänä vuonna, vuosikulut {annual} €.",
-	"sponsor_credit": "Erotuksen kattaa sponsorimme Digitoimisto Dude.",
 	"admin_income": "Muut tulot",
 	"admin_income_note": "Sponsoroinnit ja muut sovitut, laskutetut tulot. Ei jäsenmaksuja, eikä koskaan yleisölahjoituksia.",
 	"admin_income_source": "Tyyppi",
@@ -279,5 +276,8 @@
 	"admin_auto_stripe": "Stripen",
 	"admin_auto_p2": "kautta. Tilisiirrot kirjautuvat itsestään, kun",
 	"admin_auto_holvi": "Holvi-yhteys",
-	"admin_auto_p3": "on käytössä; siihen asti ne kirjataan käsin alta."
+	"admin_auto_p3": "on käytössä; siihen asti ne kirjataan käsin alta.",
+	"covered_total_label": "katettu tämän vuoden {annual} € kuluista",
+	"covered_collected": "Yhdistyksen keräämä",
+	"covered_sponsor_direct": "Sponsorimme Digitoimisto Duden suoraan maksama"
 }

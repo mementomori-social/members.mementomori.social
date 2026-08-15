@@ -9,6 +9,7 @@ import { getStripe, priceIdFor, stripeEnabled } from '$lib/server/stripe';
 import { assignViite, formatViite } from '$lib/server/viite';
 import { lookupAccount } from '$lib/server/mastodon';
 import { virtualBarcode } from '$lib/server/barcode';
+import { getLocale } from '$lib/paraglide/runtime';
 import { env } from '$env/dynamic/private';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
@@ -98,8 +99,8 @@ export const actions: Actions = {
 			customer_email: m.email ?? locals.user.email,
 			metadata: { memberId: m.id },
 			subscription_data: { metadata: { memberId: m.id } },
-			success_url: `${env.ORIGIN}/dashboard?paid=1`,
-			cancel_url: `${env.ORIGIN}/dashboard`
+			success_url: `${env.ORIGIN}${getLocale() === 'fi' ? '/fi' : ''}/dashboard?paid=1`,
+			cancel_url: `${env.ORIGIN}${getLocale() === 'fi' ? '/fi' : ''}/dashboard`
 		});
 		if (!session.url) return fail(502, { payError: 'Could not start the payment.' });
 		redirect(303, session.url);
