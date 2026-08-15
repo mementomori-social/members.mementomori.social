@@ -36,7 +36,7 @@
 <h1>{m.login_heading()}</h1>
 
 {#if sent}
-	<p class="notice">{m.magic_sent()}</p>
+	<p class="notice ok" role="status">✓ {m.magic_sent()}</p>
 {:else}
 	<div class="tiers">
 		<div class="tier">

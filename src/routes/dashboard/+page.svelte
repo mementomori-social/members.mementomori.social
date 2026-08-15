@@ -48,7 +48,7 @@
 </header>
 
 {#if page.url.searchParams.get('paid') === '1'}
-	<p class="notice">{m.paid_thanks()}</p>
+	<p class="notice ok" role="status">✓ {m.paid_thanks()}</p>
 {/if}
 
 <div class="dash-grid">

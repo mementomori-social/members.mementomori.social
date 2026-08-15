@@ -32,7 +32,7 @@
 		</div>
 	</div>
 {:else if form?.magicSent}
-	<p class="notice">{m.join_check_email()}</p>
+	<p class="notice ok" role="status">✓ {m.join_check_email()}</p>
 {:else}
 	{#if data.pendingMasto}
 		<p class="notice">{m.verified_as({ acct: data.pendingMasto.acct })}</p>
