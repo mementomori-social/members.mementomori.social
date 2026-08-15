@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.1 (unreleased)
+## 1.1.0 (15.8.2026)
 
 - Green success style for confirmation notices
 - Clarify member list visibility in join notes
