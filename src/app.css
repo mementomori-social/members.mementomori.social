@@ -685,6 +685,19 @@ button.compact {
 	background: var(--surface-2);
 	color: var(--bright);
 }
+.utility-btn.bell {
+	position: relative;
+	padding: 4px 10px;
+}
+.bell-count {
+	font-size: 12px;
+	line-height: 1;
+	color: #fff;
+	background: var(--accent-btn);
+	border-radius: 999px;
+	padding: 3px 7px;
+	margin-left: 6px;
+}
 .utility-btn.leave {
 	color: var(--danger);
 }

@@ -25,3 +25,4 @@
 - Verified email required for password sign-in
 - Mastodon sign-in for linked accounts
 - Compact board view with automation-first payment recording
+- Board notification bell with open-application count

@@ -117,6 +117,30 @@
 				<a href={href('/dashboard')}>{data.user.name}</a>
 			</span>
 			{#if data.board}
+				<a
+					class="utility-btn bell"
+					href={href('/admin')}
+					aria-label={m.open_actions({ count: data.openActions })}
+					title={m.open_actions({ count: data.openActions })}
+				>
+					<svg
+						viewBox="0 0 24 24"
+						width="15"
+						height="15"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+						<path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+					</svg>
+					{#if data.openActions > 0}
+						<span class="bell-count">{data.openActions}</span>
+					{/if}
+				</a>
 				<a class="utility-btn" href={href('/admin')} aria-current={current('/admin')}
 					>{m.nav_board()}</a
 				>
