@@ -13,8 +13,14 @@
 	const current = (path: string) => (delocalized === path ? 'page' : undefined);
 	const href = (path: string) => localizeHref(path);
 
-	/** Native name of a locale, capitalised: works for any future locale. */
+	/** Each locale names itself in its own language. Falls back to the native
+	    language name for locales added later. */
+	const localeLabels: Record<string, string> = {
+		en: 'In English',
+		fi: 'Suomeksi'
+	};
 	const localeName = (l: string) => {
+		if (localeLabels[l]) return localeLabels[l];
 		const name = new Intl.DisplayNames([l], { type: 'language' }).of(l) ?? l;
 		return name.charAt(0).toLocaleUpperCase(l) + name.slice(1);
 	};
