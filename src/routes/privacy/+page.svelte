@@ -30,7 +30,20 @@
 </ul>
 
 <h2>{m.privacy_recipients_h()}</h2>
-<p>{m.privacy_recipients()}</p>
+<ul>
+	<li><a href="https://www.cloudflare.com">Cloudflare</a>: {m.privacy_proc_cf()}</li>
+	<li><a href="https://stripe.com">Stripe</a>: {m.privacy_proc_stripe()}</li>
+	<li><a href="https://www.mailgun.com">Mailgun</a>: {m.privacy_proc_mailgun()}</li>
+	<li>
+		<a href="https://www.hetzner.com">Hetzner</a>: {m.privacy_proc_hetzner()};
+		<a href="https://nextcloud.com">Nextcloud</a>: {m.privacy_proc_nextcloud()}
+	</li>
+	<li><a href="https://github.com">GitHub</a>: {m.privacy_proc_github()}</li>
+</ul>
+
+<p>{m.privacy_recipients_2()}</p>
+
+<p>{m.privacy_recipients_3()}</p>
 
 <h2>{m.privacy_retention_h()}</h2>
 <p>{m.privacy_retention()}</p>

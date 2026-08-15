@@ -223,7 +223,6 @@
 	"privacy_basis_consent": "Appearing on the member list, and giving a Matrix user id, are based on your consent. You can withdraw either at any time.",
 	"privacy_basis_security": "Session data is processed on the basis of legitimate interest, to keep accounts secure.",
 	"privacy_recipients_h": "Who else handles the data",
-	"privacy_recipients": "The site runs on Cloudflare's platform (Cloudflare, Inc., San Francisco, USA; traffic is served from EU data centres). Card payments are handled by Stripe Payments Europe Ltd (Dublin, Ireland). Email is sent through Mailgun's EU region (Sinch, EU data centres). The mementomori.social service itself and all backups run on Hetzner infrastructure in Helsinki, Finland, with a second backup copy on the association's Nextcloud, also on Hetzner in Europe. The source code is hosted on GitHub (Microsoft, USA); it contains no personal data. These providers process data on our behalf and only for these purposes, in accordance with the EU GDPR and Finnish law. Data is not sold, and it is not disclosed to anyone else except where the law requires it.",
 	"privacy_retention_h": "How long we keep it",
 	"privacy_retention": "Register data is kept while the membership lasts. Payment records and other accounting material are kept for at least six years from the end of the year in which the accounting period ended, as accounting law requires. Sessions expire on their own, and sign-in link tokens are single use.",
 	"privacy_rights_h": "Your rights",
@@ -300,5 +299,13 @@
 	"privacy_security_1": "There are no passwords to steal: sign-in uses one-time links or Mastodon. All traffic is encrypted, the application sets strict browser protections (Content Security Policy and related headers), and Cloudflare's platform provides infrastructure-level hardening and DDoS protection. The register is visible only to the board, and the member list only to signed-in, approved members who opted in. The entire source code is open for anyone to inspect at",
 	"privacy_updated": "Last updated {date}.",
 	"privacy_security_2": "The members' Matrix chat room is end-to-end encrypted.",
-	"matrix_e2e_note": "The room is end-to-end encrypted: only its members can read the messages."
+	"matrix_e2e_note": "The room is end-to-end encrypted: only its members can read the messages.",
+	"privacy_proc_cf": "hosting and database (Cloudflare, Inc., San Francisco, USA; traffic is served from EU data centres)",
+	"privacy_proc_stripe": "card payments (Stripe Payments Europe Ltd, Dublin, Ireland)",
+	"privacy_proc_mailgun": "email delivery, EU region (Sinch, EU data centres)",
+	"privacy_proc_hetzner": "the mementomori.social service itself and all backups (Helsinki, Finland)",
+	"privacy_proc_nextcloud": "second backup copy on the association's own instance, also on Hetzner in Europe",
+	"privacy_proc_github": "source code hosting (Microsoft, USA); the code contains no personal data",
+	"privacy_recipients_2": "These providers process data on our behalf and only for these purposes, in accordance with the EU GDPR and Finnish law.",
+	"privacy_recipients_3": "Data is not sold, and it is not disclosed to anyone else except where the law requires it."
 }
