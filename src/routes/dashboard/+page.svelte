@@ -115,6 +115,7 @@
 				<span class="dot"></span>
 				{m.fee_status_due({ amount: data.dueAmountEur })}
 			</p>
+			<p class="unpaid-notice">{m.fee_unpaid_notice()}</p>
 		{/if}
 		{#if data.canPay}
 			<form method="POST" action="?/pay" class="fee-actions">

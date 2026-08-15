@@ -43,7 +43,8 @@ export const actions: Actions = {
 		const homeMunicipality = String(form.get('homeMunicipality') ?? '').trim();
 		if (!fullName || !homeMunicipality)
 			return fail(400, { profileError: m.err_name_municipality_required() });
-		if (!isFullName(fullName)) return fail(400, { profileError: m.err_full_name_required() });
+		if (!isFullName(fullName, me.mastodonAcct))
+			return fail(400, { profileError: m.err_full_name_required() });
 
 		await db
 			.update(member)

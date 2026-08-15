@@ -62,7 +62,6 @@
 				type="text"
 				name="fullName"
 				required
-				minlength="4"
 				title={m.err_full_name_required()}
 				placeholder={m.ph_full_name()}
 				value={form?.fullName ?? prefillName}

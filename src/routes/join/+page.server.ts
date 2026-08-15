@@ -66,14 +66,15 @@ export const actions: Actions = {
 		const values = { fullName, homeMunicipality, email, memberClass, billingInterval };
 		if (!fullName || !homeMunicipality)
 			return fail(400, { ...values, error: m.err_name_municipality_required() });
-		if (!isFullName(fullName)) return fail(400, { ...values, error: m.err_full_name_required() });
+		if (!isFullName(fullName, pending?.acct))
+			return fail(400, { ...values, error: m.err_full_name_required() });
 		if (!(memberClass in FEES)) return fail(400, { ...values, error: m.err_unknown_class() });
 
 		// This action sends mail, so it is a flooding tool until it is capped.
 		if (!locals.user) {
 			const ip = getClientAddress();
 			if (
-				(await tooManyRequests(db, `join|ip|${ip}`, { window: 3600, max: 5 })) ||
+				(await tooManyRequests(db, `join|ip|${ip}`, { window: 3600, max: 25 })) ||
 				(email &&
 					(await tooManyRequests(db, `join|email|${email.toLowerCase()}`, {
 						window: 3600,

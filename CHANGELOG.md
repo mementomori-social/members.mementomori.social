@@ -8,6 +8,9 @@
 - Full name required, handles and emoji rejected
 - Mastodon display name no longer prefills the register name
 - Dev server no longer posts to the board's Matrix room
+- Name check accepts CJK names and mononyms
+- Unpaid members told plainly that payment activates membership
+- Higher join limit so shared networks are not blocked
 
 ## 1.1.1 (15.8.2026)
 
