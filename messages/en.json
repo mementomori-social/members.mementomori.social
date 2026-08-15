@@ -36,7 +36,7 @@
 	"stat_member_singular": "member",
 	"stat_member_plural": "members",
 	"stat_costs_label": "running costs per month",
-	"covered_heading": "Association costs",
+	"covered_heading": "Association costs {year}",
 	"elsewhere_heading": "Elsewhere",
 	"note_platform": "social media platform",
 	"note_docs": "documentation",

@@ -84,7 +84,7 @@
 
 {#if cov !== null}
 	<div class="card">
-		<h3>{m.covered_heading()}</h3>
+		<h3>{m.covered_heading({ year: new Date().getFullYear() })}</h3>
 		<p class="covered-total">
 			<strong
 				>{Math.max(0, COSTS.annualEur - cov.total)
