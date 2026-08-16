@@ -306,48 +306,6 @@
 	</div>
 
 	<div class="card span2">
-		<h3>{m.monthly_gap_heading()}</h3>
-		<p class="covered-total">
-			{#if cov.monthlyGapEur > 0}
-				<strong
-					><span class="gap-count">{cov.monthlyGapEur.toFixed(2).replace('.', ',')}&nbsp;€</span>
-					{m.monthly_gap_label()}</strong
-				>
-			{:else}
-				<strong><span class="days-count">✓</span> {m.monthly_surplus_label()}</strong>
-			{/if}
-		</p>
-		<div class="progress stacked">
-			<div
-				class="seg-month"
-				style="width: {(data.recurring.monthlyEur / COSTS.monthlyEur) * 100}%"
-			></div>
-			<div
-				class="seg-earlier"
-				style="width: {(data.recurring.yearlyEur / 12 / COSTS.monthlyEur) * 100}%"
-			></div>
-		</div>
-		<p class="legend small">
-			<span
-				><span class="dot ok"></span>
-				{m.legend_monthly_subs()}: {data.recurring.monthlyEur
-					.toFixed(2)
-					.replace('.', ',')}&nbsp;€</span
-			>
-			<span
-				><span class="dot accent"></span>
-				{m.legend_yearly_amortised()}: {(data.recurring.yearlyEur / 12)
-					.toFixed(2)
-					.replace('.', ',')}&nbsp;€</span
-			>
-			<span class="muted"
-				>{m.legend_monthly_cost()}: {COSTS.monthlyEur.toFixed(2).replace('.', ',')}&nbsp;€</span
-			>
-		</p>
-		<p class="muted small">{m.monthly_gap_note()}</p>
-	</div>
-
-	<div class="card span2">
 		<h3>{m.servers_covered_heading()}</h3>
 		<p class="covered-total">
 			{#if cov.marginDays > 0}
@@ -396,5 +354,47 @@
 				? m.projected_until({ date: cov.projectedUntil.toLocaleDateString('fi-FI') })
 				: m.projected_beyond()}
 		</p>
+	</div>
+
+	<div class="card span2">
+		<h3>{m.monthly_gap_heading()}</h3>
+		<p class="covered-total">
+			{#if cov.monthlyGapEur > 0}
+				<strong
+					><span class="gap-count">{cov.monthlyGapEur.toFixed(2).replace('.', ',')}&nbsp;€</span>
+					{m.monthly_gap_label()}</strong
+				>
+			{:else}
+				<strong><span class="days-count">✓</span> {m.monthly_surplus_label()}</strong>
+			{/if}
+		</p>
+		<div class="progress stacked">
+			<div
+				class="seg-month"
+				style="width: {(data.recurring.monthlyEur / COSTS.monthlyEur) * 100}%"
+			></div>
+			<div
+				class="seg-earlier"
+				style="width: {(data.recurring.yearlyEur / 12 / COSTS.monthlyEur) * 100}%"
+			></div>
+		</div>
+		<p class="legend small">
+			<span
+				><span class="dot ok"></span>
+				{m.legend_monthly_subs()}: {data.recurring.monthlyEur
+					.toFixed(2)
+					.replace('.', ',')}&nbsp;€</span
+			>
+			<span
+				><span class="dot accent"></span>
+				{m.legend_yearly_amortised()}: {(data.recurring.yearlyEur / 12)
+					.toFixed(2)
+					.replace('.', ',')}&nbsp;€</span
+			>
+			<span class="muted"
+				>{m.legend_monthly_cost()}: {COSTS.monthlyEur.toFixed(2).replace('.', ',')}&nbsp;€</span
+			>
+		</p>
+		<p class="muted small">{m.monthly_gap_note()}</p>
 	</div>
 </div>
