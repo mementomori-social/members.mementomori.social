@@ -10,6 +10,7 @@
 - Jyväskylä linked, English wording fix
 - First FAQ question open by default
 - Minimal chevrons on all accordions
+- Opening a question updates the shareable link
 
 ## 1.5.0 (16.8.2026)
 

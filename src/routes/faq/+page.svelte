@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { replaceState } from '$app/navigation';
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages.js';
 	import { getLocale, localizeHref } from '$lib/paraglide/runtime';
@@ -15,12 +16,31 @@
 	$effect(() => {
 		if (open) document.getElementById(open)?.scrollIntoView({ block: 'start' });
 	});
+
+	// Browsers fire toggle for initially open details at load; only real
+	// interaction after mount may touch the address bar.
+	let ready = false;
+	$effect(() => {
+		requestAnimationFrame(() => (ready = true));
+	});
+
+	/** Opening a question puts its deep link in the address bar so the view is
+	    shareable; closing the linked one clears it. */
+	function sync(e: Event) {
+		if (!ready) return;
+		const el = e.currentTarget as HTMLDetailsElement;
+		const url = new URL(page.url);
+		if (el.open) url.searchParams.set('q', el.id);
+		else if (url.searchParams.get('q') === el.id) url.searchParams.delete('q');
+		else return;
+		replaceState(url, {});
+	}
 </script>
 
 <h1>{m.faq_heading()}</h1>
 
 <div class="faq-list">
-	<details class="fold" id="yhdistys" open={open === 'yhdistys' || open === null}>
+	<details class="fold" id="yhdistys" ontoggle={sync} open={open === 'yhdistys' || open === null}>
 		<summary>{m.faq_q_what()}</summary>
 		<p>
 			{m.faq_a_what_1()}
@@ -30,7 +50,7 @@
 		</p>
 	</details>
 
-	<details class="fold" id="miksi-liittya" open={open === 'miksi-liittya'}>
+	<details class="fold" id="miksi-liittya" ontoggle={sync} open={open === 'miksi-liittya'}>
 		<summary>{m.faq_q_why()}</summary>
 		<p>
 			{m.faq_a_why_1()}
@@ -44,7 +64,7 @@
 		</p>
 	</details>
 
-	<details class="fold" id="maksutavat" open={open === 'maksutavat'}>
+	<details class="fold" id="maksutavat" ontoggle={sync} open={open === 'maksutavat'}>
 		<summary>{m.faq_q_pay()}</summary>
 		<p>{m.faq_a_pay_1()}</p>
 		<p>
@@ -53,7 +73,12 @@
 		</p>
 	</details>
 
-	<details class="fold" id="maksamisen-ajankohta" open={open === 'maksamisen-ajankohta'}>
+	<details
+		class="fold"
+		id="maksamisen-ajankohta"
+		ontoggle={sync}
+		open={open === 'maksamisen-ajankohta'}
+	>
 		<summary>{m.faq_q_paywhen()}</summary>
 		<p>
 			{m.faq_a_paywhen_1()}
@@ -63,7 +88,7 @@
 		<p>{m.faq_a_paywhen_3()}</p>
 	</details>
 
-	<details class="fold" id="oikea-nimi" open={open === 'oikea-nimi'}>
+	<details class="fold" id="oikea-nimi" ontoggle={sync} open={open === 'oikea-nimi'}>
 		<summary>{m.faq_q_name()}</summary>
 		<p>
 			{m.faq_a_name_1()}
