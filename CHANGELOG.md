@@ -5,6 +5,7 @@
 - Matrix ID editable on the profile page
 - Long handles truncate instead of wrapping
 - Matrix column keeps its width in the roster
+- Membership status says Paid until, not Valid until
 
 ## 1.4.0 (16.8.2026)
 
