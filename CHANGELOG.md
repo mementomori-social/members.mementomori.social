@@ -4,6 +4,7 @@
 
 - Coverage card shows recurring card payments
 - Estimated coverage date with upcoming renewals
+- Name check requires two real name parts, not initials
 
 ## 1.2.0 (16.8.2026)
 
