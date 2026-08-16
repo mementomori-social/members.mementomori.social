@@ -22,7 +22,7 @@ export const COSTS = {
  * money collected from members has not been spent: it buys days beyond the
  * next bill, and every payment moves the date.
  */
-export function coverage(fees: number, income: number, now = new Date()) {
+export function coverage(fees: number, income: number, now = new Date(), recurringMonthlyEur = 0) {
 	const dailyEur = COSTS.annualEur / 365;
 	/** Bills already issued this year, this month's included once it lands. */
 	const monthsBilled = now.getDate() >= 15 ? now.getMonth() + 1 : now.getMonth();
@@ -47,6 +47,17 @@ export function coverage(fees: number, income: number, now = new Date()) {
 	const coveredUntil = new Date(nextBill.getTime() + (available / dailyEur) * 86_400_000);
 	const marginDays = Math.floor((coveredUntil.getTime() - now.getTime()) / 86_400_000);
 
+	/**
+	 * Estimate with card subscriptions renewing: monthly income slows the burn.
+	 * When it exceeds the cost, the money never runs out and the estimate is
+	 * open-ended (null).
+	 */
+	const dailyRecurring = (recurringMonthlyEur * 12) / 365;
+	const projectedUntil =
+		dailyEur > dailyRecurring
+			? new Date(nextBill.getTime() + (available / (dailyEur - dailyRecurring)) * 86_400_000)
+			: null;
+
 	/** Positions on a January-December track, for the timeline bar. */
 	const yearStart = new Date(now.getFullYear(), 0, 1).getTime();
 	const yearEnd = new Date(now.getFullYear() + 1, 0, 1).getTime();
@@ -61,6 +72,8 @@ export function coverage(fees: number, income: number, now = new Date()) {
 		upcoming,
 		coveredUntil,
 		marginDays,
+		projectedUntil,
+		projectedPct: projectedUntil ? pct(projectedUntil.getTime()) : 100,
 		coveredPct: pct(coveredUntil.getTime()),
 		todayPct: pct(now.getTime())
 	};

@@ -1554,3 +1554,28 @@ img {
 .covered-total .days-count {
 	color: var(--ok);
 }
+
+.year-track .fill.projected {
+	position: absolute;
+	top: 0;
+	background: repeating-linear-gradient(
+		-45deg,
+		color-mix(in srgb, var(--ok) 34%, transparent) 0 6px,
+		color-mix(in srgb, var(--ok) 12%, transparent) 6px 12px
+	);
+	border-radius: 0 999px 999px 0;
+}
+.projected-line {
+	margin-top: 2px;
+}
+.recurring-line {
+	margin: 0 0 2px;
+}
+
+@media (max-width: 560px) {
+	/* The same date is in the caption above the bar; on a phone the riding
+	   label collides with the year-end label. */
+	.year-track .covered-date {
+		display: none;
+	}
+}

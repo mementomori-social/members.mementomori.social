@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1 (16.8.2026)
+
+- Coverage card shows recurring card payments
+- Estimated coverage date with upcoming renewals
+
 ## 1.2.0 (16.8.2026)
 
 - Cost coverage now moves with every payment

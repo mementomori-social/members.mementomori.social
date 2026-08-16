@@ -1,6 +1,7 @@
-import { and, eq, gte, sum } from 'drizzle-orm';
+import { and, eq, gte, isNotNull, sum } from 'drizzle-orm';
 import type { getDb } from '$lib/server/db';
 import { income, member, payment } from '$lib/server/db/schema';
+import { FEES } from '$lib/fees';
 
 export const BOARD_ROLES = ['board', 'vice', 'chair'] as const;
 export const isBoard = (role?: string) => BOARD_ROLES.includes(role as never);
@@ -22,6 +23,32 @@ export async function collectedThisYearEur(db: Db): Promise<{ fees: number; inco
 		.from(income)
 		.where(gte(income.paidAt, yearStart));
 	return { fees: Number(fees[0]?.total ?? 0), income: Number(other[0]?.total ?? 0) };
+}
+
+/**
+ * Active card subscriptions by schedule. This is the predictable income the
+ * coverage projection runs on; bank-transfer members renew by hand and are
+ * left out on purpose.
+ */
+export async function recurringSummary(db: Db) {
+	const rows = await db.query.member.findMany({
+		where: and(eq(member.status, 'approved'), isNotNull(member.stripeSubscriptionId)),
+		columns: { billingInterval: true, memberClass: true }
+	});
+	let monthlyCount = 0;
+	let monthlyEur = 0;
+	let yearlyCount = 0;
+	let yearlyEur = 0;
+	for (const r of rows) {
+		if (r.billingInterval === 'month') {
+			monthlyCount++;
+			monthlyEur += FEES[r.memberClass].month;
+		} else {
+			yearlyCount++;
+			yearlyEur += FEES[r.memberClass].year;
+		}
+	}
+	return { monthlyCount, monthlyEur, yearlyCount, yearlyEur };
 }
 
 export const approvedMemberCount = async (db: Db) =>

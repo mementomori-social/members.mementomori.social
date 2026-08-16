@@ -12,7 +12,14 @@
 
 	let syncing = $state(false);
 
-	const cov = $derived(coverage(data.collectedEur.fees, data.collectedEur.income));
+	const cov = $derived(
+		coverage(
+			data.collectedEur.fees,
+			data.collectedEur.income,
+			new Date(),
+			data.recurring.monthlyEur
+		)
+	);
 
 	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
 
@@ -318,7 +325,21 @@
 				{m.servers_covered_until({ date: cov.coveredUntil.toLocaleDateString('fi-FI') })}
 			</span>
 		</p>
+		<p class="muted small recurring-line">
+			{m.recurring_summary({
+				monthly: data.recurring.monthlyCount,
+				monthlyEur: data.recurring.monthlyEur,
+				yearly: data.recurring.yearlyCount,
+				yearlyEur: data.recurring.yearlyEur
+			})}
+		</p>
 		<div class="progress year-track">
+			{#if cov.projectedPct > cov.coveredPct}
+				<div
+					class="fill projected"
+					style="left: {cov.coveredPct}%; width: {cov.projectedPct - cov.coveredPct}%"
+				></div>
+			{/if}
 			<div class="fill" style="width: {cov.coveredPct}%"></div>
 			<span class="covered-date" style="left: {cov.coveredPct}%"
 				>{cov.coveredUntil.toLocaleDateString('fi-FI')}</span
@@ -329,6 +350,11 @@
 				>1.1.{new Date().getFullYear()}</span
 			>
 			<span class="muted">31.12.{new Date().getFullYear()}</span>
+		</p>
+		<p class="muted small projected-line">
+			{cov.projectedUntil
+				? m.projected_until({ date: cov.projectedUntil.toLocaleDateString('fi-FI') })
+				: m.projected_beyond()}
 		</p>
 	</div>
 </div>
