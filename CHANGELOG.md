@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1 (16.8.2026)
+
+- Matrix ID editable on the profile page
+
 ## 1.4.0 (16.8.2026)
 
 - Board-only member detail page with all register data

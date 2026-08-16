@@ -49,6 +49,16 @@
 			{m.field_municipality()}
 			<input type="text" name="homeMunicipality" required value={data.me.homeMunicipality} />
 		</label>
+		<label class="field">
+			{m.matrix_id_label()}
+			<input
+				type="text"
+				name="matrixId"
+				placeholder="@sina:matrix.org"
+				value={data.me.matrixId ?? ''}
+			/>
+		</label>
+		<p class="muted small field-note">{m.matrix_profile_note()}</p>
 		<div>
 			<button type="submit" class="ghost">{m.save()}</button>
 			{#if form?.profileSaved}<span class="ok-note" role="status">✓ {m.saved()}</span>{/if}

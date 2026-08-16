@@ -42,14 +42,23 @@ export const actions: Actions = {
 		const fullName = String(form.get('fullName') ?? '').trim();
 		const displayName = String(form.get('displayName') ?? '').trim();
 		const homeMunicipality = String(form.get('homeMunicipality') ?? '').trim();
+		const matrixId = String(form.get('matrixId') ?? '').trim();
 		if (!fullName || !homeMunicipality)
 			return fail(400, { profileError: m.err_name_municipality_required() });
 		if (!isFullName(fullName, me.mastodonAcct))
 			return fail(400, { profileError: m.err_full_name_required() });
+		// Same shape rule as the Matrix page: @localpart:server.tld
+		if (matrixId && !/^@[^\s:@]+:[^\s:@]+\.[^\s:@]+$/.test(matrixId))
+			return fail(400, { profileError: m.matrix_id_invalid() });
 
 		await db
 			.update(member)
-			.set({ fullName, displayName: displayName || null, homeMunicipality })
+			.set({
+				fullName,
+				displayName: displayName || null,
+				homeMunicipality,
+				matrixId: matrixId || null
+			})
 			.where(eq(member.id, me.id));
 		return { profileSaved: true };
 	},
