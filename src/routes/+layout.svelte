@@ -55,7 +55,7 @@
 			'/matrix': { title: m.matrix_heading, description: m.matrix_intro },
 			'/admin': { title: m.admin_heading, description: m.site_description }
 		};
-		const entry = metas[delocalized];
+		const entry = metas[delocalized.startsWith('/faq') ? '/faq' : delocalized];
 		return entry
 			? { title: entry.title(), description: entry.description() }
 			: { title: null, description: m.site_description() };

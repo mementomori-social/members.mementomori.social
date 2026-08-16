@@ -9,9 +9,9 @@
 	const FINLEX = 'https://www.finlex.fi/fi/laki/ajantasa/1989/19890503';
 	const JKL = getLocale() === 'fi' ? 'https://visitjyvaskyla.fi/' : 'https://visitjyvaskyla.fi/en/';
 
-	/** Deep links: /faq?q=slug opens that question, rendered open on the server
-	    so the link works without JavaScript. */
-	const open = $derived(page.url.searchParams.get('q'));
+	/** Deep links: /faq/slug opens that question, rendered open on the server
+	    so the link works without JavaScript. Old ?q= links keep working. */
+	const open = $derived(page.params.slug || page.url.searchParams.get('q'));
 
 	$effect(() => {
 		if (open) document.getElementById(open)?.scrollIntoView({ block: 'start' });
@@ -29,11 +29,8 @@
 	function sync(e: Event) {
 		if (!ready) return;
 		const el = e.currentTarget as HTMLDetailsElement;
-		const url = new URL(page.url);
-		if (el.open) url.searchParams.set('q', el.id);
-		else if (url.searchParams.get('q') === el.id) url.searchParams.delete('q');
-		else return;
-		replaceState(url, {});
+		if (el.open) replaceState(localizeHref(`/faq/${el.id}`), {});
+		else if (open === el.id) replaceState(localizeHref('/faq'), {});
 	}
 </script>
 
