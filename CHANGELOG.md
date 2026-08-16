@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.4.0 (unreleased)
+## 1.4.0 (16.8.2026)
 
 - Board-only member detail page with all register data
 - Roster links to details, shows email and Fediverse account
@@ -10,6 +10,8 @@
 - Live member count on the board page
 - Status labels capitalised
 - Re-applying with a known email never duplicates the row
+- Thin minimal scrollbars
+- Statuses as plain coloured text everywhere
 
 ## 1.3.0 (16.8.2026)
 

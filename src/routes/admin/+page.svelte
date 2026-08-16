@@ -221,10 +221,10 @@
 	<span class="muted">{m.admin_dl_ledger_note()}</span>
 </p>
 
-<p>
+<p class="member-count-line">
 	{m.admin_member_count_1()}
-	<strong
-		>{data.roster.filter((r) => r.status === 'approved').length} {m.admin_member_count_2()}</strong
+	<span class="semibold"
+		>{data.roster.filter((r) => r.status === 'approved').length} {m.admin_member_count_2()}</span
 	>.
 </p>
 
@@ -253,7 +253,7 @@
 						>{r.memberClass === 'member' ? m.class_member() : m.class_patron()}</td
 					>
 					<td>
-						<span class="badge {r.status === 'approved' ? 'ok' : ''}">{statusLabel(r.status)}</span>
+						<span class="status-text {r.status}">{statusLabel(r.status)}</span>
 					</td>
 					<td>
 						<span class="pay-chip" class:paid={isPaid(r.paidUntil)}>
