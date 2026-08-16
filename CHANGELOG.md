@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.1 (16.8.2026)
+
+- FAQ answers link PRH, Finlex, Stripe, Matrix and the instance
+- FAQ questions open by direct link
+- Reworded payment timing and real name answers
+- Fuller bilingual sign-in email passes spam filters
+
 ## 1.5.0 (16.8.2026)
 
 - FAQ page with the first five questions

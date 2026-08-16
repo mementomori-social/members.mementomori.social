@@ -42,10 +42,34 @@ const authConfig = {
 	plugins: [
 		magicLink({
 			sendMagicLink: async ({ email, url }) => {
+				// Spam filters flag terse messages with one long link (Mailgun blocked
+				// one at 4.6 points); a fuller bilingual body scores like real mail.
 				await sendEmail(
 					email,
-					'Sign in to members.mementomori.social',
-					`Sign in with this link:\n\n${url}\n\nThe link is valid for a few minutes. If you did not request it, ignore this message.`
+					'Kirjautumislinkki jäsenportaaliin / Your sign-in link - Mementomori ry',
+					[
+						'Hei!',
+						'',
+						'Pyysit kirjautumislinkin Mementomori ry:n jäsenportaaliin. Pääset kirjautumaan avaamalla tämän linkin:',
+						'',
+						url,
+						'',
+						'Linkki on voimassa muutaman minuutin. Jos et pyytänyt tätä viestiä, voit jättää sen huomiotta, eikä sinun tarvitse tehdä mitään.',
+						'',
+						'---',
+						'',
+						'Hello!',
+						'',
+						'You requested a sign-in link to the Mementomori ry member portal. Open this link to sign in:',
+						'',
+						url,
+						'',
+						'The link is valid for a few minutes. If you did not request this message, you can safely ignore it.',
+						'',
+						'Terveisin / Best regards,',
+						'Mementomori ry',
+						'https://members.mementomori.social'
+					].join('\n')
 				);
 			}
 		}),
