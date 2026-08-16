@@ -46,7 +46,7 @@ flowchart TB
     W <-->|"PKCE OAuth, avatar proxy"| MA
     M -->|"bank transfer with reference number"| H
     C -->|"POST /internal/cron"| W
-    H -.->|"transaction import<br/>(pending API access)"| W
+    H -.->|"statement CSV import<br/>(via board, admin view)"| W
     W -->|"new application"| MX
 ```
 
@@ -80,19 +80,19 @@ A hosted membership service would add a recurring fee to a budget that has no ro
 
 No passwords. Two ways in:
 
-- **Mastodon OAuth** against mementomori.social, using PKCE and the `profile` scope. Mastodon does not expose email addresses, so OAuth verifies the account and prefills the name. The application form still collects name, home municipality and email. The verified account is linked at creation and used for subsequent sign-ins.
+- **Mastodon OAuth** against mementomori.social, using PKCE and the `profile` scope. Mastodon does not expose email addresses, so OAuth verifies the account and prefills the name. The application form still collects name, home municipality and email. The Mastodon identity is staged on the member row and becomes a sign-in credential only after the email address is verified, so an unverified application can never be signed into.
 - **Magic links.** The form path stores the application without a login and emails a sign-in link (Better Auth magicLink plugin, Mailgun HTTP API). The application row is claimed by verified email on first dashboard visit.
 
 ## Membership flow
 
-An application creates a `member` row with status `applied`. The board approves it: two distinct board members, at least one of them chair or vice chair, and nobody may approve their own application. Approvals are recorded in the `approval` table. Only then does the status become `approved`.
+An application creates a `member` row with status `applied`. One board member approves it (board decision 15.8.2026); the approval is recorded in the `approval` table with the approver and their role. Only then does the status become `approved`.
 
 ## Payments
 
 All payments land in the `payment` ledger:
 
-- **Stripe Checkout** subscriptions using fixed price ids from the environment. The webhook at `/webhooks/stripe` verifies signatures and writes one ledger row per paid invoice, idempotent on the invoice id.
-- **Bank transfers.** Each approved member gets a unique Finnish reference number (viitenumero, 7-3-1 check digit). The daily job imports bank transactions when Holvi API access is configured and matches them to members by reference. Until then the board records transfers in the admin view.
+- **Stripe Checkout** subscriptions using fixed price ids from the environment. The webhook at `/webhooks/stripe` verifies signatures and writes one ledger row per paid invoice, idempotent on the invoice id. Subscribers manage their card, billing interval and cancellation through the Stripe billing portal from the dashboard.
+- **Bank transfers.** Each approved member gets a unique Finnish reference number (viitenumero, 7-3-1 check digit). The board imports bank statement CSV exports in the admin view: rows are matched to members by reference, previewed, and deduplicated on the bank transaction id, so overlapping statements can be re-imported safely. The daily Holvi API import remains as an optional automated path if API access is ever granted.
 
 ## Automation
 
@@ -110,4 +110,4 @@ Content Security Policy with per-request nonces, security headers set in the ser
 
 ## Internationalisation
 
-Messages live in `messages/en.json` and `messages/fi.json` and are compiled by Paraglide. English is served at the root and Finnish under `/fi`, with a cookie fallback and browser language detection on first visit. The language switcher is a native select that scales to any number of locales.
+Messages live in `messages/en.json` and `messages/fi.json` and are compiled by Paraglide. English is served at the root and Finnish under `/fi`, with a cookie fallback and browser language detection on first visit. The language switcher is a custom dropdown styled to match the site.
