@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.1 (16.8.2026)
+
+- Restore monthly and yearly options on the dashboard
+
 ## 1.6.0 (16.8.2026)
 
 - Subscribers manage card, schedule and cancellation in Stripe's portal
