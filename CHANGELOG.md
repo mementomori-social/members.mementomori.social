@@ -5,6 +5,7 @@
 - Link payment methods in the FAQ
 - Copy confirmation no longer widens the box
 - Narrower language menu
+- Reject street addresses in the municipality field
 
 ## 1.7.1 (16.8.2026)
 

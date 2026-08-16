@@ -5,6 +5,7 @@ import { getDb } from '$lib/server/db';
 import { account, member } from '$lib/server/db/schema';
 import { getMemberByUserId } from '$lib/server/members';
 import { isFullName } from '$lib/name';
+import { isMunicipality } from '$lib/municipality';
 import { m } from '$lib/paraglide/messages.js';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
@@ -47,6 +48,8 @@ export const actions: Actions = {
 			return fail(400, { profileError: m.err_name_municipality_required() });
 		if (!isFullName(fullName, me.mastodonAcct))
 			return fail(400, { profileError: m.err_full_name_required() });
+		if (!isMunicipality(homeMunicipality))
+			return fail(400, { profileError: m.err_municipality_invalid() });
 		// Same shape rule as the Matrix page: @localpart:server.tld
 		if (matrixId && !/^@[^\s:@]+:[^\s:@]+\.[^\s:@]+$/.test(matrixId))
 			return fail(400, { profileError: m.matrix_id_invalid() });

@@ -1,4 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
+import { isMunicipality } from '$lib/municipality';
 import { APIError } from 'better-auth';
 import { and, eq, isNull, sql } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
@@ -69,6 +70,8 @@ export const actions: Actions = {
 		const values = { fullName, homeMunicipality, email, memberClass, billingInterval };
 		if (!fullName || !homeMunicipality)
 			return fail(400, { ...values, error: m.err_name_municipality_required() });
+		if (!isMunicipality(homeMunicipality))
+			return fail(400, { ...values, error: m.err_municipality_invalid() });
 		if (!(memberClass in FEES)) return fail(400, { ...values, error: m.err_unknown_class() });
 
 		// This action sends mail, so it is a flooding tool until it is capped.

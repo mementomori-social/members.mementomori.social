@@ -104,6 +104,7 @@
 	"pay_month": "Pay monthly ({month} € per month)",
 	"consent_label": "My name may appear on the member list visible to other members.",
 	"submit_application": "Submit application",
+	"err_municipality_invalid": "The home municipality field takes only the town or city, not a street address.",
 	"err_full_name_required": "Please write your full name, first and last. The Associations Act requires a complete name in the member register, so a nickname or a handle is not enough. The name is visible to the board only, and you can choose a separate name to show to other members. If your name does not fit this form, write to us: ry@mementomori.social",
 	"err_name_municipality_required": "Full name and home municipality are required.",
 	"err_unknown_class": "Unknown membership class.",
