@@ -10,6 +10,9 @@
 <p class="muted small">
 	{#if data.publicOnly}{m.members_public_note()}{:else}{m.members_note_1()}
 		<span class="semibold">{m.members_note_em()}</span>{m.members_note_2()}{/if}
+</p>
+
+<p class="member-count-line">
 	{m.members_count_1()}
 	<span class="semibold">{data.memberCount} {m.members_count_2()}</span>.
 </p>
