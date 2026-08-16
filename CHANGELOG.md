@@ -7,6 +7,9 @@
 - Matrix column keeps its width in the roster
 - Membership status says Paid until, not Valid until
 - Live member count on the members page
+- Matrix room described as open source and E2EE
+- Monthly gap legend shows the uncovered amount
+- Members-only phrase emphasised in the list note
 
 ## 1.4.0 (16.8.2026)
 

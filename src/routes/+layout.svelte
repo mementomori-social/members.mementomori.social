@@ -48,7 +48,7 @@
 			'/safer-space': { title: m.safer_heading, description: m.safer_intro },
 			'/privacy': { title: m.privacy_heading, description: m.privacy_intro },
 			'/login': { title: m.login_heading, description: m.login_hint_magic },
-			'/members': { title: m.members_heading, description: m.members_note },
+			'/members': { title: m.members_heading, description: m.members_public_note },
 			'/dashboard': { title: m.dash_heading, description: m.site_description },
 			'/profile': { title: m.profile_heading, description: m.profile_intro },
 			'/matrix': { title: m.matrix_heading, description: m.matrix_intro },

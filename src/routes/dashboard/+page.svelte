@@ -239,7 +239,12 @@
 
 	<div class="card">
 		<h3>{m.card_matrix()}</h3>
-		<p class="muted small">{m.dash_matrix_note()}</p>
+		<p class="muted small">
+			{m.dash_matrix_note()}
+			<a href="https://matrix.org/docs/matrix-concepts/end-to-end-encryption/"
+				>{m.dash_matrix_e2ee_link()}</a
+			>.
+		</p>
 		<a class="button ghost" href={localizeHref('/matrix')}>{m.matrix_open_cta()}</a>
 	</div>
 
@@ -394,10 +399,12 @@
 					.toFixed(2)
 					.replace('.', ',')}&nbsp;€</span
 			>
-			<span class="muted"
-				>{m.legend_monthly_cost()}: {COSTS.monthlyEur.toFixed(2).replace('.', ',')}&nbsp;€</span
-			>
+			{#if cov.monthlyGapEur > 0}
+				<span
+					><span class="dot bad"></span>
+					{m.covered_left_label()}: {cov.monthlyGapEur.toFixed(2).replace('.', ',')}&nbsp;€</span
+				>
+			{/if}
 		</p>
-		<p class="muted small">{m.monthly_gap_note()}</p>
 	</div>
 </div>
