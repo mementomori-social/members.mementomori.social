@@ -32,6 +32,25 @@
 		if (el.open) replaceState(localizeHref(`/faq/${el.id}`), {});
 		else if (open === el.id) replaceState(localizeHref('/faq'), {});
 	}
+	const PAY_METHODS = [
+		{ name: 'Apple Pay', url: 'https://www.apple.com/apple-pay/' },
+		{ name: 'Google Pay', url: 'https://pay.google.com' },
+		{ name: 'PayPal', url: 'https://www.paypal.com' },
+		{ name: 'MobilePay', url: 'https://www.mobilepay.fi' },
+		{ name: 'Link', url: 'https://link.com' },
+		{ name: 'Revolut Pay', url: 'https://docs.stripe.com/payments/revolut-pay' },
+		{ name: 'Samsung Pay', url: 'https://www.samsung.com/fi/apps/samsung-wallet/' },
+		{ name: 'Kakao Pay', url: 'https://www.kakaopay.com' },
+		{ name: 'Naver Pay', url: 'https://pay.naver.com' },
+		{ name: 'PAYCO', url: 'https://www.payco.com' },
+		{ name: 'MB WAY', url: 'https://www.mbway.pt' },
+		{ name: 'Satispay', url: 'https://www.satispay.com' },
+		{ name: 'Bancontact', url: 'https://www.bancontact.com' },
+		{ name: 'BLIK', url: 'https://blik.com' },
+		{ name: 'EPS', url: 'https://www.eps-ueberweisung.at' },
+		{ name: 'Pay by Bank', url: 'https://docs.stripe.com/payments/pay-by-bank' },
+		{ name: 'Pix', url: 'https://www.bcb.gov.br/en/financialstability/pix_en' }
+	];
 </script>
 
 <h1>{m.faq_heading()}</h1>
@@ -63,7 +82,16 @@
 
 	<details class="fold" id="maksutavat" ontoggle={sync} open={open === 'maksutavat'}>
 		<summary>{m.faq_q_pay()}</summary>
-		<p>{m.faq_a_pay_1()}</p>
+		<p>
+			{m.faq_a_pay_intro()}
+			{#each PAY_METHODS as pm, i (pm.name)}<a href={pm.url}>{pm.name}</a>{i <
+				PAY_METHODS.length - 2
+					? ', '
+					: i === PAY_METHODS.length - 2
+						? ` ${m.faq_a_pay_and()} `
+						: '.'}{/each}
+		</p>
+		<p>{m.faq_a_pay_rest()}</p>
 		<p>
 			{m.faq_a_pay_2()}
 			<a href="https://stripe.com">Stripe</a>{m.faq_a_pay_3()}

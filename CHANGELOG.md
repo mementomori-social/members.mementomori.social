@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.2 (16.8.2026)
+
+- Link payment methods in the FAQ
+
 ## 1.7.1 (16.8.2026)
 
 - Even out top bar button heights
