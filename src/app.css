@@ -589,9 +589,9 @@ button.linklike:disabled {
 }
 @media (max-width: 700px) {
 	.dash-head .billing-mini {
-		margin-left: 0;
+		margin: 16px 0;
 		flex-basis: auto;
-		padding-top: 1.6em;
+		padding-top: 0;
 	}
 }
 .billing-mini .ok-note {
