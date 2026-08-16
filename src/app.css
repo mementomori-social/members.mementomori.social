@@ -539,11 +539,60 @@ button.linklike:disabled {
 	align-items: flex-start;
 	gap: 4px;
 	/* Capped so a long message wraps inside the column instead of widening it
-	   until the whole block drops onto its own row. */
+	   until the whole block drops onto its own row. Pushed to the far right of
+	   the header row; the shrinkable basis keeps it beside the greeting instead
+	   of wrapping under it on desktop. */
 	position: relative;
+	margin-left: auto;
+	flex: 0 1 340px;
 	max-width: 340px;
 	padding-top: 1.6em;
 	font-size: 15.5px;
+}
+/* Zero-basis greeting column so the header row always fits and the billing
+   block cannot wrap under it on desktop. */
+@media (min-width: 701px) {
+	.dash-head .dash-id {
+		flex: 1 1 0;
+	}
+}
+.billing-mini .compact {
+	margin: 6px 0;
+}
+.billing-heading {
+	font-weight: 500;
+}
+.billing-mini .popover {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 20;
+	width: max(300px, 100%);
+	margin: 8px 0 0;
+	padding: 4px 16px 14px;
+	font-size: 14.5px;
+	background: var(--surface-2);
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+.billing-mini .popover::before {
+	content: '';
+	position: absolute;
+	bottom: 100%;
+	left: 18px;
+	border: 7px solid transparent;
+	border-bottom-color: var(--surface-2);
+}
+.billing-mini .popover .compact {
+	margin-top: 4px;
+}
+@media (max-width: 700px) {
+	.dash-head .billing-mini {
+		margin-left: 0;
+		flex-basis: auto;
+		padding-top: 1.6em;
+	}
 }
 .billing-mini .ok-note {
 	max-width: 100%;
@@ -574,17 +623,16 @@ button.linklike:disabled {
 	border: 7px solid transparent;
 	border-bottom-color: color-mix(in srgb, var(--danger) 45%, transparent);
 }
-@media (max-width: 700px) {
-	.dash-head .billing-mini {
-		padding-top: 0.6em;
-	}
-}
 .billing-mini .mini-opt {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 	color: var(--text);
 	cursor: pointer;
+}
+.billing-mini .mini-opt input {
+	margin-left: 0;
+	margin-top: 0;
 }
 .billing-mini .linklike {
 	margin-top: 10px;

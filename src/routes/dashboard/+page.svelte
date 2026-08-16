@@ -29,6 +29,8 @@
 	// The billing message floats over the page, so it needs the dismissal
 	// behaviour of a popover rather than that of inline form text.
 	let billingForm = $state<HTMLElement>();
+	let managePop = $state<'' | 'manage' | 'switch'>('');
+	let manageBox = $state<HTMLElement>();
 	let hideBillingError = $state(false);
 	let lastBillingError: string | undefined;
 	$effect(() => {
@@ -42,9 +44,13 @@
 	function dismissBillingError(e: MouseEvent) {
 		if (showBillingError && billingForm && !billingForm.contains(e.target as Node))
 			hideBillingError = true;
+		if (managePop && manageBox && !manageBox.contains(e.target as Node)) managePop = '';
 	}
 	function dismissOnEscape(e: KeyboardEvent) {
-		if (e.key === 'Escape') hideBillingError = true;
+		if (e.key === 'Escape') {
+			hideBillingError = true;
+			managePop = '';
+		}
 	}
 </script>
 
@@ -78,38 +84,98 @@
 						: m.dash_status_ended()}
 		</p>
 	</div>
-	<form
-		method="POST"
-		action="?/saveBilling"
-		class="billing-mini"
-		bind:this={billingForm}
-		use:enhance={() =>
-			async ({ update }) =>
-				update({ reset: false })}
-	>
-		<span class="muted small">{m.billing_heading()}</span>
-		<label class="mini-opt">
-			<input
-				type="radio"
-				name="billingInterval"
-				value="month"
-				checked={data.m.billingInterval === 'month'}
-			/>
-			<span>{m.pay_month({ month: data.fee.month })}</span>
-		</label>
-		<label class="mini-opt">
-			<input
-				type="radio"
-				name="billingInterval"
-				value="year"
-				checked={data.m.billingInterval === 'year'}
-			/>
-			<span>{m.pay_year({ year: data.fee.year })}</span>
-		</label>
-		<button type="submit" class="linklike">{m.save()}</button>
-		{#if form?.billingSaved}<span class="ok-note small" role="status">✓ {m.saved()}</span>{/if}
-		{#if showBillingError}<p class="error">{form?.billingError}</p>{/if}
-	</form>
+	{#if data.m.stripeSubscriptionId}
+		<div class="billing-mini" bind:this={manageBox}>
+			<span class="muted small billing-heading">{m.billing_heading()}</span>
+			<label class="mini-opt">
+				<input
+					type="radio"
+					checked={data.m.billingInterval === 'month'}
+					onclick={(e) => {
+						e.preventDefault();
+						managePop = 'switch';
+					}}
+				/>
+				<span>{m.pay_month({ month: data.fee.month })}</span>
+			</label>
+			<label class="mini-opt">
+				<input
+					type="radio"
+					checked={data.m.billingInterval === 'year'}
+					onclick={(e) => {
+						e.preventDefault();
+						managePop = 'switch';
+					}}
+				/>
+				<span>{m.pay_year({ year: data.fee.year })}</span>
+			</label>
+			<button type="button" class="linklike" onclick={() => (managePop = managePop ? '' : 'manage')}
+				>{m.billing_portal_cta()}</button
+			>
+			{#if managePop}
+				<div class="popover">
+					{#if managePop === 'manage'}
+						<p>
+							{m.billing_resign_1()}
+							<a href="mailto:ry@mementomori.social">{m.billing_resign_email()}</a>
+							{m.billing_resign_or()}
+							<a href="https://mementomori.social/@ry" target="_blank" rel="noopener"
+								>{m.billing_resign_masto()}</a
+							>.
+						</p>
+						<p>{m.billing_switch_1()}</p>
+					{:else}
+						<p>{m.billing_switch_1()}</p>
+						<p>
+							{m.billing_switch_2()}
+							<a href="mailto:ry@mementomori.social">{m.billing_resign_email()}</a>
+							{m.billing_resign_or()}
+							<a href="https://mementomori.social/@ry" target="_blank" rel="noopener"
+								>{m.billing_resign_masto()}</a
+							>{m.billing_switch_end()}
+						</p>
+					{/if}
+					<form method="POST" action="?/manageBilling">
+						<button type="submit" class="compact">{m.billing_portal_confirm()}</button>
+					</form>
+				</div>
+			{/if}
+			{#if form?.billingError}<p class="error">{form.billingError}</p>{/if}
+		</div>
+	{:else}
+		<form
+			method="POST"
+			action="?/saveBilling"
+			class="billing-mini"
+			bind:this={billingForm}
+			use:enhance={() =>
+				async ({ update }) =>
+					update({ reset: false })}
+		>
+			<span class="muted small">{m.billing_heading()}</span>
+			<label class="mini-opt">
+				<input
+					type="radio"
+					name="billingInterval"
+					value="month"
+					checked={data.m.billingInterval === 'month'}
+				/>
+				<span>{m.pay_month({ month: data.fee.month })}</span>
+			</label>
+			<label class="mini-opt">
+				<input
+					type="radio"
+					name="billingInterval"
+					value="year"
+					checked={data.m.billingInterval === 'year'}
+				/>
+				<span>{m.pay_year({ year: data.fee.year })}</span>
+			</label>
+			<button type="submit" class="linklike">{m.save()}</button>
+			{#if form?.billingSaved}<span class="ok-note small" role="status">✓ {m.saved()}</span>{/if}
+			{#if showBillingError}<p class="error">{form?.billingError}</p>{/if}
+		</form>
+	{/if}
 </header>
 
 {#if page.url.searchParams.get('paid') === '1'}

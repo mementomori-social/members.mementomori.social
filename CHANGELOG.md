@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.0 (16.8.2026)
+
+- Subscribers reach the Stripe portal via confirmation tooltip
+- Schedule radios reflect the active Stripe subscription
+- Resignation and schedule-switch guidance with contact links
+- Allow form redirects to billing.stripe.com
+
 ## 1.6.1 (16.8.2026)
 
 - Restore monthly and yearly options on the dashboard

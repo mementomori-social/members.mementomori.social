@@ -38,7 +38,7 @@ export default defineConfig({
 					'connect-src': ['self'],
 					'frame-ancestors': ['none'],
 					'base-uri': ['self'],
-					'form-action': ['self', 'https://checkout.stripe.com'],
+					'form-action': ['self', 'https://checkout.stripe.com', 'https://billing.stripe.com'],
 					'object-src': ['none']
 				}
 			},
