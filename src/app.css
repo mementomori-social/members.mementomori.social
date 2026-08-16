@@ -1652,6 +1652,18 @@ img {
 	white-space: nowrap;
 	word-break: normal;
 }
+/* The cell reserves room for a full ID; anything longer truncates inside
+   the box instead of running under the next column. */
+.matrix-cell {
+	min-width: 265px;
+}
+.matrix-cell .copy-box {
+	max-width: 250px;
+}
+.matrix-cell .copy-value {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 .matrix-cell .copy-box {
 	padding: 5px 10px;
 	font-size: 13.5px;
@@ -1688,6 +1700,11 @@ img {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
+	/* Long handles truncate on one line rather than wrapping mid-word. */
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .status-text.approved {
 	color: var(--ok);
@@ -1714,7 +1731,11 @@ a.plain-link:hover {
 
 .detail-table td {
 	white-space: normal;
-	overflow-wrap: anywhere;
+	overflow-wrap: normal;
+	max-width: 0;
+}
+.detail-table td:first-child {
+	max-width: none;
 }
 
 .member-count-line {

@@ -3,6 +3,8 @@
 ## 1.4.1 (16.8.2026)
 
 - Matrix ID editable on the profile page
+- Long handles truncate instead of wrapping
+- Matrix column keeps its width in the roster
 
 ## 1.4.0 (16.8.2026)
 
