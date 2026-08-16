@@ -54,8 +54,7 @@
 	<p class="muted small">
 		{m.join_rules_1()}
 		<a href="/documents/mementomori-ry-saannot.pdf">{m.join_rules_link()}</a>.
-		{m.join_faq_hint()}
-		<a href={localizeHref('/faq')}>{m.join_faq_link()}</a>.
+		<a href={localizeHref('/faq')}>{m.join_faq_hint()}</a>
 	</p>
 {:else}
 	{#if data.pendingMasto}
