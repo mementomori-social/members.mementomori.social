@@ -20,7 +20,9 @@ set -euo pipefail
 : "${CF_ACCOUNT_ID:?}" "${CF_D1_TOKEN:?}" "${D1_DATABASE_ID:?}" "${BACKUP_DIR:?}"
 
 api="https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/d1/database/${D1_DATABASE_ID}"
-auth=(-H "Authorization: Bearer ${CF_D1_TOKEN}" -H "Content-Type: application/json")
+# -4: token IP allowlists name the server's IPv4, while curl prefers the
+# IPv6 egress address by default.
+auth=(-4 -H "Authorization: Bearer ${CF_D1_TOKEN}" -H "Content-Type: application/json")
 stamp="$(date +%Y-%m-%d_%H%M)"
 out="${BACKUP_DIR}/members-d1-${stamp}.sql.gz"
 
@@ -41,13 +43,13 @@ for _ in $(seq 1 60); do
 done
 [ -n "${url}" ] || { echo "export did not finish" >&2; exit 1; }
 
-curl -sf "${url//\\/}" | gzip > "${out}"
+curl -4 -sf "${url//\\/}" | gzip > "${out}"
 gzip -t "${out}"
 echo "wrote ${out} ($(du -h "${out}" | cut -f1))"
 
 # Optional second copy to Nextcloud.
 if [ -n "${NEXTCLOUD_URL:-}" ]; then
-	curl -sf -u "${NEXTCLOUD_USER}:${NEXTCLOUD_PASS}" \
+	curl -4 -sf -u "${NEXTCLOUD_USER}:${NEXTCLOUD_PASS}" \
 		-T "${out}" "${NEXTCLOUD_URL%/}/$(basename "${out}")"
 	echo "uploaded to Nextcloud"
 fi
