@@ -76,6 +76,81 @@
 	{m.admin_auto_p3()}
 </p>
 
+<details
+	class="fold"
+	open={Boolean(
+		form?.importPreview || form?.importHeaders || form?.importEmpty || form?.imported !== undefined
+	)}
+>
+	<summary>{m.admin_import_statement()}</summary>
+	<p class="muted small">{m.admin_import_note()}</p>
+	<form
+		method="POST"
+		action="?/previewStatement"
+		enctype="multipart/form-data"
+		class="stack"
+		use:enhance
+	>
+		<input type="file" name="statement" accept=".csv,text/csv" required />
+		<div><button type="submit" class="ghost">{m.admin_import_preview()}</button></div>
+	</form>
+	{#if form?.importHeaders}
+		<p class="error">{m.admin_import_headers()} {form.importHeaders}</p>
+	{/if}
+	{#if form?.importEmpty}
+		<p class="muted small">{m.admin_import_none()}</p>
+	{/if}
+	{#if form?.imported !== undefined}
+		<p class="ok-note" role="status">✓ {m.admin_import_done({ count: form.imported })}</p>
+	{/if}
+	{#if form?.importPreview}
+		{@const preview = form.importPreview}
+		{@const fresh = preview.filter((r) => r.state === 'new')}
+		<p class="small">
+			<span class="ok-note">{m.admin_import_new()}: {fresh.length}</span> ·
+			<span class="muted"
+				>{m.admin_import_dupe()}: {preview.filter((r) => r.state === 'dupe').length}</span
+			>
+			·
+			<span class="pay-chip"
+				>{m.admin_import_unmatched()}: {preview.filter((r) => r.state === 'unmatched').length}</span
+			>
+		</p>
+		<TableScroll>
+			<table class="list">
+				<thead>
+					<tr
+						><th>{m.th_date()}</th><th>{m.th_amount()}</th><th>{m.admin_reference()}</th><th
+							>{m.admin_member()}</th
+						><th>{m.th_status()}</th></tr
+					>
+				</thead>
+				<tbody>
+					{#each preview as r (r.txId)}
+						<tr>
+							<td>{new Date(r.dateIso).toLocaleDateString('fi-FI')}</td>
+							<td>{r.amountEur.toFixed(2)}&nbsp;€</td>
+							<td class="muted small">{r.reference || r.counterparty}</td>
+							<td>{r.memberName ?? ''}</td>
+							<td class="small">
+								{#if r.state === 'new'}<span class="ok-note">{m.admin_import_new()}</span>
+								{:else if r.state === 'dupe'}<span class="muted">{m.admin_import_dupe()}</span>
+								{:else}<span class="pay-chip">{m.admin_import_unmatched()}</span>{/if}
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</TableScroll>
+		{#if fresh.length > 0}
+			<form method="POST" action="?/importStatement" use:enhance>
+				<input type="hidden" name="rows" value={JSON.stringify(fresh)} />
+				<button type="submit">{m.admin_import_commit({ count: fresh.length })}</button>
+			</form>
+		{/if}
+	{/if}
+</details>
+
 <details class="fold">
 	<summary>{m.admin_record_bank()}</summary>
 	<p class="muted small">{m.admin_record_bank_note()}</p>

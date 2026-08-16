@@ -4,6 +4,7 @@
 
 - Subscribers manage card, schedule and cancellation in Stripe's portal
 - Subscription changes sync back on dashboard load
+- Bank statement import with preview and dedup
 
 ## 1.5.1 (16.8.2026)
 

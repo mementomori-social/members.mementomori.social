@@ -78,6 +78,13 @@
       "when": 1786814286131,
       "tag": "0010_deep_lady_mastermind",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1786892628256,
+      "tag": "0011_furry_william_stryker",
+      "breakpoints": true
     }
   ]
 }

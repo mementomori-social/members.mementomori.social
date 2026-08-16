@@ -98,6 +98,8 @@ export const payment = sqliteTable(
 		method: text('method', { enum: ['stripe', 'bank'] }).notNull(),
 		/** Stripe invoice/charge id, or bank transfer reference. */
 		reference: text('reference'),
+		/** Bank's own transaction id (arkistointitunnus); imports dedup on it. */
+		bankTxId: text('bank_tx_id'),
 		paidAt: integer('paid_at', { mode: 'timestamp' }).notNull(),
 		periodStart: integer('period_start', { mode: 'timestamp' }).notNull(),
 		periodEnd: integer('period_end', { mode: 'timestamp' }).notNull(),
@@ -108,7 +110,10 @@ export const payment = sqliteTable(
 			.$defaultFn(() => new Date())
 	},
 	// Webhook deliveries race; the database is the only reliable dedup point.
-	(t) => [uniqueIndex('payment_reference_unique').on(t.reference)]
+	(t) => [
+		uniqueIndex('payment_reference_unique').on(t.reference),
+		uniqueIndex('payment_bank_tx_unique').on(t.bankTxId)
+	]
 );
 
 /**

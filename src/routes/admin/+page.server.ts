@@ -5,6 +5,8 @@ import { getDb } from '$lib/server/db';
 import { approval, income, member, payment } from '$lib/server/db/schema';
 import { isBoard } from '$lib/server/members';
 import { isFullName } from '$lib/name';
+import { parseStatement, type StatementRow } from '$lib/server/statement';
+import { inArray, isNotNull } from 'drizzle-orm';
 import { m } from '$lib/paraglide/messages.js';
 
 const requireBoard = (locals: App.Locals) => {
@@ -77,6 +79,94 @@ export const actions: Actions = {
 			.set({ status: 'rejected', decidedAt: new Date() })
 			.where(eq(member.id, memberId));
 		return { adminOk: true, refundNote: true };
+	},
+
+	/**
+	 * Statement import, step one: parse and classify without writing. The rows
+	 * come back to the page so the board sees exactly what a commit would do.
+	 */
+	previewStatement: async ({ request, locals, platform }) => {
+		requireBoard(locals);
+		const db = getDb(platform!.env.DB);
+		const form = await request.formData();
+		const file = form.get('statement');
+		if (!(file instanceof File) || file.size === 0)
+			return fail(400, { importError: m.err_payment_fields() });
+
+		const { rows, problem } = await parseStatement(await file.text());
+		if (problem) return fail(400, { importHeaders: problem });
+		const incoming = rows.filter((r) => r.amountEur > 0);
+		if (incoming.length === 0) return fail(400, { importEmpty: true });
+
+		const members = await db.query.member.findMany({
+			where: isNotNull(member.viite),
+			columns: { id: true, fullName: true, viite: true, billingInterval: true }
+		});
+		const byViite = new Map(members.map((mm) => [mm.viite!, mm]));
+		const existing = await db.query.payment.findMany({
+			where: inArray(
+				payment.bankTxId,
+				incoming.map((r) => r.txId)
+			),
+			columns: { bankTxId: true }
+		});
+		const seen = new Set(existing.map((e) => e.bankTxId));
+
+		const classified = incoming.map((r) => {
+			const match = byViite.get(r.reference);
+			return {
+				...r,
+				memberName: match?.fullName ?? null,
+				state: seen.has(r.txId) ? 'dupe' : match ? 'new' : 'unmatched'
+			};
+		});
+		return { importPreview: classified };
+	},
+
+	/** Step two: write the confirmed rows, still idempotent on the tx id. */
+	importStatement: async ({ request, locals, platform }) => {
+		const { userId } = requireBoard(locals);
+		const db = getDb(platform!.env.DB);
+		const form = await request.formData();
+		let rows: StatementRow[];
+		try {
+			rows = JSON.parse(String(form.get('rows') ?? '[]')) as StatementRow[];
+		} catch {
+			return fail(400, { importError: m.err_payment_fields() });
+		}
+
+		let imported = 0;
+		for (const r of rows) {
+			if (typeof r.amountEur !== 'number' || r.amountEur <= 0) continue;
+			const match = await db.query.member.findFirst({
+				where: eq(member.viite, String(r.reference ?? ''))
+			});
+			if (!match) continue;
+			const paidAt = new Date(`${r.dateIso}T12:00:00Z`);
+			if (isNaN(paidAt.getTime())) continue;
+			const periodEnd = new Date(paidAt);
+			if (match.billingInterval === 'month') periodEnd.setMonth(periodEnd.getMonth() + 1);
+			else periodEnd.setFullYear(periodEnd.getFullYear() + 1);
+			const res = await db
+				.insert(payment)
+				.values({
+					memberId: match.id,
+					amountEur: r.amountEur,
+					method: 'bank',
+					// The reference column is unique; the bank's own id both satisfies
+					// that and gives bookkeeping its audit trail. The member link is
+					// already made through memberId.
+					reference: String(r.txId),
+					bankTxId: String(r.txId),
+					paidAt,
+					periodStart: paidAt,
+					periodEnd,
+					recordedBy: userId
+				})
+				.onConflictDoNothing();
+			if ((res as { meta?: { changes?: number } }).meta?.changes !== 0) imported++;
+		}
+		return { imported };
 	},
 
 	recordPayment: async ({ request, locals, platform }) => {
