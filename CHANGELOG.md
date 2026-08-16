@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.1 (16.8.2026)
+
+- Even out top bar button heights
+- Add PayPal to FAQ payment methods
+- Mute member count line, white figure
+- Drop PDF suffix from rules link
+
 ## 1.7.0 (16.8.2026)
 
 - Subscribers reach the Stripe portal via confirmation tooltip

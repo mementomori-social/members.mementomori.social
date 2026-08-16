@@ -958,6 +958,9 @@ button.compact {
 	padding: 4px 16px;
 	text-decoration: none;
 	cursor: pointer;
+	/* Icon-only pills have a shorter line box than the text ones, so the row
+	   needs a shared height: 15px text at 1.4 plus padding and border. */
+	min-height: 31px;
 }
 .utility-btn:hover {
 	background: var(--surface-2);
