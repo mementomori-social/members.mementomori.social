@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.0 (unreleased)
+
+- FAQ page with the first five questions
+- FAQ linked from the menu, footer and join page
+
 ## 1.4.1 (16.8.2026)
 
 - Matrix ID editable on the profile page

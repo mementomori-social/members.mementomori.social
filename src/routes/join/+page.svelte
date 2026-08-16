@@ -50,6 +50,11 @@
 			<a class="button ghost" href={localizeHref('/join?path=form')}>{m.choice_form_cta()}</a>
 		</div>
 	</div>
+
+	<p class="muted small">
+		{m.join_faq_hint()}
+		<a href={localizeHref('/faq')}>{m.join_faq_link()}</a>.
+	</p>
 {:else}
 	{#if data.pendingMasto}
 		<p class="notice ok" role="status">✓ {m.verified_as({ acct: data.pendingMasto.acct })}</p>

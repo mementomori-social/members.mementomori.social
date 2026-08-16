@@ -49,6 +49,7 @@
 			'/privacy': { title: m.privacy_heading, description: m.privacy_intro },
 			'/login': { title: m.login_heading, description: m.login_hint_magic },
 			'/members': { title: m.members_heading, description: m.members_public_note },
+			'/faq': { title: m.faq_heading, description: m.faq_q_why },
 			'/dashboard': { title: m.dash_heading, description: m.site_description },
 			'/profile': { title: m.profile_heading, description: m.profile_intro },
 			'/matrix': { title: m.matrix_heading, description: m.matrix_intro },
@@ -242,6 +243,7 @@
 					>{m.sponsor_heading()}</a
 				>
 				<a href={href('/members')} aria-current={current('/members')}>{m.nav_members()}</a>
+				<a href={href('/faq')} aria-current={current('/faq')}>{m.nav_faq()}</a>
 				<a href={href('/contact')} aria-current={current('/contact')}>{m.nav_contact()}</a>
 			{/if}
 		</nav>
@@ -256,6 +258,7 @@
 				<a href={href('/join')}>{m.nav_join()}</a>
 				<a href={href('/sponsorship')}>{m.sponsor_heading()}</a>
 				<a href={href('/safer-space')}>{m.nav_safer_space()}</a>
+				<a href={href('/faq')}>{m.nav_faq()}</a>
 				<a href={href('/privacy')}>{m.nav_privacy()}</a>
 				<a href={href('/contact')}>{m.nav_contact()}</a>
 			</span>
