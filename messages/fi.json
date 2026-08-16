@@ -9,7 +9,7 @@
 	"faq_q_why": "Miksi liittyä Mementomori ry:n jäseneksi?",
 	"faq_a_why": "Jäsenmaksut pitävät mementomori.socialin pystyssä: palvelimet, ylläpidon ja kehityksen. Rahoitus tulee jäseniltä, ei mainoksista eikä sijoittajilta, joten palvelu ei ole riippuvainen kenestäkään ulkopuolisesta. Varsinaisena jäsenenä saat äänioikeuden yhdistyksen kokouksessa eli sanavaltaa siihen, miten yhteisöpalvelua pyöritetään. Jäsenet saavat myös oman suljetun Matrix-keskusteluhuoneen ja visuaalisen badgen Mastodoniin. Tiedät jäsenenä tukevasi hyvää asiaa, sillä olemme eettinen ja voittoa tavoittelematon rekisteröity yhdistys. Palvelun käyttö on silti maksutonta kaikille, jäsenille ja ei-jäsenille.",
 	"faq_q_pay": "Miten jäsenmaksun voi maksaa?",
-	"faq_a_pay": "Kortilla, jolloin maksu uusiutuu automaattisesti, tai tilisiirrolla omalla viitenumerollasi. Voit valita vuosimaksun tai kuukausierän: kuukausierä on saman vuosimaksun osa, ei eri hinta. Maksuohjeet näkyvät omalla sivullasi, kun hakemuksesi on hyväksytty.",
+	"faq_a_pay": "Voit maksaa kortilla, Apple Payllä tai Klarnalla, jolloin maksu uusiutuu automaattisesti, tai tilisiirrolla omalla viitenumerollasi. Vuosimaksun voi maksaa myös kuukausierissä, jotka ovat saman vuosimaksun osia eivätkä eri hinta. Maksunvälittäjänä toimii turvallinen Stripe, joten maksutietojasi ei käsitellä eikä tallenneta tälle sivustolle. Maksuohjeet näkyvät omalla sivullasi, kun hakemuksesi on hyväksytty.",
 	"faq_q_paywhen": "Pitääkö maksaa heti liittyessä?",
 	"faq_a_paywhen": "Ei. Ensin lähetät hakemuksen, sitten hallitus hyväksyy sen, ja vasta sen jälkeen saat maksuohjeet. Jos hakemusta ei jostain syystä hyväksytä, jo maksettu jäsenmaksu palautetaan kokonaan.",
 	"faq_q_what": "Mikä Mementomori ry on?",
