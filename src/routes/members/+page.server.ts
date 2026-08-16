@@ -1,6 +1,12 @@
 import type { PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
-import { getMemberByUserId, isBoard, listedMembers, publicMembers } from '$lib/server/members';
+import {
+	approvedMemberCount,
+	getMemberByUserId,
+	isBoard,
+	listedMembers,
+	publicMembers
+} from '$lib/server/members';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
 	const db = getDb(platform!.env.DB);
@@ -11,6 +17,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			const rows = await listedMembers(db);
 			return {
 				publicOnly: false,
+				memberCount: await approvedMemberCount(db),
 				members: rows.map((r) => ({ ...r }))
 			};
 		}
@@ -19,6 +26,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	const rows = await publicMembers(db);
 	return {
 		publicOnly: true,
+		memberCount: await approvedMemberCount(db),
 		members: rows.map((r) => ({
 			...r,
 			homeMunicipality: null as string | null,

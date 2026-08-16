@@ -7,7 +7,11 @@
 
 <h1>{m.members_heading()}</h1>
 
-<p class="muted small">{data.publicOnly ? m.members_public_note() : m.members_note()}</p>
+<p class="muted small">
+	{data.publicOnly ? m.members_public_note() : m.members_note()}
+	{m.members_count_1()}
+	<span class="semibold">{data.memberCount} {m.members_count_2()}</span>.
+</p>
 
 {#if data.members.length === 0}
 	<p class="muted">{m.members_empty()}</p>
