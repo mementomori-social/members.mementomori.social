@@ -81,7 +81,7 @@
 	"join_heading": "Liity jäseneksi",
 	"join_intro": "Hallitus käsittelee jokaisen hakemuksen. Jäsenyys alkaa hallituksen hyväksynnästä, ja jos hakemusta ei hyväksytä, jo maksettu jäsenmaksu palautetaan kokonaan.",
 	"choice_masto_title": "Minulla on mementomori.social-tili",
-	"choice_masto_desc": "Nimesi esitäytetään mementomori.social-tililtäsi ja jatkossa kirjaudut Mastodonilla. Valitset itse lomakkeella, näytkö jäsenlistalla.",
+	"choice_masto_desc": "Täytämme nimesi mementomori.social-tilisi tiedoista, ja kirjaudut jatkossa Mastodonilla. Lomakkeella kysytään, haluatko jäsenlistalle.",
 	"choice_masto_cta": "Liity mementomori.social-tilillä",
 	"join_cancel": "Peruuta",
 	"choice_form_title": "Haluan liittyä lomakkeella",

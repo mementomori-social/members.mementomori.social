@@ -81,7 +81,7 @@
 	"join_heading": "Apply for membership",
 	"join_intro": "The board reviews every application. Membership begins when the board approves it, and if an application is not approved, any fee already paid is refunded in full.",
 	"choice_masto_title": "I have a mementomori.social account",
-	"choice_masto_desc": "Your name is prefilled from your mementomori.social account and from then on you sign in with Mastodon. You choose on the form whether you appear on the member list.",
+	"choice_masto_desc": "We fill in your name from your mementomori.social account, and you sign in with Mastodon from now on. The form asks if you want to be on the member list.",
 	"choice_masto_cta": "Join with mementomori.social",
 	"join_cancel": "Cancel",
 	"choice_form_title": "I want to join with the form",
