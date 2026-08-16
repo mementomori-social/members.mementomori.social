@@ -11,7 +11,13 @@ import {
 } from '$lib/server/members';
 import { FEES } from '$lib/fees';
 import { isFullName } from '$lib/name';
-import { getStripe, priceIdFor, stripeEnabled } from '$lib/server/stripe';
+import {
+	ensureBillingPortalConfig,
+	getStripe,
+	intervalForPriceId,
+	priceIdFor,
+	stripeEnabled
+} from '$lib/server/stripe';
 import { assignViite, formatViite } from '$lib/server/viite';
 import { lookupAccount } from '$lib/server/mastodon';
 import { virtualBarcode } from '$lib/server/barcode';
@@ -42,6 +48,27 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	// Yhdistyslaki 11 § needs a complete name; without it the register is not
 	// valid, so the member area stays closed until it is corrected.
 	if (!isFullName(m.fullName, m.mastodonAcct)) redirect(303, localizeHref('/profile'));
+
+	// Portal changes arrive without a webhook, so a subscriber's row is synced
+	// from Stripe on load: cancellation clears the id, a price switch updates
+	// the schedule.
+	if (m.stripeSubscriptionId && stripeEnabled()) {
+		try {
+			const sub = await getStripe().subscriptions.retrieve(m.stripeSubscriptionId);
+			const priceId = sub.items.data[0]?.price?.id;
+			const interval = priceId ? intervalForPriceId(priceId) : null;
+			const gone = sub.status === 'canceled' || sub.status === 'incomplete_expired';
+			if (gone || (interval && interval !== m.billingInterval)) {
+				await db
+					.update(member)
+					.set(gone ? { stripeSubscriptionId: null } : { billingInterval: interval! })
+					.where(eq(member.id, m.id));
+				m = (await getMemberByUserId(db, locals.user.id))!;
+			}
+		} catch {
+			// Stripe being unreachable must not take the dashboard down.
+		}
+	}
 
 	const payments = await db.query.payment.findMany({
 		where: eq(payment.memberId, m.id),
@@ -146,6 +173,26 @@ export const actions: Actions = {
 			})
 			.where(eq(member.id, m.id));
 		return { visibilitySaved: true };
+	},
+
+	/** Stripe's own portal handles card, schedule and cancellation for
+	 * subscribers; the configuration is provisioned on first use. */
+	manageBilling: async ({ locals, platform }) => {
+		if (!locals.user) redirect(303, '/login');
+		const db = getDb(platform!.env.DB);
+		const me = await getMemberByUserId(db, locals.user.id);
+		if (!me) redirect(303, '/join');
+		if (!stripeEnabled() || !me.stripeCustomerId)
+			return fail(400, { billingError: 'No billing account.' });
+
+		const stripe = getStripe();
+		const configuration = await ensureBillingPortalConfig(stripe);
+		const session = await stripe.billingPortal.sessions.create({
+			customer: me.stripeCustomerId,
+			configuration,
+			return_url: `${env.ORIGIN}${getLocale() === 'fi' ? '/fi' : ''}/dashboard`
+		});
+		redirect(303, session.url);
 	},
 
 	/**

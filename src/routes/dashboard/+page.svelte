@@ -78,38 +78,49 @@
 						: m.dash_status_ended()}
 		</p>
 	</div>
-	<form
-		method="POST"
-		action="?/saveBilling"
-		class="billing-mini"
-		bind:this={billingForm}
-		use:enhance={() =>
-			async ({ update }) =>
-				update({ reset: false })}
-	>
-		<span class="muted small">{m.billing_heading()}</span>
-		<label class="mini-opt">
-			<input
-				type="radio"
-				name="billingInterval"
-				value="month"
-				checked={data.m.billingInterval === 'month'}
-			/>
-			<span>{m.pay_month({ month: data.fee.month })}</span>
-		</label>
-		<label class="mini-opt">
-			<input
-				type="radio"
-				name="billingInterval"
-				value="year"
-				checked={data.m.billingInterval === 'year'}
-			/>
-			<span>{m.pay_year({ year: data.fee.year })}</span>
-		</label>
-		<button type="submit" class="linklike">{m.save()}</button>
-		{#if form?.billingSaved}<span class="ok-note small" role="status">✓ {m.saved()}</span>{/if}
-		{#if showBillingError}<p class="error">{form?.billingError}</p>{/if}
-	</form>
+	{#if data.m.stripeSubscriptionId}
+		<div class="billing-mini">
+			<span class="muted small">{m.billing_heading()}</span>
+			<form method="POST" action="?/manageBilling">
+				<button type="submit" class="ghost compact">{m.billing_portal_cta()}</button>
+			</form>
+			<span class="muted small">{m.billing_portal_note()}</span>
+			{#if form?.billingError}<p class="error">{form.billingError}</p>{/if}
+		</div>
+	{:else}
+		<form
+			method="POST"
+			action="?/saveBilling"
+			class="billing-mini"
+			bind:this={billingForm}
+			use:enhance={() =>
+				async ({ update }) =>
+					update({ reset: false })}
+		>
+			<span class="muted small">{m.billing_heading()}</span>
+			<label class="mini-opt">
+				<input
+					type="radio"
+					name="billingInterval"
+					value="month"
+					checked={data.m.billingInterval === 'month'}
+				/>
+				<span>{m.pay_month({ month: data.fee.month })}</span>
+			</label>
+			<label class="mini-opt">
+				<input
+					type="radio"
+					name="billingInterval"
+					value="year"
+					checked={data.m.billingInterval === 'year'}
+				/>
+				<span>{m.pay_year({ year: data.fee.year })}</span>
+			</label>
+			<button type="submit" class="linklike">{m.save()}</button>
+			{#if form?.billingSaved}<span class="ok-note small" role="status">✓ {m.saved()}</span>{/if}
+			{#if showBillingError}<p class="error">{form?.billingError}</p>{/if}
+		</form>
+	{/if}
 </header>
 
 {#if page.url.searchParams.get('paid') === '1'}

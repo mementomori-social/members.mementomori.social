@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.6.0 (unreleased)
+
+- Subscribers manage card, schedule and cancellation in Stripe's portal
+- Subscription changes sync back on dashboard load
+
 ## 1.5.1 (16.8.2026)
 
 - FAQ answers link PRH, Finlex, Stripe, Matrix and the instance

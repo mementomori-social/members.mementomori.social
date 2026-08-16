@@ -105,6 +105,8 @@
 	"err_full_name_required": "Please write your full name, first and last. The Associations Act requires a complete name in the member register, so a nickname or a handle is not enough. The name is visible to the board only, and you can choose a separate name to show to other members. If your name does not fit this form, write to us: ry@mementomori.social",
 	"err_name_municipality_required": "Full name and home municipality are required.",
 	"err_unknown_class": "Unknown membership class.",
+	"billing_portal_cta": "Manage payment and card",
+	"billing_portal_note": "In the Stripe portal you can change the schedule, update your card or cancel the recurring payment.",
 	"billing_heading": "Membership fee",
 	"billing_locked": "Your fee is charged automatically from your card, so the schedule cannot be changed here. Send a message to ry@mementomori.social and we will take care of it.",
 	"error_heading": "Error: {message}",
