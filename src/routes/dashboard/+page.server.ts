@@ -49,6 +49,26 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	// valid, so the member area stays closed until it is corrected.
 	if (!isFullName(m.fullName, m.mastodonAcct)) redirect(303, localizeHref('/profile'));
 
+	// A Mastodon identity staged at signup becomes a sign-in credential only
+	// here, behind a verified email (magic link sets emailVerified).
+	if (m.mastodonAccountId && locals.user.emailVerified) {
+		await db
+			.insert(account)
+			.values({
+				id: crypto.randomUUID(),
+				accountId: m.mastodonAccountId,
+				providerId: 'mastodon',
+				userId: locals.user.id,
+				accessToken: m.mastodonAccessToken,
+				scope: 'profile'
+			})
+			.onConflictDoNothing();
+		await db
+			.update(member)
+			.set({ mastodonAccountId: null, mastodonAccessToken: null })
+			.where(eq(member.id, m.id));
+	}
+
 	// Portal changes arrive without a webhook, so a subscriber's row is synced
 	// from Stripe on load: cancellation clears the id, a price switch updates
 	// the schedule.

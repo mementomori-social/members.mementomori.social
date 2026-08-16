@@ -1,10 +1,12 @@
 # Changelog
 
-## 1.6.0 (unreleased)
+## 1.6.0 (16.8.2026)
 
 - Subscribers manage card, schedule and cancellation in Stripe's portal
 - Subscription changes sync back on dashboard load
 - Bank statement import with preview and dedup
+- Mastodon sign-in credential created only after email verification
+- Avatars served only where the member chose to be visible
 
 ## 1.5.1 (16.8.2026)
 

@@ -170,19 +170,22 @@ export const actions: Actions = {
 		}
 
 		if (pending) {
-			// Re-applying sends the same Mastodon account through again; the link
-			// already exists and must not turn a resubmit into a 500.
-			await db
-				.insert(account)
-				.values({
-					id: crypto.randomUUID(),
-					accountId: pending.accountId,
-					providerId: 'mastodon',
-					userId: userId!,
-					accessToken: pending.accessToken,
-					scope: 'profile'
-				})
-				.onConflictDoNothing();
+			// An account row is an unconditional sign-in credential, so it is only
+			// created for a verified email. For a fresh signup the identity is
+			// staged on the member row and linked at the first verified sign-in.
+			if (locals.user?.emailVerified) {
+				await db
+					.insert(account)
+					.values({
+						id: crypto.randomUUID(),
+						accountId: pending.accountId,
+						providerId: 'mastodon',
+						userId: userId!,
+						accessToken: pending.accessToken,
+						scope: 'profile'
+					})
+					.onConflictDoNothing();
+			}
 			cookies.delete('join_masto', { path: '/' });
 		}
 
@@ -214,7 +217,9 @@ export const actions: Actions = {
 					listedConsent,
 					publicConsent,
 					mastodonAcct: pending?.acct ?? mine.mastodonAcct,
-					mastodonAvatarUrl: pending?.avatar ?? mine.mastodonAvatarUrl
+					mastodonAvatarUrl: pending?.avatar ?? mine.mastodonAvatarUrl,
+					mastodonAccountId: pending?.accountId ?? mine.mastodonAccountId,
+					mastodonAccessToken: pending?.accessToken ?? mine.mastodonAccessToken
 				})
 				.where(eq(member.id, mine.id));
 			if (createdViaMastodon) {
@@ -241,7 +246,9 @@ export const actions: Actions = {
 					listedConsent,
 					publicConsent,
 					mastodonAcct: pending?.acct ?? unclaimed.mastodonAcct,
-					mastodonAvatarUrl: pending?.avatar ?? unclaimed.mastodonAvatarUrl
+					mastodonAvatarUrl: pending?.avatar ?? unclaimed.mastodonAvatarUrl,
+					mastodonAccountId: pending?.accountId ?? unclaimed.mastodonAccountId,
+					mastodonAccessToken: pending?.accessToken ?? unclaimed.mastodonAccessToken
 				})
 				.where(eq(member.id, unclaimed.id));
 			isNewApplication = unclaimed.status === 'applied';
@@ -256,7 +263,9 @@ export const actions: Actions = {
 				listedConsent,
 				publicConsent,
 				mastodonAcct: pending?.acct ?? null,
-				mastodonAvatarUrl: pending?.avatar ?? null
+				mastodonAvatarUrl: pending?.avatar ?? null,
+				mastodonAccountId: pending?.accountId ?? null,
+				mastodonAccessToken: pending?.accessToken ?? null
 			});
 			isNewApplication = true;
 		}

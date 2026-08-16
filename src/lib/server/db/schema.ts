@@ -36,6 +36,13 @@ export const member = sqliteTable('member', {
 		.default('year'),
 	/** Optional, never a condition of membership (board decision 21.7.2026). */
 	mastodonAcct: text('mastodon_acct'),
+	/**
+	 * Staged Mastodon identity from the join flow. The sign-in credential
+	 * (account row) is only created once the email is verified; until then the
+	 * link waits here so an unverified address can never gain a login.
+	 */
+	mastodonAccountId: text('mastodon_account_id'),
+	mastodonAccessToken: text('mastodon_access_token'),
 	/** Matrix user id (@user:server) for the members' channel invite. Optional. */
 	matrixId: text('matrix_id'),
 	mastodonAvatarUrl: text('mastodon_avatar_url'),
