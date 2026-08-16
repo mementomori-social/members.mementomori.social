@@ -231,7 +231,7 @@ a:hover {
 	margin: 0;
 	padding: 4px;
 	list-style: none;
-	min-width: 130px;
+	min-width: 105px;
 	background: var(--surface);
 	border: 1px solid var(--border);
 	border-radius: 10px;
@@ -1217,6 +1217,7 @@ table.list img.avatar {
 	font-size: 15px;
 }
 .copy-box {
+	position: relative;
 	display: flex;
 	min-width: 0;
 	align-items: center;
@@ -1248,23 +1249,34 @@ table.list img.avatar {
 	word-break: break-all;
 }
 .copy-state {
-	display: grid;
+	display: inline-flex;
+	align-items: center;
 	flex-shrink: 0;
 	font-family: var(--font-body);
 	font-size: 14px;
 	color: var(--muted);
 }
 .copy-state > * {
-	grid-area: 1 / 1;
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
 	justify-content: flex-end;
 	transition: opacity 0.15s;
 }
+/* Floated over the right edge instead of sharing the row: as a flex item the
+   confirmation would reserve its own width in every box, copied or not. */
 .copy-box .state-done {
+	position: absolute;
+	top: 50%;
+	right: 12px;
+	transform: translateY(-50%);
+	padding-left: 12px;
+	background: var(--surface);
 	opacity: 0;
 	color: var(--ok);
+}
+.copy-box:hover .state-done {
+	background: var(--surface-2);
 }
 .copy-box.copied .state-done {
 	opacity: 1;
@@ -1741,6 +1753,16 @@ img {
 .matrix-cell .copy-box {
 	padding: 5px 10px;
 	font-size: 13.5px;
+}
+/* Too narrow for the word: the tick alone sits where the copy icon was. */
+.matrix-cell .copy-box .state-done,
+.copy-fit .copy-box .state-done {
+	right: 10px;
+	padding-left: 0;
+}
+.matrix-cell .done-label,
+.copy-fit .done-label {
+	display: none;
 }
 .detail-table td {
 	padding: 8px 12px;

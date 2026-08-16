@@ -58,7 +58,7 @@
 				>
 					<path d="M20 6 9 17l-5-5" />
 				</svg>
-				{m.copied()}
+				<span class="done-label">{m.copied()}</span>
 			</span>
 		</span>
 	</button>
