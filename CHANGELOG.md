@@ -1,9 +1,11 @@
 # Changelog
 
-## 1.5.0 (unreleased)
+## 1.5.0 (16.8.2026)
 
 - FAQ page with the first five questions
 - FAQ linked from the menu, footer and join page
+- Yhdistyksen säännöt published as PDF
+- Rules linked from the footer and the join page
 
 ## 1.4.1 (16.8.2026)
 
