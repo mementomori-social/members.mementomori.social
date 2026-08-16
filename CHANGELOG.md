@@ -9,6 +9,7 @@
 - Tables scroll horizontally with edge fades
 - Live member count on the board page
 - Status labels capitalised
+- Re-applying with a known email never duplicates the row
 
 ## 1.3.0 (16.8.2026)
 

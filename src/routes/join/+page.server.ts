@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { APIError } from 'better-auth';
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, eq, isNull, sql } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { env } from '$env/dynamic/private';
 import { getDb } from '$lib/server/db';
@@ -128,8 +128,11 @@ export const actions: Actions = {
 			if (!email) return fail(400, { ...values, error: m.err_email_required() });
 			// Store the application without a login. The row is claimed when the
 			// magic link is used and the dashboard matches the verified email.
+			// The duplicate check covers claimed rows too: someone re-applying
+			// with the address of their existing account gets a sign-in link,
+			// not a second register row.
 			const existing = await db.query.member.findFirst({
-				where: and(eq(member.email, email), isNull(member.userId))
+				where: sql`lower(${member.email}) = ${email}`
 			});
 			if (!existing) {
 				await db.insert(member).values({
