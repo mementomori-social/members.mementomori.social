@@ -12,7 +12,7 @@
 		<span class="semibold">{m.members_note_em()}</span>{m.members_note_2()}{/if}
 </p>
 
-<p class="member-count-line">
+<p class="member-count-line muted small">
 	{m.members_count_1()}
 	<span class="semibold">{data.memberCount} {m.members_count_2()}</span>.
 </p>

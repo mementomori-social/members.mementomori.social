@@ -1812,3 +1812,6 @@ a.plain-link:hover {
 .member-count-line {
 	margin-bottom: 26px;
 }
+.member-count-line .semibold {
+	color: #fff;
+}

@@ -296,7 +296,7 @@
 	<span class="muted">{m.admin_dl_ledger_note()}</span>
 </p>
 
-<p class="member-count-line">
+<p class="member-count-line muted small">
 	{m.admin_member_count_1()}
 	<span class="semibold"
 		>{data.roster.filter((r) => r.status === 'approved').length} {m.admin_member_count_2()}</span
