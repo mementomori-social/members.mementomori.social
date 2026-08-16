@@ -20,7 +20,7 @@
 <h1>{m.faq_heading()}</h1>
 
 <div class="faq-list">
-	<details class="fold" id="yhdistys" open={open === 'yhdistys'}>
+	<details class="fold" id="yhdistys" open={open === 'yhdistys' || open === null}>
 		<summary>{m.faq_q_what()}</summary>
 		<p>
 			{m.faq_a_what_1()}

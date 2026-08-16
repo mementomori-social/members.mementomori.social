@@ -8,6 +8,8 @@
 - Fuller bilingual sign-in email passes spam filters
 - All enabled payment methods listed in the FAQ
 - Jyväskylä linked, English wording fix
+- First FAQ question open by default
+- Minimal chevrons on all accordions
 
 ## 1.5.0 (16.8.2026)
 
