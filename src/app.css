@@ -776,8 +776,8 @@ button.compact {
 /* A minimal chevron instead of the browser's triangle; rotates when open. */
 .fold summary::before {
 	content: '';
-	width: 0.62em;
-	height: 0.62em;
+	width: 0.78em;
+	height: 0.78em;
 	flex-shrink: 0;
 	background: currentColor;
 	opacity: 0.65;
