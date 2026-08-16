@@ -50,6 +50,7 @@
 	--font-heading: 'Zalando Sans Expanded', sans-serif;
 	--font-code: 'Fira Code', ui-monospace, monospace;
 	--radius: 10px;
+	--icon-mail: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='4' width='20' height='16' rx='2'/%3E%3Cpath d='m22 7-10 5L2 7'/%3E%3C/svg%3E");
 }
 
 * {
@@ -1524,14 +1525,50 @@ img {
 	}
 }
 
-@media (max-width: 700px) {
-	/* Cells that wrap turn one row into four; scroll the table instead, which
-	   keeps the page itself from scrolling sideways. */
-	table.list {
-		display: block;
-		overflow-x: auto;
-		white-space: nowrap;
-	}
+/* Tables never wrap their rows; when too wide they scroll inside the
+   wrapper, which shows an edge fade while there is more to see. */
+.table-scroll-wrap {
+	position: relative;
+	--fade-color: var(--bg);
+}
+.card .table-scroll-wrap {
+	--fade-color: var(--surface);
+}
+.table-scroll {
+	overflow-x: auto;
+}
+.table-scroll table.list {
+	white-space: nowrap;
+}
+.table-scroll-wrap::before,
+.table-scroll-wrap::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 44px;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.25s;
+	z-index: 5;
+}
+.table-scroll-wrap::before {
+	left: 0;
+	background: linear-gradient(to right, var(--fade-color), transparent);
+}
+.table-scroll-wrap::after {
+	right: 0;
+	background: linear-gradient(to left, var(--fade-color), transparent);
+}
+.table-scroll-wrap.fade-left::before {
+	opacity: 1;
+}
+.table-scroll-wrap.fade-right::after {
+	opacity: 1;
+}
+.table-scroll-wrap.scrolling::before,
+.table-scroll-wrap.scrolling::after {
+	opacity: 0;
 }
 
 .utility-btn.leave {
@@ -1582,4 +1619,86 @@ img {
 
 .covered-total .gap-count {
 	color: var(--danger);
+}
+
+.matrix-cell .copy-field,
+.copy-fit .copy-field {
+	margin: 0;
+	width: fit-content;
+	max-width: 100%;
+}
+.matrix-cell .copy-box,
+.copy-fit .copy-box {
+	width: fit-content;
+	max-width: 100%;
+	gap: 10px;
+}
+.matrix-cell .copy-value,
+.copy-fit .copy-value {
+	white-space: nowrap;
+	word-break: normal;
+}
+.matrix-cell .copy-box {
+	padding: 5px 10px;
+	font-size: 13.5px;
+}
+.detail-table td {
+	padding: 8px 12px;
+}
+.detail-table td:first-child {
+	width: 34%;
+}
+.mono-wrap {
+	font-family: var(--font-code);
+	overflow-wrap: anywhere;
+}
+
+.ui-icon {
+	display: inline-block;
+	width: 0.95em;
+	height: 0.95em;
+	flex-shrink: 0;
+	background: currentColor;
+	opacity: 0.8;
+	vertical-align: -0.12em;
+}
+.ui-icon.mail {
+	mask: var(--icon-mail) center / contain no-repeat;
+	-webkit-mask: var(--icon-mail) center / contain no-repeat;
+}
+.ui-icon.masto {
+	mask: url('/assets/mastodon.svg') center / contain no-repeat;
+	-webkit-mask: url('/assets/mastodon.svg') center / contain no-repeat;
+}
+.with-icon {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+.status-text.approved {
+	color: var(--ok);
+}
+.status-text.applied {
+	color: var(--warn);
+}
+.status-text.rejected,
+.status-text.ended {
+	color: var(--danger);
+}
+.mono-note {
+	font-family: var(--font-code);
+	font-size: 14px;
+	color: var(--muted);
+}
+
+a.plain-link {
+	text-decoration: none;
+}
+a.plain-link:hover {
+	text-decoration: underline;
+}
+
+.detail-table td {
+	white-space: normal;
+	overflow-wrap: anywhere;
 }

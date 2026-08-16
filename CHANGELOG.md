@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.4.0 (unreleased)
+
+- Board-only member detail page with all register data
+- Roster links to details, shows email and Fediverse account
+- Matrix IDs copyable, Not saved shown when empty
+- Email and Mastodon shown with icons and links
+- Tables scroll horizontally with edge fades
+- Live member count on the board page
+- Status labels capitalised
+
 ## 1.3.0 (16.8.2026)
 
 - Monthly coverage card with the recurring shortfall

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { m } from '$lib/paraglide/messages.js';
+	import TableScroll from '$lib/components/TableScroll.svelte';
+	import CopyField from '$lib/components/CopyField.svelte';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -114,26 +116,28 @@
 {#if data.ledger.length === 0}
 	<p class="muted">{m.admin_no_payments()}</p>
 {:else}
-	<table class="list">
-		<thead>
-			<tr
-				><th>{m.th_date()}</th><th>{m.admin_member()}</th><th>{m.th_amount()}</th><th
-					>{m.th_method()}</th
-				><th>{m.admin_reference()}</th></tr
-			>
-		</thead>
-		<tbody>
-			{#each data.ledger as p (p.id)}
-				<tr>
-					<td>{fmt(p.paidAt)}</td>
-					<td>{p.memberName}</td>
-					<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
-					<td class="muted">{p.method === 'bank' ? m.method_bank() : m.method_stripe()}</td>
-					<td class="muted small">{p.reference ?? ''}</td>
-				</tr>
-			{/each}
-		</tbody>
-	</table>
+	<TableScroll>
+		<table class="list">
+			<thead>
+				<tr
+					><th>{m.th_date()}</th><th>{m.admin_member()}</th><th>{m.th_amount()}</th><th
+						>{m.th_method()}</th
+					><th>{m.admin_reference()}</th></tr
+				>
+			</thead>
+			<tbody>
+				{#each data.ledger as p (p.id)}
+					<tr>
+						<td>{fmt(p.paidAt)}</td>
+						<td>{p.memberName}</td>
+						<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
+						<td class="muted">{p.method === 'bank' ? m.method_bank() : m.method_stripe()}</td>
+						<td class="muted small">{p.reference ?? ''}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</TableScroll>
 {/if}
 
 <h2>{m.admin_income()}</h2>
@@ -179,31 +183,33 @@
 </details>
 
 {#if data.incomeRows.length > 0}
-	<table class="list">
-		<thead>
-			<tr
-				><th>{m.th_date()}</th><th>{m.admin_income_payer()}</th><th>{m.th_amount()}</th><th
-					>{m.admin_income_source()}</th
-				></tr
-			>
-		</thead>
-		<tbody>
-			{#each data.incomeRows as r (r.id)}
-				<tr>
-					<td>{fmt(r.paidAt)}</td>
-					<td>{r.payer}</td>
-					<td>{r.amountEur.toFixed(2)}&nbsp;€</td>
-					<td class="muted"
-						>{r.source === 'sponsorship'
-							? m.income_sponsorship()
-							: r.source === 'grant'
-								? m.income_grant()
-								: m.income_other()}</td
-					>
-				</tr>
-			{/each}
-		</tbody>
-	</table>
+	<TableScroll>
+		<table class="list">
+			<thead>
+				<tr
+					><th>{m.th_date()}</th><th>{m.admin_income_payer()}</th><th>{m.th_amount()}</th><th
+						>{m.admin_income_source()}</th
+					></tr
+				>
+			</thead>
+			<tbody>
+				{#each data.incomeRows as r (r.id)}
+					<tr>
+						<td>{fmt(r.paidAt)}</td>
+						<td>{r.payer}</td>
+						<td>{r.amountEur.toFixed(2)}&nbsp;€</td>
+						<td class="muted"
+							>{r.source === 'sponsorship'
+								? m.income_sponsorship()
+								: r.source === 'grant'
+									? m.income_grant()
+									: m.income_other()}</td
+						>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</TableScroll>
 {/if}
 
 <h2>{m.admin_register()}</h2>
@@ -215,42 +221,69 @@
 	<span class="muted">{m.admin_dl_ledger_note()}</span>
 </p>
 
-<h2>{m.admin_decided()}</h2>
+<p>
+	{m.admin_member_count_1()}
+	<strong
+		>{data.roster.filter((r) => r.status === 'approved').length} {m.admin_member_count_2()}</strong
+	>.
+</p>
 
-<table class="list">
-	<thead>
-		<tr
-			><th>{m.th_name()}</th><th>{m.th_municipality()}</th><th>{m.th_class()}</th><th
-				>{m.th_status()}</th
-			><th>{m.th_payment()}</th>{#if data.roster.some((r) => r.matrixId)}<th>{m.th_matrix()}</th
-				>{/if}<th>{m.th_decided()}</th></tr
-		>
-	</thead>
-	<tbody>
-		{#each data.roster as r (r.id)}
-			<tr>
-				<td>{r.fullName}</td>
-				<td class="muted">{r.homeMunicipality}</td>
-				<td class="muted small"
-					>{r.memberClass === 'member' ? m.class_member() : m.class_patron()}</td
-				>
-				<td>
-					<span class="badge {r.status === 'approved' ? 'ok' : ''}">{statusLabel(r.status)}</span>
-				</td>
-				<td>
-					<span class="pay-chip" class:paid={isPaid(r.paidUntil)}>
-						{isPaid(r.paidUntil)
-							? m.admin_paid_until({ date: fmt(r.paidUntil!) })
-							: m.admin_unpaid()}
-					</span>
-					{#if r.nameIncomplete}<br /><span class="pay-chip warn-chip"
-							>{m.admin_name_incomplete()}</span
-						>{/if}
-				</td>
-				{#if data.roster.some((x) => x.matrixId)}<td class="muted small">{r.matrixId ?? ''}</td
-					>{/if}
-				<td class="muted small">{r.decidedAt ? fmt(r.decidedAt) : ''}</td>
-			</tr>
-		{/each}
-	</tbody>
-</table>
+<TableScroll>
+	<table class="list">
+		<thead>
+			<tr
+				><th>{m.th_name()}</th><th>{m.th_municipality()}</th><th>{m.th_class()}</th><th
+					>{m.th_status()}</th
+				><th>{m.th_payment()}</th><th>{m.th_fediverse()}</th><th>{m.th_matrix()}</th><th
+					>{m.th_decided()}</th
+				></tr
+			>
+		</thead>
+		<tbody>
+			{#each data.roster as r (r.id)}
+				<tr>
+					<td>
+						<a href="/admin/member/{r.id}">{r.fullName}</a>
+						{#if r.email}<br /><a class="with-icon muted small plain-link" href="mailto:{r.email}"
+								><span class="ui-icon mail"></span>{r.email}</a
+							>{/if}
+					</td>
+					<td class="muted">{r.homeMunicipality}</td>
+					<td class="muted small"
+						>{r.memberClass === 'member' ? m.class_member() : m.class_patron()}</td
+					>
+					<td>
+						<span class="badge {r.status === 'approved' ? 'ok' : ''}">{statusLabel(r.status)}</span>
+					</td>
+					<td>
+						<span class="pay-chip" class:paid={isPaid(r.paidUntil)}>
+							{isPaid(r.paidUntil)
+								? m.admin_paid_until({ date: fmt(r.paidUntil!) })
+								: m.admin_unpaid()}
+						</span>
+						{#if r.nameIncomplete}<br /><span class="pay-chip warn-chip"
+								>{m.admin_name_incomplete()}</span
+							>{/if}
+					</td>
+					<td class="muted small">
+						{#if r.mastodonAcct}
+							<a class="with-icon" href="https://mementomori.social/@{r.mastodonAcct}"
+								><span class="ui-icon masto"></span>@{r.mastodonAcct}</a
+							>
+						{:else}
+							<span class="mono-note">{m.not_saved()}</span>
+						{/if}
+					</td>
+					<td class="small matrix-cell">
+						{#if r.matrixId}
+							<CopyField display={r.matrixId} />
+						{:else}
+							<span class="mono-note">{m.not_saved()}</span>
+						{/if}
+					</td>
+					<td class="muted small">{r.decidedAt ? fmt(r.decidedAt) : ''}</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+</TableScroll>

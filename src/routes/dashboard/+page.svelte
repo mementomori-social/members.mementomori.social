@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages.js';
+	import TableScroll from '$lib/components/TableScroll.svelte';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { authClient } from '$lib/auth-client';
 	import CopyField from '$lib/components/CopyField.svelte';
@@ -165,25 +166,27 @@
 			</p>
 		{:else}
 			<h3>{m.payment_history()}</h3>
-			<table class="list">
-				<thead>
-					<tr
-						><th>{m.th_date()}</th><th>{m.th_amount()}</th><th>{m.th_method()}</th><th
-							>{m.th_period()}</th
-						></tr
-					>
-				</thead>
-				<tbody>
-					{#each data.payments as p (p.paidAt)}
-						<tr>
-							<td>{fmt(p.paidAt)}</td>
-							<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
-							<td>{p.method === 'bank' ? m.method_bank() : m.method_stripe()}</td>
-							<td class="muted small">{fmt(p.periodStart)} {m.period_to()} {fmt(p.periodEnd)}</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
+			<TableScroll>
+				<table class="list">
+					<thead>
+						<tr
+							><th>{m.th_date()}</th><th>{m.th_amount()}</th><th>{m.th_method()}</th><th
+								>{m.th_period()}</th
+							></tr
+						>
+					</thead>
+					<tbody>
+						{#each data.payments as p (p.paidAt)}
+							<tr>
+								<td>{fmt(p.paidAt)}</td>
+								<td>{p.amountEur.toFixed(2)}&nbsp;€</td>
+								<td>{p.method === 'bank' ? m.method_bank() : m.method_stripe()}</td>
+								<td class="muted small">{fmt(p.periodStart)} {m.period_to()} {fmt(p.periodEnd)}</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</TableScroll>
 		{/if}
 	</div>
 
