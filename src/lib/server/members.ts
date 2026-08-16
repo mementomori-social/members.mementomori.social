@@ -51,6 +51,13 @@ export async function recurringSummary(db: Db) {
 	return { monthlyCount, monthlyEur, yearlyCount, yearlyEur };
 }
 
+/** Everything ever collected; the coverage balance must survive New Year. */
+export async function collectedTotalEur(db: Db): Promise<{ fees: number; income: number }> {
+	const fees = await db.select({ total: sum(payment.amountEur) }).from(payment);
+	const other = await db.select({ total: sum(income.amountEur) }).from(income);
+	return { fees: Number(fees[0]?.total ?? 0), income: Number(other[0]?.total ?? 0) };
+}
+
 export const approvedMemberCount = async (db: Db) =>
 	(await db.select({ id: member.id }).from(member).where(eq(member.status, 'approved'))).length;
 

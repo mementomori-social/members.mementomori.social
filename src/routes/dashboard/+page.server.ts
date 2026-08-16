@@ -3,7 +3,12 @@ import { and, eq, isNull, sql } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { account, member, payment } from '$lib/server/db/schema';
-import { collectedThisYearEur, getMemberByUserId, recurringSummary } from '$lib/server/members';
+import {
+	collectedThisYearEur,
+	collectedTotalEur,
+	getMemberByUserId,
+	recurringSummary
+} from '$lib/server/members';
 import { FEES } from '$lib/fees';
 import { isFullName } from '$lib/name';
 import { getStripe, priceIdFor, stripeEnabled } from '$lib/server/stripe';
@@ -74,6 +79,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		dueAmountEur:
 			m.billingInterval === 'month' ? FEES[m.memberClass].month : FEES[m.memberClass].year,
 		collectedEur: await collectedThisYearEur(db),
+		collectedAll: await collectedTotalEur(db),
 		recurring: await recurringSummary(db),
 		canPay: stripeEnabled() && !covered && Boolean(priceIdFor(m.memberClass, m.billingInterval)),
 		bank:

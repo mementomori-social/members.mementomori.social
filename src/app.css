@@ -1579,3 +1579,7 @@ img {
 		display: none;
 	}
 }
+
+.covered-total .gap-count {
+	color: var(--danger);
+}

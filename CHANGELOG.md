@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0 (16.8.2026)
+
+- Monthly coverage card with the recurring shortfall
+- Yearly fees counted into the monthly picture
+- Coverage balance survives the turn of the year
+
 ## 1.2.1 (16.8.2026)
 
 - Coverage card shows recurring card payments

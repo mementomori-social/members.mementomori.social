@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { getLocale } from '$lib/paraglide/runtime';
 import type { PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
-import { approvedMemberCount, collectedThisYearEur } from '$lib/server/members';
+import { approvedMemberCount, collectedThisYearEur, collectedTotalEur } from '$lib/server/members';
 
 export const load: PageServerLoad = async ({ platform, locals }) => {
 	// The front page is the pitch; a signed-in member's home is their own page.
@@ -12,6 +12,7 @@ export const load: PageServerLoad = async ({ platform, locals }) => {
 		memberCount: await approvedMemberCount(db),
 		// The coverage figure is only sent to signed-in members: members are not
 		// "the public" under rahankeräyslaki, the general audience is.
-		collected: locals.user ? await collectedThisYearEur(db) : null
+		collected: locals.user ? await collectedThisYearEur(db) : null,
+		collectedAll: locals.user ? await collectedTotalEur(db) : null
 	};
 };

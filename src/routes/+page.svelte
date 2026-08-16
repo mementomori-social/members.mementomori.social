@@ -7,7 +7,7 @@
 	let { data }: PageProps = $props();
 
 	const cov = $derived(
-		data.collected ? coverage(data.collected.fees, data.collected.income) : null
+		data.collected && data.collectedAll ? coverage(data.collectedAll, data.collected) : null
 	);
 </script>
 
@@ -138,7 +138,7 @@
 		</p>
 		<div class="progress year-track">
 			<div class="fill" style="width: {cov.coveredPct}%"></div>
-			<span class="covered-date" style="left: {cov.coveredPct}%"
+			<span class="covered-date" style="left: {Math.min(cov.coveredPct, 94)}%"
 				>{cov.coveredUntil.toLocaleDateString('fi-FI')}</span
 			>
 		</div>
