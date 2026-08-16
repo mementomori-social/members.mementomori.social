@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages.js';
-	import { localizeHref } from '$lib/paraglide/runtime';
+	import { getLocale, localizeHref } from '$lib/paraglide/runtime';
 
 	const PRH =
 		'https://yhdistysrekisteri.prh.fi/basicinformation?userLang=en&businessId=3637371-4&timeZone=Europe%2FHelsinki';
 	const FINLEX = 'https://www.finlex.fi/fi/laki/ajantasa/1989/19890503';
+	const JKL = getLocale() === 'fi' ? 'https://visitjyvaskyla.fi/' : 'https://visitjyvaskyla.fi/en/';
 
 	/** Deep links: /faq?q=slug opens that question, rendered open on the server
 	    so the link works without JavaScript. */
@@ -23,7 +24,8 @@
 		<summary>{m.faq_q_what()}</summary>
 		<p>
 			{m.faq_a_what_1()}
-			<a href={PRH}>3637371-4</a>{m.faq_a_what_2()}
+			<a href={PRH}>3637371-4</a>{m.faq_a_what_2a()}
+			<a href={JKL}>Jyväskylä</a>{m.faq_a_what_2b()}
 			<a href="https://mementomori.social">mementomori.social</a>{m.faq_a_what_3()}
 		</p>
 	</details>

@@ -6,6 +6,8 @@
 - FAQ questions open by direct link
 - Reworded payment timing and real name answers
 - Fuller bilingual sign-in email passes spam filters
+- All enabled payment methods listed in the FAQ
+- Jyväskylä linked, English wording fix
 
 ## 1.5.0 (16.8.2026)
 
