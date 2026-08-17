@@ -31,7 +31,7 @@
 <p>{m.membership_intro()}</p>
 
 <div class="tiers">
-	<div class="tier">
+	<div class="tier tier-member">
 		<h3>{m.tier_member_title()}</h3>
 		<p class="muted small">{m.tier_member_sub()}</p>
 		<div class="price">
@@ -45,7 +45,7 @@
 			<li>{m.benefit_feeling()} <img class="emoji" src="/assets/bundheart.png" alt="" /></li>
 		</ul>
 	</div>
-	<div class="tier">
+	<div class="tier tier-patron">
 		<h3>{m.tier_patron_title()}</h3>
 		<p class="muted small">{m.tier_patron_sub()}</p>
 		<div class="price">

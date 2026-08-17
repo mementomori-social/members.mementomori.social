@@ -1017,7 +1017,26 @@ button.compact {
 	font-family: var(--font-heading);
 	font-weight: 700;
 	font-size: 32px;
-	color: var(--bright);
+	color: #b9baff;
+}
+/* Two shades of the accent so the tiers read as a pair without looking
+   identical; the gradient falls back to the flat colour where it is
+   unsupported. */
+.tier h3 {
+	color: #b9baff;
+	background: linear-gradient(100deg, #cfd0ff, #7d80ff);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	width: fit-content;
+}
+.tier-patron h3 {
+	background: linear-gradient(100deg, #e3c9ff, #a56cff);
+	-webkit-background-clip: text;
+	background-clip: text;
+}
+.tier-patron .price {
+	color: #d8bcff;
 }
 .tier .price-alt {
 	margin: 2px 0 0;
