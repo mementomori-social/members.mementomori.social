@@ -3,6 +3,7 @@
 ## 1.7.3 (17.8.2026)
 
 - Count bank payers in the coverage figures
+- Join page links straight to the FAQ answer
 
 ## 1.7.2 (16.8.2026)
 
