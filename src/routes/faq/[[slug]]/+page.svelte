@@ -110,6 +110,7 @@
 			<a href="https://mementomori.social">{m.faq_a_paywhen_masto()}</a>
 			{m.faq_a_paywhen_2()}
 		</p>
+		<p>{m.faq_a_paywhen_soon()}</p>
 		<p>{m.faq_a_paywhen_3()}</p>
 	</details>
 

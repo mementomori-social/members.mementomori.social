@@ -5,6 +5,7 @@
 - Count bank payers in the coverage figures
 - Join page links straight to the FAQ answer
 - Clearer wording for monthly instalments
+- Ask members to pay soon after joining
 
 ## 1.7.2 (16.8.2026)
 
