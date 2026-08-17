@@ -4,6 +4,7 @@
 
 - Count bank payers in the coverage figures
 - Join page links straight to the FAQ answer
+- Clearer wording for monthly instalments
 
 ## 1.7.2 (16.8.2026)
 
