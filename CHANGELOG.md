@@ -6,7 +6,6 @@
 - Join page links straight to the FAQ answer
 - Clearer wording for monthly instalments
 - Ask members to pay soon after joining
-- Rename the first tier to Tukijäsen
 - Distinct gradients and coloured prices on tiers
 
 ## 1.7.2 (16.8.2026)
