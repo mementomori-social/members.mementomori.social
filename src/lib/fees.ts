@@ -26,7 +26,7 @@ export function coverage(
 	all: { fees: number; income: number },
 	year: { fees: number; income: number },
 	now = new Date(),
-	recurring = { monthlyEur: 0, yearlyEur: 0 }
+	recurring = { monthlyEur: 0, yearlyEur: 0, cardMonthlyEur: 0, cardYearlyEur: 0 }
 ) {
 	const FOUNDING_YEAR = 2026;
 	const dailyEur = COSTS.annualEur / 365;
@@ -55,7 +55,7 @@ export function coverage(
 
 	/** Estimate with card subscriptions renewing: monthly income slows the
 	    burn. When it exceeds the cost, the estimate is open-ended (null). */
-	const dailyRecurring = (recurring.monthlyEur * 12) / 365;
+	const dailyRecurring = (recurring.cardMonthlyEur * 12) / 365;
 	const projectedUntil =
 		dailyEur > dailyRecurring
 			? new Date(nextBill.getTime() + (available / (dailyEur - dailyRecurring)) * 86_400_000)

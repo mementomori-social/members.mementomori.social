@@ -16,7 +16,9 @@
 	const cov = $derived(
 		coverage(data.collectedAll, data.collectedEur, new Date(), {
 			monthlyEur: data.recurring.monthlyEur,
-			yearlyEur: data.recurring.yearlyEur
+			yearlyEur: data.recurring.yearlyEur,
+			cardMonthlyEur: data.recurring.cardMonthlyEur,
+			cardYearlyEur: data.recurring.cardYearlyEur
 		})
 	);
 

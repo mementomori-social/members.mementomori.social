@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.3 (17.8.2026)
+
+- Count bank payers in the coverage figures
+
 ## 1.7.2 (16.8.2026)
 
 - Link payment methods in the FAQ
