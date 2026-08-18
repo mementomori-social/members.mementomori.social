@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.4 (18.8.2026)
+
+- Rainbow hover animation on the logo
+
 ## 1.7.3 (17.8.2026)
 
 - Count bank payers in the coverage figures

@@ -287,6 +287,44 @@ header.site .brand {
 	font-weight: 600;
 	font-size: 18px;
 }
+/* Hover easter egg: skull and wordmark cycle through the rainbow. The skull
+   is a white SVG in an img, so it is tinted via sepia before hue-rotating;
+   the text animates a gradient sweep behind background-clip. */
+@media (prefers-reduced-motion: no-preference) {
+	header.site .brand:hover img,
+	header.site .brand:focus-visible img {
+		filter: sepia(1) saturate(6) brightness(0.9);
+		animation: brand-hue 2s linear infinite;
+	}
+	header.site .brand:hover,
+	header.site .brand:focus-visible {
+		background: linear-gradient(
+			90deg,
+			#ff5c5c,
+			#ffb056,
+			#f8ec6a,
+			#5ee08a,
+			#5db2ff,
+			#b06bff,
+			#ff5c5c
+		);
+		background-size: 200% 100%;
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		animation: brand-sweep 2s linear infinite;
+	}
+}
+@keyframes brand-hue {
+	to {
+		filter: sepia(1) saturate(6) brightness(0.9) hue-rotate(360deg);
+	}
+}
+@keyframes brand-sweep {
+	to {
+		background-position: -200% 0;
+	}
+}
 header.site .brand img {
 	width: 34px;
 	height: 34px;
