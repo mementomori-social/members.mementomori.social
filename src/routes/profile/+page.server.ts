@@ -26,7 +26,8 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			email: me.email ?? locals.user.email,
 			mastodonAcct: me.mastodonAcct,
 			hasAvatar: Boolean(me.mastodonAvatarUrl),
-			matrixId: me.matrixId
+			matrixId: me.matrixId,
+			preferredLocale: me.preferredLocale
 		},
 		mastodonLinked: Boolean(linked)
 	};
@@ -44,6 +45,8 @@ export const actions: Actions = {
 		const displayName = String(form.get('displayName') ?? '').trim();
 		const homeMunicipality = String(form.get('homeMunicipality') ?? '').trim();
 		const matrixId = String(form.get('matrixId') ?? '').trim();
+		const localeRaw = String(form.get('preferredLocale') ?? '');
+		const preferredLocale = localeRaw === 'fi' || localeRaw === 'en' ? localeRaw : null;
 		if (!fullName || !homeMunicipality)
 			return fail(400, { profileError: m.err_name_municipality_required() });
 		if (!isFullName(fullName, me.mastodonAcct))
@@ -60,7 +63,8 @@ export const actions: Actions = {
 				fullName,
 				displayName: displayName || null,
 				homeMunicipality,
-				matrixId: matrixId || null
+				matrixId: matrixId || null,
+				preferredLocale
 			})
 			.where(eq(member.id, me.id));
 		return { profileSaved: true };

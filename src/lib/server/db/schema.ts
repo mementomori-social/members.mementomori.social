@@ -45,6 +45,9 @@ export const member = sqliteTable('member', {
 	mastodonAccessToken: text('mastodon_access_token'),
 	/** Matrix user id (@user:server) for the members' channel invite. Optional. */
 	matrixId: text('matrix_id'),
+	/** When set, the portal always opens in this language for the member,
+	    regardless of the link's language. Null follows the URL as before. */
+	preferredLocale: text('preferred_locale', { enum: ['en', 'fi'] }),
 	mastodonAvatarUrl: text('mastodon_avatar_url'),
 	/** Finnish bank reference number (viitenumero) for bank-transfer payments. */
 	viite: text('viite').unique(),

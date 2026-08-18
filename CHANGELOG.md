@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.0 (18.8.2026)
+
+- Language preference in the profile
+- Saved language wins over the link's language
+- Language switch updates the saved preference
+
 ## 1.7.4 (18.8.2026)
 
 - Rainbow hover animation on the logo

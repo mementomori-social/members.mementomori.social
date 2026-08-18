@@ -59,6 +59,15 @@
 			/>
 		</label>
 		<p class="muted small field-note">{m.matrix_profile_note()}</p>
+		<label class="field">
+			{m.lang_pref_label()}
+			<select name="preferredLocale">
+				<option value="" selected={!data.me.preferredLocale}>{m.lang_pref_none()}</option>
+				<option value="fi" selected={data.me.preferredLocale === 'fi'}>Suomi</option>
+				<option value="en" selected={data.me.preferredLocale === 'en'}>English</option>
+			</select>
+		</label>
+		<p class="muted small field-note">{m.lang_pref_note()}</p>
 		<div>
 			<button type="submit" class="ghost">{m.save()}</button>
 			{#if form?.profileSaved}<span class="ok-note" role="status">✓ {m.saved()}</span>{/if}

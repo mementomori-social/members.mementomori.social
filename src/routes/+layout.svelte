@@ -68,8 +68,17 @@
 	let langWrap = $state<HTMLElement>();
 
 	/** Full page load on purpose: Paraglide resolves the locale at render time. */
-	function switchLocale(target: 'en' | 'fi') {
+	async function switchLocale(target: 'en' | 'fi') {
 		langOpen = false;
+		// A member with a saved language would be bounced straight back by the
+		// server, so the saved language follows the switch.
+		if (data.user) {
+			try {
+				await fetch('/locale', { method: 'POST', body: target });
+			} catch {
+				/* switching still works for this navigation */
+			}
+		}
 		// Keep query and hash: ?path=form on the join page must survive the switch.
 		window.location.href =
 			localizeHref(delocalized, { locale: target }) + page.url.search + page.url.hash;
