@@ -1,3 +1,9 @@
+### 1.10.0: 2026-08-19
+
+* Each document has its own page with the full text
+* Documents index as a row list
+* Minimal PDF mark with a glass hover on document rows
+
 ### 1.9.0: 2026-08-18
 
 * Documents page with the rules and the founding charter

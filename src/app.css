@@ -1917,52 +1917,6 @@ a.plain-link:hover {
 .doc .founders li {
 	margin: 4px 0;
 }
-/* Download row: reads as one object, the icon carries the file type. */
-.doc-dl {
-	display: inline-flex;
-	align-items: center;
-	gap: 14px;
-	margin: 32px 0 4px;
-	padding: 14px 20px 14px 16px;
-	border: 1px solid var(--border);
-	border-radius: 12px;
-	background: var(--surface);
-	text-decoration: none;
-	color: var(--text);
-	transition:
-		border-color 0.15s,
-		background 0.15s;
-}
-.doc-dl:hover {
-	background: var(--surface-2);
-	border-color: color-mix(in srgb, var(--accent) 55%, transparent);
-	color: var(--bright);
-}
-.doc-dl-text {
-	display: flex;
-	flex-direction: column;
-	line-height: 1.35;
-}
-.doc-icon {
-	flex-shrink: 0;
-	width: 26px;
-	height: 32px;
-	background: color-mix(in srgb, var(--danger) 22%, transparent);
-	border: 1px solid color-mix(in srgb, var(--danger) 55%, transparent);
-	border-radius: 4px;
-	position: relative;
-}
-.doc-icon::after {
-	content: 'PDF';
-	position: absolute;
-	inset: auto 0 3px;
-	text-align: center;
-	font-family: var(--font-body);
-	font-size: 8.5px;
-	font-weight: 500;
-	letter-spacing: 0.02em;
-	color: var(--danger);
-}
 
 /* Inputs sit on card-coloured surfaces, so they need their own shade to read
    as fields rather than as text. */
@@ -2007,5 +1961,115 @@ a.plain-link:hover {
 	}
 	.card-text-width:has(.field-grid) {
 		max-width: none;
+	}
+}
+
+/* Document list: rows read as one object each, with the file type carried by
+   the mark rather than by a label. */
+.doc-list {
+	list-style: none;
+	padding: 0;
+	margin: 26px 0 0;
+	max-width: 720px;
+}
+.doc-list li {
+	margin: 0 0 10px;
+}
+.doc-row,
+.doc-dl {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 16px 20px;
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	background: var(--surface);
+	text-decoration: none;
+	color: var(--text);
+	overflow: hidden;
+	transition:
+		border-color 0.2s,
+		transform 0.2s;
+}
+/* Glass sheen following the pointer; static fallback where --mx never lands. */
+.doc-row::before,
+.doc-dl::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(
+		220px circle at var(--mx, 50%) var(--my, 0%),
+		rgba(255, 255, 255, 0.07),
+		transparent 70%
+	);
+	opacity: 0;
+	transition: opacity 0.25s;
+	pointer-events: none;
+}
+.doc-row:hover,
+.doc-row:focus-visible,
+.doc-dl:hover,
+.doc-dl:focus-visible {
+	border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+	color: var(--bright);
+}
+.doc-row:hover::before,
+.doc-row:focus-visible::before,
+.doc-dl:hover::before,
+.doc-dl:focus-visible::before {
+	opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+	.doc-row:hover,
+	.doc-dl:hover {
+		transform: translateY(-1px);
+	}
+}
+.doc-row-text,
+.doc-dl-text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	line-height: 1.35;
+	min-width: 0;
+	flex: 1 1 auto;
+}
+.doc-row-title {
+	font-weight: 500;
+	color: var(--bright);
+}
+.doc-row-size {
+	flex-shrink: 0;
+	white-space: nowrap;
+}
+/* PDF mark: the red is the only colour, so it stays a hint rather than a
+   badge. The glow lifts it off the dark surface. */
+.pdf-mark {
+	flex-shrink: 0;
+	display: inline-flex;
+	color: #ff5a5f;
+	filter: drop-shadow(0 0 9px rgba(255, 90, 95, 0.45));
+	transition: filter 0.25s;
+}
+.pdf-mark svg {
+	width: 26px;
+	height: 26px;
+}
+.doc-row:hover .pdf-mark,
+.doc-dl:hover .pdf-mark {
+	filter: drop-shadow(0 0 14px rgba(255, 90, 95, 0.7));
+}
+.doc-dl {
+	display: inline-flex;
+	margin: 34px 0 4px;
+}
+.back-link {
+	margin: 0 0 4px;
+	font-size: 15.5px;
+}
+@media (max-width: 560px) {
+	.doc-row-size {
+		display: none;
 	}
 }
