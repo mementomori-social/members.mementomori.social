@@ -51,6 +51,9 @@ export const member = sqliteTable('member', {
 	mastodonAvatarUrl: text('mastodon_avatar_url'),
 	/** Finnish bank reference number (viitenumero) for bank-transfer payments. */
 	viite: text('viite').unique(),
+	/** Running member number in the register, assigned on approval and never
+	    reused, so a resigned member's number stays retired. */
+	memberNumber: integer('member_number').unique(),
 	/** Rate limiter for payment reminder emails. */
 	lastReminderAt: integer('last_reminder_at', { mode: 'timestamp' }),
 	/** Set by the Stripe webhook when a checkout completes. */

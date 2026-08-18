@@ -1897,3 +1897,115 @@ a.plain-link:hover {
 .member-count-line .semibold {
 	color: #fff;
 }
+
+.doc {
+	border-top: 1px solid var(--border);
+	margin-top: 42px;
+	padding-top: 8px;
+}
+.doc h2 {
+	margin-top: 0.8em;
+}
+.doc h3 {
+	margin: 1.8em 0 0.3em;
+	font-size: 17px;
+}
+.doc .founders {
+	list-style: none;
+	padding: 0;
+}
+.doc .founders li {
+	margin: 4px 0;
+}
+/* Download row: reads as one object, the icon carries the file type. */
+.doc-dl {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+	margin: 32px 0 4px;
+	padding: 14px 20px 14px 16px;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	background: var(--surface);
+	text-decoration: none;
+	color: var(--text);
+	transition:
+		border-color 0.15s,
+		background 0.15s;
+}
+.doc-dl:hover {
+	background: var(--surface-2);
+	border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+	color: var(--bright);
+}
+.doc-dl-text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.35;
+}
+.doc-icon {
+	flex-shrink: 0;
+	width: 26px;
+	height: 32px;
+	background: color-mix(in srgb, var(--danger) 22%, transparent);
+	border: 1px solid color-mix(in srgb, var(--danger) 55%, transparent);
+	border-radius: 4px;
+	position: relative;
+}
+.doc-icon::after {
+	content: 'PDF';
+	position: absolute;
+	inset: auto 0 3px;
+	text-align: center;
+	font-family: var(--font-body);
+	font-size: 8.5px;
+	font-weight: 500;
+	letter-spacing: 0.02em;
+	color: var(--danger);
+}
+
+/* Inputs sit on card-coloured surfaces, so they need their own shade to read
+   as fields rather than as text. */
+.card input[type='text'],
+.card input[type='email'],
+.card input[type='number'],
+.card input[type='date'],
+.card select {
+	background: var(--surface-2);
+	border-color: color-mix(in srgb, var(--text) 22%, transparent);
+}
+.card input[type='text']:focus,
+.card input[type='email']:focus,
+.card select:focus {
+	border-color: var(--accent);
+}
+.member-no {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	width: fit-content;
+	margin-bottom: 22px;
+}
+.field-block .field-note {
+	margin: 6px 0 0;
+}
+.field-grid .form-actions,
+.field-grid .error {
+	grid-column: 1 / -1;
+}
+/* Two columns once there is room: the single column left a wide empty gutter
+   on desktop. */
+@media (min-width: 860px) {
+	form.stack.field-grid {
+		grid-template-columns: 1fr 1fr;
+		column-gap: 30px;
+		max-width: none;
+		align-items: start;
+	}
+	form.stack.field-grid label.field {
+		max-width: none;
+	}
+	.card-text-width:has(.field-grid) {
+		max-width: none;
+	}
+}

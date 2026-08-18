@@ -27,6 +27,13 @@
 		<h3>{mem.fullName}</h3>
 		<table class="list detail-table">
 			<tbody>
+				<tr
+					><td class="muted">{m.th_member_number()}</td><td class="copy-fit"
+						>{#if mem.memberNumber}<CopyField display={String(mem.memberNumber)} />{:else}<span
+								class="muted">–</span
+							>{/if}</td
+					></tr
+				>
 				<tr><td class="muted">{m.field_display_name()}</td><td>{mem.displayName ?? '–'}</td></tr>
 				<tr><td class="muted">{m.field_municipality()}</td><td>{mem.homeMunicipality}</td></tr>
 				<tr

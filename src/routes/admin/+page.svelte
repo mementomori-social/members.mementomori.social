@@ -307,11 +307,11 @@
 	<table class="list">
 		<thead>
 			<tr
-				><th>{m.th_name()}</th><th>{m.th_municipality()}</th><th>{m.th_class()}</th><th
-					>{m.th_status()}</th
-				><th>{m.th_payment()}</th><th>{m.th_fediverse()}</th><th>{m.th_matrix()}</th><th
-					>{m.th_decided()}</th
-				></tr
+				><th>{m.th_name()}</th><th>{m.th_member_number()}</th><th>{m.th_municipality()}</th><th
+					>{m.th_class()}</th
+				><th>{m.th_status()}</th><th>{m.th_payment()}</th><th>{m.th_fediverse()}</th><th
+					>{m.th_matrix()}</th
+				><th>{m.th_decided()}</th></tr
 			>
 		</thead>
 		<tbody>
@@ -322,6 +322,13 @@
 						{#if r.email}<br /><a class="with-icon muted small plain-link" href="mailto:{r.email}"
 								><span class="ui-icon mail"></span>{r.email}</a
 							>{/if}
+					</td>
+					<td class="num-cell">
+						{#if r.memberNumber}
+							<CopyField display={String(r.memberNumber)} />
+						{:else}
+							<span class="muted small">-</span>
+						{/if}
 					</td>
 					<td class="muted">{r.homeMunicipality}</td>
 					<td class="muted small"

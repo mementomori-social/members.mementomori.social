@@ -27,7 +27,8 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			mastodonAcct: me.mastodonAcct,
 			hasAvatar: Boolean(me.mastodonAvatarUrl),
 			matrixId: me.matrixId,
-			preferredLocale: me.preferredLocale
+			preferredLocale: me.preferredLocale,
+			memberNumber: me.memberNumber
 		},
 		mastodonLinked: Boolean(linked)
 	};

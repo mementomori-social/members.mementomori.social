@@ -1,5 +1,5 @@
 import { error, fail, redirect } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { approval, income, member, payment } from '$lib/server/db/schema';
@@ -60,9 +60,20 @@ export const actions: Actions = {
 		// Board decision 15.8.2026: one board member approves. The approval row
 		// keeps the audit trail of who decided.
 		await db.insert(approval).values({ memberId, approverUserId: userId, approverRole: role });
+		// Numbers run in approval order and are never reused, so the register
+		// keeps a stable identifier for each member.
+		const numbered = await db
+			.select({ n: member.memberNumber })
+			.from(member)
+			.orderBy(desc(member.memberNumber))
+			.limit(1);
 		await db
 			.update(member)
-			.set({ status: 'approved', decidedAt: new Date() })
+			.set({
+				status: 'approved',
+				decidedAt: new Date(),
+				memberNumber: row.memberNumber ?? (numbered[0]?.n ?? 0) + 1
+			})
 			.where(eq(member.id, memberId));
 		return { adminOk: true };
 	},
