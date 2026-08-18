@@ -159,7 +159,9 @@
 	<a href="https://help.mementomori.social">help.mementomori.social</a>
 	<span class="muted">{m.note_docs()}</span><br />
 	<a href="https://github.com/mementomori-social">github.com/mementomori-social</a>
-	<span class="muted">{m.note_open_source()}</span>
+	<span class="muted">{m.note_open_source()}</span><br />
+	<a href="https://status.mementomori.social">status.mementomori.social</a>
+	<span class="muted">{m.note_status()}</span>
 </p>
 
 <p class="contact muted small">

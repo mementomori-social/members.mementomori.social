@@ -4,6 +4,7 @@
 * Member numbers in the register, on the board pages and in the profile
 * Profile in two columns with visible input fields
 * Clearer Matrix note linking to the Matrix page
+* Status page link on the front page
 
 ### 1.8.0: 2026-08-18
 
