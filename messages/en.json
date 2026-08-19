@@ -332,6 +332,7 @@
 	"brand_motion_pride": "Pride skull (PNG)",
 	"brand_colours_heading": "Colours",
 	"brand_colours_note": "A dark base and one accent. The remaining colours carry state: success, attention, error.",
+	"brand_colour_accent_btn": "Accent, buttons",
 	"brand_colour_bg": "Background",
 	"brand_colour_surface": "Surface",
 	"brand_colour_text": "Text",

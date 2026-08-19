@@ -11,6 +11,7 @@
 		{ name: () => m.brand_colour_surface(), hex: '#17171a' },
 		{ name: () => m.brand_colour_text(), hex: '#e4e1da' },
 		{ name: () => m.brand_colour_accent(), hex: '#585aff' },
+		{ name: () => m.brand_colour_accent_btn(), hex: '#4143c7' },
 		{ name: () => m.brand_colour_ok(), hex: '#4cd699' },
 		{ name: () => m.brand_colour_warn(), hex: '#e8c547' },
 		{ name: () => m.brand_colour_danger(), hex: '#ff8a8e' }
