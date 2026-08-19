@@ -356,7 +356,9 @@ header.site nav a[aria-current='page'] {
 
 button,
 .button {
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	font-family: var(--font-body);
 	font-size: 16.5px;
 	font-weight: 500;
@@ -1094,7 +1096,9 @@ button.compact {
 	grid-template-columns: 1fr 1fr;
 	margin: 24px 0;
 }
-@media (max-width: 640px) {
+/* The two-up cards on join and login get cramped before the phone
+   breakpoint, so they stack while there is still room to read them. */
+@media (max-width: 760px) {
 	.tiers {
 		grid-template-columns: 1fr;
 	}
@@ -1689,8 +1693,8 @@ img {
 	}
 	button,
 	.button {
-		white-space: normal;
-		font-size: 15.5px;
+		white-space: nowrap;
+		font-size: 14px;
 		padding: 12px 20px;
 	}
 	/* Icon buttons keep the desktop rhythm on a phone: the cramped variant made
@@ -1698,11 +1702,6 @@ img {
 	button:has(.btn-icon),
 	.button:has(.btn-icon) {
 		padding: 12px 20px 12px 18px;
-	}
-	/* Short labels never wrap: "Kirjaudu" and "Liity" fit at any width. */
-	.input-group button,
-	.btn-row button {
-		white-space: nowrap;
 	}
 	.tier,
 	.card {

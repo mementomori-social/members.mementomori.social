@@ -5,6 +5,9 @@
 * Consistent padding on the Mastodon sign-in buttons
 * Roomier buttons on phones, short labels never wrap
 * Link buttons and real buttons render identically
+* Buttons never wrap, smaller text on phones
+* Join and login cards stack below 760px
+* No underline on the apply link in the login card
 
 ### 1.11.0: 2026-08-19
 
