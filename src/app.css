@@ -360,6 +360,11 @@ button,
 	font-family: var(--font-body);
 	font-size: 16.5px;
 	font-weight: 500;
+	/* A button does not inherit the body line-height, so without this an
+	   <a class="button"> stood 5px taller than a <button> with identical
+	   padding. Both are pinned here, text centred like a real button. */
+	line-height: 1.7;
+	text-align: center;
 	color: #fff;
 	background: var(--accent-btn);
 	border: none;
