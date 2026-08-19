@@ -1500,6 +1500,12 @@ img.emoji {
 	vertical-align: -4px;
 	margin-right: 8px;
 }
+/* Icon buttons carry their own padding: the leading edge sits tighter so the
+   icon does not read as extra indent next to plain buttons. */
+button:has(.btn-icon),
+.button:has(.btn-icon) {
+	padding: 12px 22px 12px 20px;
+}
 
 .or-row {
 	display: flex;
@@ -1680,7 +1686,18 @@ img {
 	.button {
 		white-space: normal;
 		font-size: 15.5px;
-		padding: 10px 16px;
+		padding: 12px 20px;
+	}
+	/* Icon buttons keep the desktop rhythm on a phone: the cramped variant made
+	   the Mastodon buttons look smaller than the plain ones next to them. */
+	button:has(.btn-icon),
+	.button:has(.btn-icon) {
+		padding: 12px 20px 12px 18px;
+	}
+	/* Short labels never wrap: "Kirjaudu" and "Liity" fit at any width. */
+	.input-group button,
+	.btn-row button {
+		white-space: nowrap;
 	}
 	.tier,
 	.card {

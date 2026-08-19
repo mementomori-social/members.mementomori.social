@@ -2,6 +2,8 @@
 
 * Public list consent on the join form
 * Button accent added to the brand colours
+* Consistent padding on the Mastodon sign-in buttons
+* Roomier buttons on phones, short labels never wrap
 
 ### 1.11.0: 2026-08-19
 
