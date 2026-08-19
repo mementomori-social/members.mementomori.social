@@ -2269,10 +2269,19 @@ a.plain-link:hover {
 	margin: 20px 0 8px;
 }
 .specimen {
-	padding: 22px 24px;
+	padding: 40px;
 	border: 1px solid var(--border);
 	border-radius: 14px;
 	background: var(--surface);
+}
+.specimen > :last-child,
+.specimen p:last-child {
+	margin-bottom: 0;
+}
+@media (max-width: 700px) {
+	.specimen {
+		padding: 25px;
+	}
 }
 .specimen .sample {
 	margin: 0 0 8px;

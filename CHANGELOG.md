@@ -3,6 +3,7 @@
 * Brand page with logo, colour and type specimens
 * Downloadable brand kit as a zip
 * Shorter join label in the footer
+* Roomier type specimens
 
 ### 1.10.2: 2026-08-19
 
