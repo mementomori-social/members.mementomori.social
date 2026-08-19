@@ -138,6 +138,14 @@
 			<span>{m.consent_label()}</span>
 		</label>
 
+		<label class="check">
+			<input type="checkbox" name="publicConsent" />
+			<span
+				>{m.consent_public_label()}
+				<a href={localizeHref('/privacy')}>{m.nav_privacy()}</a></span
+			>
+		</label>
+
 		{#if form?.error}<p class="error">{form.error}</p>{/if}
 
 		<div class="btn-row">

@@ -1,3 +1,8 @@
+### 1.11.1: 2026-08-19
+
+* Public list consent on the join form
+* Button accent added to the brand colours
+
 ### 1.11.0: 2026-08-19
 
 * Brand page with logo, colour and type specimens
