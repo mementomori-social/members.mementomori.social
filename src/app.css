@@ -381,7 +381,7 @@ button.ghost,
 	overflow: hidden;
 	background: var(--surface-2);
 	color: var(--text);
-	border: 1.5px solid color-mix(in srgb, var(--text) 22%, transparent);
+	border: 1.5px solid var(--border);
 }
 button.ghost:hover,
 .button.ghost:hover {
@@ -390,7 +390,9 @@ button.ghost:hover,
 	border-color: #4a4a52;
 	filter: none;
 }
-/* One sheen sweep on hover, the same gesture as the logo. */
+/* Rainbow sheen, the same gesture as the logo: a continuous loop, because a
+   one-shot sweep snapped the band back to its start and flashed. The tile is
+   moved exactly its own width, so the loop has no seam. */
 button.ghost::after,
 .button.ghost::after,
 button.danger::after {
@@ -398,30 +400,37 @@ button.danger::after {
 	position: absolute;
 	inset: 0;
 	background: linear-gradient(
-		110deg,
-		transparent 25%,
-		rgba(255, 255, 255, 0.13) 47%,
-		transparent 68%
+		100deg,
+		transparent 8%,
+		rgba(255, 92, 92, 0.22),
+		rgba(255, 176, 86, 0.22),
+		rgba(248, 236, 106, 0.22),
+		rgba(94, 224, 138, 0.22),
+		rgba(93, 178, 255, 0.22),
+		rgba(176, 107, 255, 0.22),
+		transparent 92%
 	);
-	background-size: 240% 100%;
-	background-position: 130% 0;
+	background-size: 200% 100%;
+	background-position: 0 0;
 	opacity: 0;
+	transition: opacity 0.2s;
 	pointer-events: none;
+}
+button.ghost:hover::after,
+.button.ghost:hover::after,
+button.danger:hover::after {
+	opacity: 1;
 }
 @media (prefers-reduced-motion: no-preference) {
 	button.ghost:hover::after,
 	.button.ghost:hover::after,
 	button.danger:hover::after {
-		opacity: 1;
-		animation: btn-sheen 0.75s ease-out;
+		animation: btn-sheen 2.2s linear infinite;
 	}
 }
 @keyframes btn-sheen {
-	from {
-		background-position: 130% 0;
-	}
 	to {
-		background-position: -70% 0;
+		background-position: -200% 0;
 	}
 }
 .btn-row {
@@ -434,7 +443,7 @@ button.danger {
 	overflow: hidden;
 	background: var(--surface-2);
 	color: var(--danger);
-	border: 1.5px solid color-mix(in srgb, var(--danger) 32%, transparent);
+	border: 1.5px solid var(--border);
 }
 button.danger:hover {
 	border-color: var(--danger);

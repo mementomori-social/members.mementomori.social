@@ -3,7 +3,7 @@
 * Document rows link to the page without a PDF label
 * PDFs open in the browser instead of downloading
 * Hide the year-end label when the coverage label reaches it
-* More visible buttons with a hover sheen
+* More visible buttons with a rainbow hover sheen
 
 ### 1.10.1: 2026-08-19
 
