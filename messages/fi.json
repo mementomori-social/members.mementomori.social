@@ -410,6 +410,7 @@
 	"monthly_gap_label": "vajetta kuukaudessa",
 	"monthly_surplus_label": "Toistuvat maksut kattavat kuukauden kulut",
 	"legend_total_monthly": "Vuosi- ja kuukausimaksut yhteensä",
+	"legend_members_needed": "Tarvitaan vielä {members} jäsentä",
 	"legend_monthly_subs": "Kuukausimaksut",
 	"legend_yearly_amortised": "Vuosimaksut kuukautta kohden",
 	"recurring_summary": "{monthly} jäsenmaksua kuukausittain ({monthlyEur} €/kk) · {yearly} vuosittain ({yearlyEur} €/v)",

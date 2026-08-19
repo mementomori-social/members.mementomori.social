@@ -1175,6 +1175,10 @@ button.compact {
 	position: absolute;
 	top: calc(100% + 6px);
 	transform: translateX(-50%);
+}
+/* Full coverage: flush with the end of the track rather than short of it. */
+.year-track .covered-date.at-end {
+	transform: translateX(-100%);
 	color: var(--ok);
 	font-weight: 600;
 	font-size: 13px;

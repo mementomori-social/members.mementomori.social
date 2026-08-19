@@ -7,6 +7,8 @@
 * Kuukausikate becomes Omavaraisuus with a percentage
 * Show how many members close the funding gap
 * Legend shows the combined monthly fee income
+* Legend shows how many members are still needed
+* Coverage date sits at the end when fully covered
 
 ### 1.10.1: 2026-08-19
 

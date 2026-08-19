@@ -415,7 +415,12 @@
 				></div>
 			{/if}
 			<div class="fill" style="width: {cov.coveredPct}%"></div>
-			<span class="covered-date" style="left: {Math.min(cov.coveredPct, 94)}%"
+			<!-- Centre-anchored while it fits; at full coverage it parks against the
+			     right edge instead of stopping short at 94%. -->
+			<span
+				class="covered-date"
+				class:at-end={cov.coveredPct >= 100}
+				style="left: {cov.coveredPct >= 100 ? 100 : Math.min(cov.coveredPct, 94)}%"
 				>{cov.coveredUntil.toLocaleDateString('fi-FI')}</span
 			>
 		</div>
@@ -495,6 +500,10 @@
 				<span
 					><span class="dot bad"></span>
 					{m.covered_left_label()}: {cov.monthlyGapEur.toFixed(2).replace('.', ',')}&nbsp;€</span
+				>
+				<span
+					><span class="dot warn"></span>
+					{m.legend_members_needed({ members: cov.membersNeeded })}</span
 				>
 			{/if}
 		</p>

@@ -410,6 +410,7 @@
 	"monthly_gap_label": "short per month",
 	"monthly_surplus_label": "Recurring payments cover a full month",
 	"legend_total_monthly": "Yearly and monthly fees combined",
+	"legend_members_needed": "{members} more members needed",
 	"legend_monthly_subs": "Monthly fees",
 	"legend_yearly_amortised": "Yearly fees per month",
 	"recurring_summary": "{monthly} membership fees paid monthly ({monthlyEur} €/mo) · {yearly} yearly ({yearlyEur} €/yr)",
