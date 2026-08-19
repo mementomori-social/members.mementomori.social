@@ -373,18 +373,56 @@ button:hover,
 	background: var(--accent-btn-hover);
 	color: #fff;
 }
+/* Ghost buttons sit on card-coloured surfaces, so a transparent fill made
+   them read as plain text. Same shade as the input fields. */
 button.ghost,
 .button.ghost {
-	background: transparent;
+	position: relative;
+	overflow: hidden;
+	background: var(--surface-2);
 	color: var(--text);
-	border: 1.5px solid var(--border);
+	border: 1.5px solid color-mix(in srgb, var(--text) 22%, transparent);
 }
 button.ghost:hover,
 .button.ghost:hover {
-	background: var(--surface-2);
+	background: color-mix(in srgb, var(--surface-2) 82%, var(--text));
 	color: var(--bright);
 	border-color: #4a4a52;
 	filter: none;
+}
+/* One sheen sweep on hover, the same gesture as the logo. */
+button.ghost::after,
+.button.ghost::after,
+button.danger::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		110deg,
+		transparent 25%,
+		rgba(255, 255, 255, 0.13) 47%,
+		transparent 68%
+	);
+	background-size: 240% 100%;
+	background-position: 130% 0;
+	opacity: 0;
+	pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+	button.ghost:hover::after,
+	.button.ghost:hover::after,
+	button.danger:hover::after {
+		opacity: 1;
+		animation: btn-sheen 0.75s ease-out;
+	}
+}
+@keyframes btn-sheen {
+	from {
+		background-position: 130% 0;
+	}
+	to {
+		background-position: -70% 0;
+	}
 }
 .btn-row {
 	display: flex;
@@ -392,9 +430,11 @@ button.ghost:hover,
 	flex-wrap: wrap;
 }
 button.danger {
-	background: transparent;
+	position: relative;
+	overflow: hidden;
+	background: var(--surface-2);
 	color: var(--danger);
-	border: 1.5px solid var(--border);
+	border: 1.5px solid color-mix(in srgb, var(--danger) 32%, transparent);
 }
 button.danger:hover {
 	border-color: var(--danger);
