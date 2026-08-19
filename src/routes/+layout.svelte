@@ -264,11 +264,12 @@
 		<nav aria-label={m.footer_links()}>
 			<span class="group">
 				<a href={href('/')}>{m.nav_overview()}</a>
-				<a href={href('/join')}>{m.nav_join()}</a>
+				<a href={href('/join')}>{m.nav_join_footer()}</a>
 				<a href={href('/sponsorship')}>{m.sponsor_heading()}</a>
 				<a href={href('/safer-space')}>{m.nav_safer_space()}</a>
 				<a href={href('/faq')}>{m.nav_faq()}</a>
 				<a href={href('/documents')}>{m.nav_rules()}</a>
+				<a href={href('/brand')}>{m.nav_brand()}</a>
 				<a href={href('/privacy')}>{m.nav_privacy()}</a>
 				<a href={href('/contact')}>{m.nav_contact()}</a>
 			</span>

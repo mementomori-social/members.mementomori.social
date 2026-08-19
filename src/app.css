@@ -2142,3 +2142,185 @@ a.plain-link:hover {
 .legend .dot.total {
 	background: var(--bright);
 }
+
+/* Brand page: quiet and specimen-led. Each asset sits on the background it is
+   meant for, so the light/dark choice is visible rather than described. */
+.brand-lede {
+	font-size: 18px;
+	max-width: 62ch;
+}
+.brand-kit {
+	margin: 26px 0 8px;
+}
+.zip-mark {
+	flex-shrink: 0;
+	display: inline-flex;
+	color: #b9baff;
+	filter: drop-shadow(0 0 9px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+.zip-mark svg {
+	width: 26px;
+	height: 26px;
+}
+.brand-grid {
+	display: grid;
+	gap: 18px;
+	grid-template-columns: 1fr 1fr;
+	margin: 20px 0 8px;
+}
+.brand-grid.three {
+	grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 700px) {
+	.brand-grid,
+	.brand-grid.three {
+		grid-template-columns: 1fr;
+	}
+}
+.brand-tile {
+	margin: 0;
+	min-width: 0;
+}
+.brand-canvas {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 190px;
+	padding: 30px;
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	overflow: hidden;
+}
+.brand-canvas.dark {
+	background: var(--bg);
+}
+.brand-canvas.light {
+	background: #f3f0ea;
+	border-color: #d8d4cb;
+}
+.brand-canvas.flush {
+	padding: 0;
+	height: 250px;
+}
+/* Both motion assets scale to the same visual weight; the wide MP4 would
+   otherwise show a much smaller skull than the square PNG. */
+.brand-canvas.flush img,
+.brand-canvas.flush video {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+.brand-canvas img,
+.brand-canvas video {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+.brand-canvas .mark {
+	width: auto;
+	height: 110px;
+}
+.brand-tile figcaption {
+	margin: 10px 2px 0;
+	font-size: 15px;
+	color: var(--muted);
+}
+.swatches {
+	list-style: none;
+	padding: 0;
+	margin: 20px 0 8px;
+	display: grid;
+	gap: 14px;
+	grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+	max-width: none;
+}
+.swatches li {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0;
+}
+.swatch {
+	width: 46px;
+	height: 46px;
+	border-radius: 10px;
+	border: 1px solid var(--border);
+	flex-shrink: 0;
+}
+.swatch-text {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	min-width: 0;
+	font-size: 15px;
+}
+.swatch-text .copy-field {
+	margin: 0;
+	width: fit-content;
+}
+.swatch-text .copy-box {
+	width: fit-content;
+	padding: 2px 9px;
+	font-size: 13px;
+}
+.specimens {
+	display: grid;
+	gap: 18px;
+	margin: 20px 0 8px;
+}
+.specimen {
+	padding: 22px 24px;
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	background: var(--surface);
+}
+.specimen .sample {
+	margin: 0 0 8px;
+	color: var(--bright);
+	max-width: none;
+}
+.heading-sample {
+	font-family: var(--font-heading);
+	font-weight: 600;
+	font-size: clamp(26px, 4vw, 38px);
+	line-height: 1.1;
+}
+.body-sample {
+	font-size: 19px;
+	line-height: 1.6;
+}
+.code-sample {
+	font-family: var(--font-code);
+	font-weight: 500;
+	font-size: 20px;
+	color: #b9baff;
+}
+.usage {
+	display: grid;
+	gap: 22px;
+	grid-template-columns: 1fr 1fr;
+	margin: 18px 0 8px;
+}
+@media (max-width: 700px) {
+	.usage {
+		grid-template-columns: 1fr;
+	}
+}
+.usage-title {
+	margin: 0 0 6px;
+	font-weight: 500;
+}
+.usage .ok-note {
+	color: var(--ok);
+}
+.usage .bad-note {
+	color: var(--danger);
+}
+.usage ul {
+	margin: 0;
+	padding-inline-start: 18px;
+	font-size: 16px;
+}
+.brand-contact {
+	margin-top: 34px;
+}
