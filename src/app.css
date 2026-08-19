@@ -2130,3 +2130,11 @@ a.plain-link:hover {
 	background: var(--surface);
 	border-radius: 0 8px 8px 0;
 }
+
+.self-suff-line {
+	margin: 2px 0 14px;
+}
+
+.legend .dot.total {
+	background: var(--bright);
+}

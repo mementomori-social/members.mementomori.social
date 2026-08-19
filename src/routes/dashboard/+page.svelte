@@ -437,15 +437,29 @@
 	</div>
 
 	<div class="card span2">
-		<h3>{m.monthly_gap_heading()}</h3>
+		<h3>{m.self_sufficiency_heading()}</h3>
 		<p class="covered-total">
 			{#if cov.monthlyGapEur > 0}
 				<strong
-					><span class="gap-count">{cov.monthlyGapEur.toFixed(2).replace('.', ',')}&nbsp;€</span>
-					{m.monthly_gap_label()}</strong
+					><span class="days-count">{cov.selfSufficiencyPct}&nbsp;%</span>
+					{m.self_sufficiency_label()}</strong
 				>
 			{:else}
-				<strong><span class="days-count">✓</span> {m.monthly_surplus_label()}</strong>
+				<strong><span class="days-count">✓</span> {m.self_sufficiency_full()}</strong>
+			{/if}
+		</p>
+		<p class="muted small self-suff-line">
+			{#if cov.monthlyGapEur > 0}
+				{m.self_sufficiency_note({
+					income: cov.monthlyRecurringEur.toFixed(2).replace('.', ','),
+					cost: COSTS.monthlyEur.toFixed(2).replace('.', ','),
+					members: cov.membersNeeded
+				})}
+			{:else}
+				{m.self_sufficiency_note_full({
+					income: cov.monthlyRecurringEur.toFixed(2).replace('.', ','),
+					cost: COSTS.monthlyEur.toFixed(2).replace('.', ',')
+				})}
 			{/if}
 		</p>
 		<div class="progress stacked">
@@ -470,6 +484,12 @@
 				{m.legend_yearly_amortised()}: {(data.recurring.yearlyEur / 12)
 					.toFixed(2)
 					.replace('.', ',')}&nbsp;€</span
+			>
+			<span
+				><span class="dot total"></span>
+				{m.legend_total_monthly()}: {cov.monthlyRecurringEur
+					.toFixed(2)
+					.replace('.', ',')}&nbsp;€/kk</span
 			>
 			{#if cov.monthlyGapEur > 0}
 				<span

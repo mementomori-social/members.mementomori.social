@@ -64,6 +64,10 @@ export function coverage(
 	/** One month, steady state: yearly fees spread across twelve months. */
 	const monthlyRecurringEur = recurring.monthlyEur + recurring.yearlyEur / 12;
 	const monthlyGapEur = Math.max(0, COSTS.monthlyEur - monthlyRecurringEur);
+	/** How much of the monthly bill the fees carry on their own. */
+	const selfSufficiencyPct = Math.round((monthlyRecurringEur / COSTS.monthlyEur) * 100);
+	/** Ordinary members needed to reach the full bill, at the member fee. */
+	const membersNeeded = Math.ceil(monthlyGapEur / FEES.member.month);
 
 	/** Positions on a January-December track, for the timeline bar. */
 	const yearStart = new Date(now.getFullYear(), 0, 1).getTime();
@@ -83,6 +87,8 @@ export function coverage(
 		projectedPct: projectedUntil ? pct(projectedUntil.getTime()) : 100,
 		monthlyRecurringEur,
 		monthlyGapEur,
+		selfSufficiencyPct,
+		membersNeeded,
 		coveredPct: pct(coveredUntil.getTime()),
 		todayPct: pct(now.getTime())
 	};

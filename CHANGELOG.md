@@ -4,6 +4,9 @@
 * PDFs open in the browser instead of downloading
 * Hide the year-end label when the coverage label reaches it
 * More visible buttons with a rainbow hover sheen
+* Kuukausikate becomes Omavaraisuus with a percentage
+* Show how many members close the funding gap
+* Legend shows the combined monthly fee income
 
 ### 1.10.1: 2026-08-19
 
