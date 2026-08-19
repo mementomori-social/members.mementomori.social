@@ -4,6 +4,8 @@
 * Downloadable brand kit as a zip
 * Shorter join label in the footer
 * Roomier type specimens
+* Rainbow share image for the brand page
+* Per-page share images with a Twitter card
 
 ### 1.10.2: 2026-08-19
 

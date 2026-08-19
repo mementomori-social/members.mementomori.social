@@ -60,6 +60,12 @@
 			? { title: entry.title(), description: entry.description() }
 			: { title: null, description: m.site_description() };
 	});
+	/** Pages with their own share image; everything else gets the site image. */
+	const OG_IMAGES: Record<string, string> = {
+		'/brand': '/brand/mementomori-ry-og-rainbow.png'
+	};
+	const ogImage = $derived(OG_IMAGES[delocalized] ?? '/assets/og.png');
+
 	const pageTitle = $derived(
 		pageMeta.title ? `${pageMeta.title} - Mementomori ry` : 'Mementomori ry'
 	);
@@ -111,11 +117,12 @@
 	<meta property="og:description" content={pageMeta.description} />
 	<meta property="og:url" content={page.url.origin + pathname} />
 	<meta property="og:locale" content={locale === 'fi' ? 'fi_FI' : 'en_US'} />
-	<meta property="og:image" content="{page.url.origin}/assets/og.png" />
+	<meta property="og:image" content={page.url.origin + ogImage} />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta property="og:image:alt" content="Mementomori ry" />
 	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content={page.url.origin + ogImage} />
 </svelte:head>
 
 <a class="skip-link" href="#content">{m.skip_to_content()}</a>
