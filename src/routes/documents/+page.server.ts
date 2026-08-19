@@ -1,9 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { DOCUMENTS } from '$lib/documents';
-import { documentSize } from '$lib/server/documents';
+import { DOCUMENT_SIZES } from '$lib/document-sizes';
 
-export const load: PageServerLoad = async ({ fetch }) => {
-	const sizes: Record<string, number> = {};
-	for (const doc of DOCUMENTS) sizes[doc.slug] = await documentSize(fetch, doc.file);
-	return { sizes };
-};
+export const load: PageServerLoad = async () => ({
+	sizes: Object.fromEntries(DOCUMENTS.map((d) => [d.slug, DOCUMENT_SIZES[d.file] ?? 0]))
+});

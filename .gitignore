@@ -29,3 +29,4 @@ project.inlang/cache/
 *.sql.gz
 *.sqlite*
 *.db
+src/lib/document-sizes.ts

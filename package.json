@@ -1,11 +1,11 @@
 {
 	"name": "members.mementomori.social",
 	"private": true,
-	"version": "1.10.0",
+	"version": "1.10.1",
 	"type": "module",
 	"scripts": {
-		"dev": "vite dev",
-		"build": "wrangler types --check && vite build",
+		"dev": "node scripts/doc-sizes.mjs && vite dev",
+		"build": "node scripts/doc-sizes.mjs && wrangler types --check && vite build",
 		"preview": "wrangler dev .svelte-kit/cloudflare/_worker.js --port 4173",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "wrangler types --check && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --tsgo",

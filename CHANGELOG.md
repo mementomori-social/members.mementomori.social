@@ -1,3 +1,8 @@
+### 1.10.1: 2026-08-19
+
+* English translations of the rules and the founding charter
+* Fix PDF sizes showing as 0 kB
+
 ### 1.10.0: 2026-08-19
 
 * Each document has its own page with the full text
