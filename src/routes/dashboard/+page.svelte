@@ -423,7 +423,11 @@
 			<span class:ok={cov.total > 0} class:muted={cov.total === 0}
 				>1.1.{new Date().getFullYear()}</span
 			>
-			<span class="muted">31.12.{new Date().getFullYear()}</span>
+			<!-- The covered-until label floats above this line; past ~72% the two
+			     labels would sit on top of each other. -->
+			{#if cov.coveredPct < 72}
+				<span class="muted">31.12.{new Date().getFullYear()}</span>
+			{/if}
 		</p>
 		<p class="muted small projected-line">
 			{cov.projectedUntil
