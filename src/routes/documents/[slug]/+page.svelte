@@ -26,7 +26,7 @@
 		<Charter />
 	{/if}
 
-	<a class="doc-dl" href={doc.file} download>
+	<a class="doc-dl" href={doc.file}>
 		<span class="pdf-mark" aria-hidden="true">
 			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
 				<path

@@ -1,3 +1,8 @@
+### 1.10.2: 2026-08-19
+
+* Document rows link to the page without a PDF label
+* PDFs open in the browser instead of downloading
+
 ### 1.10.1: 2026-08-19
 
 * English translations of the rules and the founding charter

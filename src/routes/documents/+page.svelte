@@ -2,11 +2,6 @@
 	import { m } from '$lib/paraglide/messages.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { DOCUMENTS } from '$lib/documents';
-	import { fileSize } from '$lib/format';
-	import type { PageProps } from './$types';
-
-	let { data }: PageProps = $props();
-
 	/** Pointer position drives the sheen; without it the rows stay flat. */
 	function sheen(node: HTMLElement) {
 		const move = (e: PointerEvent) => {
@@ -40,7 +35,6 @@
 					<span class="doc-row-title">{doc.title()}</span>
 					<span class="muted small">{doc.meta()}</span>
 				</span>
-				<span class="muted small doc-row-size">PDF, {fileSize(data.sizes[doc.slug])}</span>
 			</a>
 		</li>
 	{/each}
