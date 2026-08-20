@@ -425,6 +425,7 @@
 	"members_public_note": "Nämä jäsenet ovat halunneet näkyä julkisesti. Täysi jäsenluettelo on vain hallituksen käytettävissä.",
 	"privacy_public_list": "Sivustolla on julkinen jäsenlista. Jäsen näkyy sillä vain, jos hän on erikseen antanut suostumuksen julkiseen listaukseen; jäsenille näkyvällä listalla on oma suostumuksensa. Molemmat voi perua omalla sivulla milloin tahansa, ja peruminen poistaa listalta heti.",
 	"visibility_heading": "Suostumukset",
+	"save_consent": "Tallenna suostumukset",
 	"saved": "Tallennettu",
 	"covered_big_label": "maksettavaa loppuvuonna",
 	"covered_seg_upcoming": "Tuleva lasku",

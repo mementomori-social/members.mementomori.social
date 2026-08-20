@@ -1,3 +1,8 @@
+### 1.12.0: 2026-08-20
+
+* Consent settings on the profile page
+* Consent button says what it saves
+
 ### 1.11.1: 2026-08-19
 
 * Public list consent on the join form

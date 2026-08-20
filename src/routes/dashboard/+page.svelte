@@ -338,7 +338,7 @@
 				>
 			</label>
 			<div>
-				<button type="submit" class="ghost">{m.save()}</button>
+				<button type="submit" class="ghost">{m.save_consent()}</button>
 				{#if form?.visibilitySaved}
 					<span class="ok-note" role="status">✓ {m.saved()}</span>
 				{/if}

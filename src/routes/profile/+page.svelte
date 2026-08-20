@@ -96,6 +96,36 @@
 </div>
 
 <div class="card card-text-width">
+	<h3>{m.visibility_heading()}</h3>
+	<form
+		method="POST"
+		action="?/saveVisibility"
+		class="stack consent-form"
+		use:enhance={() =>
+			async ({ update }) =>
+				update({ reset: false })}
+	>
+		<label class="check">
+			<input type="checkbox" name="listedConsent" checked={data.me.listedConsent} />
+			<span>{m.consent_label()}</span>
+		</label>
+		<label class="check">
+			<input type="checkbox" name="publicConsent" checked={data.me.publicConsent} />
+			<span
+				>{m.consent_public_label()}
+				<a href={localizeHref('/privacy')}>{m.nav_privacy()}</a></span
+			>
+		</label>
+		<div>
+			<button type="submit" class="ghost">{m.save_consent()}</button>
+			{#if form?.visibilitySaved}
+				<span class="ok-note" role="status">✓ {m.saved()}</span>
+			{/if}
+		</div>
+	</form>
+</div>
+
+<div class="card card-text-width">
 	<h3>{m.field_email()}</h3>
 	<p>{data.me.email}</p>
 	<p class="muted small">

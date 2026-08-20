@@ -28,7 +28,9 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			hasAvatar: Boolean(me.mastodonAvatarUrl),
 			matrixId: me.matrixId,
 			preferredLocale: me.preferredLocale,
-			memberNumber: me.memberNumber
+			memberNumber: me.memberNumber,
+			listedConsent: me.listedConsent,
+			publicConsent: me.publicConsent
 		},
 		mastodonLinked: Boolean(linked)
 	};
@@ -69,6 +71,23 @@ export const actions: Actions = {
 			})
 			.where(eq(member.id, me.id));
 		return { profileSaved: true };
+	},
+
+	/** Both list consents, editable here as well as on the dashboard. */
+	saveVisibility: async ({ request, locals, platform }) => {
+		if (!locals.user) redirect(303, '/login');
+		const db = getDb(platform!.env.DB);
+		const me = await getMemberByUserId(db, locals.user.id);
+		if (!me) redirect(303, '/join');
+		const form = await request.formData();
+		await db
+			.update(member)
+			.set({
+				listedConsent: form.get('listedConsent') === 'on',
+				publicConsent: form.get('publicConsent') === 'on'
+			})
+			.where(eq(member.id, me.id));
+		return { visibilitySaved: true };
 	},
 
 	/**
