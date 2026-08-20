@@ -1,5 +1,6 @@
 ### 1.12.0: 2026-08-20
 
+* Member register CSV shows numbers, fees and payment state
 * Consent settings on the profile page
 * Consent button says what it saves
 
