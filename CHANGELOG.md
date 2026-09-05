@@ -1,3 +1,7 @@
+### 1.12.1: 2026-09-05
+
+* UpCloud logo in the footer, Ref [MEM-37](https://linear.app/mementomori-ry/issue/MEM-37)
+
 ### 1.12.0: 2026-08-20
 
 * Member register CSV shows numbers, fees and payment state
