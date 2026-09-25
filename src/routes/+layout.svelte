@@ -304,12 +304,6 @@
 				</a>
 			</span>
 		</nav>
-		<p class="sponsor">
-			{m.footer_sponsor()}
-			<a href="https://upcloud.com" rel="noopener sponsored">
-				<img src="/assets/upcloud.svg" alt="UpCloud" width="87" height="16" />
-			</a>
-		</p>
 		<div class="meta">
 			<span>
 				<a href="https://github.com/mementomori-social/members.mementomori.social"

@@ -1,6 +1,5 @@
 ### 1.12.1: 2026-09-25
 
-* UpCloud logo in the footer, Ref [MEM-37](https://linear.app/mementomori-ry/issue/MEM-37)
 * UpCloud partner card on the front page, Ref [MEM-37](https://linear.app/mementomori-ry/issue/MEM-37)
 * UpCloud logo in brand colour on the card
 
