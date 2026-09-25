@@ -31,8 +31,8 @@
 <div class="partner">
 	<a class="partner-logo" href="https://upcloud.com" rel="noopener sponsored" aria-label="UpCloud">
 		<svg
-			width="228"
-			height="42"
+			width="218"
+			height="40"
 			viewBox="0 0 870 160"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
