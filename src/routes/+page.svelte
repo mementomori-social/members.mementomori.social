@@ -30,7 +30,7 @@
 
 <div class="partner">
 	<a class="partner-logo" href="https://upcloud.com" rel="noopener sponsored">
-		<img src="/assets/upcloud.svg" alt="UpCloud" width="120" height="22" />
+		<img src="/assets/upcloud-purple.svg" alt="UpCloud" width="228" height="42" />
 	</a>
 	<p>{m.partner_upcloud_intro()}</p>
 	<a href="https://upcloud.com" rel="noopener sponsored">upcloud.com</a>

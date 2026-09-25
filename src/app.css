@@ -2391,7 +2391,8 @@ a.plain-link:hover {
 	content: none;
 }
 .partner-logo img {
-	display: block;
-	height: 22px;
 	width: auto;
+	height: 42px;
+	display: block;
+	margin-top: 10px;
 }
