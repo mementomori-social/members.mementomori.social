@@ -2372,3 +2372,26 @@ a.plain-link:hover {
 .brand-contact {
 	margin-top: 34px;
 }
+
+.partner {
+	max-width: 460px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	padding: 18px 20px;
+}
+.partner p {
+	margin: 0 0 8px;
+}
+.partner-logo {
+	display: inline-block;
+	margin-bottom: 12px;
+}
+.partner-logo::after {
+	content: none;
+}
+.partner-logo img {
+	display: block;
+	height: 22px;
+	width: auto;
+}

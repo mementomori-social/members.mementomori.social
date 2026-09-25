@@ -26,6 +26,16 @@
 	>, {m.home_registered()}
 </p>
 
+<h2>{m.partners_heading()}</h2>
+
+<div class="partner">
+	<a class="partner-logo" href="https://upcloud.com" rel="noopener sponsored">
+		<img src="/assets/upcloud.svg" alt="UpCloud" width="120" height="22" />
+	</a>
+	<p>{m.partner_upcloud_intro()}</p>
+	<a href="https://upcloud.com" rel="noopener sponsored">upcloud.com</a>
+</div>
+
 <h2>{m.membership_heading()}</h2>
 
 <p>{m.membership_intro()}</p>
