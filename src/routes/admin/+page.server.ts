@@ -3,10 +3,10 @@ import { desc, eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { approval, income, member, payment } from '$lib/server/db/schema';
-import { isBoard } from '$lib/server/members';
+import { bankPeriod, isBoard, normalizeRef } from '$lib/server/members';
 import { isFullName } from '$lib/name';
 import { parseStatement, type StatementRow } from '$lib/server/statement';
-import { inArray, isNotNull } from 'drizzle-orm';
+import { and, inArray, isNotNull, isNull } from 'drizzle-orm';
 import { m } from '$lib/paraglide/messages.js';
 
 const requireBoard = (locals: App.Locals) => {
@@ -46,6 +46,24 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		incomeRows: await db.query.income.findMany({ orderBy: (i, { desc }) => [desc(i.paidAt)] })
 	};
 };
+
+const TWIN_WINDOW = 5 * 86_400_000;
+
+/** A hand-recorded bank payment the statement row describes, if any. */
+async function manualTwin(
+	db: ReturnType<typeof getDb>,
+	memberId: string,
+	amountEur: number,
+	iso: string
+) {
+	const at = new Date(iso).getTime();
+	const rows = await db.query.payment.findMany({
+		where: and(eq(payment.memberId, memberId), eq(payment.method, 'bank'), isNull(payment.bankTxId))
+	});
+	return rows.find(
+		(p) => p.amountEur === amountEur && Math.abs(p.paidAt.getTime() - at) <= TWIN_WINDOW
+	);
+}
 
 export const actions: Actions = {
 	approve: async ({ request, locals, platform }) => {
@@ -113,7 +131,7 @@ export const actions: Actions = {
 			where: isNotNull(member.viite),
 			columns: { id: true, fullName: true, viite: true, billingInterval: true }
 		});
-		const byViite = new Map(members.map((mm) => [mm.viite!, mm]));
+		const byViite = new Map(members.map((mm) => [normalizeRef(mm.viite!), mm]));
 		const existing = await db.query.payment.findMany({
 			where: inArray(
 				payment.bankTxId,
@@ -123,14 +141,17 @@ export const actions: Actions = {
 		});
 		const seen = new Set(existing.map((e) => e.bankTxId));
 
-		const classified = incoming.map((r) => {
-			const match = byViite.get(r.reference);
-			return {
+		const classified = [];
+		for (const r of incoming) {
+			const match = byViite.get(normalizeRef(r.reference));
+			const recorded =
+				match && (await manualTwin(db, match.id, r.amountEur, `${r.dateIso}T12:00:00Z`));
+			classified.push({
 				...r,
 				memberName: match?.fullName ?? null,
-				state: seen.has(r.txId) ? 'dupe' : match ? 'new' : 'unmatched'
-			};
-		});
+				state: seen.has(r.txId) || recorded ? 'dupe' : match ? 'new' : 'unmatched'
+			});
+		}
 		return { importPreview: classified };
 	},
 
@@ -146,18 +167,35 @@ export const actions: Actions = {
 			return fail(400, { importError: m.err_payment_fields() });
 		}
 
+		// Oldest first, so each payment continues the cover the previous one left.
+		rows.sort((a, b) => String(a.dateIso).localeCompare(String(b.dateIso)));
+		const members = await db.query.member.findMany({ where: eq(member.status, 'approved') });
+		const byViite = new Map(
+			members.filter((mm) => mm.viite).map((mm) => [normalizeRef(mm.viite!), mm])
+		);
+		const byId = new Map(members.map((mm) => [mm.id, mm]));
+
 		let imported = 0;
 		for (const r of rows) {
 			if (typeof r.amountEur !== 'number' || r.amountEur <= 0) continue;
-			const match = await db.query.member.findFirst({
-				where: eq(member.viite, String(r.reference ?? ''))
-			});
+			// A row the bank could not tie to a viite can be assigned by hand.
+			const assigned = String(form.get(`assign:${r.txId}`) ?? '');
+			const match = byId.get(assigned) ?? byViite.get(normalizeRef(String(r.reference ?? '')));
 			if (!match) continue;
 			const paidAt = new Date(`${r.dateIso}T12:00:00Z`);
 			if (isNaN(paidAt.getTime())) continue;
-			const periodEnd = new Date(paidAt);
-			if (match.billingInterval === 'month') periodEnd.setMonth(periodEnd.getMonth() + 1);
-			else periodEnd.setFullYear(periodEnd.getFullYear() + 1);
+
+			// Already recorded by hand: attach the bank id instead of counting it twice.
+			const twin = await manualTwin(db, match.id, r.amountEur, paidAt.toISOString());
+			if (twin) {
+				await db
+					.update(payment)
+					.set({ bankTxId: String(r.txId) })
+					.where(eq(payment.id, twin.id));
+				continue;
+			}
+
+			const { periodStart, periodEnd } = await bankPeriod(db, match, paidAt, r.amountEur);
 			const res = await db
 				.insert(payment)
 				.values({
@@ -170,7 +208,7 @@ export const actions: Actions = {
 					reference: String(r.txId),
 					bankTxId: String(r.txId),
 					paidAt,
-					periodStart: paidAt,
+					periodStart,
 					periodEnd,
 					recordedBy: userId
 				})
@@ -201,10 +239,7 @@ export const actions: Actions = {
 		const row = await db.query.member.findFirst({ where: eq(member.id, memberId) });
 		if (!row) return fail(400, { adminError: m.err_unknown_member() });
 
-		const periodStart = paidAt;
-		const periodEnd = new Date(paidAt);
-		if (row.billingInterval === 'month') periodEnd.setMonth(periodEnd.getMonth() + 1);
-		else periodEnd.setFullYear(periodEnd.getFullYear() + 1);
+		const { periodStart, periodEnd } = await bankPeriod(db, row, paidAt, amountEur);
 
 		await db.insert(payment).values({
 			memberId,

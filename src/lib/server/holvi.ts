@@ -1,6 +1,6 @@
-import { eq } from 'drizzle-orm';
+import { eq, isNotNull } from 'drizzle-orm';
 import { env } from '$env/dynamic/private';
-import type { Db } from '$lib/server/members';
+import { bankPeriod, normalizeRef, type Db } from '$lib/server/members';
 import { member, payment } from '$lib/server/db/schema';
 
 /**
@@ -37,6 +37,9 @@ export async function syncHolvi(db: Db): Promise<{ imported: number; unmatched: 
 	const body = (await res.json()) as { results?: HolviTx[] } | HolviTx[];
 	const txs = Array.isArray(body) ? body : (body.results ?? []);
 
+	const members = await db.query.member.findMany({ where: isNotNull(member.viite) });
+	const byViite = new Map(members.map((mm) => [normalizeRef(mm.viite!), mm]));
+
 	let imported = 0;
 	let unmatched = 0;
 	for (const tx of txs) {
@@ -50,27 +53,24 @@ export async function syncHolvi(db: Db): Promise<{ imported: number; unmatched: 
 			continue;
 		}
 
-		const m = await db.query.member.findFirst({ where: eq(member.viite, reference) });
+		const m = byViite.get(normalizeRef(reference));
 		if (!m) {
 			unmatched++;
 			continue;
 		}
 
-		const ref = `holvi:${txId}`;
-		const existing = await db.query.payment.findFirst({ where: eq(payment.reference, ref) });
+		const existing = await db.query.payment.findFirst({ where: eq(payment.bankTxId, txId) });
 		if (existing) continue;
 
 		const paidAt = new Date(tx.timestamp ?? tx.value_date ?? Date.now());
-		const periodStart = paidAt;
-		const periodEnd = new Date(paidAt);
-		if (m.billingInterval === 'month') periodEnd.setMonth(periodEnd.getMonth() + 1);
-		else periodEnd.setFullYear(periodEnd.getFullYear() + 1);
+		const { periodStart, periodEnd } = await bankPeriod(db, m, paidAt, amount);
 
 		await db.insert(payment).values({
 			memberId: m.id,
 			amountEur: amount,
 			method: 'bank',
-			reference: ref,
+			reference,
+			bankTxId: txId,
 			paidAt,
 			periodStart,
 			periodEnd

@@ -112,3 +112,35 @@ export const listedMembers = (db: Db) =>
 		},
 		orderBy: (m, { desc }) => [desc(m.appliedAt)]
 	});
+
+type Payer = { id: string; billingInterval: 'year' | 'month'; memberClass: keyof typeof FEES };
+
+/**
+ * Period a bank payment buys. It continues from the current cover, so a
+ * standing order that lands a few days early or late never leaves a gap, and
+ * the amount decides how many instalments it pays for.
+ */
+export async function bankPeriod(db: Db, payer: Payer, paidAt: Date, amountEur: number) {
+	const latest = await db.query.payment.findFirst({
+		where: eq(payment.memberId, payer.id),
+		orderBy: (p, { desc }) => [desc(p.periodEnd)],
+		columns: { periodEnd: true }
+	});
+	const periodStart = latest && latest.periodEnd > paidAt ? latest.periodEnd : paidAt;
+	const periodEnd = new Date(periodStart);
+	const fee = FEES[payer.memberClass];
+	if (payer.billingInterval === 'month')
+		periodEnd.setUTCMonth(periodEnd.getUTCMonth() + Math.max(1, Math.round(amountEur / fee.month)));
+	else
+		periodEnd.setUTCFullYear(
+			periodEnd.getUTCFullYear() + Math.max(1, Math.round(amountEur / fee.year))
+		);
+	return { periodStart, periodEnd };
+}
+
+/** Reference as the bank may print it: spaced, zero-padded or in RF form. */
+export const normalizeRef = (ref: string) =>
+	ref
+		.replace(/\s/g, '')
+		.replace(/^RF\d{2}/i, '')
+		.replace(/^0+/, '');

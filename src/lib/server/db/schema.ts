@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import { integer, real, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 import { user } from './auth.schema';
 
@@ -123,8 +124,11 @@ export const payment = sqliteTable(
 			.$defaultFn(() => new Date())
 	},
 	// Webhook deliveries race; the database is the only reliable dedup point.
+	// Bank references repeat every month, so only Stripe ids are unique.
 	(t) => [
-		uniqueIndex('payment_reference_unique').on(t.reference),
+		uniqueIndex('payment_stripe_reference_unique')
+			.on(t.reference)
+			.where(sql`${t.method} = 'stripe'`),
 		uniqueIndex('payment_bank_tx_unique').on(t.bankTxId)
 	]
 );

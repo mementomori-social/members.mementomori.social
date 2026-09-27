@@ -116,38 +116,49 @@
 				>{m.admin_import_unmatched()}: {preview.filter((r) => r.state === 'unmatched').length}</span
 			>
 		</p>
-		<TableScroll>
-			<table class="list">
-				<thead>
-					<tr
-						><th>{m.th_date()}</th><th>{m.th_amount()}</th><th>{m.admin_reference()}</th><th
-							>{m.admin_member()}</th
-						><th>{m.th_status()}</th></tr
-					>
-				</thead>
-				<tbody>
-					{#each preview as r (r.txId)}
-						<tr>
-							<td>{new Date(r.dateIso).toLocaleDateString('fi-FI')}</td>
-							<td>{r.amountEur.toFixed(2)}&nbsp;€</td>
-							<td class="muted small">{r.reference || r.counterparty}</td>
-							<td>{r.memberName ?? ''}</td>
-							<td class="small">
-								{#if r.state === 'new'}<span class="ok-note">{m.admin_import_new()}</span>
-								{:else if r.state === 'dupe'}<span class="muted">{m.admin_import_dupe()}</span>
-								{:else}<span class="pay-chip">{m.admin_import_unmatched()}</span>{/if}
-							</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</TableScroll>
-		{#if fresh.length > 0}
-			<form method="POST" action="?/importStatement" use:enhance>
-				<input type="hidden" name="rows" value={JSON.stringify(fresh)} />
-				<button type="submit">{m.admin_import_commit({ count: fresh.length })}</button>
-			</form>
-		{/if}
+		{@const open = preview.filter((r) => r.state !== 'dupe')}
+		<form method="POST" action="?/importStatement" use:enhance>
+			<TableScroll>
+				<table class="list">
+					<thead>
+						<tr
+							><th>{m.th_date()}</th><th>{m.th_amount()}</th><th>{m.admin_reference()}</th><th
+								>{m.admin_member()}</th
+							><th>{m.th_status()}</th></tr
+						>
+					</thead>
+					<tbody>
+						{#each preview as r (r.txId)}
+							<tr>
+								<td>{new Date(r.dateIso).toLocaleDateString('fi-FI')}</td>
+								<td>{r.amountEur.toFixed(2)}&nbsp;€</td>
+								<td class="muted small">{r.reference || r.counterparty}</td>
+								<td>
+									{#if r.state === 'unmatched'}
+										<select name={`assign:${r.txId}`} aria-label={m.admin_member()}>
+											<option value="">{m.admin_import_skip()}</option>
+											{#each data.roster.filter((mm) => mm.status === 'approved') as mm (mm.id)}
+												<option value={mm.id}>{mm.fullName}</option>
+											{/each}
+										</select>
+										{#if r.counterparty}<div class="muted small">{r.counterparty}</div>{/if}
+									{:else}{r.memberName ?? ''}{/if}
+								</td>
+								<td class="small">
+									{#if r.state === 'new'}<span class="ok-note">{m.admin_import_new()}</span>
+									{:else if r.state === 'dupe'}<span class="muted">{m.admin_import_dupe()}</span>
+									{:else}<span class="pay-chip">{m.admin_import_unmatched()}</span>{/if}
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</TableScroll>
+			{#if open.length > 0}
+				<input type="hidden" name="rows" value={JSON.stringify(open)} />
+				<button type="submit">{m.admin_import_commit()}</button>
+			{/if}
+		</form>
 	{/if}
 </details>
 

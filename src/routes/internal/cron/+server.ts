@@ -13,6 +13,8 @@ const DAY = 86_400_000;
 /** Remind 14 days before the period ends, then every 14 days while unpaid. */
 const REMIND_AHEAD = 14 * DAY;
 const REMIND_INTERVAL = 14 * DAY;
+/** Bank transfers land a few days either side of the period end. */
+const GRACE = 7 * DAY;
 
 /**
  * Daily automation. Trigger from any scheduler:
@@ -55,8 +57,10 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	for (const m of approved) {
 		if (m.stripeSubscriptionId) continue; // renews automatically
 		const until = coveredUntil(m.id);
-		if (until > now + REMIND_AHEAD) continue;
-		if (until <= now) overdue.push(`${m.fullName} (${m.email})`);
+		const monthly = m.billingInterval === 'month';
+		// A monthly payer's next instalment is always near; only chase a missed one.
+		if (until > now + (monthly ? -GRACE : REMIND_AHEAD)) continue;
+		if (until + GRACE <= now) overdue.push(`${m.fullName} (${m.email})`);
 
 		const lastReminded = m.lastReminderAt?.getTime() ?? 0;
 		if (now - lastReminded < REMIND_INTERVAL) continue;
@@ -65,7 +69,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		await sendEmail(
 			m.email!,
 			'Mementomori ry membership fee / jäsenmaksu',
-			`Hei!\n\nJäsenmaksusi kausi on päättymässä tai päättynyt. Voit maksaa kirjautumalla osoitteessa https://members.mementomori.social tai tilisiirtona viitteelläsi.\n\nYour membership fee period is ending or has ended. Pay by signing in at https://members.mementomori.social or by bank transfer with your reference number.\n\nJäsenmaksu / fee: ${fee.year} €/v.\n\nMementomori ry`
+			`Hei!\n\nJäsenmaksusi kausi on päättymässä tai päättynyt. Voit maksaa kirjautumalla osoitteessa https://members.mementomori.social tai tilisiirtona viitteelläsi.\n\nYour membership fee period is ending or has ended. Pay by signing in at https://members.mementomori.social or by bank transfer with your reference number.\n\n${m.viite ? `Viitenumerosi / your reference: ${m.viite}\n` : ''}Jäsenmaksu / fee: ${monthly ? `${fee.month} €/kk (month)` : `${fee.year} €/v (year)`}.\n\nMementomori ry`
 		);
 		await db
 			.update(member)
