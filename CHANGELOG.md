@@ -1,3 +1,7 @@
+### 1.13.1: 2026-10-02
+
+* Remind members whose card subscription ended, Ref: MEM-58
+
 ### 1.13.0: 2026-09-27
 
 * Fix bank payments for monthly members, Ref: MEM-58

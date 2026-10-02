@@ -8,6 +8,9 @@ import { sendEmail } from '$lib/server/email';
 import { syncHolvi, holviEnabled } from '$lib/server/holvi';
 import { boardMessage, notifyBoard } from '$lib/server/notify';
 import { FEES } from '$lib/fees';
+import type Stripe from 'stripe';
+import { getStripe, stripeEnabled } from '$lib/server/stripe';
+import type { Db } from '$lib/server/members';
 
 const DAY = 86_400_000;
 /** Remind 14 days before the period ends, then every 14 days while unpaid. */
@@ -25,6 +28,29 @@ const GRACE = 7 * DAY;
  * board. Memberships are never ended automatically: the rules have no
  * clause for that, so ending one is a board decision.
  */
+/**
+ * A card subscription only stops counting as self-renewing once its cover has
+ * lapsed and Stripe confirms it is not active. A cancelled one is dropped so
+ * the member is reminded like any bank payer, even if the webhook never came.
+ */
+async function cardLapsed(db: Db, subscriptionId: string, until: number, now: number) {
+	if (until + GRACE > now || !stripeEnabled()) return false;
+	let sub: Stripe.Subscription | null = null;
+	try {
+		sub = await getStripe().subscriptions.retrieve(subscriptionId);
+	} catch (e) {
+		// Only a subscription Stripe no longer knows counts as gone, never an outage.
+		if ((e as { code?: string }).code !== 'resource_missing') return false;
+	}
+	if (!sub || ['canceled', 'incomplete_expired'].includes(sub.status)) {
+		await db
+			.update(member)
+			.set({ stripeSubscriptionId: null })
+			.where(eq(member.stripeSubscriptionId, subscriptionId));
+	}
+	return sub?.status !== 'active' && sub?.status !== 'trialing';
+}
+
 export const POST: RequestHandler = async ({ request, platform }) => {
 	if (!env.CRON_SECRET) error(503, 'CRON_SECRET not set');
 	// Constant-time comparison; Workers' native helper when available.
@@ -55,8 +81,9 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	let reminded = 0;
 	const overdue: string[] = [];
 	for (const m of approved) {
-		if (m.stripeSubscriptionId) continue; // renews automatically
 		const until = coveredUntil(m.id);
+		if (m.stripeSubscriptionId && !(await cardLapsed(db, m.stripeSubscriptionId, until, now)))
+			continue; // renews automatically
 		const monthly = m.billingInterval === 'month';
 		// A monthly payer's next instalment is always near; only chase a missed one.
 		if (until > now + (monthly ? -GRACE : REMIND_AHEAD)) continue;

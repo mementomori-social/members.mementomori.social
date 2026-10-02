@@ -51,6 +51,19 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		}
 	}
 
+	// A cancelled or abandoned subscription no longer renews, so the member
+	// falls back to reminders like any bank payer.
+	if (
+		event.type === 'customer.subscription.deleted' ||
+		(event.type === 'customer.subscription.updated' &&
+			['canceled', 'unpaid', 'incomplete_expired'].includes(event.data.object.status))
+	) {
+		await db
+			.update(member)
+			.set({ stripeSubscriptionId: null })
+			.where(eq(member.stripeSubscriptionId, event.data.object.id));
+	}
+
 	if (event.type === 'invoice.paid') {
 		const invoice = event.data.object;
 
