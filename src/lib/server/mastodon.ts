@@ -13,20 +13,27 @@ const toText = (html: string) =>
 	html
 		.replace(/<br\s*\/?>|<\/p>/gi, ' ')
 		.replace(/<[^>]*>/g, '')
-		.replace(/&(nbsp|amp|lt|gt|quot|#39);/g, (_, e) =>
-			({ nbsp: ' ', amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" })[e as string] ?? ' '
+		.replace(
+			/&(nbsp|amp|lt|gt|quot|#39);/g,
+			(_, e) =>
+				({ nbsp: ' ', amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" })[e as string] ?? ' '
 		)
 		.replace(/\s+/g, ' ')
 		.trim();
 
+export type Freshness = 'cached' | 'fresh';
+
 /**
  * Public profile of an account on our own instance. Cached at the edge for a
- * day: display names and avatars change rarely and this runs on page load.
+ * day by default: display names and avatars change rarely and this runs on page load.
  */
-export async function lookupAccount(acct: string): Promise<MastodonProfile | null> {
+export async function lookupAccount(
+	acct: string,
+	freshness: Freshness = 'cached'
+): Promise<MastodonProfile | null> {
 	try {
 		const res = await fetch(`${INSTANCE}/api/v1/accounts/lookup?acct=${encodeURIComponent(acct)}`, {
-			cf: { cacheEverything: true, cacheTtl: 86400 }
+			cf: freshness === 'cached' ? { cacheEverything: true, cacheTtl: 86400 } : undefined
 		} as RequestInit);
 		if (!res.ok) return null;
 		const p = (await res.json()) as {

@@ -1,3 +1,7 @@
+### 1.13.2: 2026-10-03
+
+* Fix avatars breaking after a Mastodon avatar change
+
 ### 1.13.1: 2026-10-02
 
 * Remind members whose card subscription ended, Ref: MEM-58
