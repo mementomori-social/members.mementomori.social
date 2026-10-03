@@ -1,6 +1,7 @@
 ### 1.13.2: 2026-10-03
 
 * Fix avatars breaking after a Mastodon avatar change
+* Fix document PDF links showing a 404 page
 
 ### 1.13.1: 2026-10-02
 
