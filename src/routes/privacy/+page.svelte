@@ -34,6 +34,8 @@
 	<li><a href="https://www.cloudflare.com">Cloudflare</a>: {m.privacy_proc_cf()}</li>
 	<li><a href="https://stripe.com">Stripe</a>: {m.privacy_proc_stripe()}</li>
 	<li><a href="https://www.mailgun.com">Mailgun</a>: {m.privacy_proc_mailgun()}</li>
+	<li><a href="https://holvi.com">Holvi</a>: {m.privacy_proc_holvi()}</li>
+	<li><a href="https://upcloud.com">UpCloud</a>: {m.privacy_proc_upcloud()}</li>
 	<li>
 		<a href="https://www.hetzner.com">Hetzner</a>: {m.privacy_proc_hetzner()};
 		<a href="https://nextcloud.com">Nextcloud</a>: {m.privacy_proc_nextcloud()}

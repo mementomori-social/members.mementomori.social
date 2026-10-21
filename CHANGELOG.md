@@ -1,3 +1,7 @@
+### 1.13.3: 2026-10-21
+
+* Update data processors in privacy notice, Ref: MEM-75
+
 ### 1.13.2: 2026-10-03
 
 * Fix avatars breaking after a Mastodon avatar change
