@@ -493,5 +493,16 @@
 	"full_name_note": "The full name for the statutory member register, visible to the board only.",
 	"email_change_note": "Email changes are handled by the board so the register stays verified. Send a message to",
 	"masto_unlink": "Unlink account",
-	"masto_unlinked": "Account unlinked. You can still sign in with your email."
+	"masto_unlinked": "Account unlinked. You can still sign in with your email.",
+	"membership_end_h": "End membership",
+	"membership_end_note": "Ends the membership on the chosen date, for example at the end of the paid period. Nothing is deleted: payments stay in the books and the membership can be restored. A card subscription stops renewing.",
+	"membership_end_date": "Last day of membership",
+	"membership_end_button": "End membership",
+	"membership_end_confirm": "End this membership?",
+	"membership_ends_on": "Membership ends {date}.",
+	"membership_ended_on": "Membership ended {date}.",
+	"membership_restore": "Restore membership",
+	"err_not_active": "Only an approved membership can be ended.",
+	"err_end_date": "Choose a valid date.",
+	"err_not_ended": "This membership has not been ended."
 }

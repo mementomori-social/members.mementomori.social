@@ -2,12 +2,23 @@
 	import { m } from '$lib/paraglide/messages.js';
 	import TableScroll from '$lib/components/TableScroll.svelte';
 	import CopyField from '$lib/components/CopyField.svelte';
+	import { enhance } from '$app/forms';
 	import type { PageProps } from './$types';
 
-	let { data }: PageProps = $props();
+	let { data, form }: PageProps = $props();
 	const mem = $derived(data.member);
 
 	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
+	const isoDay = (d: Date) =>
+		`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+	// Default to the end of the paid period, or today when nothing is paid ahead
+	const defaultEnd = $derived(
+		isoDay(
+			data.paidUntil && new Date(data.paidUntil) > new Date()
+				? new Date(data.paidUntil)
+				: new Date()
+		)
+	);
 	const statusLabel = (s: string) =>
 		({
 			applied: m.status_applied(),
@@ -141,6 +152,34 @@
 					</tbody>
 				</table>
 			</TableScroll>
+		{/if}
+
+		<h3 style="margin-top:1.4em">{m.membership_end_h()}</h3>
+		{#if form?.error}<p class="error">{form.error}</p>{/if}
+		{#if mem.status === 'ended' || mem.endedAt}
+			<p class="small">
+				{mem.status === 'ended'
+					? m.membership_ended_on({ date: mem.endedAt ? fmt(mem.endedAt) : '–' })
+					: m.membership_ends_on({ date: fmt(mem.endedAt!) })}
+			</p>
+			<form method="POST" action="?/reactivate" use:enhance>
+				<button type="submit" class="compact">{m.membership_restore()}</button>
+			</form>
+		{:else if mem.status === 'approved'}
+			<p class="muted small">{m.membership_end_note()}</p>
+			<form
+				method="POST"
+				action="?/deactivate"
+				use:enhance={({ cancel }) => {
+					if (!confirm(m.membership_end_confirm())) cancel();
+				}}
+			>
+				<label class="small"
+					>{m.membership_end_date()}
+					<input type="date" name="endDate" value={defaultEnd} required />
+				</label>
+				<button type="submit" class="danger compact">{m.membership_end_button()}</button>
+			</form>
 		{/if}
 
 		<h3 style="margin-top:1.4em">{m.detail_approvals()}</h3>

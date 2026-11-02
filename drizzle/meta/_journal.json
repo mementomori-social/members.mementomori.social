@@ -113,6 +113,13 @@
       "when": 1790514675954,
       "tag": "0015_payment_stripe_reference",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "6",
+      "when": 1793630946694,
+      "tag": "0016_member_ended_at",
+      "breakpoints": true
     }
   ]
 }

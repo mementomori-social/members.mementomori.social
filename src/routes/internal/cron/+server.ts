@@ -1,5 +1,5 @@
 import { error, json } from '@sveltejs/kit';
-import { and, eq, isNotNull } from 'drizzle-orm';
+import { and, eq, isNotNull, isNull, lte } from 'drizzle-orm';
 import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/private';
 import { getDb } from '$lib/server/db';
@@ -71,8 +71,15 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 
 	const holvi = holviEnabled() ? await syncHolvi(db) : null;
 
+	// Memberships the board ended for a date that has now passed
+	await db
+		.update(member)
+		.set({ status: 'ended' })
+		.where(and(eq(member.status, 'approved'), lte(member.endedAt, new Date(now))));
+
+	// Someone already on their way out gets no fee reminders
 	const approved = await db.query.member.findMany({
-		where: and(eq(member.status, 'approved'), isNotNull(member.email))
+		where: and(eq(member.status, 'approved'), isNotNull(member.email), isNull(member.endedAt))
 	});
 	const payments = await db.query.payment.findMany();
 	const coveredUntil = (id: string) =>

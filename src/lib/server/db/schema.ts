@@ -70,7 +70,10 @@ export const member = sqliteTable('member', {
 	appliedAt: integer('applied_at', { mode: 'timestamp' })
 		.notNull()
 		.$defaultFn(() => new Date()),
-	decidedAt: integer('decided_at', { mode: 'timestamp' })
+	decidedAt: integer('decided_at', { mode: 'timestamp' }),
+	/** When the membership ends or ended. Set by the board on resignation; the
+	    daily cron turns an approved member to 'ended' once this date passes. */
+	endedAt: integer('ended_at', { mode: 'timestamp' })
 });
 
 /**

@@ -1,13 +1,14 @@
-import { error, redirect } from '@sveltejs/kit';
+import { error, fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { approval, member, payment, user } from '$lib/server/db/schema';
-import { isBoard } from '$lib/server/members';
+import { requireBoard } from '$lib/server/members';
+import { getStripe, stripeEnabled } from '$lib/server/stripe';
+import { m } from '$lib/paraglide/messages.js';
 
 export const load: PageServerLoad = async ({ params, locals, platform }) => {
-	if (!locals.user) redirect(303, '/login');
-	if (!isBoard((locals.user as { role?: string }).role)) error(403, 'Board members only.');
+	requireBoard(locals);
 	const db = getDb(platform!.env.DB);
 
 	const row = await db.query.member.findFirst({ where: eq(member.id, params.id) });
@@ -32,10 +33,65 @@ export const load: PageServerLoad = async ({ params, locals, platform }) => {
 	return {
 		member: row,
 		payments,
+		// The paid period is the natural end date when someone resigns
+		paidUntil: payments.reduce<Date | null>(
+			(max, p) => (!max || p.periodEnd > max ? p.periodEnd : max),
+			null
+		),
 		approvals: approvals.map((a) => ({
 			name: approvers.get(a.approverUserId) ?? a.approverUserId,
 			role: a.approverRole,
 			at: a.createdAt
 		}))
 	};
+};
+
+export const actions: Actions = {
+	/**
+	 * Ends a membership on the given date. Nothing is deleted: the register
+	 * keeps the row and payments for the books, and the member can come back.
+	 */
+	deactivate: async ({ params, request, locals, platform }) => {
+		requireBoard(locals);
+		const db = getDb(platform!.env.DB);
+		const row = await db.query.member.findFirst({ where: eq(member.id, params.id) });
+		if (!row || row.status !== 'approved') return fail(400, { error: m.err_not_active() });
+
+		const date = String((await request.formData()).get('endDate') ?? '');
+		const endedAt = /^\d{4}-\d{2}-\d{2}$/.test(date) ? new Date(`${date}T23:59:59`) : null;
+		if (!endedAt || isNaN(endedAt.getTime())) return fail(400, { error: m.err_end_date() });
+		const endsNow = endedAt.getTime() <= Date.now();
+
+		// Stop the card renewing; the webhook clears the subscription id once Stripe ends it
+		if (row.stripeSubscriptionId && stripeEnabled()) {
+			const stripe = getStripe();
+			if (endsNow) await stripe.subscriptions.cancel(row.stripeSubscriptionId);
+			else
+				await stripe.subscriptions.update(row.stripeSubscriptionId, {
+					cancel_at: Math.floor(endedAt.getTime() / 1000)
+				});
+		}
+
+		await db
+			.update(member)
+			.set({ endedAt, status: endsNow ? 'ended' : 'approved' })
+			.where(eq(member.id, row.id));
+		return { ok: true };
+	},
+
+	reactivate: async ({ params, locals, platform }) => {
+		requireBoard(locals);
+		const db = getDb(platform!.env.DB);
+		const row = await db.query.member.findFirst({ where: eq(member.id, params.id) });
+		if (!row || (row.status !== 'ended' && !row.endedAt))
+			return fail(400, { error: m.err_not_ended() });
+
+		// A scheduled card cancellation would otherwise still end the membership
+		if (row.stripeSubscriptionId && stripeEnabled() && row.status === 'approved') {
+			await getStripe().subscriptions.update(row.stripeSubscriptionId, { cancel_at: '' });
+		}
+
+		await db.update(member).set({ endedAt: null, status: 'approved' }).where(eq(member.id, row.id));
+		return { ok: true };
+	}
 };

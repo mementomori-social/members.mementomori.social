@@ -493,5 +493,16 @@
 	"full_name_note": "Lakisääteisen jäsenluettelon täydellinen nimi, näkyy vain hallitukselle.",
 	"email_change_note": "Sähköpostimuutokset hoitaa hallitus, jotta rekisteri pysyy varmennettuna. Lähetä viesti osoitteeseen",
 	"masto_unlink": "Poista tilin liitos",
-	"masto_unlinked": "Liitos poistettu. Voit yhä kirjautua sähköpostillasi."
+	"masto_unlinked": "Liitos poistettu. Voit yhä kirjautua sähköpostillasi.",
+	"membership_end_h": "Päätä jäsenyys",
+	"membership_end_note": "Päättää jäsenyyden valittuna päivänä, esimerkiksi maksetun kauden lopussa. Mitään ei poisteta: maksut jäävät kirjanpitoon ja jäsenyyden voi palauttaa. Korttitilaus ei enää uusiudu.",
+	"membership_end_date": "Jäsenyyden viimeinen päivä",
+	"membership_end_button": "Päätä jäsenyys",
+	"membership_end_confirm": "Päätetäänkö tämä jäsenyys?",
+	"membership_ends_on": "Jäsenyys päättyy {date}.",
+	"membership_ended_on": "Jäsenyys päättyi {date}.",
+	"membership_restore": "Palauta jäsenyys",
+	"err_not_active": "Vain hyväksytyn jäsenyyden voi päättää.",
+	"err_end_date": "Valitse kelvollinen päivä.",
+	"err_not_ended": "Tätä jäsenyyttä ei ole päätetty."
 }

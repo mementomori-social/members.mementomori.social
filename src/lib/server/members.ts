@@ -1,3 +1,4 @@
+import { error, redirect } from '@sveltejs/kit';
 import { and, eq, gte, sum } from 'drizzle-orm';
 import type { getDb } from '$lib/server/db';
 import { income, member, payment } from '$lib/server/db/schema';
@@ -5,6 +6,13 @@ import { FEES } from '$lib/fees';
 
 export const BOARD_ROLES = ['board', 'vice', 'chair'] as const;
 export const isBoard = (role?: string) => BOARD_ROLES.includes(role as never);
+
+export const requireBoard = (locals: App.Locals) => {
+	if (!locals.user) redirect(303, '/login');
+	const role = (locals.user as { role?: string }).role ?? 'member';
+	if (!isBoard(role)) error(403, 'Board members only.');
+	return { userId: locals.user.id, role };
+};
 
 export type Db = ReturnType<typeof getDb>;
 

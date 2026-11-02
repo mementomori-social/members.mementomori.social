@@ -98,7 +98,7 @@ All payments land in the `payment` ledger:
 
 New applications are announced in the board's Matrix room using the same bot that relays Mastodon signups and reports, so the board sees them where it already works.
 
-`POST /internal/cron`, protected by a bearer token, runs the daily jobs: bank transaction import, payment reminders to bank payers (subscribers renew on their own), and an overdue summary to the board. Memberships are never terminated automatically, because ending one is a board decision under the association's rules.
+`POST /internal/cron`, protected by a bearer token, runs the daily jobs: bank transaction import, payment reminders to bank payers (subscribers renew on their own), and an overdue summary to the board. Memberships are never terminated on the system's own initiative, because ending one is a board decision under the association's rules. When the board sets an end date on a member's admin page, the cron only carries it out once the date passes.
 
 ## Tables
 

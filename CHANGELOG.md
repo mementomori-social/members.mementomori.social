@@ -1,3 +1,7 @@
+### 1.14.0: 2026-11-02
+
+* Add ending a membership in admin, Ref: MEM-77
+
 ### 1.13.3: 2026-10-21
 
 * Update data processors in privacy notice, Ref: MEM-75

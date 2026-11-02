@@ -1,20 +1,13 @@
-import { error, fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { desc, eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { approval, income, member, payment } from '$lib/server/db/schema';
-import { bankPeriod, isBoard, normalizeRef } from '$lib/server/members';
+import { bankPeriod, normalizeRef, requireBoard } from '$lib/server/members';
 import { isFullName } from '$lib/name';
 import { parseStatement, type StatementRow } from '$lib/server/statement';
 import { and, inArray, isNotNull, isNull } from 'drizzle-orm';
 import { m } from '$lib/paraglide/messages.js';
-
-const requireBoard = (locals: App.Locals) => {
-	if (!locals.user) redirect(303, '/login');
-	const role = (locals.user as { role?: string }).role ?? 'member';
-	if (!isBoard(role)) error(403, 'Board members only.');
-	return { userId: locals.user.id, role };
-};
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
 	requireBoard(locals);
