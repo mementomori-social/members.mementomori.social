@@ -170,15 +170,16 @@
 			<form
 				method="POST"
 				action="?/deactivate"
+				class="end-membership"
 				use:enhance={({ cancel }) => {
 					if (!confirm(m.membership_end_confirm())) cancel();
 				}}
 			>
-				<label class="small"
+				<label class="field"
 					>{m.membership_end_date()}
 					<input type="date" name="endDate" value={defaultEnd} required />
 				</label>
-				<button type="submit" class="danger compact">{m.membership_end_button()}</button>
+				<button type="submit" class="danger">{m.membership_end_button()}</button>
 			</form>
 		{/if}
 

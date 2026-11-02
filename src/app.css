@@ -1894,6 +1894,16 @@ img {
 .copy-fit .done-label {
 	display: none;
 }
+/* End membership: date and button on one row, the date only as wide as its value */
+.end-membership {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 12px 14px;
+}
+.end-membership input[type='date'] {
+	width: auto;
+}
 .detail-table td {
 	padding: 8px 12px;
 }
