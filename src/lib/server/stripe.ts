@@ -71,3 +71,34 @@ export const intervalForPriceId = (priceId: string): 'year' | 'month' | null => 
 		return 'month';
 	return null;
 };
+
+const DAY_MS = 86_400_000;
+
+/**
+ * Stops a card subscription renewing past a membership's last day. When the paid
+ * period ends on or just before that day, end it at the period end, so no renewal
+ * slips in hours before the cancellation.
+ */
+export async function stopSubscription(stripe: Stripe, id: string, endedAt: Date) {
+	if (endedAt.getTime() <= Date.now()) return stripe.subscriptions.cancel(id);
+
+	const sub = await stripe.subscriptions.retrieve(id);
+	const periodEnd = (sub.items.data[0]?.current_period_end ?? 0) * 1000;
+	const gap = endedAt.getTime() - periodEnd;
+	if (gap >= 0 && gap < DAY_MS) {
+		return stripe.subscriptions.update(id, { cancel_at_period_end: true });
+	}
+	return stripe.subscriptions.update(id, {
+		cancel_at: Math.floor(endedAt.getTime() / 1000),
+		proration_behavior: 'none'
+	});
+}
+
+/** Undoes stopSubscription, whichever way it scheduled the end. */
+export async function resumeSubscription(stripe: Stripe, id: string) {
+	const sub = await stripe.subscriptions.retrieve(id);
+	if (sub.cancel_at_period_end) {
+		return stripe.subscriptions.update(id, { cancel_at_period_end: false });
+	}
+	if (sub.cancel_at) return stripe.subscriptions.update(id, { cancel_at: '' });
+}

@@ -4,7 +4,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db';
 import { approval, member, payment, user } from '$lib/server/db/schema';
 import { requireBoard } from '$lib/server/members';
-import { getStripe, stripeEnabled } from '$lib/server/stripe';
+import { getStripe, resumeSubscription, stopSubscription, stripeEnabled } from '$lib/server/stripe';
 import { m } from '$lib/paraglide/messages.js';
 
 export const load: PageServerLoad = async ({ params, locals, platform }) => {
@@ -64,12 +64,7 @@ export const actions: Actions = {
 
 		// Stop the card renewing; the webhook clears the subscription id once Stripe ends it
 		if (row.stripeSubscriptionId && stripeEnabled()) {
-			const stripe = getStripe();
-			if (endsNow) await stripe.subscriptions.cancel(row.stripeSubscriptionId);
-			else
-				await stripe.subscriptions.update(row.stripeSubscriptionId, {
-					cancel_at: Math.floor(endedAt.getTime() / 1000)
-				});
+			await stopSubscription(getStripe(), row.stripeSubscriptionId, endedAt);
 		}
 
 		await db
@@ -88,7 +83,7 @@ export const actions: Actions = {
 
 		// A scheduled card cancellation would otherwise still end the membership
 		if (row.stripeSubscriptionId && stripeEnabled() && row.status === 'approved') {
-			await getStripe().subscriptions.update(row.stripeSubscriptionId, { cancel_at: '' });
+			await resumeSubscription(getStripe(), row.stripeSubscriptionId);
 		}
 
 		await db.update(member).set({ endedAt: null, status: 'approved' }).where(eq(member.id, row.id));
