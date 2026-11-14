@@ -1274,6 +1274,17 @@ table.list td {
 table.list tbody tr:last-child td {
 	border-bottom: none;
 }
+table.list .num-col {
+	text-align: right;
+	white-space: nowrap;
+}
+/* Two columns fit a phone, so the cost list never needs side-scrolling. */
+table.list.costs {
+	display: table;
+}
+.cost-note {
+	display: block;
+}
 table.list img.avatar {
 	width: 40px;
 	height: 40px;

@@ -1,3 +1,7 @@
+### 1.15.0: 2026-11-14
+
+* Add itemised costs and UpCloud credit, Ref: MEM-78
+
 ### 1.14.0: 2026-11-02
 
 * Add ending a membership in admin, Ref: MEM-77

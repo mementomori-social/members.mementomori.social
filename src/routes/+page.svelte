@@ -2,6 +2,7 @@
 	import { m } from '$lib/paraglide/messages.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { FEES, COSTS, coverage } from '$lib/fees';
+	import { eur } from '$lib/format';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -124,7 +125,12 @@
 
 <h2>{m.money_heading()}</h2>
 
-<p>{m.money_costs({ monthly: COSTS.monthlyEur, annual: COSTS.annualEur })}</p>
+<p>
+	{m.money_costs({
+		monthly: eur(COSTS.monthlyEur),
+		annual: COSTS.annualEur.toLocaleString('fi-FI')
+	})}
+</p>
 
 <div class="stats">
 	<div class="stat">
@@ -134,7 +140,7 @@
 		</div>
 	</div>
 	<div class="stat">
-		<div class="num">{COSTS.monthlyEur}&nbsp;€</div>
+		<div class="num">{eur(COSTS.monthlyEur)}&nbsp;€</div>
 		<div class="lbl">{m.stat_costs_label()}</div>
 	</div>
 </div>
@@ -147,9 +153,9 @@
 			<span class="muted small">{m.covered_big_label()}</span>
 		</p>
 		<div class="progress stacked">
-			<div class="seg-month" style="width: {(cov.members / COSTS.annualEur) * 100}%"></div>
-			<div class="seg-earlier" style="width: {(cov.support / COSTS.annualEur) * 100}%"></div>
-			<div class="seg-upcoming" style="width: {(cov.upcoming / COSTS.annualEur) * 100}%"></div>
+			<div class="seg-month" style="width: {(cov.members / cov.yearCostEur) * 100}%"></div>
+			<div class="seg-earlier" style="width: {(cov.support / cov.yearCostEur) * 100}%"></div>
+			<div class="seg-upcoming" style="width: {(cov.upcoming / cov.yearCostEur) * 100}%"></div>
 		</div>
 		<p class="legend small">
 			<span

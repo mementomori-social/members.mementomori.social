@@ -6,7 +6,15 @@
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { authClient } from '$lib/auth-client';
 	import CopyField from '$lib/components/CopyField.svelte';
-	import { COSTS, coverage } from '$lib/fees';
+	import {
+		COSTS,
+		COST_ITEMS,
+		COSTS_UPDATED,
+		coverage,
+		upcloudCreditEnd,
+		upcloudCreditEur
+	} from '$lib/fees';
+	import { eur } from '$lib/format';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -23,6 +31,13 @@
 	);
 
 	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
+
+	const costLabels = {
+		upcloud: [m.cost_upcloud, m.cost_upcloud_note],
+		cloudflare: [m.cost_cloudflare, m.cost_cloudflare_note],
+		deepl: [m.cost_deepl, m.cost_deepl_note],
+		domain: [m.cost_domain, m.cost_domain_note]
+	};
 
 	async function linkMastodon() {
 		await authClient.oauth2.link({ providerId: 'mastodon', callbackURL: '/dashboard' });
@@ -347,15 +362,44 @@
 	</div>
 
 	<div class="card span2">
+		<h3>{m.costs_list_heading()}</h3>
+		<table class="list costs">
+			<thead>
+				<tr><th>{m.costs_th_item()}</th><th class="num-col">{m.costs_th_monthly()}</th></tr>
+			</thead>
+			<tbody>
+				{#each COST_ITEMS as item (item.key)}
+					<tr>
+						<td
+							>{costLabels[item.key][0]()}
+							<span class="muted small cost-note">{costLabels[item.key][1]()}</span></td
+						>
+						<td class="num-col">{eur(item.monthlyEur)}&nbsp;€</td>
+					</tr>
+				{/each}
+				<tr>
+					<td><strong>{m.costs_total()}</strong></td>
+					<td class="num-col"><strong>{eur(COSTS.monthlyEur)}&nbsp;€</strong></td>
+				</tr>
+			</tbody>
+		</table>
+		<p class="muted small">
+			{m.costs_credit({ left: eur(upcloudCreditEur()), date: fmt(upcloudCreditEnd()) })}
+			{m.costs_vat_note()}
+		</p>
+		<p class="muted small">{m.costs_updated({ date: fmt(COSTS_UPDATED) })}</p>
+	</div>
+
+	<div class="card span2">
 		<h3>{m.covered_heading({ year: new Date().getFullYear() })}</h3>
 		<p class="covered-total">
 			<strong>{cov.remaining.toFixed(2).replace('.', ',')}&nbsp;€</strong>
 			<span class="muted small">{m.covered_big_label()}</span>
 		</p>
 		<div class="progress stacked">
-			<div class="seg-month" style="width: {(cov.members / COSTS.annualEur) * 100}%"></div>
-			<div class="seg-earlier" style="width: {(cov.support / COSTS.annualEur) * 100}%"></div>
-			<div class="seg-upcoming" style="width: {(cov.upcoming / COSTS.annualEur) * 100}%"></div>
+			<div class="seg-month" style="width: {(cov.members / cov.yearCostEur) * 100}%"></div>
+			<div class="seg-earlier" style="width: {(cov.support / cov.yearCostEur) * 100}%"></div>
+			<div class="seg-upcoming" style="width: {(cov.upcoming / cov.yearCostEur) * 100}%"></div>
 		</div>
 		<p class="legend small">
 			<span
@@ -378,7 +422,7 @@
 			>
 		</p>
 
-		<p class="muted small">{m.costs_monthly_note({ monthly: COSTS.monthlyEur })}</p>
+		<p class="muted small">{m.costs_monthly_note({ monthly: eur(COSTS.monthlyEur) })}</p>
 	</div>
 
 	<div class="card span2">
