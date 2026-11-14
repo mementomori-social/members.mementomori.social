@@ -33,7 +33,10 @@
 	const fmt = (d: Date | string) => new Date(d).toLocaleDateString('fi-FI');
 
 	const costLabels = {
-		upcloud: [m.cost_upcloud, m.cost_upcloud_note],
+		mastodon: [m.cost_mastodon, m.cost_mastodon_note],
+		postgresql: [m.cost_postgresql, m.cost_postgresql_note],
+		elastic: [m.cost_elastic, m.cost_elastic_note],
+		bastion: [m.cost_bastion, m.cost_bastion_note],
 		cloudflare: [m.cost_cloudflare, m.cost_cloudflare_note],
 		deepl: [m.cost_deepl, m.cost_deepl_note],
 		domain: [m.cost_domain, m.cost_domain_note]
@@ -362,35 +365,6 @@
 	</div>
 
 	<div class="card span2">
-		<h3>{m.costs_list_heading()}</h3>
-		<table class="list costs">
-			<thead>
-				<tr><th>{m.costs_th_item()}</th><th class="num-col">{m.costs_th_monthly()}</th></tr>
-			</thead>
-			<tbody>
-				{#each COST_ITEMS as item (item.key)}
-					<tr>
-						<td
-							>{costLabels[item.key][0]()}
-							<span class="muted small cost-note">{costLabels[item.key][1]()}</span></td
-						>
-						<td class="num-col">{eur(item.monthlyEur)}&nbsp;€</td>
-					</tr>
-				{/each}
-				<tr>
-					<td><strong>{m.costs_total()}</strong></td>
-					<td class="num-col"><strong>{eur(COSTS.monthlyEur)}&nbsp;€</strong></td>
-				</tr>
-			</tbody>
-		</table>
-		<p class="muted small">
-			{m.costs_credit({ left: eur(upcloudCreditEur()), date: fmt(upcloudCreditEnd()) })}
-			{m.costs_vat_note()}
-		</p>
-		<p class="muted small">{m.costs_updated({ date: fmt(COSTS_UPDATED) })}</p>
-	</div>
-
-	<div class="card span2">
 		<h3>{m.covered_heading({ year: new Date().getFullYear() })}</h3>
 		<p class="covered-total">
 			<strong>{cov.remaining.toFixed(2).replace('.', ',')}&nbsp;€</strong>
@@ -551,5 +525,35 @@
 				>
 			{/if}
 		</p>
+	</div>
+
+	<div class="card span2">
+		<h3>{m.costs_list_heading()}</h3>
+		<table class="list costs">
+			<thead>
+				<tr><th>{m.costs_th_item()}</th><th class="num-col">{m.costs_th_monthly()}</th></tr>
+			</thead>
+			<tbody>
+				{#each COST_ITEMS as item (item.key)}
+					<tr>
+						<td
+							>{costLabels[item.key][0]()}
+							<span class="muted small cost-note">{costLabels[item.key][1]()}</span></td
+						>
+						<td class="num-col">{eur(item.monthlyEur)}&nbsp;€</td>
+					</tr>
+				{/each}
+				<tr>
+					<td><strong>{m.costs_total()}</strong></td>
+					<td class="num-col"><strong>{eur(COSTS.monthlyEur)}&nbsp;€</strong></td>
+				</tr>
+			</tbody>
+		</table>
+		<p class="muted small">
+			{m.costs_location()}
+			{m.costs_credit({ left: eur(upcloudCreditEur()), date: fmt(upcloudCreditEnd()) })}
+			{m.costs_vat_note()}
+		</p>
+		<p class="muted small">{m.costs_updated({ date: fmt(COSTS_UPDATED) })}</p>
 	</div>
 </div>

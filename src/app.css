@@ -1282,6 +1282,14 @@ table.list .num-col {
 table.list.costs {
 	display: table;
 }
+table.list.costs th:first-child,
+table.list.costs td:first-child {
+	padding-left: 0;
+}
+table.list.costs th:last-child,
+table.list.costs td:last-child {
+	padding-right: 0;
+}
 .cost-note {
 	display: block;
 }

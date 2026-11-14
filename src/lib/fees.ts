@@ -10,19 +10,26 @@ export const FEES = {
 
 export type MemberClass = keyof typeof FEES;
 
-/** Running costs per month, shown publicly as plain facts. Prices the
-    association pays VAT on include alv 25,5 %. Checked against the invoices
-    and the UpCloud billing API on COSTS_UPDATED. */
+/** Running costs per month, shown publicly as plain facts. UpCloud rows are
+    list prices without VAT (730 h, plan, disks and IPv4), as the credit is
+    charged; the rest include alv 25,5 %. Checked against the invoices and
+    the UpCloud API on COSTS_UPDATED. */
 export const COSTS_UPDATED = new Date(2026, 10, 14, 17);
 export const COST_ITEMS = [
-	{ key: 'upcloud', monthlyEur: 463.4 },
-	{ key: 'cloudflare', monthlyEur: 40.16 },
-	{ key: 'deepl', monthlyEur: 32.12 },
-	{ key: 'domain', monthlyEur: 10.48 }
+	{ key: 'mastodon', monthlyEur: 150.98, upcloud: true },
+	{ key: 'postgresql', monthlyEur: 214.04, upcloud: true },
+	{ key: 'elastic', monthlyEur: 90.89, upcloud: true },
+	{ key: 'bastion', monthlyEur: 14.79, upcloud: true },
+	{ key: 'cloudflare', monthlyEur: 40.16, upcloud: false },
+	{ key: 'deepl', monthlyEur: 32.12, upcloud: false },
+	{ key: 'domain', monthlyEur: 10.48, upcloud: false }
 ] as const;
 
-const totalMonthlyEur =
-	Math.round(COST_ITEMS.reduce((sum, item) => sum + item.monthlyEur, 0) * 100) / 100;
+const sumEur = (items: readonly { monthlyEur: number }[]) =>
+	Math.round(items.reduce((sum, item) => sum + item.monthlyEur, 0) * 100) / 100;
+
+const totalMonthlyEur = sumEur(COST_ITEMS);
+const upcloudMonthlyEur = sumEur(COST_ITEMS.filter((item) => item.upcloud));
 
 export const COSTS = {
 	monthlyEur: totalMonthlyEur,
@@ -39,7 +46,7 @@ const monthCostEur = (year: number, month: number) =>
     read from the API on COSTS_UPDATED and run down at the server cost. */
 export const UPCLOUD_CREDIT = { eur: 4034.5, expires: new Date(2027, 7, 25) };
 const DAY_MS = 86_400_000;
-const upcloudDailyEur = (COST_ITEMS[0].monthlyEur * 12) / 365;
+const upcloudDailyEur = (upcloudMonthlyEur * 12) / 365;
 
 export function upcloudCreditEur(now = new Date()) {
 	if (now >= UPCLOUD_CREDIT.expires) return 0;
@@ -86,7 +93,7 @@ export function coverage(
 	const members = year.fees;
 	const support = year.income + Math.max(0, billedEur - year.fees - year.income);
 	const total = members + support;
-	const creditThisYearEur = Math.min(creditEur, COST_ITEMS[0].monthlyEur * (12 - monthsThisYear));
+	const creditThisYearEur = Math.min(creditEur, upcloudMonthlyEur * (12 - monthsThisYear));
 	const remaining = Math.max(
 		0,
 		Math.max(0, yearCostEur - billedEur) - available - creditThisYearEur
